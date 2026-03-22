@@ -1,0 +1,6 @@
+.vercel
+node_modules/
+preview/
+*.mjs
+package*.json
+.mcp.json
