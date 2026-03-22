@@ -1,96 +1,179 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html class="dark" dir="rtl" lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acroyoga Academy TLV — רטריט סוף שבוע</title>
+<title>Acroyoga Academy TLV — רטריט סוף שבוע במדבר</title>
 <meta name="description" content="סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI — ים המלח / אילת. מחיר השקה ₪1,500.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;700;900&family=Epilogue:wght@400;700;900&family=Work+Sans:wght@100;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "surface": "#0f1419",
+        "surface-container-low": "#171c21",
+        "surface-container": "#1b2025",
+        "surface-container-high": "#252a30",
+        "surface-container-highest": "#30353b",
+        "on-surface": "#dee3ea",
+        "on-surface-variant": "#c4c6cb",
+        "primary-container": "#0F1923",
+        "secondary": "#C4673C",
+        "secondary-hover": "#D4774C",
+        "secondary-container": "#7d3209",
+        "secondary-fixed": "#ffdbcd",
+        "on-secondary": "#581e00",
+        "outline-variant": "#44474b",
+        "teal": "#2D8B8B",
+        "teal-soft": "#E8F4F4",
+        "sand": "#F2E8DA",
+        "sand-deep": "#E8D5BE",
+        "cream": "#FAF6F0",
+        "charcoal": "#1E1E1E",
+        "whatsapp": "#25D366",
+        "night": "#0F1923",
+        "night-soft": "#1A2A3A",
+      },
+      fontFamily: {
+        "headline": ["Heebo", "sans-serif"],
+        "body": ["Work Sans", "Heebo", "sans-serif"],
+        "label": ["Work Sans", "sans-serif"],
+        "display": ["Epilogue", "sans-serif"],
+      },
+      borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+    },
+  },
+}
+</script>
 <style>
-/* ========== RESET & VARIABLES ========== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --sand: #F2E8DA;
-  --sand-deep: #E8D5BE;
-  --night: #0F1923;
-  --night-soft: #1A2A3A;
-  --terracotta: #C4673C;
-  --terracotta-hover: #D4774C;
-  --teal: #2D8B8B;
-  --teal-soft: #E8F4F4;
-  --cream: #FAF6F0;
-  --charcoal: #1E1E1E;
-  --whatsapp: #25D366;
-  --font: 'Heebo', sans-serif;
-}
-
 html { scroll-behavior: smooth; }
+body { font-family: 'Heebo', 'Work Sans', sans-serif; }
 
-body {
-  font-family: var(--font);
-  font-weight: 400;
-  color: var(--charcoal);
-  line-height: 1.7;
-  font-size: 1.125rem;
-  overflow-x: hidden;
-  background: var(--sand);
-}
+/* Monolith text */
+.monolith-text { line-height: 0.85; }
 
-img { max-width: 100%; display: block; }
-a { text-decoration: none; color: inherit; }
-button { font-family: var(--font); cursor: pointer; border: none; }
-ul { list-style: none; }
+/* Mirage gradient */
+.mirage-gradient { background: linear-gradient(135deg, #ffb596 0%, #7d3209 100%); }
 
-/* ========== GRAIN TEXTURE OVERLAY ========== */
-body::before {
+/* Heat gradient for hover */
+.heat-gradient { background: linear-gradient(135deg, #C4673C, #7d3209) !important; }
+
+/* Grain overlay */
+body::after {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 9999;
   opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px;
 }
 
-/* ========== ANIMATIONS ========== */
-@keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Diagonal divider */
+.diagonal-divider {
+  background: linear-gradient(90deg, transparent, #C4673C, transparent);
+  transform: rotate(-30deg);
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+/* Brush strokes */
+.brush-stroke {
+  position: absolute;
+  width: 300px;
+  height: 80px;
+  background: linear-gradient(90deg, transparent, rgba(196,103,60,0.15), transparent);
+  transform: rotate(-8deg);
+  pointer-events: none;
 }
 
-@keyframes borderRotate {
-  0% { --angle: 0deg; }
-  100% { --angle: 360deg; }
+/* Giant emoji clip */
+.clip-emoji {
+  position: absolute;
+  top: 10%;
+  right: -10%;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
-  50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+/* Polaroid cards */
+.polaroid-card {
+  background: #F2E8DA;
+  padding: 1rem;
+  box-shadow: 8px 12px 40px rgba(0,0,0,0.2);
+  position: relative;
 }
 
+/* Tape effect */
+.tape {
+  position: absolute;
+  width: 60px;
+  height: 20px;
+  background: rgba(196,103,60,0.25);
+  transform: rotate(-12deg);
+  z-index: 10;
+}
+
+/* Ticket shape */
+.ticket-shape {
+  background: #F2E8DA;
+  position: relative;
+  overflow: hidden;
+}
+.ticket-shape::before,
+.ticket-shape::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: #0f1419;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.ticket-shape::before { left: -10px; }
+.ticket-shape::after { right: -10px; }
+
+/* Barcode */
+.barcode-line {
+  height: 40px;
+  background: repeating-linear-gradient(90deg, #0F1923 0px, #0F1923 2px, transparent 2px, transparent 4px, #0F1923 4px, #0F1923 5px, transparent 5px, transparent 9px);
+  opacity: 0.3;
+  margin: 0 2rem;
+}
+
+/* Vertical text */
+.vertical-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Desert glow */
+.desert-glow {
+  background: radial-gradient(ellipse at 60% 80%, rgba(196,103,60,0.12) 0%, transparent 60%),
+              #0F1923;
+}
+
+/* Marquee */
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(8px); }
+/* Pulse */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37,211,102,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(37,211,102,0); }
 }
 
-@keyframes glow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
 @keyframes gradientShift {
@@ -99,1638 +182,713 @@ body::before {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes pulseDot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
 }
 
-/* Scroll-triggered animations */
+/* Scroll animations */
 .fade-in {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.fade-in.delay-1 { transition-delay: 0.2s; }
-.fade-in.delay-2 { transition-delay: 0.4s; }
-.fade-in.delay-3 { transition-delay: 0.6s; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+.fade-in.d1 { transition-delay: 0.2s; }
+.fade-in.d2 { transition-delay: 0.4s; }
+.fade-in.d3 { transition-delay: 0.6s; }
+
+/* FAQ */
+.faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
   .fade-in { opacity: 1; transform: none; }
 }
 
-/* ========== UTILITY ========== */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.25rem;
-}
-.section-padding { padding: 5rem 0; }
-.section-title {
-  font-size: 2rem;
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 3rem;
-  line-height: 1.3;
-}
-.section-title span {
-  display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--terracotta);
-  margin: 0.75rem auto 0;
-  border-radius: 2px;
-}
-
-/* ========== CTA BUTTONS ========== */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--terracotta);
-  border-radius: 50px;
-  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.btn-primary::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
-  background-size: 200% 100%;
-  animation: shimmer 3s infinite;
-}
-.btn-primary:hover {
-  background: var(--terracotta-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(196, 103, 60, 0.4);
-}
-
-.btn-whatsapp {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2.5rem;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #fff;
-  background: var(--whatsapp);
-  border-radius: 50px;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.btn-whatsapp:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
-}
-
-.btn-outline {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.875rem 2rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--whatsapp);
-  background: transparent;
-  border: 2px solid var(--whatsapp);
-  border-radius: 50px;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-.btn-outline:hover {
-  background: var(--whatsapp);
-  color: #fff;
-  transform: translateY(-2px);
-}
-
-/* ========== SECTION 0: URGENCY BAR ========== */
-.urgency-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1001;
-  background: var(--terracotta);
-  color: #fff;
-  text-align: center;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  transition: transform 0.3s;
-}
-.urgency-bar.hidden { transform: translateY(-100%); }
-.urgency-bar .close-bar {
-  position: absolute;
-  left: 0.75rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  color: #fff;
-  font-size: 1.25rem;
-  opacity: 0.8;
-  padding: 0.25rem;
-}
-.urgency-bar .close-bar:hover { opacity: 1; }
-
-/* ========== SECTION 0: NAV ========== */
-.nav {
-  position: fixed;
-  top: 2.25rem;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 0.75rem 0;
-  transition: background 0.3s, box-shadow 0.3s, top 0.3s;
-}
-.nav.bar-hidden { top: 0; }
-.nav.scrolled {
-  background: rgba(15, 25, 35, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
-}
-.nav .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav-logo {
-  color: var(--cream);
-  font-size: 1.1rem;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-.nav-links {
-  display: flex;
-  gap: 2rem;
-}
-.nav-links a {
-  color: var(--cream);
-  font-size: 0.95rem;
-  font-weight: 400;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-}
-.nav-links a:hover { opacity: 1; }
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background: none;
-  padding: 0.5rem;
-}
-.hamburger span {
-  display: block;
-  width: 24px;
-  height: 2px;
-  background: var(--cream);
-  transition: transform 0.3s;
-}
-
-.mobile-menu {
-  display: none;
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 280px;
-  height: 100vh;
-  background: var(--night);
-  z-index: 1002;
-  padding: 5rem 2rem 2rem;
-  transform: translateX(100%);
-  transition: transform 0.3s ease;
-}
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu a {
-  display: block;
-  color: var(--cream);
-  font-size: 1.25rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.mobile-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1001;
-}
-.mobile-overlay.open { display: block; }
-
-/* ========== FLOATING WHATSAPP ========== */
-.floating-wa {
-  position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
-  z-index: 999;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: var(--whatsapp);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: pulse 2s infinite;
-  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-}
-.floating-wa svg { width: 32px; height: 32px; fill: #fff; }
-
-/* ========== SECTION 1: HERO ========== */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, #1a0a00 0%, #2d1810 20%, #4a2520 40%, #1a3040 70%, var(--night) 100%);
-  background-size: 200% 200%;
-  animation: gradientShift 12s ease infinite;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 30% 20%, rgba(196, 103, 60, 0.15) 0%, transparent 60%),
-    radial-gradient(ellipse at 70% 80%, rgba(45, 139, 139, 0.1) 0%, transparent 50%);
-  animation: glow 6s ease-in-out infinite;
-}
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 0 1.25rem;
-  max-width: 800px;
-}
-.hero-pre {
-  color: var(--teal);
-  font-size: 0.95rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease forwards;
-}
-.hero h1 {
-  color: var(--cream);
-  font-size: 3.5rem;
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 0.3s forwards;
-}
-.hero-sub {
-  color: var(--cream);
-  font-weight: 300;
-  font-size: 1.2rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 0.6s forwards;
-  margin-bottom: 0.5rem;
-}
-.hero-location {
-  color: rgba(250, 246, 240, 0.6);
-  font-size: 1rem;
-  font-weight: 300;
-  margin-bottom: 1.5rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 0.8s forwards;
-}
-.hero-urgency {
-  color: var(--cream);
-  font-size: 0.95rem;
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 1s forwards;
-}
-.hero-urgency strong { color: var(--terracotta); }
-.hero-cta {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 1.2s forwards;
-  margin-bottom: 1rem;
-}
-.hero-secondary {
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 1.4s forwards;
-}
-.hero-secondary a {
-  color: var(--cream);
-  font-size: 0.95rem;
-  font-weight: 300;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-.hero-secondary a:hover { opacity: 1; }
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  animation: bounce 2s infinite;
-  opacity: 0;
-  animation: fadeSlideUp 0.8s ease 1.8s forwards, bounce 2s 2.5s infinite;
-}
-.scroll-indicator svg { width: 30px; height: 30px; stroke: var(--cream); opacity: 0.5; }
-
-/* ========== SECTION 2: AGITATION ========== */
-.agitation { background: var(--sand); }
-.pain-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
-}
-.pain-card {
-  background: #fff;
-  border-radius: 1rem;
-  padding: 2rem 1.5rem;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(140, 100, 60, 0.08);
-  transition: transform 0.3s;
-}
-.pain-card:hover { transform: translateY(-4px); }
-.pain-card .emoji { font-size: 2.5rem; margin-bottom: 1rem; }
-.pain-card h3 {
-  font-size: 1.2rem;
-  font-weight: 900;
-  margin-bottom: 0.75rem;
-  color: var(--charcoal);
-}
-.pain-card p {
-  font-size: 0.95rem;
-  color: #555;
-  font-weight: 300;
-  line-height: 1.6;
-}
-.agitation-close {
-  text-align: center;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--teal);
-}
-
-/* ========== SECTION 3: SOLUTION BRIDGE ========== */
-.solution-bridge {
-  background: var(--night);
-  position: relative;
-  overflow: hidden;
-}
-.solution-bridge::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(196, 103, 60, 0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.solution-statement {
-  text-align: center;
-  color: var(--cream);
-  font-size: 2rem;
-  font-weight: 900;
-  line-height: 1.5;
-  margin-bottom: 4rem;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.solution-statement .line {
-  display: block;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s, transform 0.6s;
-}
-.solution-statement .line.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.solution-statement .line:nth-child(2) { transition-delay: 0.3s; font-weight: 300; font-size: 1.3rem; color: rgba(250,246,240,0.7); }
-.solution-statement .line:nth-child(3) { transition-delay: 0.6s; }
-
-.transform-map {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 2rem;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-.transform-col { display: flex; flex-direction: column; gap: 1.25rem; }
-.transform-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 1.05rem;
-}
-.transform-before .transform-item {
-  color: rgba(250, 246, 240, 0.4);
-  justify-content: flex-end;
-  text-align: left;
-}
-.transform-after .transform-item {
-  color: var(--cream);
-  font-weight: 700;
-}
-.transform-after .transform-item .emoji { color: var(--teal); }
-.transform-divider {
-  width: 2px;
-  height: 100%;
-  min-height: 250px;
-  background: linear-gradient(to bottom, transparent, var(--terracotta), var(--teal), transparent);
-  border-radius: 2px;
-}
-
-/* ========== SECTION 4: BENTO GRID ========== */
-.whats-included { background: var(--sand); }
-.bento-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: auto auto auto;
-  gap: 1rem;
-}
-.bento-card {
-  background: var(--sand-deep);
-  border-radius: 1rem;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 4px 20px rgba(140, 100, 60, 0.06);
-  transition: transform 0.3s, box-shadow 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-.bento-card::before {
-  content: '';
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(196, 103, 60, 0.06) 0%, transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.bento-card:hover::before { opacity: 1; }
-.bento-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(140, 100, 60, 0.12); }
-.bento-card .emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
-.bento-card h3 { font-size: 1.15rem; font-weight: 900; margin-bottom: 0.5rem; }
-.bento-card p { font-size: 0.95rem; font-weight: 300; color: #555; }
-.bento-card.large { grid-column: span 2; }
-
-/* ========== SECTION 5: GALLERY ========== */
-.gallery { background: var(--sand-deep); padding: 4rem 0; }
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  grid-template-rows: 200px 200px;
-  gap: 1rem;
-}
-.gallery-panel {
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--cream);
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  overflow: hidden;
-  position: relative;
-}
-.gallery-panel:nth-child(1) {
-  grid-row: 1 / 3;
-  background: linear-gradient(135deg, #c4673c, #8b3a1a, #2d1810);
-}
-.gallery-panel:nth-child(2) {
-  background: linear-gradient(135deg, #e8d5be, #c4a882, #8b6b47);
-}
-.gallery-panel:nth-child(3) {
-  grid-row: 1 / 3;
-  background: linear-gradient(135deg, #2d8b8b, #1a5555, #0f3535);
-}
-.gallery-caption {
-  text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: #777;
-  font-weight: 300;
-  font-style: italic;
-}
-
-/* ========== SECTION 6: SCHEDULE ========== */
-.schedule { background: var(--sand); }
-.schedule-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-}
-.schedule-day h3 {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  text-align: center;
-  color: var(--charcoal);
-}
-.schedule-item {
-  display: flex;
-  gap: 1rem;
-  padding: 0.875rem 1rem;
-  border-radius: 0.75rem;
-  margin-bottom: 0.5rem;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(140, 100, 60, 0.05);
-  transition: transform 0.2s;
-}
-.schedule-item:hover { transform: translateX(-3px); }
-.schedule-item .time {
-  font-weight: 700;
-  color: var(--teal);
-  min-width: 50px;
-  font-size: 0.95rem;
-}
-.schedule-item.evening .time { color: var(--terracotta); }
-.schedule-item .activity {
-  font-weight: 400;
-  font-size: 0.95rem;
-}
-
-/* ========== SECTION 7: INSTRUCTOR ========== */
-.instructor { background: var(--night-soft); color: var(--cream); }
-.instructor-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-.instructor-photo {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--terracotta), var(--teal));
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-}
-.instructor-content h3 {
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin-bottom: 0.25rem;
-}
-.instructor-content .role {
-  color: var(--teal);
-  font-size: 0.95rem;
-  margin-bottom: 1.25rem;
-}
-.instructor-content .bio {
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-  opacity: 0.85;
-}
-.instructor-badges {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.badge {
-  padding: 0.5rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-}
-
-/* ========== SECTION 8: TESTIMONIALS MARQUEE ========== */
-.testimonials { background: var(--teal-soft); padding: 3rem 0; overflow: hidden; }
-.testimonials-label {
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--teal);
-  margin-bottom: 1.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-.marquee-wrapper {
-  overflow: hidden;
-  position: relative;
-}
-.marquee-wrapper::before,
-.marquee-wrapper::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 80px;
-  z-index: 2;
-  pointer-events: none;
-}
-.marquee-wrapper::before { right: 0; background: linear-gradient(to left, var(--teal-soft), transparent); }
-.marquee-wrapper::after { left: 0; background: linear-gradient(to right, var(--teal-soft), transparent); }
-
-.marquee-track {
-  display: flex;
-  gap: 3rem;
-  animation: marquee 30s linear infinite;
-  width: max-content;
-}
-.marquee-track:hover { animation-play-state: paused; }
-.marquee-item {
-  flex-shrink: 0;
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: var(--charcoal);
-  white-space: nowrap;
-}
-
-/* ========== SECTION 9: PRICING ========== */
-.pricing { background: var(--sand); }
-.pricing-badge {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.pricing-badge span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1.5rem;
-  background: rgba(196, 103, 60, 0.1);
-  color: var(--terracotta);
-  font-weight: 700;
-  font-size: 0.95rem;
-  border-radius: 50px;
-}
-.pricing-badge .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #e53e3e;
-  animation: pulseDot 1.5s infinite;
-}
-
-.pricing-card {
-  max-width: 520px;
-  margin: 0 auto;
-  background: #fff;
-  border-radius: 1.5rem;
-  padding: 2.5rem 2rem;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 8px 40px rgba(140, 100, 60, 0.12);
-}
-.pricing-card::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 1.625rem;
-  background: conic-gradient(from var(--angle, 0deg), var(--terracotta), var(--teal), var(--terracotta));
-  z-index: -1;
-  animation: borderRotate 4s linear infinite;
-}
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.pricing-launch-tag {
-  display: inline-block;
-  background: var(--terracotta);
-  color: #fff;
-  padding: 0.375rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-.pricing-card .label {
-  font-size: 1.1rem;
-  font-weight: 400;
-  color: #777;
-  margin-bottom: 0.5rem;
-}
-.pricing-card .original-price {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #999;
-  text-decoration: line-through;
-  margin-bottom: 0.25rem;
-}
-.pricing-card .price {
-  font-size: 4rem;
-  font-weight: 900;
-  color: var(--charcoal);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-.pricing-savings {
-  display: inline-block;
-  background: var(--teal-soft);
-  color: var(--teal);
-  padding: 0.25rem 1rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-}
-.pricing-features {
-  text-align: right;
-  margin-bottom: 1.5rem;
-}
-.pricing-features li {
-  padding: 0.375rem 0;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.pricing-features li .check {
-  color: var(--teal);
-  font-weight: 700;
-}
-.pricing-divider {
-  height: 1px;
-  background: #eee;
-  margin: 1.5rem 0;
-}
-.pricing-deposit {
-  margin-bottom: 1.5rem;
-}
-.pricing-deposit .deposit-title {
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-.pricing-deposit .deposit-details {
-  font-size: 0.9rem;
-  color: #777;
-  font-weight: 300;
-}
-.pricing-deposit .deposit-details li {
-  padding: 0.2rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.pricing-cta { margin-bottom: 1rem; }
-.pricing-warning {
-  font-size: 0.85rem;
-  color: #999;
-}
-.pricing-daily {
-  font-size: 0.9rem;
-  color: var(--teal);
-  font-weight: 700;
-  margin-top: 0.75rem;
-}
-
-/* Referral Box */
-.referral-box {
-  max-width: 520px;
-  margin: 2.5rem auto 0;
-  background: #fff;
-  border-radius: 1rem;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(140, 100, 60, 0.08);
-}
-.referral-box h4 {
-  font-size: 1.15rem;
-  font-weight: 900;
-  margin-bottom: 0.75rem;
-}
-.referral-box p {
-  font-size: 0.95rem;
-  font-weight: 300;
-  color: #555;
-  margin-bottom: 1.25rem;
-}
-.referral-btns {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.referral-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  transition: transform 0.2s;
-}
-.referral-btn:hover { transform: translateY(-2px); }
-.referral-btn.wa { background: var(--whatsapp); color: #fff; }
-.referral-btn.copy { background: var(--sand-deep); color: var(--charcoal); }
-.referral-note {
-  font-size: 0.8rem;
-  color: #999;
-  margin-top: 0.75rem;
-}
-
-/* ========== SECTION 10: WHATSAPP GROUP ========== */
-.wa-group {
-  background: var(--night);
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-  color: var(--cream);
-}
-.wa-group::before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 400px;
-  background: radial-gradient(ellipse, rgba(196, 103, 60, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.wa-group h2 {
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-.wa-group .wa-desc {
-  font-weight: 300;
-  font-size: 1.05rem;
-  margin-bottom: 2rem;
-  opacity: 0.8;
-  max-width: 500px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.wa-group .wa-count {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  opacity: 0.6;
-}
-
-/* ========== SECTION 11: FAQ ========== */
-.faq { background: var(--sand); }
-.faq-list {
-  max-width: 700px;
-  margin: 0 auto;
-}
-.faq-item {
-  border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-.faq-question {
-  width: 100%;
-  background: none;
-  text-align: right;
-  padding: 1.25rem 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--charcoal);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-}
-.faq-question .icon {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-  transition: transform 0.3s;
-}
-.faq-item.open .faq-question .icon { transform: rotate(45deg); }
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease;
-}
-.faq-answer-inner {
-  padding: 0 0 1.25rem;
-  font-size: 1rem;
-  font-weight: 300;
-  color: #555;
-  line-height: 1.8;
-}
-
-/* ========== SECTION 12: FINAL CTA ========== */
-.final-cta {
-  background: var(--night);
-  text-align: center;
-  color: var(--cream);
-  position: relative;
-  overflow: hidden;
-}
-.final-cta::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(196, 103, 60, 0.12) 0%, transparent 60%);
-  pointer-events: none;
-}
-.final-cta .big-text {
-  font-size: 2rem;
-  font-weight: 900;
-  line-height: 1.5;
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-.final-urgency {
-  margin-bottom: 2rem;
-  font-size: 0.95rem;
-  color: var(--terracotta);
-  font-weight: 700;
-}
-.final-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-  position: relative;
-  z-index: 1;
-}
-.final-micro {
-  font-size: 0.85rem;
-  opacity: 0.6;
-  font-weight: 300;
-}
-
-/* ========== SECTION 13: FOOTER ========== */
-.footer {
-  background: var(--night);
-  border-top: 1px solid rgba(255,255,255,0.05);
-  padding: 2.5rem 0;
-  color: var(--cream);
-  text-align: center;
-}
-.footer-brand {
-  font-size: 1.1rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-}
-.footer-social {
-  display: flex;
-  justify-content: center;
-  gap: 1.25rem;
-  margin-bottom: 1rem;
-}
-.footer-social a {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-.footer-social a:hover { background: rgba(255,255,255,0.15); }
-.footer-social svg { width: 20px; height: 20px; fill: var(--cream); }
-.footer-contact {
-  font-size: 0.85rem;
-  opacity: 0.5;
-  margin-bottom: 0.5rem;
-}
-.footer-copy {
-  font-size: 0.8rem;
-  opacity: 0.3;
-}
-
 /* Copy toast */
 .copy-toast {
-  position: fixed;
-  bottom: 5rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--charcoal);
-  color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 50px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
-  z-index: 9999;
-  pointer-events: none;
+  position: fixed; bottom: 5rem; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: #252a30; color: #fff; padding: 0.75rem 1.5rem; border-radius: 0;
+  font-weight: 700; opacity: 0; transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999; pointer-events: none;
 }
-.copy-toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .mobile-menu { display: block; }
-
-  .hero h1 { font-size: 2.5rem; }
-  .hero-sub { font-size: 1.05rem; }
-
-  .pain-cards { grid-template-columns: 1fr; }
-
-  .solution-statement { font-size: 1.5rem; }
-  .solution-statement .line:nth-child(2) { font-size: 1.1rem; }
-  .transform-map {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-    text-align: center;
-  }
-  .transform-before .transform-item { justify-content: center; text-align: center; }
-  .transform-after .transform-item { justify-content: center; }
-  .transform-divider {
-    width: 100%;
-    height: 2px;
-    min-height: unset;
-    background: linear-gradient(to right, transparent, var(--terracotta), var(--teal), transparent);
-  }
-
-  .bento-grid {
-    grid-template-columns: 1fr;
-  }
-  .bento-card.large { grid-column: span 1; }
-
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  .gallery-panel { min-height: 180px; }
-  .gallery-panel:nth-child(1),
-  .gallery-panel:nth-child(3) { grid-row: auto; }
-
-  .schedule-grid { grid-template-columns: 1fr; }
-
-  .section-title { font-size: 1.65rem; }
-
-  .final-cta .big-text { font-size: 1.5rem; }
-  .final-buttons { flex-direction: column; align-items: center; }
-
-  .pricing-card .price { font-size: 3rem; }
-}
-
-@media (min-width: 769px) {
-  .hero h1 { font-size: 5.5rem; }
-  .hero-sub { font-size: 1.35rem; }
-}
+.copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
-<body>
 
-<!-- URGENCY BAR -->
-<div class="urgency-bar" id="urgencyBar">
-  <button class="close-bar" onclick="dismissBar()" aria-label="סגירה">&times;</button>
+<body class="bg-primary-container text-on-surface font-body overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+
+<!-- ========== URGENCY BAR ========== -->
+<div class="fixed top-0 left-0 right-0 z-[1001] bg-secondary text-cream text-center py-2 px-10 text-sm font-headline font-black tracking-tight transition-transform" id="urgencyBar">
+  <button class="absolute left-3 top-1/2 -translate-y-1/2 text-cream/80 hover:text-cream text-lg" onclick="dismissBar()">&times;</button>
   &#x1F525; מחיר השקה: ₪1,500 במקום ₪1,900 — רק ל-30 הנרשמים הראשונים
 </div>
 
-<!-- NAV -->
-<nav class="nav" id="nav">
-  <div class="container">
-    <a href="#" class="nav-logo">Acroyoga Academy TLV</a>
-    <ul class="nav-links">
-      <li><a href="#included">מה מחכה</a></li>
-      <li><a href="#schedule">לו״ז</a></li>
-      <li><a href="#pricing">מחיר</a></li>
-      <li><a href="#faq">שאלות</a></li>
-    </ul>
-    <button class="hamburger" id="hamburger" aria-label="תפריט">
-      <span></span><span></span><span></span>
+<!-- ========== NAV ========== -->
+<header class="fixed top-9 left-0 right-0 z-[1000] transition-all duration-500 flex justify-between items-center px-6 md:px-8 py-4" id="nav">
+  <div class="flex items-center gap-4">
+    <button class="md:hidden text-secondary" id="hamburger" aria-label="תפריט">
+      <span class="material-symbols-outlined text-2xl">menu</span>
     </button>
+    <a href="#" class="font-headline font-black text-on-surface text-xl md:text-2xl tracking-[-0.05em] uppercase">Acroyoga Academy TLV</a>
   </div>
-</nav>
+  <nav class="hidden md:flex gap-8 items-center">
+    <a href="#included" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">מה מחכה</a>
+    <a href="#schedule" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">לו״ז</a>
+    <a href="#pricing" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">מחיר</a>
+    <a href="#faq" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">שאלות</a>
+    <a href="#pricing" class="bg-secondary text-night px-6 py-2 font-headline font-black text-sm active:scale-95 transition-transform">שריינו מקום</a>
+  </nav>
+</header>
 
-<!-- MOBILE MENU -->
-<div class="mobile-overlay" id="mobileOverlay"></div>
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#included" onclick="closeMenu()">מה מחכה</a>
-  <a href="#schedule" onclick="closeMenu()">לו״ז</a>
-  <a href="#pricing" onclick="closeMenu()">מחיר</a>
-  <a href="#faq" onclick="closeMenu()">שאלות</a>
-  <a href="#wa-group" onclick="closeMenu()">וואטסאפ</a>
-</div>
+<!-- Mobile Menu -->
+<div class="fixed inset-0 bg-black/50 z-[1001] hidden" id="mobileOverlay"></div>
+<aside class="fixed inset-y-0 right-0 w-72 z-[1002] bg-surface-container-low transform translate-x-full transition-transform duration-300 pt-20 px-6" id="mobileMenu">
+  <a href="#included" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">מה מחכה</a>
+  <a href="#schedule" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">לו״ז</a>
+  <a href="#pricing" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">מחיר</a>
+  <a href="#faq" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">שאלות</a>
+  <a href="#wa-group" onclick="closeMenu()" class="block py-4 text-whatsapp font-headline font-black text-xl">וואטסאפ</a>
+</aside>
 
-<!-- FLOATING WHATSAPP -->
-<a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="floating-wa" aria-label="וואטסאפ">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+<!-- ========== FLOATING WHATSAPP ========== -->
+<a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="fixed bottom-6 left-6 z-[999] w-14 h-14 bg-whatsapp flex items-center justify-center shadow-[0_4px_20px_rgba(37,211,102,0.4)]" style="animation: pulse 2s infinite;" aria-label="WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- SECTION 1: HERO -->
-<section class="hero" id="hero">
-  <div class="hero-content">
-    <p class="hero-pre">אקרויוגה אקדמי תל אביב מציגים</p>
-    <h1>הגוף צועק. הנשמה מחפשת מרחב.<br>בואו לנשום.</h1>
-    <p class="hero-sub">סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI</p>
-    <p class="hero-location">ים המלח / אילת · התאריך יפורסם בקרוב</p>
-    <p class="hero-urgency">&#x1F525; <strong>מחיר השקה ₪1,500 במקום ₪1,900</strong> — לזמן מוגבל</p>
-    <div class="hero-cta">
-      <a href="#pricing" class="btn-primary">שריינו מקום — מקדמה ₪500 בלבד &larr;</a>
-    </div>
-    <div class="hero-secondary">
-      <a href="#wa-group">עדיין לא בטוחים? הצטרפו לוואטסאפ לעדכונים &rarr;</a>
-    </div>
+<!-- ========== SECTION 1: HERO — Brutalist Desert ========== -->
+<section class="relative min-h-screen flex flex-col justify-center items-end px-6 md:px-24 pt-32 overflow-hidden bg-primary-container" id="hero">
+  <!-- Massive 48 Watermark -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+    <span class="text-[40rem] font-headline font-black text-on-surface opacity-[0.03] rotate-12 select-none">48</span>
   </div>
-  <div class="scroll-indicator">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-  </div>
-</section>
+  <!-- Terracotta slash -->
+  <div class="absolute top-1/2 left-0 w-full h-[2px] bg-secondary opacity-20 -rotate-12 translate-y-24 z-0"></div>
+  <!-- Mirage glow -->
+  <div class="absolute top-1/3 right-0 w-[600px] h-[600px] mirage-gradient opacity-10 blur-[120px] rounded-full -mr-64 pointer-events-none"></div>
 
-<!-- SECTION 2: AGITATION -->
-<section class="agitation section-padding" id="agitation">
-  <div class="container">
-    <h2 class="section-title fade-in">מכירים את ההרגשה הזאת?<span></span></h2>
-    <div class="pain-cards">
-      <div class="pain-card fade-in">
-        <div class="emoji">&#x1F62E;&#x200D;&#x1F4A8;</div>
-        <h3>עייפות שלא נגמרת</h3>
-        <p>מתעוררים עייפים. הולכים לישון עייפים.<br>הגוף במצב הישרדות כבר חודשים.</p>
+  <div class="relative z-10 w-full flex flex-col items-start text-right">
+    <!-- Bleeding headline -->
+    <h1 class="font-headline font-black text-[15vw] md:text-[12vw] leading-[0.8] tracking-[-0.07em] text-on-surface monolith-text mr-[-5%] mb-8 select-none">
+      הגוף צועק
+    </h1>
+    <div class="max-w-3xl flex flex-col items-start text-right gap-8 mt-4 self-end">
+      <div class="flex flex-col gap-2">
+        <p class="font-headline font-light text-2xl md:text-4xl text-secondary tracking-wide">
+          הנשמה מחפשת מרחב. בואו לנשום.
+        </p>
+        <div class="h-px w-24 bg-secondary mt-4"></div>
       </div>
-      <div class="pain-card fade-in delay-1">
-        <div class="emoji">&#x1F4F1;</div>
-        <h3>גוללים במקום לחיות</h3>
-        <p>שעות של סקרולינג, חדשות, דום-סקרולינג.<br>החיים עוברים מול המסך.</p>
-      </div>
-      <div class="pain-card fade-in delay-2">
-        <div class="emoji">&#x1F494;</div>
-        <h3>ניתוק מהגוף ומאנשים</h3>
-        <p>מתי בפעם האחרונה באמת חיבקתם מישהו?<br>באמת הרגשתם את הרגליים על הארץ?</p>
-      </div>
-    </div>
-    <p class="agitation-close fade-in delay-3">את/ה לא לבד. ויש מקום שיחזיר אותך.</p>
-  </div>
-</section>
-
-<!-- SECTION 3: SOLUTION BRIDGE -->
-<section class="solution-bridge section-padding" id="solution">
-  <div class="container">
-    <div class="solution-statement" id="solutionText">
-      <span class="line">48 שעות.</span>
-      <span class="line">בלי טלפון. בלי חדשות. בלי תירוצים.</span>
-      <span class="line">רק את/ה, הגוף, והמדבר.</span>
-    </div>
-    <div class="transform-map fade-in">
-      <div class="transform-col transform-before">
-        <div class="transform-item"><span>&#x1F629; עייפות כרונית</span></div>
-        <div class="transform-item"><span>&#x1F4F1; מודבקים למסך</span></div>
-        <div class="transform-item"><span>&#x1F494; מנותקים מהגוף</span></div>
-        <div class="transform-item"><span>&#x1F636; לבד עם הכל</span></div>
-        <div class="transform-item"><span>&#x1F630; חרדה ומתח</span></div>
-      </div>
-      <div class="transform-divider"></div>
-      <div class="transform-col transform-after">
-        <div class="transform-item"><span class="emoji">&#x1F60A;</span> <span>אנרגיה מחודשת</span></div>
-        <div class="transform-item"><span class="emoji">&#x1F305;</span> <span>נוכחים ברגע</span></div>
-        <div class="transform-item"><span class="emoji">&#x1F938;</span> <span>חיבור לגוף ולתנועה</span></div>
-        <div class="transform-item"><span class="emoji">&#x1F91D;</span> <span>קהילה שמחזקת</span></div>
-        <div class="transform-item"><span class="emoji">&#x1F9D8;</span> <span>שקט פנימי ונשימה</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 4: WHAT'S INCLUDED -->
-<section class="whats-included section-padding" id="included">
-  <div class="container">
-    <h2 class="section-title fade-in">מה מחכה לכם בסוף השבוע<span></span></h2>
-    <div class="bento-grid">
-      <div class="bento-card large fade-in">
-        <div class="emoji">&#x1F938;</div>
-        <h3>אקרויוגה</h3>
-        <p>אמון. חיבור. תנועה בזוגות. מהבסיס ועד טיסה.</p>
-      </div>
-      <div class="bento-card fade-in delay-1">
-        <div class="emoji">&#x1F9D8;</div>
-        <h3>יוגה ומדיטציה</h3>
-        <p>שקט פנימי, נשימות עמוקות, התחלה רכה לכל בוקר.</p>
-      </div>
-      <div class="bento-card fade-in">
-        <div class="emoji">&#x1F9E0;</div>
-        <h3>פיתוח אישי</h3>
-        <p>סדנה שתעזור לכם להבין מה באמת חשוב לכם.</p>
-      </div>
-      <div class="bento-card fade-in delay-1">
-        <div class="emoji">&#x1F916;</div>
-        <h3>קורס AI</h3>
-        <p>כלים מעשיים לחיים ולקריירה — בלי ניסיון קודם.</p>
-      </div>
-      <div class="bento-card large fade-in delay-2">
-        <div class="emoji">&#x1F305;</div>
-        <h3>ים המלח / אילת</h3>
-        <p>נופים שמרפאים, אוויר מדברי, שקיעות שלא תשכחו.</p>
-      </div>
-      <div class="bento-card fade-in delay-2" style="grid-column: span 3;">
-        <div class="emoji">&#x1F37D;&#xFE0F;</div>
-        <h3>ארוחות, לינה וחוויה שלמה</h3>
-        <p>הכל כלול — מגיעים עם תיק ויוצאים עם חוויה שתשנה אתכם.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 5: GALLERY -->
-<section class="gallery" id="gallery">
-  <div class="container">
-    <div class="gallery-grid">
-      <div class="gallery-panel fade-in">אקרויוגה בשקיעה</div>
-      <div class="gallery-panel fade-in delay-1">יוגה בוקר</div>
-      <div class="gallery-panel fade-in delay-2">חיבור ותנועה</div>
-    </div>
-    <p class="gallery-caption fade-in">התמונות מרטריטים קודמים. הסיפור הבא — שלכם.</p>
-  </div>
-</section>
-
-<!-- SECTION 6: SCHEDULE -->
-<section class="schedule section-padding" id="schedule">
-  <div class="container">
-    <h2 class="section-title fade-in">לו״ז סוף השבוע<span></span></h2>
-    <div class="schedule-grid">
-      <div class="schedule-day fade-in">
-        <h3>יום שישי</h3>
-        <div class="schedule-item"><span class="time">14:00</span><span class="activity">הגעה והתארגנות</span></div>
-        <div class="schedule-item"><span class="time">15:30</span><span class="activity">מעגל פתיחה + היכרות</span></div>
-        <div class="schedule-item"><span class="time">17:00</span><span class="activity">שיעור אקרויוגה ראשון</span></div>
-        <div class="schedule-item evening"><span class="time">19:30</span><span class="activity">ארוחת ערב</span></div>
-        <div class="schedule-item evening"><span class="time">21:00</span><span class="activity">מדיטציית שקיעה + מוזיקה</span></div>
-      </div>
-      <div class="schedule-day fade-in delay-1">
-        <h3>שבת</h3>
-        <div class="schedule-item"><span class="time">07:30</span><span class="activity">יוגה בוקר + נשימות</span></div>
-        <div class="schedule-item"><span class="time">09:00</span><span class="activity">ארוחת בוקר</span></div>
-        <div class="schedule-item"><span class="time">10:30</span><span class="activity">סדנת פיתוח אישי</span></div>
-        <div class="schedule-item"><span class="time">13:00</span><span class="activity">ארוחת צהריים + הפסקה</span></div>
-        <div class="schedule-item"><span class="time">15:00</span><span class="activity">קורס AI — כלים לחיים</span></div>
-        <div class="schedule-item evening"><span class="time">17:00</span><span class="activity">שיעור אקרויוגה מסכם</span></div>
-        <div class="schedule-item evening"><span class="time">19:00</span><span class="activity">מעגל סיום + ארוחת ערב</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 7: INSTRUCTOR -->
-<section class="instructor section-padding" id="instructor">
-  <div class="container">
-    <h2 class="section-title fade-in" style="color: var(--cream);">מי מאחורי זה?<span></span></h2>
-    <div class="instructor-content fade-in">
-      <div class="instructor-photo">&#x1F938;</div>
-      <h3>שי פלג</h3>
-      <p class="role">מייסד Acroyoga Academy TLV</p>
-      <p class="bio">
-        שי חי ונושם אקרויוגה. מה שהתחיל כשיעור ניסיון הפך למסע של שנים של הוראה, ביצוע ובניית קהילה תוססת בתל אביב. עם מאות תלמידים שעברו דרך הידיים שלו — ממתחילים שפחדו לעמוד על הידיים ועד זוגות שעפו ביחד — שי מאמין שאקרויוגה היא לא ספורט, היא שפה. שפה של אמון, חיבור ושמחה שעוברת דרך הגוף. הרטריט הזה הוא החלום שלו: להוציא אנשים מהשגרה, מהמסכים, מהמתח — ולהחזיר אותם לעצמם.
+      <p class="font-body font-light text-lg md:text-xl text-on-surface-variant leading-relaxed max-w-xl self-end">
+        סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI · ים המלח / אילת · התאריך יפורסם בקרוב
       </p>
-      <div class="instructor-badges">
-        <span class="badge">מאות תלמידים</span>
-        <span class="badge">מייסד הקהילה</span>
-        <span class="badge">מורה ומבצע</span>
+      <div class="flex items-center gap-2 text-secondary font-headline font-black text-sm">
+        &#x1F525; מחיר השקה ₪1,500 במקום ₪1,900 — לזמן מוגבל
       </div>
-      <a href="https://instagram.com/acroshay" target="_blank" style="display:inline-flex;align-items:center;gap:0.5rem;margin-top:1.25rem;color:var(--teal);font-weight:700;font-size:0.95rem;text-decoration:underline;text-underline-offset:4px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--teal)"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      <div class="mt-4 flex flex-col md:flex-row-reverse items-center gap-6 self-end">
+        <a href="#pricing" class="bg-secondary text-on-secondary px-12 py-5 font-headline font-black text-xl tracking-tight hover:heat-gradient transition-all active:scale-95 shadow-2xl">
+          שריינו מקום — מקדמה ₪500 בלבד
+        </a>
+        <a href="#wa-group" class="text-on-surface-variant font-light text-sm underline underline-offset-4 opacity-70 hover:opacity-100 transition-opacity">
+          עדיין לא בטוחים? הצטרפו לוואטסאפ &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coordinates accent -->
+  <div class="absolute bottom-16 left-8 flex items-center gap-2 opacity-30">
+    <span class="text-xs font-label tracking-widest">31.0252° N, 35.3908° E</span>
+    <div class="w-12 h-[1px] bg-on-surface"></div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2" style="animation: bounce 2s infinite;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#dee3ea" stroke-width="2" stroke-linecap="round" opacity="0.4"><polyline points="6 9 12 15 18 9"/></svg>
+  </div>
+  <!-- Vertical accent line -->
+  <div class="fixed top-0 right-0 w-[2px] h-screen bg-secondary/10 z-[50]"></div>
+</section>
+
+<!-- ========== SECTION 2: AGITATION — Editorial Magazine ========== -->
+<section class="relative min-h-screen bg-sand text-charcoal pt-32 pb-20 overflow-hidden" id="agitation">
+  <div class="brush-stroke top-1/4 -right-20"></div>
+  <div class="brush-stroke bottom-1/3 -left-40 opacity-50 scale-150"></div>
+  <div class="clip-emoji text-[30vw]">😮‍💨</div>
+
+  <div class="max-w-[1200px] mx-auto px-6 md:px-20 relative z-10">
+    <div class="relative mb-16 md:mb-32 fade-in">
+      <h2 class="font-headline font-black text-6xl md:text-9xl tracking-tighter leading-none text-charcoal/90 mix-blend-multiply">
+        מכירים את <br> ההרגשה הזאת?
+      </h2>
+      <div class="absolute -top-10 -right-10 w-48 h-48 bg-secondary opacity-20 -z-10"></div>
+    </div>
+
+    <div class="grid grid-cols-7 gap-y-20">
+      <!-- Pain 1: Huge -->
+      <div class="col-span-7 md:col-start-4 md:col-span-4 text-right self-end fade-in">
+        <div class="inline-block relative">
+          <span class="absolute -top-8 -right-4 text-[6rem] font-thin opacity-10 leading-none">01</span>
+          <p class="font-headline font-black text-5xl md:text-8xl tracking-tight leading-none text-charcoal">עייפות שלא<br>נגמרת</p>
+          <p class="font-body font-light text-base mt-3 text-charcoal/60">מתעוררים עייפים. הולכים לישון עייפים. הגוף במצב הישרדות כבר חודשים.</p>
+        </div>
+      </div>
+      <!-- Pain 2: Slanted -->
+      <div class="col-span-6 md:col-span-3 self-center -rotate-3 mt-8 fade-in d1">
+        <div class="p-6 bg-white/40 backdrop-blur-md shadow-2xl inline-block border-r-8 border-secondary">
+          <p class="font-headline font-bold text-3xl md:text-5xl tracking-tight text-secondary-container">גוללים במקום<br>לחיות</p>
+          <p class="font-body font-light text-sm mt-2 text-charcoal/60">שעות של סקרולינג, חדשות, דום-סקרולינג. החיים עוברים מול המסך.</p>
+        </div>
+      </div>
+      <!-- Pain 3: Light -->
+      <div class="col-span-7 md:col-start-5 md:col-span-3 text-right mt-8 fade-in d2">
+        <p class="font-headline font-light text-2xl md:text-3xl tracking-widest text-charcoal/50 border-b border-charcoal/20 pb-4">ניתוק מהגוף<br>ומאנשים</p>
+        <p class="font-body font-light text-sm mt-2 text-charcoal/40">מתי בפעם האחרונה באמת חיבקתם מישהו? באמת הרגשתם את הרגליים על הארץ?</p>
+      </div>
+    </div>
+
+    <div class="mt-32 border-t border-charcoal/10 pt-12 fade-in d3">
+      <p class="text-3xl md:text-5xl font-headline font-black text-teal leading-tight tracking-tight">
+        את/ה לא לבד. ויש מקום שיחזיר אותך.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 3: TRANSFORMATION — Diagonal Split ========== -->
+<section class="relative min-h-screen bg-night overflow-hidden py-24 px-6 md:px-20" id="solution">
+  <!-- 48 Watermark -->
+  <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+    <span class="font-display font-black text-[60rem] leading-none opacity-[0.03] text-on-surface translate-y-24 select-none">48</span>
+  </div>
+
+  <div class="relative min-h-[80vh] w-full flex items-center justify-center">
+    <!-- Diagonal divider -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div class="diagonal-divider absolute h-4 w-[200%] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 shadow-[0_0_80px_rgba(196,103,60,0.3)]"></div>
+    </div>
+
+    <div class="relative w-full max-w-6xl z-20 grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-0">
+      <!-- BEFORE -->
+      <div class="flex flex-col items-start justify-start space-y-6 md:pt-12 text-right fade-in">
+        <div class="space-y-4 opacity-40 hover:opacity-100 transition-opacity duration-700">
+          <p class="font-headline text-4xl md:text-6xl font-thin tracking-widest text-outline-variant">עייפות כרונית</p>
+          <p class="font-headline text-3xl md:text-5xl font-light text-outline-variant blur-[1px]">מודבקים למסך</p>
+          <p class="font-headline text-4xl md:text-7xl font-black tracking-tighter text-outline-variant">מנותקים מהגוף</p>
+          <p class="font-headline text-2xl md:text-4xl font-thin italic text-outline-variant">לבד עם הכל</p>
+          <p class="font-headline text-3xl md:text-5xl font-normal text-outline-variant blur-[2px]">חרדה ומתח</p>
+        </div>
+      </div>
+      <!-- AFTER -->
+      <div class="flex flex-col items-end justify-end space-y-6 text-right fade-in d1">
+        <div class="space-y-4">
+          <p class="font-headline text-4xl md:text-7xl font-black tracking-tighter text-teal leading-none">אנרגיה מחודשת</p>
+          <p class="font-headline text-3xl md:text-5xl font-light tracking-widest text-cream">נוכחים ברגע</p>
+          <div class="relative inline-block">
+            <p class="font-headline text-5xl md:text-8xl font-black text-teal mix-blend-difference">חיבור לגוף</p>
+            <div class="absolute -right-4 top-0 w-2 h-full bg-secondary"></div>
+          </div>
+          <p class="font-headline text-2xl md:text-4xl font-thin text-cream/70">קהילה שמחזקת</p>
+          <p class="font-headline text-4xl md:text-6xl font-bold text-teal tracking-[-0.05em]">שקט פנימי</p>
+        </div>
+      </div>
+
+      <!-- Center statement -->
+      <div class="col-span-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full text-center z-30">
+        <div class="bg-night/80 backdrop-blur-xl p-6 md:p-12 inline-block border-r-8 border-secondary">
+          <h2 class="font-headline font-black text-3xl md:text-6xl text-on-surface leading-tight tracking-tighter">
+            48 שעות. בלי טלפון.<br><span class="text-secondary">בלי חדשות.</span> בלי תירוצים.
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desert acroyoga image -->
+  <div class="max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-16 items-center fade-in">
+    <div class="w-full md:w-1/2 relative">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4W2PPaWtFLYMsIVSPcYkAXJ1RzoFiPw685X0szR-3N3mQjfkVvaszDR2r9ZmCqbb5GjPH1sIkBGPMjmnK_Oo0bKrBWyJ9tXTrHXrIm0gGLS0Ka8FM895F25EMtr00K0D6fk6ENeKqqDBJSymYOzo3i4WGVfi3leF06HPBBLFE9YGpAsllZIMNv1MMjQTmgreisDxE993ty7BLMdy--_hwXkznKOQhhY6z9li9k2RyMwdAgXaueIEKr5UIxaX3_Ynua8xwKTPEKrs5" alt="אקרויוגה במדבר" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-1000">
+      <div class="absolute bottom-0 left-0 bg-secondary p-4 -translate-x-4 translate-y-4">
+        <span class="font-display font-black text-xl text-on-secondary uppercase">THE SHIFT</span>
+      </div>
+    </div>
+    <div class="w-full md:w-1/2 space-y-8">
+      <h3 class="font-headline text-5xl md:text-7xl font-black text-on-surface leading-none tracking-tighter">רק את/ה,<br>הגוף, והמדבר.</h3>
+      <p class="text-lg font-light leading-relaxed text-on-surface-variant max-w-md">
+        אנחנו לא מציעים חופשה. אנחנו מציעים אתחול. במרחב שבו הגבולות בין הגוף לאדמה מיטשטשים, תגלו כוחות שלא ידעתם שקיימים בכם.
+      </p>
+      <a href="#pricing" class="inline-block bg-secondary text-on-secondary px-10 py-5 font-headline font-black text-xl tracking-tight hover:heat-gradient transition-all active:scale-95">
+        הצטרפו לשינוי
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 4: WHAT'S INCLUDED — Scattered Polaroids ========== -->
+<section class="relative overflow-hidden py-32 px-6" id="included" style="background: linear-gradient(135deg, #0f1419, #171c21);">
+  <div class="absolute top-1/4 left-0 w-64 h-64 bg-secondary/10 blur-[100px] -z-0"></div>
+  <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-on-surface/5 blur-[120px] -z-0"></div>
+
+  <div class="max-w-6xl mx-auto relative z-10">
+    <div class="text-center mb-20 fade-in">
+      <h2 class="font-display font-black text-5xl md:text-7xl text-secondary-container tracking-tighter leading-none mb-4">מה מחכה לכם<br>בסוף השבוע</h2>
+      <div class="w-24 h-1 bg-secondary mx-auto opacity-30"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 relative">
+      <!-- Card 1: Acro (LARGE) -->
+      <div class="md:col-span-7 md:row-span-2 relative -rotate-2 z-20 fade-in">
+        <div class="polaroid-card border-8 border-white">
+          <div class="tape -top-4 -right-6"></div>
+          <div class="aspect-[4/3] bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-[8rem]">&#x1F938;</span>
+          </div>
+          <h3 class="font-headline font-black text-2xl text-secondary-container mb-1">אקרויוגה</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">טיסות, בייסינג, ומגע טיפולי — מתחילים מאפס ועפים. אמון שנבנה דרך הגוף. התחושה של לסמוך על מישהו ולתת לו לסמוך עליך — אין כמוה.</p>
+        </div>
+      </div>
+      <!-- Card 2: Yoga -->
+      <div class="md:col-span-5 relative rotate-3 mt-8 z-10 fade-in d1">
+        <div class="polaroid-card border-8 border-white">
+          <div class="tape -bottom-4 -left-6 rotate-[20deg]"></div>
+          <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-7xl">&#x1F9D8;</span>
+          </div>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">יוגה ומדיטציה</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">שיעורי ויניאסה בזריחה, פראנאיאמה (נשימות), ומדיטציה מונחית. הגוף מתעורר, הראש שותק, והנשמה מקבלת מקום.</p>
+        </div>
+      </div>
+      <!-- Card 3: Personal Dev -->
+      <div class="md:col-span-5 relative -rotate-1 -mt-8 z-30 fade-in d1">
+        <div class="polaroid-card border-8 border-white">
+          <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-7xl">&#x1F9E0;</span>
+          </div>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">פיתוח אישי</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">סדנת עומק עם כלים מ-NLP, מיינדפולנס ותקשורת מקרבת. נפרק דפוסים ישנים ונבנה חדשים — ביחד, במעגל, בלי שיפוט.</p>
+        </div>
+      </div>
+      <!-- Card 4: AI -->
+      <div class="md:col-span-4 relative rotate-2 z-10 fade-in d2">
+        <div class="polaroid-card border-8 border-white">
+          <div class="tape top-1/2 -left-8 rotate-90"></div>
+          <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-7xl">&#x1F916;</span>
+          </div>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">קורס AI — כלים לעתיד</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">ChatGPT, מידג'רני, אוטומציות — כלים שישנו את הקריירה שלכם. בלי ניסיון קודם, עם תוצאות מיידיות.</p>
+        </div>
+      </div>
+      <!-- Card 5: Location -->
+      <div class="md:col-span-4 relative -rotate-3 md:-mt-16 z-20 fade-in d2">
+        <div class="polaroid-card border-8 border-white">
+          <div class="aspect-[4/5] bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-7xl">&#x1F305;</span>
+          </div>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">ים המלח / אילת</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">שקיעות שורפות, אוויר מדברי מרפא, שקט שאי אפשר למצוא בעיר. המקום עצמו הוא חלק מהטיפול.</p>
+        </div>
+      </div>
+      <!-- Card 6: Food -->
+      <div class="md:col-span-4 relative rotate-1 z-10 fade-in d3">
+        <div class="polaroid-card border-8 border-white">
+          <div class="tape -top-2 -left-2 -rotate-45"></div>
+          <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
+            <span class="text-7xl">&#x1F37D;&#xFE0F;</span>
+          </div>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">ארוחות ולינה מלאה</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">אוכל מזין, טעים ומפנק. לינה נוחה. הכל כלול — מגיעים עם תיק ויוצאים עם חוויה שתשנה אתכם.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 5: SCHEDULE ========== -->
+<section class="bg-surface-container-low py-32 px-6 md:px-20" id="schedule">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-16 text-center fade-in">לו״ז סוף השבוע</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+      <div class="fade-in">
+        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">יום שישי</h3>
+        <div class="space-y-3">
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">14:00</span><span class="font-body font-light">הגעה והתארגנות</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:30</span><span class="font-body font-light">מעגל פתיחה + היכרות</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">17:00</span><span class="font-body font-light">שיעור אקרויוגה ראשון — בייסינג, טיסות, ואמון</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:30</span><span class="font-body font-light">ארוחת ערב</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">21:00</span><span class="font-body font-light">מדיטציית שקיעה + מוזיקה חיה</span></div>
+        </div>
+      </div>
+      <div class="fade-in d1">
+        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">שבת</h3>
+        <div class="space-y-3">
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">07:30</span><span class="font-body font-light">ויניאסה יוגה + פראנאיאמה בזריחה</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">09:00</span><span class="font-body font-light">ארוחת בוקר</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">10:30</span><span class="font-body font-light">סדנת פיתוח אישי — NLP, מיינדפולנס, תקשורת מקרבת</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">13:00</span><span class="font-body font-light">ארוחת צהריים + הפסקה</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:00</span><span class="font-body font-light">קורס AI — ChatGPT, אוטומציות, כלים לחיים</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">17:00</span><span class="font-body font-light">שיעור אקרויוגה מסכם — הטיסה האחרונה</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:00</span><span class="font-body font-light">מעגל סיום + ארוחת ערב</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 6: INSTRUCTOR — Magazine Editorial ========== -->
+<section class="relative min-h-screen bg-night-soft pt-24 pb-32 px-6 md:px-24 overflow-hidden" id="instructor">
+  <!-- Vertical background name -->
+  <div class="fixed right-0 top-0 bottom-0 pointer-events-none z-0 overflow-hidden flex items-center">
+    <h1 class="vertical-text text-[132px] md:text-[200px] font-headline font-black text-on-surface opacity-[0.03] leading-none tracking-tighter select-none">שי פלג</h1>
+  </div>
+  <!-- Geometric accents -->
+  <div class="absolute top-40 left-10 w-32 h-32 border-l border-t border-secondary opacity-20 pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/3 w-1 h-64 bg-gradient-to-b from-transparent via-secondary to-transparent opacity-20 pointer-events-none"></div>
+
+  <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-6xl mx-auto">
+    <div class="lg:col-span-7 flex flex-col gap-8 fade-in">
+      <span class="text-teal font-headline font-light tracking-widest uppercase text-sm">מייסד Acroyoga Academy TLV</span>
+      <h2 class="text-6xl md:text-8xl font-headline font-black text-on-surface leading-[0.9] tracking-tighter">שי<br>פלג</h2>
+      <div class="max-w-xl text-cream font-light text-lg leading-relaxed space-y-4">
+        <p>שי חי ונושם אקרויוגה. מה שהתחיל כשיעור ניסיון הפך למסע של שנים של הוראה, ביצוע ובניית קהילה תוססת בתל אביב.</p>
+        <p>עם מאות תלמידים שעברו דרך הידיים שלו — ממתחילים שפחדו לעמוד על הידיים ועד זוגות שעפו ביחד — שי מאמין שאקרויוגה היא לא ספורט, היא שפה. שפה של אמון, חיבור ושמחה שעוברת דרך הגוף.</p>
+        <p>הרטריט הזה הוא החלום שלו: להוציא אנשים מהשגרה, מהמסכים, מהמתח — ולהחזיר אותם לעצמם.</p>
+      </div>
+      <!-- Badges -->
+      <div class="flex flex-wrap gap-3 mt-4">
+        <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
+          <span class="material-symbols-outlined text-secondary">groups</span>
+          <span class="font-headline font-light text-on-surface">מאות תלמידים</span>
+        </div>
+        <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
+          <span class="material-symbols-outlined text-secondary">hub</span>
+          <span class="font-headline font-light text-on-surface">מייסד הקהילה</span>
+        </div>
+        <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
+          <span class="material-symbols-outlined text-secondary">psychology</span>
+          <span class="font-headline font-light text-on-surface">מורה ומבצע</span>
+        </div>
+      </div>
+      <!-- Instagram -->
+      <a href="https://instagram.com/acroshay" target="_blank" class="group flex items-center gap-4 text-xl font-headline font-black text-secondary hover:text-secondary-fixed transition-all mt-8">
+        <span class="bg-secondary p-3 text-on-secondary group-hover:scale-110 transition-transform">
+          <span class="material-symbols-outlined">link</span>
+        </span>
         @acroshay
       </a>
     </div>
-  </div>
-</section>
 
-<!-- SECTION 8: TESTIMONIALS MARQUEE -->
-<section class="testimonials" id="testimonials">
-  <p class="testimonials-label">מה אומרים משתתפים</p>
-  <div class="marquee-wrapper">
-    <div class="marquee-track">
-      <span class="marquee-item">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
-      <span class="marquee-item">"הגוף שלי אמר תודה"</span>
-      <span class="marquee-item">"באתי לבד ויצאתי עם משפחה"</span>
-      <span class="marquee-item">"פעם ראשונה שבאמת נשמתי"</span>
-      <span class="marquee-item">"כל אחד חייב את זה"</span>
-      <span class="marquee-item">"חזרתי בן אדם אחר"</span>
-      <!-- duplicate for seamless loop -->
-      <span class="marquee-item">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
-      <span class="marquee-item">"הגוף שלי אמר תודה"</span>
-      <span class="marquee-item">"באתי לבד ויצאתי עם משפחה"</span>
-      <span class="marquee-item">"פעם ראשונה שבאמת נשמתי"</span>
-      <span class="marquee-item">"כל אחד חייב את זה"</span>
-      <span class="marquee-item">"חזרתי בן אדם אחר"</span>
-    </div>
-  </div>
-</section>
-
-<!-- SECTION 9: PRICING -->
-<section class="pricing section-padding" id="pricing">
-  <div class="container">
-    <h2 class="section-title fade-in">ההשקעה שלכם<span></span></h2>
-
-    <div class="pricing-badge fade-in">
-      <span><span class="dot"></span> נשארו מקומות אחרונים במחיר השקה</span>
-    </div>
-
-    <div class="pricing-card fade-in">
-      <div class="pricing-launch-tag">&#x1F525; מחיר השקה — לזמן מוגבל</div>
-      <p class="label">סוף שבוע שלם</p>
-      <p class="original-price">₪1,900</p>
-      <p class="price">₪1,500</p>
-      <div class="pricing-savings">חיסכון של ₪400!</div>
-
-      <ul class="pricing-features">
-        <li><span class="check">&#x2713;</span> שיעורי אקרויוגה ויוגה</li>
-        <li><span class="check">&#x2713;</span> סדנת פיתוח אישי</li>
-        <li><span class="check">&#x2713;</span> קורס AI — כלים לעתיד</li>
-        <li><span class="check">&#x2713;</span> לינה מלאה + ארוחות</li>
-        <li><span class="check">&#x2713;</span> מדיטציות ומעגלי שיתוף</li>
-      </ul>
-
-      <div class="pricing-divider"></div>
-
-      <div class="pricing-deposit">
-        <p class="deposit-title">&#x1F4B3; מקדמה: רק ₪500 לשריון מקום</p>
-        <ul class="deposit-details">
-          <li><span class="check">&#x2713;</span> ביטול חינם עד 3 ימים לפני</li>
-          <li><span class="check">&#x2713;</span> יתרת ₪1,000 ביום הרטריט</li>
-        </ul>
+    <!-- Photo -->
+    <div class="lg:col-span-5 relative fade-in d1">
+      <div class="relative aspect-[4/5] w-full overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-secondary via-teal to-night-soft mix-blend-multiply opacity-80"></div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuLozcJjAQ3F7Hrwv-LvW4PPlmvgEF0T-CekXMv5teQicuItqEh5uRjuObB4-DYGn2ns7nPkgxQoPs9tAmhJptmWmw7lPfG-VfbdBl5tvE0-WQnBeAn-e_oVoKEgVz6ZlzA0-qkZtNKBNiGedt6DUF5Ptpb4JAfO0Bo-wRTunUnTfd47yq0m_05OdGbmaneWD0tMGbKX4YI7e8eKkg7wbGJIqUfCctyWBzhigwA6fV6lqnLcStxlW7TkODWCZcFGsSIdAkKCJfbuPE" alt="שי פלג — Acroyoga Academy TLV" class="w-full h-full object-cover grayscale brightness-75 contrast-125">
+        <div class="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-gradient-to-br from-secondary to-teal opacity-40 blur-3xl"></div>
       </div>
-
-      <div class="pricing-cta">
-        <a href="#" class="btn-primary" onclick="return false;">שריינו מקום במחיר השקה &larr;</a>
+      <div class="absolute top-1/2 -right-12 w-24 h-24 rounded-full border border-teal/30 flex items-center justify-center">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-secondary to-teal opacity-50 animate-pulse"></div>
       </div>
-
-      <p class="pricing-warning">&#x23F0; המחיר עולה ל-₪1,900 בקרוב</p>
-      <p class="pricing-daily">פחות מ-₪750 ליום — כולל הכל</p>
-    </div>
-
-    <!-- Referral Box -->
-    <div class="referral-box fade-in">
-      <h4>&#x1F381; יש לכם חבר/ה שצריכ/ה את זה?</h4>
-      <p>שלחו את הדף — אם הם נרשמים, שניכם מקבלים 10% הנחה!</p>
-      <div class="referral-btns">
-        <a href="#" class="referral-btn wa" id="shareWhatsApp">&#x1F4F2; שיתוף בוואטסאפ</a>
-        <button class="referral-btn copy" id="copyLink">&#x1F4CB; העתקת קישור</button>
-      </div>
-      <p class="referral-note">ההנחה תינתן בעת התשלום הסופי ביום הרטריט</p>
     </div>
   </div>
 </section>
 
-<!-- SECTION 10: WHATSAPP GROUP -->
-<section class="wa-group section-padding" id="wa-group">
-  <div class="container">
-    <h2 class="fade-in" style="font-size: 2rem; font-weight: 900; margin-bottom: 1rem;">לא חייבים להחליט עכשיו.</h2>
-    <p class="wa-desc fade-in delay-1">הצטרפו לקבוצת הוואטסאפ — קבלו עדכונים, הכירו משתתפים, שאלו שאלות.</p>
-    <div class="fade-in delay-2">
-      <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="btn-whatsapp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        הצטרפו לקבוצה &larr;
-      </a>
+<!-- ========== SECTION 7: TESTIMONIALS MARQUEE ========== -->
+<section class="bg-teal-soft py-8 overflow-hidden">
+  <p class="text-center text-teal font-headline font-bold text-xs tracking-widest uppercase mb-4">מה אומרים משתתפים</p>
+  <div class="relative overflow-hidden">
+    <div class="flex gap-12 w-max" style="animation: marquee 30s linear infinite;">
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"הגוף שלי אמר תודה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"באתי לבד ויצאתי עם משפחה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"פעם ראשונה שבאמת נשמתי"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"כל אחד חייב את זה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חזרתי בן אדם אחר"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"הגוף שלי אמר תודה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"באתי לבד ויצאתי עם משפחה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"פעם ראשונה שבאמת נשמתי"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"כל אחד חייב את זה"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חזרתי בן אדם אחר"</span>
     </div>
-    <p class="wa-count fade-in delay-3">47 אנשים כבר בקבוצה</p>
   </div>
 </section>
 
-<!-- SECTION 11: FAQ -->
-<section class="faq section-padding" id="faq">
-  <div class="container">
-    <h2 class="section-title fade-in">שאלות ותשובות<span></span></h2>
+<!-- ========== SECTION 8: PRICING — Concert Ticket ========== -->
+<section class="bg-night py-32 px-6 md:px-20 relative overflow-hidden" id="pricing">
+  <div class="absolute -top-20 -left-20 w-96 h-96 bg-secondary-container opacity-20 rotate-12 -z-10"></div>
+
+  <div class="max-w-5xl mx-auto">
+    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-6 text-center fade-in">ההשקעה שלכם</h2>
+    <div class="text-center mb-12 fade-in">
+      <span class="inline-flex items-center gap-2 bg-secondary/10 text-secondary font-headline font-bold text-sm px-4 py-2">
+        <span class="w-2 h-2 bg-red-500" style="animation: pulseDot 1.5s infinite;"></span>
+        נשארו מקומות אחרונים במחיר השקה
+      </span>
+    </div>
+
+    <!-- Ticket -->
+    <div class="max-w-xl mx-auto transform -rotate-1 hover:rotate-0 transition-transform duration-500 shadow-2xl fade-in">
+      <div class="ticket-shape flex flex-col relative text-charcoal">
+        <!-- Top half -->
+        <div class="p-8 pb-4">
+          <div class="flex justify-between items-start mb-6">
+            <span class="bg-secondary text-sand px-3 py-1 font-headline font-bold text-xs tracking-wider uppercase">&#x1F525; מחיר השקה — לזמן מוגבל</span>
+            <div class="text-left font-display font-black text-sm tracking-tighter opacity-40">BOARDING PASS / 2026</div>
+          </div>
+          <div class="mb-6">
+            <h2 class="font-display font-black text-3xl leading-none tracking-tight">ACROYOGA RETREAT</h2>
+            <p class="font-headline font-light text-lg opacity-80">DESERT MYSTICISM // VOL. 1</p>
+          </div>
+          <div class="flex justify-between items-end border-b border-charcoal/10 pb-4">
+            <div>
+              <span class="text-xs uppercase font-label font-bold tracking-widest opacity-60">REGULAR PRICE</span>
+              <span class="block text-2xl font-headline font-light line-through decoration-2 decoration-secondary">₪1,900</span>
+            </div>
+            <div class="text-left">
+              <span class="text-xs uppercase font-label font-bold tracking-widest opacity-60">LOCATION</span>
+              <span class="block text-sm font-headline font-bold">DEAD SEA DESERT</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Perforated line -->
+        <div class="flex items-center justify-center"><div class="border-t-2 border-dashed border-charcoal/30 w-[95%]"></div></div>
+
+        <!-- Bottom half -->
+        <div class="p-8 pt-6">
+          <div class="flex flex-col items-center mb-6">
+            <span class="text-xs font-label font-bold tracking-[0.2em] mb-2">ADMISSION PRICE</span>
+            <span class="font-headline font-black text-7xl md:text-8xl tracking-tighter leading-none">₪1,500</span>
+            <div class="bg-teal-soft text-teal px-4 py-1 mt-3 text-sm font-bold">חיסכון של ₪400!</div>
+            <div class="bg-white/40 px-4 py-1 mt-2 text-sm font-bold border border-charcoal/10">מקדמה: ₪500 בלבד</div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-y-3 gap-x-6 mb-8 border-y border-charcoal/10 py-4">
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">אקרויוגה ויוגה</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">פיתוח אישי</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">קורס AI</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">לינה + ארוחות</span></div>
+          </div>
+
+          <a href="#" class="block w-full bg-secondary hover:bg-secondary-container text-sand font-headline font-black text-xl py-5 text-center transition-all active:scale-[0.98]" onclick="return false;">
+            שריינו מקום במחיר השקה &larr;
+          </a>
+          <div class="flex justify-between text-[10px] font-label font-bold tracking-widest opacity-60 uppercase mt-4">
+            <span>ביטול חינם עד 3 ימים</span>
+            <span>₪1,000 BALANCE AT RETREAT</span>
+          </div>
+        </div>
+
+        <div class="barcode-line w-full mb-2"></div>
+        <div class="text-center pb-4 text-[10px] font-mono tracking-[0.5em] opacity-20">ACROYOGA-TLV-2026-DESERT</div>
+      </div>
+    </div>
+
+    <!-- Referral -->
+    <div class="max-w-xl mx-auto mt-12 bg-surface-container-high p-8 text-center fade-in">
+      <h4 class="font-headline font-black text-xl text-on-surface mb-3">&#x1F381; יש לכם חבר/ה שצריכ/ה את זה?</h4>
+      <p class="font-body font-light text-on-surface-variant mb-6">שלחו את הדף — אם הם נרשמים, שניכם מקבלים 10% הנחה!</p>
+      <div class="flex gap-3 justify-center flex-wrap">
+        <a href="#" class="bg-whatsapp text-white px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="shareWhatsApp">&#x1F4F2; שיתוף בוואטסאפ</a>
+        <button class="bg-surface-container-highest text-on-surface px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="copyLink">&#x1F4CB; העתקת קישור</button>
+      </div>
+      <p class="text-xs text-on-surface-variant/50 mt-3">ההנחה תינתן בעת התשלום הסופי ביום הרטריט</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SECTION 9: WHATSAPP GROUP ========== -->
+<section class="bg-surface-container-low py-24 px-6 text-center text-on-surface" id="wa-group">
+  <div class="max-w-lg mx-auto">
+    <h2 class="font-headline font-black text-4xl mb-4 fade-in">לא חייבים להחליט עכשיו.</h2>
+    <p class="font-body font-light text-on-surface-variant mb-8 fade-in d1">הצטרפו לקבוצת הוואטסאפ — קבלו עדכונים, הכירו משתתפים, שאלו שאלות.</p>
+    <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="inline-flex items-center gap-2 bg-whatsapp text-white px-10 py-4 font-headline font-black text-xl hover:translate-y-[-2px] transition-transform fade-in d2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      הצטרפו לקבוצה &larr;
+    </a>
+    <p class="text-on-surface-variant/40 text-sm mt-4 fade-in d3">47 אנשים כבר בקבוצה</p>
+  </div>
+</section>
+
+<!-- ========== SECTION 10: FAQ ========== -->
+<section class="bg-surface-container py-32 px-6" id="faq">
+  <div class="max-w-2xl mx-auto">
+    <h2 class="font-display font-black text-5xl text-on-surface tracking-tighter mb-12 text-center fade-in">שאלות ותשובות</h2>
     <div class="faq-list">
-      <div class="faq-item fade-in">
-        <button class="faq-question">
-          מה זה אקרויוגה? צריך ניסיון?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">אקרויוגה היא שילוב של יוגה, אקרובטיקה ומגע ריפוי. לא צריך ניסיון — מתחילים מאפס ובונים ביחד.</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה זה אקרויוגה? צריך ניסיון?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">אקרויוגה היא שילוב מדהים של יוגה, אקרובטיקה ומגע ריפוי (Thai massage). לא צריך ניסיון — מתחילים מאפס ובונים ביחד. זה בדיוק המקום ללמוד.</div></div>
       </div>
-      <div class="faq-item fade-in delay-1">
-        <button class="faq-question">
-          מגיעים לבד? מתאים?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">רוב המשתתפים מגיעים לבד! זה בדיוק המקום להכיר אנשים חדשים ולבנות חיבורים אמיתיים.</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in d1">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מגיעים לבד? מתאים?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">רוב המשתתפים מגיעים לבד! זה בדיוק המקום להכיר אנשים חדשים ולבנות חיבורים אמיתיים. האקרויוגה עצמה בנויה על עבודה בזוגות עם אנשים חדשים.</div></div>
       </div>
-      <div class="faq-item fade-in">
-        <button class="faq-question">
-          מה כולל המחיר?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">הכל כלול — שיעורים, סדנאות, לינה, ארוחות מלאות, וכל החוויות לאורך הסוף שבוע.</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה כולל המחיר?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">הכל כלול — שיעורי אקרויוגה ויוגה, סדנת פיתוח אישי, קורס AI, לינה מלאה, ארוחות, מדיטציות ומעגלי שיתוף. הכל.</div></div>
       </div>
-      <div class="faq-item fade-in delay-1">
-        <button class="faq-question">
-          מה מדיניות הביטולים?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">ביטול חינם עד 3 ימים לפני הרטריט. המקדמה של ₪500 מוחזרת במלואה.</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in d1">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה מדיניות הביטולים?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">ביטול חינם עד 3 ימים לפני הרטריט. המקדמה של ₪500 מוחזרת במלואה. אפס סיכון.</div></div>
       </div>
-      <div class="faq-item fade-in">
-        <button class="faq-question">
-          מה צריך להביא?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">בגדים נוחים לתנועה, בגד ים, מגבת, קרם הגנה, ורצון לחוויה חדשה &#x1F60A;</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה צריך להביא?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">בגדים נוחים לתנועה, בגד ים, מגבת, קרם הגנה, ורצון לחוויה חדשה.</div></div>
       </div>
-      <div class="faq-item fade-in delay-1">
-        <button class="faq-question">
-          יש הסעות?
-          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        </button>
-        <div class="faq-answer">
-          <div class="faq-answer-inner">פרטים על הסעות יפורסמו בקרוב בקבוצת הוואטסאפ.</div>
-        </div>
+      <div class="faq-item border-b border-outline-variant/20 fade-in d1">
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">יש הסעות?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">פרטים על הסעות יפורסמו בקרוב בקבוצת הוואטסאפ.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECTION 12: FINAL CTA -->
-<section class="final-cta section-padding" id="final">
-  <div class="container">
-    <div class="big-text fade-in">
-      המקומות מוגבלים.<br>
-      המחיר עולה בקרוב.<br>
-      הגוף שלך כבר יודע את התשובה.
+<!-- ========== SECTION 11: FINAL CTA — Nike Meets Brutalism ========== -->
+<section class="relative pt-32 pb-40 px-6 min-h-[80vh] flex flex-col items-start desert-glow" id="final">
+  <div class="absolute -left-20 top-1/4 w-64 h-96 bg-secondary-container/10 rotate-12 -z-10 blur-3xl"></div>
+  <div class="max-w-4xl mx-auto w-full">
+    <div class="mb-8 flex flex-col gap-2 fade-in">
+      <p class="font-label text-secondary font-light tracking-widest uppercase text-sm border-r-2 border-secondary pr-4">המקומות מוגבלים.</p>
+      <p class="font-label text-on-surface-variant font-light tracking-widest uppercase text-xs pr-4">המחיר עולה בקרוב.</p>
     </div>
-    <p class="final-urgency fade-in delay-1">&#x1F525; מחיר השקה ₪1,500 (במקום ₪1,900) — נשארו מקומות אחרונים</p>
-    <div class="final-buttons fade-in delay-2">
-      <a href="#" class="btn-primary" onclick="return false;">שריינו מקום במחיר השקה &larr;</a>
-      <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="btn-outline">הצטרפו לוואטסאפ &larr;</a>
+
+    <h2 class="monolith-text font-headline font-black text-on-surface flex flex-col items-start gap-2 mb-12 select-none fade-in d1">
+      <span class="text-[clamp(3.5rem,14vw,9rem)] leading-none text-on-surface">הגוף</span>
+      <span class="text-[clamp(3rem,11vw,7rem)] leading-none text-secondary -mt-2">שלך כבר</span>
+      <span class="text-[clamp(4rem,16vw,10rem)] leading-none -mt-4">יודע</span>
+      <span class="text-[clamp(2.5rem,9vw,5rem)] leading-none font-light italic text-on-surface-variant border-b border-outline-variant/30 pb-4">את התשובה</span>
+    </h2>
+
+    <div class="flex flex-col md:flex-row gap-4 w-full max-w-2xl fade-in d2">
+      <a href="#" class="flex-1 bg-secondary text-on-secondary font-headline font-black text-xl py-6 px-8 hover:heat-gradient transition-all flex items-center justify-between group" onclick="return false;">
+        <span>שריינו מקום במחיר השקה</span>
+        <span class="material-symbols-outlined group-hover:translate-x-[-8px] transition-transform">arrow_back</span>
+      </a>
+      <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="border border-whatsapp/40 text-whatsapp font-headline font-bold text-lg py-6 px-8 hover:bg-whatsapp/5 transition-colors flex items-center gap-3">
+        <span class="material-symbols-outlined">chat</span>
+        הצטרפו לוואטסאפ
+      </a>
     </div>
-    <p class="final-micro fade-in delay-3">מקדמה ₪500 בלבד · ביטול חינם · אפס סיכון</p>
+
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-on-surface-variant/50 font-label text-xs tracking-widest mt-6 fade-in d3">
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>מקדמה ₪500</div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>ביטול חינם</div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>אפס סיכון</div>
+    </div>
+  </div>
+
+  <!-- Desert silhouette -->
+  <div class="absolute bottom-32 left-0 w-1/3 h-[400px] -z-20 opacity-30 mix-blend-luminosity pointer-events-none hidden md:block">
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcixvmZZZH1VFvf5qDskLnPWUwJ9o8CJvz70y8kEeKsuQHg74Sye4CCe6fA2NW1fvRFyDK0f-68a5w65-YsTcAH662bljYabRLMnoRqIJoCXtuv7AfCjshGO4lS-RzkpNtort-hSlzS7o9CBO5G6ZY_H0iG5Y8sC2ttxlz4Ok-AoAoA1Rg2vplgvi-ac1Pt38tfPlwZQ8S2pk2RhcNnLeNWz_NLq9tMTz3lUsmXEsvaY_XRh8-YQAVYh0e-8sIMWMQLPjiNeHth6Jk" alt="" class="w-full h-full object-cover grayscale opacity-50">
   </div>
 </section>
 
-<!-- SECTION 13: FOOTER -->
-<footer class="footer">
-  <div class="container">
-    <p class="footer-brand">Acroyoga Academy TLV</p>
-    <div class="footer-social">
-      <a href="https://instagram.com/acroshay" target="_blank" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-      </a>
-      <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      </a>
-    </div>
-    <p class="footer-contact">info@acroyoga-academy.co.il · 054-XXXXXXX</p>
-    <p class="footer-copy">&copy; 2026 Acroyoga Academy TLV. כל הזכויות שמורות.</p>
+<!-- ========== FOOTER ========== -->
+<footer class="bg-night border-t border-white/5 py-16 px-6 text-center text-on-surface">
+  <p class="font-headline font-black text-secondary tracking-widest uppercase mb-6">Acroyoga Academy TLV</p>
+  <div class="flex justify-center gap-6 mb-6">
+    <a href="https://instagram.com/acroshay" target="_blank" class="w-10 h-10 bg-white/8 flex items-center justify-center hover:bg-white/15 transition-colors">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#dee3ea"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+    <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="w-10 h-10 bg-white/8 flex items-center justify-center hover:bg-white/15 transition-colors">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="#dee3ea"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
   </div>
+  <p class="text-on-surface/30 text-xs tracking-widest">info@acroyoga-academy.co.il</p>
+  <p class="text-on-surface/20 text-xs tracking-widest mt-2">&copy; 2026 Acroyoga Academy TLV. כל הזכויות שמורות.</p>
 </footer>
 
-<!-- COPY TOAST -->
+<!-- Toast -->
 <div class="copy-toast" id="copyToast">הקישור הועתק &#x2713;</div>
 
 <!-- ========== JAVASCRIPT ========== -->
 <script>
-// === Urgency Bar Dismiss ===
+// Urgency bar
 function dismissBar() {
-  document.getElementById('urgencyBar').classList.add('hidden');
-  document.getElementById('nav').classList.add('bar-hidden');
+  document.getElementById('urgencyBar').style.transform = 'translateY(-100%)';
+  document.getElementById('nav').style.top = '0';
   sessionStorage.setItem('barDismissed', '1');
 }
 if (sessionStorage.getItem('barDismissed')) dismissBar();
 
-// === Nav Scroll Effect ===
+// Nav scroll
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 100);
+  if (window.scrollY > 100) {
+    nav.style.background = 'rgba(15,25,35,0.95)';
+    nav.style.backdropFilter = 'blur(10px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
 }, { passive: true });
 
-// === Mobile Menu ===
+// Mobile menu
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 const mobileOverlay = document.getElementById('mobileOverlay');
-
 hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-  mobileOverlay.classList.toggle('open');
+  mobileMenu.style.transform = 'translateX(0)';
+  mobileOverlay.classList.remove('hidden');
 });
+function closeMenu() {
+  mobileMenu.style.transform = 'translateX(100%)';
+  mobileOverlay.classList.add('hidden');
+}
 mobileOverlay.addEventListener('click', closeMenu);
 
-function closeMenu() {
-  mobileMenu.classList.remove('open');
-  mobileOverlay.classList.remove('open');
-}
-
-// === Scroll-Triggered Fade-In (Intersection Observer) ===
-const fadeEls = document.querySelectorAll('.fade-in');
+// Intersection Observer
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-fadeEls.forEach(el => observer.observe(el));
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-// === Solution Bridge Text Reveal ===
-const solutionLines = document.querySelectorAll('#solutionText .line');
-const solutionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      solutionLines.forEach((line, i) => {
-        setTimeout(() => line.classList.add('visible'), i * 400);
-      });
-    }
-  });
-}, { threshold: 0.3 });
-if (document.getElementById('solutionText')) {
-  solutionObserver.observe(document.getElementById('solutionText'));
-}
-
-// === FAQ Accordion ===
-document.querySelectorAll('.faq-question').forEach(btn => {
+// FAQ
+document.querySelectorAll('.faq-q').forEach(btn => {
   btn.addEventListener('click', () => {
     const item = btn.parentElement;
     const answer = item.querySelector('.faq-answer');
-    const isOpen = item.classList.contains('open');
-
-    // Close all
-    document.querySelectorAll('.faq-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-      openItem.querySelector('.faq-answer').style.maxHeight = null;
+    const icon = btn.querySelector('.material-symbols-outlined');
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+    document.querySelectorAll('.faq-item').forEach(i => {
+      i.querySelector('.faq-answer').style.maxHeight = null;
+      i.querySelector('.faq-q .material-symbols-outlined').textContent = 'add';
+      i.querySelector('.faq-q .material-symbols-outlined').style.transform = '';
     });
-
-    // Toggle current
     if (!isOpen) {
-      item.classList.add('open');
       answer.style.maxHeight = answer.scrollHeight + 'px';
+      icon.textContent = 'close';
+      icon.style.transform = 'rotate(0deg)';
     }
   });
 });
 
-// === Bento Card Mouse Spotlight ===
-document.querySelectorAll('.bento-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    card.style.setProperty('--x', x + 'px');
-    card.style.setProperty('--y', y + 'px');
-    if (card.querySelector(':before')) {
-      card.style.background = '';
-    }
-  });
-});
-
-// === WhatsApp Share ===
+// Share
 document.getElementById('shareWhatsApp').addEventListener('click', (e) => {
   e.preventDefault();
-  const url = window.location.href;
-  const text = encodeURIComponent('היי! ראיתי רטריט אקרויוגה מטורף בים המלח/אילת \uD83E\uDD38 — בואי נלך ביחד! ' + url);
+  const text = encodeURIComponent('היי! ראיתי רטריט אקרויוגה מטורף בים המלח/אילת \uD83E\uDD38 — בואי נלך ביחד! ' + window.location.href);
   window.open('https://wa.me/?text=' + text, '_blank');
 });
-
-// === Copy Link ===
 document.getElementById('copyLink').addEventListener('click', () => {
   navigator.clipboard.writeText(window.location.href).then(() => {
-    const toast = document.getElementById('copyToast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 2000);
+    const t = document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
   });
 });
 
-// === Smooth scroll offset for fixed nav ===
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const href = link.getAttribute('href');
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const href = a.getAttribute('href');
     if (href === '#') return;
     e.preventDefault();
     const target = document.querySelector(href);
-    if (target) {
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
-    }
+    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
   });
 });
 </script>
