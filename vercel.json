@@ -1,0 +1,6 @@
+{
+  "buildCommand": "node build-blog.mjs",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "trailingSlash": false
+}

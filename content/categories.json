@@ -1,0 +1,12 @@
+[
+  {"id": "acroyoga", "hebrew": "אקרויוגה", "emoji": "🤸", "color": "secondary"},
+  {"id": "yoga", "hebrew": "יוגה", "emoji": "🧘", "color": "teal"},
+  {"id": "meditation", "hebrew": "מדיטציה", "emoji": "🧠", "color": "teal"},
+  {"id": "personal-dev", "hebrew": "פיתוח אישי", "emoji": "💡", "color": "secondary"},
+  {"id": "ai-tech", "hebrew": "AI וטכנולוגיה", "emoji": "🤖", "color": "secondary"},
+  {"id": "dead-sea", "hebrew": "ים המלח", "emoji": "🌊", "color": "teal"},
+  {"id": "desert", "hebrew": "מדבר ואילת", "emoji": "🏜️", "color": "sand"},
+  {"id": "retreats", "hebrew": "רטריטים", "emoji": "🌅", "color": "secondary"},
+  {"id": "wellness", "hebrew": "בריאות", "emoji": "❤️", "color": "teal"},
+  {"id": "comparisons", "hebrew": "השוואות", "emoji": "⚖️", "color": "outline-variant"}
+]

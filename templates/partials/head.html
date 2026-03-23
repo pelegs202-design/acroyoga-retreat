@@ -1,0 +1,113 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{pageTitle}} | Acroyoga Academy TLV</title>
+  <meta name="description" content="{{pageDescription}}">
+  <link rel="canonical" href="{{canonicalUrl}}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{pageTitle}}">
+  <meta property="og:description" content="{{pageDescription}}">
+  <meta property="og:url" content="{{canonicalUrl}}">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:site_name" content="Acroyoga Academy TLV">
+
+  <!-- SEO -->
+  <meta name="robots" content="index, follow">
+  <link rel="alternate" hreflang="he" href="{{canonicalUrl}}">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;700;900&family=Epilogue:wght@400;700;900&family=Work+Sans:wght@100;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "rgb(15 20 25)",
+            "surface-container-low": "rgb(23 28 33)",
+            "surface-container": "rgb(27 32 37)",
+            "surface-container-high": "rgb(37 42 48)",
+            "surface-container-highest": "rgb(48 53 59)",
+            "on-surface": "rgb(222 227 234)",
+            "on-surface-variant": "rgb(196 198 203)",
+            "primary-container": "rgb(15 25 35)",
+            "secondary": "rgb(196 103 60)",
+            "secondary-hover": "rgb(212 119 76)",
+            "secondary-container": "rgb(125 50 9)",
+            "secondary-fixed": "rgb(255 219 205)",
+            "on-secondary": "rgb(88 30 0)",
+            "outline-variant": "rgb(68 71 75)",
+            "teal": "rgb(45 139 139)",
+            "teal-soft": "rgb(232 244 244)",
+            "sand": "rgb(242 232 218)",
+            "sand-deep": "rgb(232 213 190)",
+            "cream": "rgb(250 246 240)",
+            "charcoal": "rgb(30 30 30)",
+            "whatsapp": "rgb(37 211 102)",
+            "night": "rgb(15 25 35)",
+            "night-soft": "rgb(26 42 58)",
+          },
+          fontFamily: {
+            "headline": ["Heebo", "sans-serif"],
+            "body": ["Work Sans", "Heebo", "sans-serif"],
+            "label": ["Work Sans", "sans-serif"],
+            "display": ["Epilogue", "sans-serif"],
+          },
+          borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+
+    /* Grain overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  {{jsonLd}}
+</head>

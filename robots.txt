@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://acroyoga-retreat.vercel.app/sitemap.xml

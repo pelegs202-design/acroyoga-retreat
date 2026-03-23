@@ -1,0 +1,25 @@
+{
+  "name": "acroyoga-retreat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build-blog.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pelegs202-design/acroyoga-retreat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pelegs202-design/acroyoga-retreat/issues"
+  },
+  "homepage": "https://github.com/pelegs202-design/acroyoga-retreat#readme",
+  "dependencies": {
+    "@google/stitch-sdk": "^0.0.3"
+  }
+}

@@ -1,6 +1,6 @@
 .vercel
 node_modules/
 preview/
-*.mjs
+blog/
 package*.json
 .mcp.json

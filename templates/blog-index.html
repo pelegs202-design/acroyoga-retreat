@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="he">
+{{head}}
+<body class="bg-primary-container text-on-surface font-body overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+
+{{nav}}
+
+<!-- Blog Hero -->
+<section class="pt-32 pb-16 px-4 md:px-20">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="font-headline font-black text-[12vw] md:text-[8vw] leading-[0.85] tracking-[-0.05em] text-on-surface mb-4">הבלוג</h1>
+    <p class="font-body font-light text-lg text-on-surface-variant max-w-xl">מאמרים על אקרויוגה, יוגה, מדיטציה, פיתוח אישי, AI ועוד — הכל בעברית, הכל בשבילכם.</p>
+    <div class="h-[2px] w-16 bg-secondary mt-6"></div>
+  </div>
+</section>
+
+<!-- Category Filter -->
+<section class="px-4 md:px-20 pb-8">
+  <div class="max-w-6xl mx-auto flex flex-wrap gap-3" id="categoryFilters">
+    <button class="category-btn active bg-secondary text-night px-4 py-2 font-headline font-bold text-sm transition-all" data-category="all">הכל</button>
+    <!-- Categories injected by build script -->
+    {{categoryButtons}}
+  </div>
+</section>
+
+<!-- Article Grid -->
+<section class="px-4 md:px-20 pb-20">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articleGrid">
+    {{articleCards}}
+  </div>
+</section>
+
+<!-- CTA Banner -->
+{{ctaBanner}}
+
+{{footer}}
+
+<!-- Scripts -->
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    nav.style.background = 'rgba(15,25,35,0.95)';
+    nav.style.backdropFilter = 'blur(10px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
+}, { passive: true });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    mobileMenu.style.transform = 'translateX(0)';
+    mobileOverlay.classList.remove('hidden');
+  });
+}
+function closeMenu() {
+  mobileMenu.style.transform = 'translateX(100%)';
+  mobileOverlay.classList.add('hidden');
+}
+if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+
+// Category filtering
+const categories = {{categoriesJson}};
+const buttons = document.querySelectorAll('.category-btn');
+const cards = document.querySelectorAll('.article-card');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => {
+      b.classList.remove('active', 'bg-secondary', 'text-night');
+      b.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    btn.classList.add('active', 'bg-secondary', 'text-night');
+    btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+    const cat = btn.dataset.category;
+    cards.forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

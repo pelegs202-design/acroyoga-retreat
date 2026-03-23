@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="he">
+{{head}}
+<body class="bg-primary-container text-on-surface font-body overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+
+{{nav}}
+
+<!-- Breadcrumb -->
+<div class="max-w-3xl mx-auto px-4 pt-28 pb-4">
+  {{breadcrumb}}
+</div>
+
+<!-- Article Header -->
+<header class="max-w-3xl mx-auto px-4 pb-12">
+  <div class="flex items-center gap-3 mb-6">
+    <span class="text-3xl">{{heroEmoji}}</span>
+    <span class="bg-secondary/20 text-secondary px-3 py-1 font-headline font-bold text-sm uppercase tracking-wider">{{categoryHebrew}}</span>
+  </div>
+  <h1 class="font-headline font-black text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-on-surface mb-6">{{title}}</h1>
+  <div class="flex items-center gap-4 text-on-surface-variant text-sm font-body">
+    <time>{{publishDate}}</time>
+    <span>&middot;</span>
+    <span>{{readingTime}} דקות קריאה</span>
+  </div>
+  <div class="h-[2px] w-16 bg-secondary mt-8"></div>
+</header>
+
+<!-- Article Body -->
+<article class="max-w-3xl mx-auto px-4 pb-16">
+  <div class="prose prose-lg prose-invert max-w-none
+    [&>h2]:font-headline [&>h2]:font-black [&>h2]:text-2xl [&>h2]:md:text-3xl [&>h2]:text-on-surface [&>h2]:mt-12 [&>h2]:mb-4 [&>h2]:tracking-tight
+    [&>h3]:font-headline [&>h3]:font-bold [&>h3]:text-xl [&>h3]:text-secondary [&>h3]:mt-8 [&>h3]:mb-3
+    [&>p]:text-on-surface-variant [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-base [&>p]:md:text-lg
+    [&>ul]:text-on-surface-variant [&>ul]:pr-6 [&>ul]:mb-6 [&>ul>li]:mb-2 [&>ul>li]:leading-relaxed
+    [&>ol]:text-on-surface-variant [&>ol]:pr-6 [&>ol]:mb-6 [&>ol>li]:mb-2 [&>ol>li]:leading-relaxed
+    [&>blockquote]:border-r-4 [&>blockquote]:border-secondary [&>blockquote]:pr-6 [&>blockquote]:pl-0 [&>blockquote]:italic [&>blockquote]:text-on-surface-variant/80 [&>blockquote]:my-8
+    [&_a]:text-secondary [&_a]:underline [&_a]:underline-offset-4 [&_a]:hover:text-secondary-hover
+    [&>strong]:text-on-surface [&>strong]:font-bold">
+    {{content}}
+  </div>
+</article>
+
+<!-- Related Articles -->
+<section class="max-w-4xl mx-auto px-4 pb-16">
+  <h2 class="font-headline font-black text-2xl text-on-surface mb-8">מאמרים קשורים</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {{relatedArticles}}
+  </div>
+</section>
+
+<!-- CTA Banner -->
+{{ctaBanner}}
+
+{{footer}}
+
+<!-- Scripts -->
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    nav.style.background = 'rgba(15,25,35,0.95)';
+    nav.style.backdropFilter = 'blur(10px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
+}, { passive: true });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    mobileMenu.style.transform = 'translateX(0)';
+    mobileOverlay.classList.remove('hidden');
+  });
+}
+function closeMenu() {
+  mobileMenu.style.transform = 'translateX(100%)';
+  mobileOverlay.classList.add('hidden');
+}
+if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+
+// Fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

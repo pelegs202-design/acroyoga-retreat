@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Acroyoga Retreat | Acroyoga Academy TLV</title>
+  <meta name="description" content="Articles, guides and tips about acroyoga, retreats, and partner acrobatics.">
+  <link rel="canonical" href="https://acroyoga-retreat.vercel.app/blog/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Blog | Acroyoga Retreat">
+  <meta property="og:description" content="Articles, guides and tips about acroyoga, retreats, and partner acrobatics.">
+  <meta property="og:url" content="https://acroyoga-retreat.vercel.app/blog/">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:site_name" content="Acroyoga Academy TLV">
+
+  <!-- SEO -->
+  <meta name="robots" content="index, follow">
+  <link rel="alternate" hreflang="he" href="https://acroyoga-retreat.vercel.app/blog/">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;700;900&family=Epilogue:wght@400;700;900&family=Work+Sans:wght@100;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface": "rgb(15 20 25)",
+            "surface-container-low": "rgb(23 28 33)",
+            "surface-container": "rgb(27 32 37)",
+            "surface-container-high": "rgb(37 42 48)",
+            "surface-container-highest": "rgb(48 53 59)",
+            "on-surface": "rgb(222 227 234)",
+            "on-surface-variant": "rgb(196 198 203)",
+            "primary-container": "rgb(15 25 35)",
+            "secondary": "rgb(196 103 60)",
+            "secondary-hover": "rgb(212 119 76)",
+            "secondary-container": "rgb(125 50 9)",
+            "secondary-fixed": "rgb(255 219 205)",
+            "on-secondary": "rgb(88 30 0)",
+            "outline-variant": "rgb(68 71 75)",
+            "teal": "rgb(45 139 139)",
+            "teal-soft": "rgb(232 244 244)",
+            "sand": "rgb(242 232 218)",
+            "sand-deep": "rgb(232 213 190)",
+            "cream": "rgb(250 246 240)",
+            "charcoal": "rgb(30 30 30)",
+            "whatsapp": "rgb(37 211 102)",
+            "night": "rgb(15 25 35)",
+            "night-soft": "rgb(26 42 58)",
+          },
+          fontFamily: {
+            "headline": ["Heebo", "sans-serif"],
+            "body": ["Work Sans", "Heebo", "sans-serif"],
+            "label": ["Work Sans", "sans-serif"],
+            "display": ["Epilogue", "sans-serif"],
+          },
+          borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <style>
+    html { scroll-behavior: smooth; }
+    body { overflow-x: hidden; }
+
+    /* Grain overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-in {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+    }
+  </style>
+
+  <!-- JSON-LD -->
+  
+</head>
+<body class="bg-primary-container text-on-surface font-body overflow-x-hidden selection:bg-secondary selection:text-on-secondary">
+
+<!-- Navigation -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="background: transparent;">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/" class="font-headline font-black text-on-surface text-lg tracking-tight">ACROYOGA ACADEMY TLV</a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="/blog/" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">בלוג</a>
+      <a href="/#included" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">מה מחכה</a>
+      <a href="/#schedule" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">לו״ז</a>
+      <a href="/#pricing" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">מחיר</a>
+      <a href="/#faq" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">שאלות</a>
+      <a href="/#pricing" class="bg-secondary hover:bg-secondary-hover text-on-secondary px-6 py-3 font-headline font-bold text-sm transition-colors">שריינו מקום</a>
+    </nav>
+
+    <!-- Hamburger -->
+    <button id="hamburger" class="md:hidden text-on-surface focus:outline-none" aria-label="תפריט">
+      <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="square" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Overlay -->
+<div id="mobileOverlay" class="fixed inset-0 bg-black/60 z-[60] hidden"></div>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed top-0 right-0 h-full w-72 bg-surface-container z-[70] transform translate-x-full transition-transform duration-300 ease-in-out">
+  <div class="flex items-center justify-between p-6 border-b border-white/5">
+    <span class="font-headline font-black text-on-surface text-sm">ACROYOGA ACADEMY TLV</span>
+    <button onclick="closeMenu()" class="text-on-surface-variant hover:text-on-surface" aria-label="סגור">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="square" d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </div>
+  <nav class="flex flex-col p-6 gap-6">
+    <a href="/blog/" onclick="closeMenu()" class="text-on-surface font-headline font-bold text-lg">בלוג</a>
+    <a href="/#included" onclick="closeMenu()" class="text-on-surface font-headline font-bold text-lg">מה מחכה</a>
+    <a href="/#schedule" onclick="closeMenu()" class="text-on-surface font-headline font-bold text-lg">לו״ז</a>
+    <a href="/#pricing" onclick="closeMenu()" class="text-on-surface font-headline font-bold text-lg">מחיר</a>
+    <a href="/#faq" onclick="closeMenu()" class="text-on-surface font-headline font-bold text-lg">שאלות</a>
+    <a href="/#pricing" onclick="closeMenu()" class="bg-secondary hover:bg-secondary-hover text-on-secondary px-6 py-3 font-headline font-bold text-sm text-center transition-colors mt-4">שריינו מקום</a>
+  </nav>
+</div>
+
+<!-- Floating WhatsApp Button -->
+<a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer"
+   class="fixed bottom-6 left-6 z-50 bg-whatsapp hover:scale-110 transition-transform w-14 h-14 flex items-center justify-center shadow-lg"
+   aria-label="הצטרפו לוואטסאפ">
+  <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- Blog Hero -->
+<section class="pt-32 pb-16 px-4 md:px-20">
+  <div class="max-w-6xl mx-auto">
+    <h1 class="font-headline font-black text-[12vw] md:text-[8vw] leading-[0.85] tracking-[-0.05em] text-on-surface mb-4">הבלוג</h1>
+    <p class="font-body font-light text-lg text-on-surface-variant max-w-xl">מאמרים על אקרויוגה, יוגה, מדיטציה, פיתוח אישי, AI ועוד — הכל בעברית, הכל בשבילכם.</p>
+    <div class="h-[2px] w-16 bg-secondary mt-6"></div>
+  </div>
+</section>
+
+<!-- Category Filter -->
+<section class="px-4 md:px-20 pb-8">
+  <div class="max-w-6xl mx-auto flex flex-wrap gap-3" id="categoryFilters">
+    <button class="category-btn active bg-secondary text-night px-4 py-2 font-headline font-bold text-sm transition-all" data-category="all">הכל</button>
+    <!-- Categories injected by build script -->
+    {{categoryButtons}}
+  </div>
+</section>
+
+<!-- Article Grid -->
+<section class="px-4 md:px-20 pb-20">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="articleGrid">
+      <a href="/blog/chatgpt-vs-gemini/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">ChatGPT מול Gemini — השוואה למתחילים</h2>
+      <p class="article-card__description">ChatGPT של OpenAI מול Gemini של גוגל — מה ההבדל, מה היתרונות של כל אחד, ואיזה כלי AI מתאים לכם? השוואה מלאה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-07">2026-07-07</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/kvutzati-vs-prati/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">שיעור קבוצתי מול פרטי — מה עדיף ליוגה</h2>
+      <p class="article-card__description">שיעור יוגה קבוצתי או פרטי? לכל אחד יתרונות ברורים. גלו מה מתאים לכם לפי הרמה, התקציב והמטרות שלכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-06">2026-07-06</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/hatha-vs-vinyasa/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">האתה מול ויניאסה — ההבדלים שחשוב להכיר</h2>
+      <p class="article-card__description">האתה וויניאסה הם שני סגנונות יוגה פופולריים עם אופי שונה. גלו את ההבדלים ובחרו את הסגנון שמתאים לכם באמת.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-05">2026-07-05</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-boker-vs-erev/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">יוגה בבוקר מול ערב — מתי עדיף להתאמן</h2>
+      <p class="article-card__description">מתי עדיף לתרגל יוגה — בבוקר או בערב? שני הזמנים מציעים יתרונות שונים. גלו מה מתאים לכם לפי אורח החיים שלכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-04">2026-07-04</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/online-vs-retrit/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">יוגה אונליין מול רטריט — מה נותן יותר</h2>
+      <p class="article-card__description">יוגה אונליין נוחה וזמינה, אבל רטריט מציע חוויה שאי אפשר לחקות דרך מסך. השוואה מלאה כדי שתדעו מה מתאים לכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-03">2026-07-03</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-vs-eilat/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">ים המלח מול אילת — לאן כדאי לנסוע</h2>
+      <p class="article-card__description">ים המלח או אילת? השוואה מלאה בין שני היעדים הפופולריים בדרום ישראל — טבע, פעילויות, מחירים ולמי מתאים כל יעד.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-02">2026-07-02</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-vs-yoga/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">מדיטציה מול יוגה — מה מתאים לכם</h2>
+      <p class="article-card__description">מדיטציה ויוגה קשורות זו לזו אבל שונות. גלו את ההבדלים, היתרונות של כל אחת, ואיזו מתאימה לכם יותר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-07-01">2026-07-01</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-vs-khufsha/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">רטריט מול חופשה רגילה — למה רטריט עדיף</h2>
+      <p class="article-card__description">מה ההבדל בין רטריט לחופשה רגילה? גלו למה אנשים חוזרים מרטריט מחודשים באמת, בעוד חופשה רגילה מעייפת לפעמים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-30">2026-06-30</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-vs-yoga/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">אקרויוגה מול יוגה רגילה — ההבדלים המלאים</h2>
+      <p class="article-card__description">מה ההבדל בין אקרויוגה ליוגה רגילה? השוואה מלאה של שתי הדיסציפלינות — סגנון, יתרונות, קושי ולמי כל אחת מתאימה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-29">2026-06-29</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-vs-pilates/" class="article-card" data-category="comparisons">
+    <span class="article-card__emoji">⚖️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:outline-variant">⚖️ השוואות</span>
+      <h2 class="article-card__title">יוגה מול פילאטיס — מה ההבדל ומה מתאים לכם</h2>
+      <p class="article-card__description">יוגה ופילאטיס דומות אבל שונות. גלו את ההבדלים האמיתיים בין השתיים, היתרונות של כל אחת, ומה מתאים לכם באמת.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-28">2026-06-28</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tnua-yomyomit/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">תנועה יומיומית — למה הגוף צריך לזוז כל יום</h2>
+      <p class="article-card__description">הגוף נבנה לזוז — ישיבה ממושכת הורסת אותו. גלו למה תנועה יומיומית חשובה, ואיך לשלב אותה בשגרה בלי חדר כושר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-27">2026-06-27</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/refua-tivit/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">רפואה טבעית — מה עובד ומה כדאי להיזהר</h2>
+      <p class="article-card__description">רפואה טבעית ומשלימה: מה באמת עובד לפי מחקר, מה עדיין לא מוכח, ומתי חשוב לפנות לרופא. מדריך הגון ומאוזן.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-26">2026-06-26</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-vetzona/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">יוגה ותזונה — השילוב המנצח לבריאות</h2>
+      <p class="article-card__description">יוגה ותזונה בריאה משלימים אחד את השני בצורה מושלמת. גלו איך התרגול משפיע על הרגלי אכילה ואיך לאכול נכון ליוגה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-25">2026-06-25</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mayim-briut/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">שתיית מים — למה זה חשוב יותר ממה שחשבתם</h2>
+      <p class="article-card__description">שתיית מים משפיעה על אנרגיה, ריכוז, עיכול, עור ומצב רוח. גלו כמה לשתות, מתי, ואיך להפוך את זה להרגל קבוע.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-24">2026-06-24</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/stress-haguf/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">סטרס וגוף — איך מתח משפיע על הבריאות</h2>
+      <p class="article-card__description">סטרס כרוני פוגע בגוף יותר ממה שחשבתם: לב, עיכול, שינה, חסינות ועוד. הבינו את ההשפעות ולמדו כלים מעשיים להתמודדות.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-23">2026-06-23</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/detox-tivii/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">דיטוקס טבעי — מה באמת עובד (ומה שטויות)</h2>
+      <p class="article-card__description">דיטוקס טבעי: מה המדע אומר, מה באמת עוזר לגוף לנקות רעלים, ואילו טרנדים כדאי לדלג עליהם. המדריך הכנה לניקוי רעלים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-22">2026-06-22</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/energia-yomyomit/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">אנרגיה יומיומית — איך לא להתעייף עד הערב</h2>
+      <p class="article-card__description">מרגישים עייפים כל הזמן? הנה טיפים מעשיים לשמירה על אנרגיה גבוהה לאורך כל היום: תזונה, תנועה, שינה ושגרת יום.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-21">2026-06-21</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/shina-ekhutit/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">שינה איכותית — 10 טיפים שמבוססים על מחקר</h2>
+      <p class="article-card__description">שיפור איכות השינה עם 10 טיפים מבוססי מחקר: סביבה, הרגלים, תזונה ופעילות גופנית. המדריך המלא לשינה טובה יותר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-20">2026-06-20</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tzuna-briaa/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">תזונה בריאה — עקרונות בסיסיים שעובדים</h2>
+      <p class="article-card__description">עקרונות תזונה בריאה שפשוט עובדים: בלי דיאטות קיצוניות, בלי מגמות חולפות. המדריך המעשי לאכילה נכונה שמתאימה לכולם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-19">2026-06-19</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/briut-holistit/" class="article-card" data-category="wellness">
+    <span class="article-card__emoji">❤️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">❤️ בריאות</span>
+      <h2 class="article-card__title">בריאות הוליסטית — גישה שלמה לגוף ולנפש</h2>
+      <p class="article-card__description">בריאות הוליסטית מתייחסת לגוף, נפש ורוח כמכלול אחד. גלו את העקרונות, הכלים המעשיים ואיך להתחיל ליישם את הגישה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-18">2026-06-18</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-corporate/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט לצוותים — גיבוש קבוצתי דרך הגוף</h2>
+      <p class="article-card__description">רטריט גיבוש לצוותים וחברות: אקרויוגה, תנועה משותפת ופעילויות שמחזקות אמון ותקשורת. למה זה עובד יותר מפיינטבול.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-17">2026-06-17</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-bali-vs-israel/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט בבאלי מול רטריט בישראל — מה עדיף</h2>
+      <p class="article-card__description">השוואה מקיפה בין רטריט בבאלי לרטריט בישראל: מחירים, חוויה, נסיעה, טבע ותרבות. איפה באמת כדאי להשקיע? גלו עכשיו.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-16">2026-06-16</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-sof-shavua/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט סוף שבוע — למה 48 שעות מספיקות</h2>
+      <p class="article-card__description">רטריט סוף שבוע מציע חוויה עמוקה ומשמעותית תוך 48 שעות בלבד. גלו למה זה עובד, מה כולל ולמי מתאים. המדריך המלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-15">2026-06-15</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-yoga-israel/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריטים של יוגה בישראל — ההשוואה המלאה</h2>
+      <p class="article-card__description">סקירה מקיפה של רטריטי יוגה בישראל: סוגים, יעדים, מחירים ומה שחשוב לבדוק. המדריך שיעזור לכם לבחור את הרטריט המתאים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-14">2026-06-14</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-solo/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">הולכים לרטריט לבד? למה זה הדבר הכי טוב</h2>
+      <p class="article-card__description">ללכת לרטריט לבד זה מפחיד אבל מעצים. גלו למה זו החלטה שתשנה לכם את החיים, מה לצפות ואיך להתכונן. מדריך מלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-13">2026-06-13</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-zugot/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט לזוגות — חיזוק הקשר בדרך אחרת</h2>
+      <p class="article-card__description">רטריט לזוגות מחזק את הקשר דרך תנועה, נגיעה ושיח פתוח. גלו איך אקרויוגה ומדיטציה יכולים לשנות את הזוגיות שלכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-12">2026-06-12</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-kayitz/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט קיץ — הבריחה המושלמת מהשגרה</h2>
+      <p class="article-card__description">רטריט קיץ הוא הדרך הטובה ביותר לנצל את החופש: טבע, יוגה, אנשים חדשים ורגעים שלא תשכחו. כל מה שצריך לדעת.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-11">2026-06-11</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/retrit-pesakh/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רטריט פסח — סוף שבוע של חירות אמיתית</h2>
+      <p class="article-card__description">רטריט פסח מציע חוויה ייחודית של חירות פנימית: יוגה, מדיטציה, טבע וקהילה. גלו למה פסח הוא הזמן המושלם לרטריט.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-10">2026-06-10</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/reshimat-ariza-retrit/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">רשימת אריזה לרטריט — מה חייבים להביא</h2>
+      <p class="article-card__description">רשימת אריזה מלאה לרטריט: בגדים, ציוד, מוצרי טיפוח ופריטים שרבים שוכחים. הדפיסו את הרשימה וצאו מוכנים לחוויה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-09">2026-06-09</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mah-letzapot-beretrit/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">מה לצפות ברטריט הראשון שלכם</h2>
+      <p class="article-card__description">הולכים לרטריט בפעם הראשונה? הנה כל מה שצריך לדעת: מה יקרה, איך להתכונן, ומה לצפות מהחוויה. מדריך מלא למתחילים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-08">2026-06-08</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/eifo-bokhrim-retreat/" class="article-card" data-category="retreats">
+    <span class="article-card__emoji">🌅</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🌅 רטריטים</span>
+      <h2 class="article-card__title">איך בוחרים רטריט — 8 שאלות שחייבים לשאול</h2>
+      <p class="article-card__description">מתלבטים איזה רטריט לבחור? שמונה שאלות מנחות שיעזרו לכם למצוא את הרטריט המושלם בדיוק בשבילכם. המדריך המלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-07">2026-06-07</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/avir-midbar-briut/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">אוויר המדבר — למה הוא טוב כל כך לנשימה</h2>
+      <p class="article-card__description">אוויר המדבר מציע יתרונות בריאותיים מפתיעים: ריפוי נשימתי, הפחתת אלרגיות ושיפור מצב הרוח. גלו למה כדאי לנשום אוויר מדברי.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-06">2026-06-06</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tiul-jeep-midbar/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">טיול ג&apos;יפים במדבר — אדרנלין וטבע</h2>
+      <p class="article-card__description">טיול ג&apos;יפים במדבר הנגב: מסלולים מומלצים, חוויות אדרנלין על רקע נופים מדהימים, וטיפים לתכנון מושלם. כל מה שצריך לדעת.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-05">2026-06-05</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/shvil-israel-negev/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">שביל ישראל בנגב — קטעים מומלצים</h2>
+      <p class="article-card__description">המדריך המלא לקטעים המומלצים בשביל ישראל בנגב: נופים עוצרי נשימה, מכתשים ושבילים לכל רמת כושר. תכננו את ההליכה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-04">2026-06-04</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/eilat-snorkeling/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">שנורקלינג באילת — אלמוגים ודגים צבעוניים</h2>
+      <p class="article-card__description">גלו את עולם השנורקלינג באילת: שוניות אלמוגים מדהימות, דגים צבעוניים ואתרים מומלצים לצלילה חופשית בים סוף. המדריך המלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-03">2026-06-03</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yamlaila-bamidbar/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">לינה במדבר — גלמפינג, אוהלים וכוכבים</h2>
+      <p class="article-card__description">מדריך מלא ללינה במדבר הנגב. גלמפינג, אוהלים, צימרים מדבריים ולינה תחת כיפת השמיים. כל האפשרויות, המחירים והטיפים לחוויה מושלמת</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-02">2026-06-02</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/khavaya-beduit/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">חוויה בדואית במדבר — אוכל, אירוח ותרבות</h2>
+      <p class="article-card__description">מדריך לחוויה בדואית אותנטית במדבר הנגב. אירוח באוהל, אוכל מסורתי, רכיבה על גמלים ושיח על תרבות המדבר. חוויה שאי אפשר לשכוח</p>
+      <div class="article-card__meta">
+        <time datetime="2026-06-01">2026-06-01</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/makhtesh-ramon/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">מכתש רמון — מדריך ליום שלם</h2>
+      <p class="article-card__description">מדריך מקיף למכתש רמון ליום שלם. מסלולי טיול, תצפיות, אטרקציות ומסעדות. כל מה שצריך לתכנון ביקור מושלם בפלא הגיאולוגי הגדול</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-31">2026-05-31</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/kokhavim-bamidbar/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">צפייה בכוכבים במדבר — המדריך המלא</h2>
+      <p class="article-card__description">מדריך מלא לצפייה בכוכבים במדבר הנגב. איפה, מתי, מה רואים ואיך להכין את עצמכם לחוויה הכי מרהיבה שהשמיים מציעים בלילה</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-30">2026-05-30</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/midbar-negev/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">מדבר הנגב — חוויות שאי אפשר למצוא בעיר</h2>
+      <p class="article-card__description">מדריך לחוויות ייחודיות במדבר הנגב. מטיולים ומכתשים ועד לינה בכוכבים וחוויות בדואיות. כל מה שחייבים לחוות במדבר הדרומי של ישראל</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-29">2026-05-29</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/eilat-madrich/" class="article-card" data-category="desert">
+    <span class="article-card__emoji">🏜️</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:sand">🏜️ מדבר ואילת</span>
+      <h2 class="article-card__title">אילת — מדריך טיולים מקיף ל-2026</h2>
+      <p class="article-card__description">מדריך טיולים מקיף לאילת ב-2026. חופים, שמורות טבע, אטרקציות, מסעדות ולינה. כל מה שצריך לתכנון חופשה מושלמת בעיר הדרומית</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-28">2026-05-28</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-tips/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">15 טיפים לביקור בים המלח — מדריך מעשי</h2>
+      <p class="article-card__description">15 טיפים מעשיים וחשובים לביקור מוצלח בים המלח. מה לקחת, מה להימנע ממנו, ואיך להפיק את המקסימום מהחוויה הייחודית הזו</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-27">2026-05-27</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-historia/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">ההיסטוריה של ים המלח — 3,000 שנה של ריפוי</h2>
+      <p class="article-card__description">ההיסטוריה המרתקת של ים המלח כיעד בריאות וריפוי. מקליאופטרה והורדוס ועד הרפואה המודרנית — 3,000 שנה של סגולות ריפוי מוכחות</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-26">2026-05-26</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-teva/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">הטבע סביב ים המלח — נופים שלא תאמינו</h2>
+      <p class="article-card__description">מדריך לנופים ואתרי טבע מדהימים סביב ים המלח. מפלים, מדבר, מערות מלח, נקבי בולען ועוד — כל מה שלא ידעתם שמחכה לכם כאן</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-25">2026-05-25</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/spa-yam-hamelakh/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">ספא בים המלח — ההשוואה המלאה</h2>
+      <p class="article-card__description">השוואה מלאה בין מרכזי הספא המובילים בים המלח. טיפולים, מחירים, אווירה ולמי מתאים כל מקום. כל מה שצריך לדעת לפני שמזמינים</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-24">2026-05-24</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-zugot/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">ים המלח לזוגות — סוף שבוע רומנטי</h2>
+      <p class="article-card__description">מדריך מלא לסוף שבוע רומנטי בים המלח לזוגות. מלונות, ספא, מסעדות, אטרקציות וטיפים לחוויה בלתי נשכחת של חיבור וקרבה</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-23">2026-05-23</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/botz-yam-hamelakh/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">בוץ ים המלח — למה כולם מרחו את זה על הגוף</h2>
+      <p class="article-card__description">כל מה שצריך לדעת על בוץ ים המלח. יתרונות בריאותיים, איך משתמשים נכון, מה המדע אומר ואיפה אפשר לחוות את זה בעצמכם</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-22">2026-05-22</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/metzada-tiul/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">מצדה — טיול זריחה שחייבים לעשות</h2>
+      <p class="article-card__description">מדריך מלא לטיול זריחה במצדה. איך מגיעים, מה לקחת, מסלולי עלייה, ולמה זו חוויה שכל ישראלי ותייר חייבים לעשות פעם בחיים</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-21">2026-05-21</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ein-gedi-madrich/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">עין גדי — מדריך טיולים מלא</h2>
+      <p class="article-card__description">מדריך טיולים מלא לשמורת עין גדי ליד ים המלח. מסלולים, מפלים, טיפים, מה לקחת ומתי הזמן הכי טוב לבקר. כל מה שצריך לדעת</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-20">2026-05-20</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mineral-yam-hamelakh/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">מינרלים של ים המלח — מה הם עושים לגוף</h2>
+      <p class="article-card__description">מדריך מקיף על המינרלים הייחודיים של ים המלח ומה הם עושים לגוף שלכם. מגנזיום, אשלגן, ברום, סידן וגופרית — כל מה שצריך לדעת</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-19">2026-05-19</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yam-hamelakh-briut/" class="article-card" data-category="dead-sea">
+    <span class="article-card__emoji">🌊</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🌊 ים המלח</span>
+      <h2 class="article-card__title">ים המלח והבריאות — למה כולם באים לכאן</h2>
+      <p class="article-card__description">מדריך מקיף על היתרונות הבריאותיים של ים המלח. מינרלים, בוץ, אוויר ומים — למה ים המלח הוא יעד בריאות ורפואה מוביל בעולם</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-18">2026-05-18</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/digital-detox-veai/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">דיטוקס דיגיטלי בעידן ה-AI — למה ומתי</h2>
+      <p class="article-card__description">מדריך מעשי לדיטוקס דיגיטלי בעידן הבינה המלאכותית. למה חשוב לנתק, מתי לעשות את זה, ואיך לבנות יחסים בריאים עם הטכנולוגיה</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-17">2026-05-17</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ai-briut/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">AI ובריאות — איך טכנולוגיה משנה את הרפואה</h2>
+      <p class="article-card__description">איך בינה מלאכותית משנה את עולם הבריאות והרפואה. מאבחון מוקדם ועד טיפול מותאם אישית, הכירו את העתיד שכבר כאן ומשפיע על חייכם</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-16">2026-05-16</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ai-asakim-ktanim/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">AI לעסקים קטנים — כלים חינמיים שעובדים</h2>
+      <p class="article-card__description">מדריך מעשי לשימוש בכלי AI חינמיים וזולים לעסקים קטנים. שיווק, שירות, ניהול ומכירות — כלים שחוסכים זמן וכסף ומשדרגים את העסק</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-15">2026-05-15</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ai-yetziratiut/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">AI ויצירתיות — איך הטכנולוגיה משפרת את היצירה</h2>
+      <p class="article-card__description">איך בינה מלאכותית משנה את עולם היצירתיות. AI ככלי לאמנות, כתיבה, מוזיקה ועיצוב. למה יוצרים שמשלבים AI מרוויחים יתרון עצום</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-14">2026-05-14</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/otomatziot-ai/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">אוטומציות עם AI — חסכון של שעות ביום</h2>
+      <p class="article-card__description">מדריך מעשי לאוטומציות עם בינה מלאכותית. כלים חינמיים וזולים שיכולים לחסוך לכם שעות עבודה ביום ולשחרר זמן למה שבאמת חשוב</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-13">2026-05-13</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/midjourney-madrich/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">מידג&apos;רני למתחילים — יצירת תמונות עם AI</h2>
+      <p class="article-card__description">מדריך מלא למידג&apos;רני בעברית. איך ליצור תמונות מדהימות עם בינה מלאכותית צעד אחר צעד, עם טיפים לפרומפטים וסגנונות שונים</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-12">2026-05-12</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ai-kariera/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">איך AI ישנה את הקריירה שלכם ב-2026</h2>
+      <p class="article-card__description">איך בינה מלאכותית משנה את שוק העבודה ב-2026. אילו מקצועות בסכנה, אילו פורחים, ומה לעשות כדי להישאר רלוונטיים בעידן החדש</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-11">2026-05-11</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/ai-bekhayey-yomyom/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">AI בחיי היומיום — 20 שימושים שלא ידעתם</h2>
+      <p class="article-card__description">עשרים שימושים מפתיעים ומעשיים של בינה מלאכותית בחיי היומיום שלכם. מבישול ועד כושר, מלימוד ועד חיסכון בזמן וכסף</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-10">2026-05-10</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/chatgpt-madrich/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">מדריך ChatGPT — איך להשתמש צעד אחר צעד</h2>
+      <p class="article-card__description">מדריך מלא לשימוש ב-ChatGPT בעברית. איך להתחיל, איך לכתוב פרומפטים טובים, שימושים יומיומיים וטיפים מתקדמים למתחילים ומנוסים</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-09">2026-05-09</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mah-ze-ai/" class="article-card" data-category="ai-tech">
+    <span class="article-card__emoji">🤖</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤖 AI וטכנולוגיה</span>
+      <h2 class="article-card__title">מה זה בינה מלאכותית? הסבר פשוט לכולם</h2>
+      <p class="article-card__description">הסבר פשוט ונגיש על בינה מלאכותית. מה זה AI, איך זה עובד, למה זה משנה את העולם ואיך להתחיל להשתמש בזה כבר היום בלי רקע טכני</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-08">2026-05-08</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/izun-khayim-avoda/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">איזון חיים-עבודה — מדריך פרקטי</h2>
+      <p class="article-card__description">מדריך מעשי לאיזון בין עבודה לחיים אישיים. טיפים, כלים ושיטות מוכחות ליצירת חיים מאוזנים יותר בלי להקריב הצלחה מקצועית</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-07">2026-05-07</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/kviaat-matarot/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">קביעת מטרות — שיטת SMART בעברית</h2>
+      <p class="article-card__description">מדריך מלא לקביעת מטרות בשיטת SMART בעברית. איך להגדיר יעדים ברורים ולהגשים אותם עם תוכנית פעולה מעשית ומדידה צעד אחר צעד</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-06">2026-05-06</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/nlp-kley-pitukh/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">NLP — כלים לפיתוח אישי שעובדים</h2>
+      <p class="article-card__description">מדריך מקיף על NLP (תכנות נוירו-לשוני) לפיתוח אישי. טכניקות מעשיות לשינוי דפוסי חשיבה, שיפור תקשורת ובניית ביטחון עצמי</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-05">2026-05-05</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tikshort-mekarevet/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">תקשורת מקרבת — איך לדבר כדי שישמעו</h2>
+      <p class="article-card__description">מדריך מעשי לתקשורת מקרבת ולא אלימה. כלים, טכניקות ותרגילים לשיפור התקשורת בזוגיות, במשפחה ובעבודה לקשרים עמוקים יותר</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-04">2026-05-04</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/bitakhon-atzmi/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">בניית ביטחון עצמי — תרגילים מעשיים</h2>
+      <p class="article-card__description">מדריך מעשי לבניית ביטחון עצמי אמיתי. תרגילים, שיטות ועקרונות מוכחים שיעזרו לכם להרגיש בטוחים יותר בעצמכם ובהחלטות שלכם</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-03">2026-05-03</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/shikhzur-meburneut/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">שחזור מבורנאאוט — איך לחזור לעצמך</h2>
+      <p class="article-card__description">מדריך מעשי לזיהוי והתאוששות מבורנאאוט. סימנים מוקדמים, שלבי ההחלמה ותוכנית פעולה לחזרה לחיים מלאי אנרגיה ומשמעות</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-02">2026-05-02</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/hitmoddedut-im-stress/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">התמודדות עם סטרס — 10 כלים שעובדים</h2>
+      <p class="article-card__description">עשרה כלים מעשיים ומוכחים מדעית להתמודדות עם סטרס וחרדה. טכניקות נשימה, תנועה ומיינדפולנס שאפשר להתחיל עוד היום</p>
+      <div class="article-card__meta">
+        <time datetime="2026-05-01">2026-05-01</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/bina-rigshit/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">בינה רגשית — מה זה ולמה זה חשוב</h2>
+      <p class="article-card__description">מדריך מקיף על בינה רגשית: מה זה, למה זה חשוב לחיים ולקריירה, ואיך לפתח את היכולת הרגשית שלכם עם תרגילים מעשיים</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-30">2026-04-30</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/hergalim-briyim/" class="article-card" data-category="personal-dev">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">💡 פיתוח אישי</span>
+      <h2 class="article-card__title">בניית הרגלים בריאים — השיטה שעובדת</h2>
+      <p class="article-card__description">מדריך מעשי לבניית הרגלים בריאים שנשארים לאורך זמן. שיטות מוכחות מעולם הפסיכולוגיה והמדע ליצירת שינוי אמיתי בחיים שלכם</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-29">2026-04-29</time>
+        <span>4 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/pitukh-ishi-matkhilim/" class="article-card" data-category="growth">
+    <span class="article-card__emoji">💡</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:"> growth</span>
+      <h2 class="article-card__title">פיתוח אישי — מאיפה מתחילים? מדריך מעשי</h2>
+      <p class="article-card__description">מדריך מעשי לפיתוח אישי — מאיפה מתחילים, אילו כלים עובדים, ואיך ליצור שינוי אמיתי. כולל תרגילים, ספרים מומלצים וטיפים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-28">2026-04-28</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-bamidbar/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה במדבר — למה השקט של המדבר מרפא</h2>
+      <p class="article-card__description">מדיטציה במדבר — למה השקט, המרחב והטבע הגולמי של המדבר יוצרים חוויית מדיטציה שאין כמוה. גלו את הכוח המרפא של המדבר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-27">2026-04-27</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-vehmada/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה ומדע — מה אומרים המחקרים</h2>
+      <p class="article-card__description">מה המדע אומר על מדיטציה? סקירה של המחקרים המובילים — שינויים במוח, הפחתת מתח, שיפור בריאות ועוד. עובדות מבוססות מחקר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-26">2026-04-26</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/body-scan/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציית בודי סקאן — סריקת גוף מודרכת</h2>
+      <p class="article-card__description">מדריך למדיטציית בודי סקאן — סריקת גוף מודרכת שמשחררת מתח, מרגיעה את המערכת העצבית ומחזירה אתכם לגוף. מדריך צעד אחר צעד.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-25">2026-04-25</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-bashetika/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה בשקט — למה שתיקה מרפאת</h2>
+      <p class="article-card__description">מדיטציה בשקט — למה שתיקה מרפאת את המוח והגוף. גלו את העוצמה של שקט מוחלט ואיך להכניס יותר שתיקה לחיים שלכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-24">2026-04-24</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/neshima-4-7-8/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">טכניקת נשימה 4-7-8 — הרגעה מיידית</h2>
+      <p class="article-card__description">טכניקת נשימה 4-7-8 מרגיעה את הגוף תוך דקה. למדו איך לתרגל אותה נכון, למה היא עובדת, ומתי להשתמש בה — מדריך מלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-23">2026-04-23</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-rikuz/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה לריכוז — איך לחדד את המוח</h2>
+      <p class="article-card__description">מדיטציה לריכוז — טכניקות מוכחות לשיפור מיקוד ותשומת לב. איך 10 דקות ביום יכולות לשפר את הריכוז שלכם באופן דרמטי.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-22">2026-04-22</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-kharada/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה לחרדה — טכניקות שבאמת עובדות</h2>
+      <p class="article-card__description">מדיטציה לחרדה — טכניקות מוכחות מדעית שמרגיעות את המערכת העצבית ומפחיתות תסמיני חרדה. מדריך מעשי עם תרגילים שאפשר לעשות עכשיו.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-21">2026-04-21</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-mudrakhit/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה מונחית — מה זה ואיך מתחילים</h2>
+      <p class="article-card__description">מדריך למדיטציה מונחית — מה זה, איך עובד, ולמה זה מושלם למתחילים. טיפים לבחירת מדיטציה מונחית ואיך להפיק ממנה את המקסימום.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-20">2026-04-20</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mindfulness-yomyomi/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מיינדפולנס ביומיום — איך להיות נוכחים ברגע</h2>
+      <p class="article-card__description">מדריך מעשי למיינדפולנס ביומיום — איך להיות נוכחים ברגע בלי לשבת על כרית. טכניקות פשוטות לאכילה, הליכה, עבודה ושיחות.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-19">2026-04-19</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/meditazia-lematkhilim/" class="article-card" data-category="meditation">
+    <span class="article-card__emoji">🧠</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧠 מדיטציה</span>
+      <h2 class="article-card__title">מדיטציה למתחילים — מדריך פשוט ב-5 דקות</h2>
+      <p class="article-card__description">מדיטציה למתחילים — מדריך פשוט ומעשי שיעזור לכם להתחיל לתרגל היום. אין צורך בציוד או ניסיון. רק 5 דקות ביום ישנו לכם את החיים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-18">2026-04-18</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-mehashev/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לאנשי מחשב — פתרון לשעות ישיבה</h2>
+      <p class="article-card__description">יוגה לאנשי מחשב — תנוחות ותרגילים שמקלים על כאבי גב, צוואר וכתפיים מישיבה ממושכת מול מסך. מדריך מעשי לתרגול במשרד.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-17">2026-04-17</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-sportaim/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לספורטאים — שיפור ביצועים ומניעת פציעות</h2>
+      <p class="article-card__description">יוגה לספורטאים — איך תרגול יוגה קבוע משפר ביצועים, מונע פציעות ומאיץ התאוששות. מדריך מעשי לרצים, שחקני כדורגל ומתאמנים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-16">2026-04-16</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/pranayama-neshimot/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">פראנאיאמה — מדריך לטכניקות נשימה ביוגה</h2>
+      <p class="article-card__description">מדריך מלא לפראנאיאמה — טכניקות נשימה ביוגה. מנשימת בטן ועד קפלבהאטי. למדו איך לשלוט בנשימה ולשנות את המצב הפיזי והנפשי.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-15">2026-04-15</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-kharada/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לחרדה — איך התרגול מרגיע את המערכת העצבית</h2>
+      <p class="article-card__description">יוגה לחרדה — איך תנוחות, נשימה ומדיטציה מרגיעים את המערכת העצבית ומפחיתים תסמיני חרדה. מדריך מעשי עם תרגילים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-14">2026-04-14</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-boker/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">שגרת יוגה בוקר — 20 דקות שישנו לכם את היום</h2>
+      <p class="article-card__description">שגרת יוגה בוקר ב-20 דקות שתשנה את היום שלכם. רצף תנוחות פשוט שייתן לכם אנרגיה, מיקוד ותחושת רעננות מהרגע הראשון.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-13">2026-04-13</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/vinyasa-yoga/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">ויניאסה יוגה — זרימה, נשימה ותנועה</h2>
+      <p class="article-card__description">מדריך מלא לויניאסה יוגה — מה זה, למי מתאים, ומה ההבדל מסוגי יוגה אחרים. גלו את סגנון היוגה הזורם והדינמי ביותר.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-12">2026-04-12</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-shina/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לשינה טובה — תרגול ערב ב-10 דקות</h2>
+      <p class="article-card__description">סובלים מקשיי שינה? תרגול יוגה קצר לפני השינה יכול לשנות הכל. מדריך ל-10 דקות של יוגה שינה עם תנוחות ונשימות מרגיעות.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-11">2026-04-11</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-lametakh/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה להורדת מתח — 7 תנוחות שירגיעו אתכם</h2>
+      <p class="article-card__description">יוגה להורדת מתח — 7 תנוחות מרגיעות שיעזרו לכם לשחרר לחץ ולהירגע. מדריך מעשי עם טכניקות נשימה ותנוחות פשוטות.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-10">2026-04-10</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-keev-gav/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לכאבי גב — הקלה טבעית בלי תרופות</h2>
+      <p class="article-card__description">סובלים מכאבי גב? יוגה יכולה לעזור. מדריך מעשי עם תנוחות ותרגילים שמקלים על כאבי גב תחתון ועליון בצורה טבעית.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-09">2026-04-09</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-gmishut/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה לגמישות — 15 תנוחות שיפתחו לכם את הגוף</h2>
+      <p class="article-card__description">מדריך ל-15 תנוחות יוגה שישפרו את הגמישות שלכם. מתיחות לרגליים, גב, כתפיים וירכיים — עם טיפים לתרגול נכון ובטוח.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-08">2026-04-08</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/sugey-yoga/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">סוגי יוגה — ויניאסה, האתה, אשטנגה ועוד</h2>
+      <p class="article-card__description">מדריך מלא לסוגי יוגה — ויניאסה, האתה, אשטנגה, יין, קונדליני ועוד. השוואה מפורטת שתעזור לכם לבחור את הסוג שמתאים לכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-07">2026-04-07</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/yoga-lematkhilim/" class="article-card" data-category="yoga">
+    <span class="article-card__emoji">🧘</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:teal">🧘 יוגה</span>
+      <h2 class="article-card__title">יוגה למתחילים — מדריך מעשי לשיעור הראשון</h2>
+      <p class="article-card__description">מדריך מעשי ליוגה למתחילים — מה לצפות בשיעור הראשון, מה ללבוש, ואיזה סוג יוגה מתאים לכם. כל מה שצריך לדעת.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-06">2026-04-06</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/historia-shel-acroyoga/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">ההיסטוריה של אקרויוגה — מאיפה זה התחיל</h2>
+      <p class="article-card__description">ההיסטוריה המרתקת של אקרויוגה — מיוגה עתיקה ואקרובטיקה סינית ועד לתנועה עולמית. מי הקים, איך התפתח ולאן הולכים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-05">2026-04-05</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-vegilshlishi/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">אקרויוגה בכל גיל — למה אף פעם לא מאוחר להתחיל</h2>
+      <p class="article-card__description">חושבים שאתם מבוגרים מדי לאקרויוגה? חשבו שוב. מדריך לתרגול אקרויוגה בכל גיל — יתרונות, התאמות וסיפורי השראה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-04">2026-04-04</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/kehila-acroyoga-israel/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">קהילת האקרויוגה בישראל — איפה מתאמנים</h2>
+      <p class="article-card__description">מפת קהילת האקרויוגה בישראל — איפה יש שיעורים, ג&apos;אמים ואירועים. מתל אביב ועד הנגב, מדריך מלא למציאת קהילה קרובה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-03">2026-04-03</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-lemitkamdim/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">מעבר לבסיס — אקרויוגה למתקדמים</h2>
+      <p class="article-card__description">מוכנים לשלב הבא? מדריך לאקרויוגה למתקדמים — מעברים, זרימות, עמידות ידיים ותנוחות מורכבות. איך להתקדם בצורה בטוחה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-02">2026-04-02</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/terapia-tailandit-bacroyoga/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">המגע הטיפולי באקרויוגה — תרפיה תאילנדית</h2>
+      <p class="article-card__description">גלו את העמוד השלישי של אקרויוגה — מגע טיפולי תאילנדי. מה זה, איך עושים את זה, ולמה זה מרגיש כל כך טוב. מדריך מלא.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-04-01">2026-04-01</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/emun-beacroyoga/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">בניית אמון דרך אקרויוגה — למה זה עובד</h2>
+      <p class="article-card__description">אקרויוגה בונה אמון עמוק בין אנשים דרך מגע, תלות הדדית ותקשורת. גלו איך התרגול הזה משנה את היחסים שלכם עם אנשים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-31">2026-03-31</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-lezugot/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">אקרויוגה לזוגות — חיזוק הקשר דרך הגוף</h2>
+      <p class="article-card__description">אקרויוגה לזוגות מחזקת אמון, תקשורת וחיבור פיזי. גלו איך תרגול משותף יכול לשנות את הזוגיות שלכם לטובה.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-30">2026-03-30</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-batukh/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">האם אקרויוגה בטוחה? כל מה שצריך לדעת על בטיחות</h2>
+      <p class="article-card__description">מדריך מקיף לבטיחות באקרויוגה — כללי זהירות, פציעות נפוצות, ואיך לתרגל בצורה בטוחה. כל מה שצריך לדעת לפני שמתחילים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-29">2026-03-29</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tanukhat-acroyoga-basicot/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">10 תנוחות אקרויוגה בסיסיות שכל מתחיל חייב להכיר</h2>
+      <p class="article-card__description">רשימת 10 תנוחות אקרויוגה בסיסיות עם הסברים מפורטים — מציפור ועד כיסא. מדריך מעשי למתחילים עם טיפים לתרגול בטוח.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-28">2026-03-28</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/tafkidim-base-flyer-spotter/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">בייס, פלייר וספוטר — שלושת התפקידים באקרויוגה</h2>
+      <p class="article-card__description">הכירו את שלושת התפקידים המרכזיים באקרויוגה — בייס, פלייר וספוטר. מה כל תפקיד דורש ואיך למצוא את המקום שלכם.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-27">2026-03-27</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/acroyoga-lematkhilim/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">אקרויוגה למתחילים — איך מתחילים בלי ניסיון</h2>
+      <p class="article-card__description">מדריך מלא לאקרויוגה למתחילים — מה ללבוש, מה לצפות בשיעור הראשון, ואיך להתגבר על הפחדים. כל מה שצריך לדעת לפני שמתחילים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-26">2026-03-26</time>
+        <span>3 min read</span>
+      </div>
+    </div>
+  </a>
+  <a href="/blog/mah-ze-acroyoga/" class="article-card" data-category="acroyoga">
+    <span class="article-card__emoji">🤸</span>
+    <div class="article-card__body">
+      <span class="article-card__category" style="color:secondary">🤸 אקרויוגה</span>
+      <h2 class="article-card__title">מה זה אקרויוגה? מדריך מלא למתחילים</h2>
+      <p class="article-card__description">אקרויוגה משלבת יוגה, אקרובטיקה ומגע טיפולי. מדריך מלא למתחילים — מה לצפות, איך להתחיל, ולמה כולם מתמכרים.</p>
+      <div class="article-card__meta">
+        <time datetime="2026-03-25">2026-03-25</time>
+        <span>2 min read</span>
+      </div>
+    </div>
+  </a>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<!-- Retreat CTA Banner -->
+<section class="bg-secondary py-16 px-4">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="font-headline font-black text-3xl md:text-5xl text-night leading-tight mb-6">מעוניינים? הצטרפו לרטריט הבא</h2>
+    <p class="font-body text-night/80 text-lg md:text-xl mb-10">סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI — ים המלח / אילת</p>
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="/#pricing" class="bg-night hover:bg-night-soft text-on-surface px-8 py-4 font-headline font-bold text-base transition-colors">שריינו מקום — מקדמה ₪500 בלבד</a>
+      <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="text-night font-headline font-bold text-base underline underline-offset-4 hover:text-night/70 transition-colors">הצטרפו לוואטסאפ</a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-night border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-4 md:px-8 py-12">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <!-- Brand -->
+      <div class="text-center md:text-right">
+        <span class="font-headline font-black text-on-surface text-lg tracking-tight">Acroyoga Academy TLV</span>
+      </div>
+
+      <!-- Social Links -->
+      <div class="flex items-center gap-6">
+        <!-- Instagram -->
+        <a href="https://instagram.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-on-surface transition-colors" aria-label="Instagram">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <!-- WhatsApp -->
+        <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="text-on-surface-variant hover:text-on-surface transition-colors" aria-label="WhatsApp">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Contact -->
+      <div class="text-center md:text-left">
+        <a href="mailto:info@acroyoga-academy.co.il" class="text-on-surface-variant hover:text-on-surface text-sm font-body transition-colors">info@acroyoga-academy.co.il</a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-8 pt-6 border-t border-white/5 text-center">
+      <p class="text-on-surface-variant/50 text-xs font-body">&copy; 2026 Acroyoga Academy TLV. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 100) {
+    nav.style.background = 'rgba(15,25,35,0.95)';
+    nav.style.backdropFilter = 'blur(10px)';
+  } else {
+    nav.style.background = 'transparent';
+    nav.style.backdropFilter = 'none';
+  }
+}, { passive: true });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileOverlay = document.getElementById('mobileOverlay');
+if (hamburger) {
+  hamburger.addEventListener('click', () => {
+    mobileMenu.style.transform = 'translateX(0)';
+    mobileOverlay.classList.remove('hidden');
+  });
+}
+function closeMenu() {
+  mobileMenu.style.transform = 'translateX(100%)';
+  mobileOverlay.classList.add('hidden');
+}
+if (mobileOverlay) mobileOverlay.addEventListener('click', closeMenu);
+
+// Category filtering
+const categories = [{"id":"acroyoga","hebrew":"אקרויוגה","emoji":"🤸","color":"secondary"},{"id":"yoga","hebrew":"יוגה","emoji":"🧘","color":"teal"},{"id":"meditation","hebrew":"מדיטציה","emoji":"🧠","color":"teal"},{"id":"personal-dev","hebrew":"פיתוח אישי","emoji":"💡","color":"secondary"},{"id":"ai-tech","hebrew":"AI וטכנולוגיה","emoji":"🤖","color":"secondary"},{"id":"dead-sea","hebrew":"ים המלח","emoji":"🌊","color":"teal"},{"id":"desert","hebrew":"מדבר ואילת","emoji":"🏜️","color":"sand"},{"id":"retreats","hebrew":"רטריטים","emoji":"🌅","color":"secondary"},{"id":"wellness","hebrew":"בריאות","emoji":"❤️","color":"teal"},{"id":"comparisons","hebrew":"השוואות","emoji":"⚖️","color":"outline-variant"}];
+const buttons = document.querySelectorAll('.category-btn');
+const cards = document.querySelectorAll('.article-card');
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => {
+      b.classList.remove('active', 'bg-secondary', 'text-night');
+      b.classList.add('bg-surface-container', 'text-on-surface-variant');
+    });
+    btn.classList.add('active', 'bg-secondary', 'text-night');
+    btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+    const cat = btn.dataset.category;
+    cards.forEach(card => {
+      if (cat === 'all' || card.dataset.category === cat) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+
+// Fade-in observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
