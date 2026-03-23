@@ -325,6 +325,9 @@ function buildArticleCard(article) {
 
 const articleCards = sortedArticles.map(buildArticleCard).join('\n');
 const categoriesJson = JSON.stringify(categories);
+const categoryButtons = categories.map(cat =>
+  `<button class="category-btn bg-surface-container text-on-surface-variant px-4 py-2 font-headline font-bold text-sm transition-all" data-category="${cat.id}">${cat.emoji} ${cat.hebrew}</button>`
+).join('\n    ');
 
 // Build the head partial for the index page
 const indexHead = replacePlaceholders(partials.head, {
@@ -342,6 +345,7 @@ indexPage = indexPage.replaceAll('{{ctaBanner}}', partials.ctaBanner);
 indexPage = replacePlaceholders(indexPage, {
   articleCards,
   categoriesJson,
+  categoryButtons,
 });
 
 fs.writeFileSync(path.join(blogDir, 'index.html'), indexPage, 'utf-8');
