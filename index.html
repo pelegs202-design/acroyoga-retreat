@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="dark" dir="rtl" lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Acroyoga Academy TLV — רטריט סוף שבוע במדבר</title>
-<meta name="description" content="סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI — ים המלח / אילת. מחיר השקה ₪1,500.">
+<title>Acroyoga Academy TLV â€” ×¨×˜×¨×™×˜ ×¡×•×£ ×©×‘×•×¢ ×‘×ž×“×‘×¨</title>
+<meta name="description" content="×¡×•×£ ×©×‘×•×¢ ×©×œ ××§×¨×•×™×•×’×”, ×™×•×’×”, ×¤×™×ª×•×— ××™×©×™ ×•×§×•×¨×¡ AI â€” ×™× ×”×ž×œ×— / ××™×œ×ª. ×ž×—×™×¨ ×”×©×§×” â‚ª1,500.">
+<meta name="google-site-verification" content="rtrPbapmiQpbCygbI7DWMLkRhkN9oHWnufSpaVqKSog" />
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@100;300;400;700;900&family=Epilogue:wght@400;700;900&family=Work+Sans:wght@100;300;400&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -226,36 +227,36 @@ body::after {
 <!-- ========== URGENCY BAR ========== -->
 <div class="fixed top-0 left-0 right-0 z-[1001] bg-secondary text-cream text-center py-2 px-8 text-xs md:text-sm font-headline font-black tracking-tight transition-transform" id="urgencyBar">
   <button class="absolute left-2 top-1/2 -translate-y-1/2 text-cream/80 hover:text-cream text-lg" onclick="dismissBar()">&times;</button>
-  &#x1F525; מחיר השקה: ₪1,500 במקום ₪1,900 — רק ל-30 הנרשמים הראשונים
+  &#x1F525; ×ž×—×™×¨ ×”×©×§×”: â‚ª1,500 ×‘×ž×§×•× â‚ª1,900 â€” ×¨×§ ×œ-30 ×”× ×¨×©×ž×™× ×”×¨××©×•× ×™×
 </div>
 
 <!-- ========== NAV ========== -->
 <header class="fixed top-9 left-0 right-0 z-[1000] transition-all duration-500 flex justify-between items-center px-6 md:px-8 py-4" id="nav">
   <div class="flex items-center gap-4">
-    <button class="md:hidden text-secondary" id="hamburger" aria-label="תפריט">
+    <button class="md:hidden text-secondary" id="hamburger" aria-label="×ª×¤×¨×™×˜">
       <span class="material-symbols-outlined text-2xl">menu</span>
     </button>
     <a href="#" class="font-headline font-black text-on-surface text-base md:text-2xl tracking-[-0.05em] uppercase">Acroyoga Academy TLV</a>
   </div>
   <nav class="hidden md:flex gap-8 items-center">
-    <a href="#included" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">מה מחכה</a>
-    <a href="#schedule" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">לו״ז</a>
-    <a href="#pricing" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">מחיר</a>
-    <a href="#faq" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">שאלות</a>
-    <a href="/blog/" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">בלוג</a>
-    <a href="#pricing" class="bg-secondary text-night px-6 py-2 font-headline font-black text-sm active:scale-95 transition-transform">שריינו מקום</a>
+    <a href="#included" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">×ž×” ×ž×—×›×”</a>
+    <a href="#schedule" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">×œ×•×´×–</a>
+    <a href="#pricing" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">×ž×—×™×¨</a>
+    <a href="#faq" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">×©××œ×•×ª</a>
+    <a href="/blog/" class="text-on-surface opacity-60 hover:text-secondary transition-colors font-headline text-sm uppercase">×‘×œ×•×’</a>
+    <a href="#pricing" class="bg-secondary text-night px-6 py-2 font-headline font-black text-sm active:scale-95 transition-transform">×©×¨×™×™× ×• ×ž×§×•×</a>
   </nav>
 </header>
 
 <!-- Mobile Menu -->
 <div class="fixed inset-0 bg-black/50 z-[1001] hidden" id="mobileOverlay"></div>
 <aside class="fixed inset-y-0 right-0 w-72 z-[1002] bg-surface-container-low transform translate-x-full transition-transform duration-300 pt-20 px-6" id="mobileMenu">
-  <a href="#included" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">מה מחכה</a>
-  <a href="#schedule" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">לו״ז</a>
-  <a href="#pricing" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">מחיר</a>
-  <a href="#faq" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">שאלות</a>
-  <a href="/blog/" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">בלוג</a>
-  <a href="#wa-group" onclick="closeMenu()" class="block py-4 text-whatsapp font-headline font-black text-xl">וואטסאפ</a>
+  <a href="#included" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">×ž×” ×ž×—×›×”</a>
+  <a href="#schedule" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">×œ×•×´×–</a>
+  <a href="#pricing" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">×ž×—×™×¨</a>
+  <a href="#faq" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">×©××œ×•×ª</a>
+  <a href="/blog/" onclick="closeMenu()" class="block py-4 text-on-surface font-headline font-black text-xl border-b border-white/5">×‘×œ×•×’</a>
+  <a href="#wa-group" onclick="closeMenu()" class="block py-4 text-whatsapp font-headline font-black text-xl">×•×•××˜×¡××¤</a>
 </aside>
 
 <!-- ========== FLOATING WHATSAPP ========== -->
@@ -263,7 +264,7 @@ body::after {
   <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
-<!-- ========== SECTION 1: HERO — Brutalist Desert ========== -->
+<!-- ========== SECTION 1: HERO â€” Brutalist Desert ========== -->
 <section class="relative min-h-screen flex flex-col justify-center px-4 md:px-24 pt-32 overflow-hidden bg-primary-container" id="hero">
   <!-- Massive 48 Watermark -->
   <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
@@ -277,27 +278,27 @@ body::after {
   <div class="relative z-10 w-full flex flex-col text-right">
     <!-- Bleeding headline -->
     <h1 class="font-headline font-black text-[15vw] md:text-[12vw] leading-[0.8] tracking-[-0.07em] text-on-surface monolith-text md:mr-[-5%] mb-8 select-none w-full">
-      הגוף צועק
+      ×”×’×•×£ ×¦×•×¢×§
     </h1>
     <div class="w-full md:max-w-3xl flex flex-col text-right gap-6 md:gap-8 mt-4">
       <div class="flex flex-col gap-2">
         <p class="font-headline font-light text-xl md:text-4xl text-secondary tracking-wide">
-          הנשמה מחפשת מרחב. בואו לנשום.
+          ×”× ×©×ž×” ×ž×—×¤×©×ª ×ž×¨×—×‘. ×‘×•××• ×œ× ×©×•×.
         </p>
         <div class="h-px w-24 bg-secondary mt-4"></div>
       </div>
       <p class="font-body font-light text-base md:text-xl text-on-surface-variant leading-relaxed max-w-xl md:self-end">
-        סוף שבוע של אקרויוגה, יוגה, פיתוח אישי וקורס AI · ים המלח / אילת · התאריך יפורסם בקרוב
+        ×¡×•×£ ×©×‘×•×¢ ×©×œ ××§×¨×•×™×•×’×”, ×™×•×’×”, ×¤×™×ª×•×— ××™×©×™ ×•×§×•×¨×¡ AI Â· ×™× ×”×ž×œ×— / ××™×œ×ª Â· ×”×ª××¨×™×š ×™×¤×•×¨×¡× ×‘×§×¨×•×‘
       </p>
       <div class="flex items-center gap-2 text-secondary font-headline font-black text-xs md:text-sm">
-        &#x1F525; מחיר השקה ₪1,500 במקום ₪1,900 — לזמן מוגבל
+        &#x1F525; ×ž×—×™×¨ ×”×©×§×” â‚ª1,500 ×‘×ž×§×•× â‚ª1,900 â€” ×œ×–×ž×Ÿ ×ž×•×’×‘×œ
       </div>
       <div class="mt-4 flex flex-col md:flex-row-reverse items-center gap-4 md:gap-6 md:self-end w-full md:w-auto">
         <a href="#pricing" class="bg-secondary text-on-secondary px-6 md:px-12 py-4 md:py-5 font-headline font-black text-sm md:text-xl tracking-tight hover:heat-gradient transition-all active:scale-95 shadow-2xl text-center w-full md:w-auto">
-          שריינו מקום — מקדמה ₪500 בלבד
+          ×©×¨×™×™× ×• ×ž×§×•× â€” ×ž×§×“×ž×” â‚ª500 ×‘×œ×‘×“
         </a>
         <a href="#wa-group" class="text-on-surface-variant font-light text-sm underline underline-offset-4 opacity-70 hover:opacity-100 transition-opacity">
-          עדיין לא בטוחים? הצטרפו לוואטסאפ &rarr;
+          ×¢×“×™×™×Ÿ ×œ× ×‘×˜×•×—×™×? ×”×¦×˜×¨×¤×• ×œ×•×•××˜×¡××¤ &rarr;
         </a>
       </div>
     </div>
@@ -305,7 +306,7 @@ body::after {
 
   <!-- Coordinates accent -->
   <div class="absolute bottom-16 left-8 flex items-center gap-2 opacity-30">
-    <span class="text-xs font-label tracking-widest">31.0252° N, 35.3908° E</span>
+    <span class="text-xs font-label tracking-widest">31.0252Â° N, 35.3908Â° E</span>
     <div class="w-12 h-[1px] bg-on-surface"></div>
   </div>
   <!-- Scroll indicator -->
@@ -316,16 +317,16 @@ body::after {
   <div class="fixed top-0 right-0 w-[2px] h-screen bg-secondary/10 z-[50]"></div>
 </section>
 
-<!-- ========== SECTION 2: AGITATION — Editorial Magazine ========== -->
+<!-- ========== SECTION 2: AGITATION â€” Editorial Magazine ========== -->
 <section class="relative min-h-screen bg-sand text-charcoal pt-32 pb-20 overflow-hidden" id="agitation">
   <div class="brush-stroke top-1/4 -right-20"></div>
   <div class="brush-stroke bottom-1/3 -left-40 opacity-50 scale-150"></div>
-  <div class="clip-emoji text-[30vw]">😮‍💨</div>
+  <div class="clip-emoji text-[30vw]">ðŸ˜®â€ðŸ’¨</div>
 
   <div class="max-w-[1200px] mx-auto px-6 md:px-20 relative z-10">
     <div class="relative mb-16 md:mb-32 fade-in">
       <h2 class="font-headline font-black text-4xl md:text-9xl tracking-tighter leading-none text-charcoal/90 mix-blend-multiply">
-        מכירים את <br> ההרגשה הזאת?
+        ×ž×›×™×¨×™× ××ª <br> ×”×”×¨×’×©×” ×”×–××ª?
       </h2>
       <div class="absolute -top-10 -right-10 w-48 h-48 bg-secondary opacity-20 -z-10"></div>
     </div>
@@ -335,33 +336,33 @@ body::after {
       <div class="md:col-start-4 md:col-span-4 text-right self-end fade-in">
         <div class="inline-block relative">
           <span class="absolute -top-8 -right-4 text-[6rem] font-thin opacity-10 leading-none">01</span>
-          <p class="font-headline font-black text-4xl md:text-8xl tracking-tight leading-none text-charcoal">עייפות שלא<br>נגמרת</p>
-          <p class="font-body font-light text-base mt-3 text-charcoal/60">מתעוררים עייפים. הולכים לישון עייפים. הגוף במצב הישרדות כבר חודשים.</p>
+          <p class="font-headline font-black text-4xl md:text-8xl tracking-tight leading-none text-charcoal">×¢×™×™×¤×•×ª ×©×œ×<br>× ×’×ž×¨×ª</p>
+          <p class="font-body font-light text-base mt-3 text-charcoal/60">×ž×ª×¢×•×¨×¨×™× ×¢×™×™×¤×™×. ×”×•×œ×›×™× ×œ×™×©×•×Ÿ ×¢×™×™×¤×™×. ×”×’×•×£ ×‘×ž×¦×‘ ×”×™×©×¨×“×•×ª ×›×‘×¨ ×—×•×“×©×™×.</p>
         </div>
       </div>
       <!-- Pain 2: Slanted -->
       <div class="md:col-span-3 self-center rotate-0 md:-rotate-3 mt-8 fade-in d1">
         <div class="p-6 bg-white/40 backdrop-blur-md shadow-2xl inline-block border-r-8 border-secondary">
-          <p class="font-headline font-bold text-3xl md:text-5xl tracking-tight text-secondary-container">גוללים במקום<br>לחיות</p>
-          <p class="font-body font-light text-sm mt-2 text-charcoal/60">שעות של סקרולינג, חדשות, דום-סקרולינג. החיים עוברים מול המסך.</p>
+          <p class="font-headline font-bold text-3xl md:text-5xl tracking-tight text-secondary-container">×’×•×œ×œ×™× ×‘×ž×§×•×<br>×œ×—×™×•×ª</p>
+          <p class="font-body font-light text-sm mt-2 text-charcoal/60">×©×¢×•×ª ×©×œ ×¡×§×¨×•×œ×™× ×’, ×—×“×©×•×ª, ×“×•×-×¡×§×¨×•×œ×™× ×’. ×”×—×™×™× ×¢×•×‘×¨×™× ×ž×•×œ ×”×ž×¡×š.</p>
         </div>
       </div>
       <!-- Pain 3: Light -->
       <div class="md:col-start-5 md:col-span-3 text-right mt-8 fade-in d2">
-        <p class="font-headline font-light text-2xl md:text-3xl tracking-widest text-charcoal/50 border-b border-charcoal/20 pb-4">ניתוק מהגוף<br>ומאנשים</p>
-        <p class="font-body font-light text-sm mt-2 text-charcoal/40">מתי בפעם האחרונה באמת חיבקתם מישהו? באמת הרגשתם את הרגליים על הארץ?</p>
+        <p class="font-headline font-light text-2xl md:text-3xl tracking-widest text-charcoal/50 border-b border-charcoal/20 pb-4">× ×™×ª×•×§ ×ž×”×’×•×£<br>×•×ž×× ×©×™×</p>
+        <p class="font-body font-light text-sm mt-2 text-charcoal/40">×ž×ª×™ ×‘×¤×¢× ×”××—×¨×•× ×” ×‘××ž×ª ×—×™×‘×§×ª× ×ž×™×©×”×•? ×‘××ž×ª ×”×¨×’×©×ª× ××ª ×”×¨×’×œ×™×™× ×¢×œ ×”××¨×¥?</p>
       </div>
     </div>
 
     <div class="mt-32 border-t border-charcoal/10 pt-12 fade-in d3">
       <p class="text-3xl md:text-5xl font-headline font-black text-teal leading-tight tracking-tight">
-        את/ה לא לבד. ויש מקום שיחזיר אותך.
+        ××ª/×” ×œ× ×œ×‘×“. ×•×™×© ×ž×§×•× ×©×™×—×–×™×¨ ××•×ª×š.
       </p>
     </div>
   </div>
 </section>
 
-<!-- ========== SECTION 3: TRANSFORMATION — Diagonal Split ========== -->
+<!-- ========== SECTION 3: TRANSFORMATION â€” Diagonal Split ========== -->
 <section class="relative min-h-screen bg-night overflow-hidden py-24 px-6 md:px-20" id="solution">
   <!-- 48 Watermark -->
   <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
@@ -378,24 +379,24 @@ body::after {
       <!-- BEFORE -->
       <div class="flex flex-col items-start justify-start space-y-6 md:pt-12 text-right fade-in">
         <div class="space-y-4 opacity-40 hover:opacity-100 transition-opacity duration-700">
-          <p class="font-headline text-2xl md:text-6xl font-thin tracking-widest text-outline-variant">עייפות כרונית</p>
-          <p class="font-headline text-xl md:text-5xl font-light text-outline-variant blur-[1px]">מודבקים למסך</p>
-          <p class="font-headline text-2xl md:text-7xl font-black tracking-tighter text-outline-variant">מנותקים מהגוף</p>
-          <p class="font-headline text-lg md:text-4xl font-thin italic text-outline-variant">לבד עם הכל</p>
-          <p class="font-headline text-xl md:text-5xl font-normal text-outline-variant blur-[2px]">חרדה ומתח</p>
+          <p class="font-headline text-2xl md:text-6xl font-thin tracking-widest text-outline-variant">×¢×™×™×¤×•×ª ×›×¨×•× ×™×ª</p>
+          <p class="font-headline text-xl md:text-5xl font-light text-outline-variant blur-[1px]">×ž×•×“×‘×§×™× ×œ×ž×¡×š</p>
+          <p class="font-headline text-2xl md:text-7xl font-black tracking-tighter text-outline-variant">×ž× ×•×ª×§×™× ×ž×”×’×•×£</p>
+          <p class="font-headline text-lg md:text-4xl font-thin italic text-outline-variant">×œ×‘×“ ×¢× ×”×›×œ</p>
+          <p class="font-headline text-xl md:text-5xl font-normal text-outline-variant blur-[2px]">×—×¨×“×” ×•×ž×ª×—</p>
         </div>
       </div>
       <!-- AFTER -->
       <div class="flex flex-col items-end justify-end space-y-6 text-right fade-in d1">
         <div class="space-y-4">
-          <p class="font-headline text-2xl md:text-7xl font-black tracking-tighter text-teal leading-none">אנרגיה מחודשת</p>
-          <p class="font-headline text-xl md:text-5xl font-light tracking-widest text-cream">נוכחים ברגע</p>
+          <p class="font-headline text-2xl md:text-7xl font-black tracking-tighter text-teal leading-none">×× ×¨×’×™×” ×ž×—×•×“×©×ª</p>
+          <p class="font-headline text-xl md:text-5xl font-light tracking-widest text-cream">× ×•×›×—×™× ×‘×¨×’×¢</p>
           <div class="relative inline-block">
-            <p class="font-headline text-3xl md:text-8xl font-black text-teal mix-blend-difference">חיבור לגוף</p>
+            <p class="font-headline text-3xl md:text-8xl font-black text-teal mix-blend-difference">×—×™×‘×•×¨ ×œ×’×•×£</p>
             <div class="absolute -right-4 top-0 w-2 h-full bg-secondary"></div>
           </div>
-          <p class="font-headline text-lg md:text-4xl font-thin text-cream/70">קהילה שמחזקת</p>
-          <p class="font-headline text-2xl md:text-6xl font-bold text-teal tracking-[-0.05em]">שקט פנימי</p>
+          <p class="font-headline text-lg md:text-4xl font-thin text-cream/70">×§×”×™×œ×” ×©×ž×—×–×§×ª</p>
+          <p class="font-headline text-2xl md:text-6xl font-bold text-teal tracking-[-0.05em]">×©×§×˜ ×¤× ×™×ž×™</p>
         </div>
       </div>
 
@@ -403,7 +404,7 @@ body::after {
       <div class="col-span-full md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full text-center z-30 my-12 md:my-0">
         <div class="bg-night/80 backdrop-blur-xl p-6 md:p-12 inline-block border-r-8 border-secondary">
           <h2 class="font-headline font-black text-2xl md:text-6xl text-on-surface leading-tight tracking-tighter">
-            48 שעות. בלי טלפון.<br><span class="text-secondary">בלי חדשות.</span> בלי תירוצים.
+            48 ×©×¢×•×ª. ×‘×œ×™ ×˜×œ×¤×•×Ÿ.<br><span class="text-secondary">×‘×œ×™ ×—×“×©×•×ª.</span> ×‘×œ×™ ×ª×™×¨×•×¦×™×.
           </h2>
         </div>
       </div>
@@ -413,31 +414,31 @@ body::after {
   <!-- Desert acroyoga image -->
   <div class="max-w-6xl mx-auto mt-24 flex flex-col md:flex-row gap-16 items-center fade-in">
     <div class="w-full md:w-1/2 relative">
-      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4W2PPaWtFLYMsIVSPcYkAXJ1RzoFiPw685X0szR-3N3mQjfkVvaszDR2r9ZmCqbb5GjPH1sIkBGPMjmnK_Oo0bKrBWyJ9tXTrHXrIm0gGLS0Ka8FM895F25EMtr00K0D6fk6ENeKqqDBJSymYOzo3i4WGVfi3leF06HPBBLFE9YGpAsllZIMNv1MMjQTmgreisDxE993ty7BLMdy--_hwXkznKOQhhY6z9li9k2RyMwdAgXaueIEKr5UIxaX3_Ynua8xwKTPEKrs5" alt="אקרויוגה במדבר" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-1000">
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4W2PPaWtFLYMsIVSPcYkAXJ1RzoFiPw685X0szR-3N3mQjfkVvaszDR2r9ZmCqbb5GjPH1sIkBGPMjmnK_Oo0bKrBWyJ9tXTrHXrIm0gGLS0Ka8FM895F25EMtr00K0D6fk6ENeKqqDBJSymYOzo3i4WGVfi3leF06HPBBLFE9YGpAsllZIMNv1MMjQTmgreisDxE993ty7BLMdy--_hwXkznKOQhhY6z9li9k2RyMwdAgXaueIEKr5UIxaX3_Ynua8xwKTPEKrs5" alt="××§×¨×•×™×•×’×” ×‘×ž×“×‘×¨" class="w-full h-[500px] object-cover grayscale hover:grayscale-0 transition-all duration-1000">
       <div class="absolute bottom-0 left-0 bg-secondary p-4 -translate-x-4 translate-y-4">
         <span class="font-display font-black text-xl text-on-secondary uppercase">THE SHIFT</span>
       </div>
     </div>
     <div class="w-full md:w-1/2 space-y-8">
-      <h3 class="font-headline text-5xl md:text-7xl font-black text-on-surface leading-none tracking-tighter">רק את/ה,<br>הגוף, והמדבר.</h3>
+      <h3 class="font-headline text-5xl md:text-7xl font-black text-on-surface leading-none tracking-tighter">×¨×§ ××ª/×”,<br>×”×’×•×£, ×•×”×ž×“×‘×¨.</h3>
       <p class="text-lg font-light leading-relaxed text-on-surface-variant max-w-md">
-        אנחנו לא מציעים חופשה. אנחנו מציעים אתחול. במרחב שבו הגבולות בין הגוף לאדמה מיטשטשים, תגלו כוחות שלא ידעתם שקיימים בכם.
+        ×× ×—× ×• ×œ× ×ž×¦×™×¢×™× ×—×•×¤×©×”. ×× ×—× ×• ×ž×¦×™×¢×™× ××ª×—×•×œ. ×‘×ž×¨×—×‘ ×©×‘×• ×”×’×‘×•×œ×•×ª ×‘×™×Ÿ ×”×’×•×£ ×œ××“×ž×” ×ž×™×˜×©×˜×©×™×, ×ª×’×œ×• ×›×•×—×•×ª ×©×œ× ×™×“×¢×ª× ×©×§×™×™×ž×™× ×‘×›×.
       </p>
       <a href="#pricing" class="inline-block bg-secondary text-on-secondary px-10 py-5 font-headline font-black text-xl tracking-tight hover:heat-gradient transition-all active:scale-95">
-        הצטרפו לשינוי
+        ×”×¦×˜×¨×¤×• ×œ×©×™× ×•×™
       </a>
     </div>
   </div>
 </section>
 
-<!-- ========== SECTION 4: WHAT'S INCLUDED — Scattered Polaroids ========== -->
+<!-- ========== SECTION 4: WHAT'S INCLUDED â€” Scattered Polaroids ========== -->
 <section class="relative overflow-hidden py-32 px-6" id="included" style="background: linear-gradient(135deg, #0f1419, #171c21);">
   <div class="absolute top-1/4 left-0 w-64 h-64 bg-secondary/10 blur-[100px] -z-0"></div>
   <div class="absolute bottom-1/4 right-0 w-96 h-96 bg-on-surface/5 blur-[120px] -z-0"></div>
 
   <div class="max-w-6xl mx-auto relative z-10">
     <div class="text-center mb-20 fade-in">
-      <h2 class="font-display font-black text-5xl md:text-7xl text-secondary-container tracking-tighter leading-none mb-4">מה מחכה לכם<br>בסוף השבוע</h2>
+      <h2 class="font-display font-black text-5xl md:text-7xl text-secondary-container tracking-tighter leading-none mb-4">×ž×” ×ž×—×›×” ×œ×›×<br>×‘×¡×•×£ ×”×©×‘×•×¢</h2>
       <div class="w-24 h-1 bg-secondary mx-auto opacity-30"></div>
     </div>
 
@@ -449,8 +450,8 @@ body::after {
           <div class="aspect-[4/3] bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-[8rem]">&#x1F938;</span>
           </div>
-          <h3 class="font-headline font-black text-2xl text-secondary-container mb-1">אקרויוגה</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">טיסות, בייסינג, ומגע טיפולי — מתחילים מאפס ועפים. אמון שנבנה דרך הגוף. התחושה של לסמוך על מישהו ולתת לו לסמוך עליך — אין כמוה.</p>
+          <h3 class="font-headline font-black text-2xl text-secondary-container mb-1">××§×¨×•×™×•×’×”</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">×˜×™×¡×•×ª, ×‘×™×™×¡×™× ×’, ×•×ž×’×¢ ×˜×™×¤×•×œ×™ â€” ×ž×ª×—×™×œ×™× ×ž××¤×¡ ×•×¢×¤×™×. ××ž×•×Ÿ ×©× ×‘× ×” ×“×¨×š ×”×’×•×£. ×”×ª×—×•×©×” ×©×œ ×œ×¡×ž×•×š ×¢×œ ×ž×™×©×”×• ×•×œ×ª×ª ×œ×• ×œ×¡×ž×•×š ×¢×œ×™×š â€” ××™×Ÿ ×›×ž×•×”.</p>
         </div>
       </div>
       <!-- Card 2: Yoga -->
@@ -460,8 +461,8 @@ body::after {
           <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-7xl">&#x1F9D8;</span>
           </div>
-          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">יוגה ומדיטציה</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">שיעורי ויניאסה בזריחה, פראנאיאמה (נשימות), ומדיטציה מונחית. הגוף מתעורר, הראש שותק, והנשמה מקבלת מקום.</p>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">×™×•×’×” ×•×ž×“×™×˜×¦×™×”</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">×©×™×¢×•×¨×™ ×•×™× ×™××¡×” ×‘×–×¨×™×—×”, ×¤×¨×× ××™××ž×” (× ×©×™×ž×•×ª), ×•×ž×“×™×˜×¦×™×” ×ž×•× ×—×™×ª. ×”×’×•×£ ×ž×ª×¢×•×¨×¨, ×”×¨××© ×©×•×ª×§, ×•×”× ×©×ž×” ×ž×§×‘×œ×ª ×ž×§×•×.</p>
         </div>
       </div>
       <!-- Card 3: Personal Dev -->
@@ -470,8 +471,8 @@ body::after {
           <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-7xl">&#x1F9E0;</span>
           </div>
-          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">פיתוח אישי</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">סדנת עומק עם כלים מ-NLP, מיינדפולנס ותקשורת מקרבת. נפרק דפוסים ישנים ונבנה חדשים — ביחד, במעגל, בלי שיפוט.</p>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">×¤×™×ª×•×— ××™×©×™</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">×¡×“× ×ª ×¢×•×ž×§ ×¢× ×›×œ×™× ×ž-NLP, ×ž×™×™× ×“×¤×•×œ× ×¡ ×•×ª×§×©×•×¨×ª ×ž×§×¨×‘×ª. × ×¤×¨×§ ×“×¤×•×¡×™× ×™×©× ×™× ×•× ×‘× ×” ×—×“×©×™× â€” ×‘×™×—×“, ×‘×ž×¢×’×œ, ×‘×œ×™ ×©×™×¤×•×˜.</p>
         </div>
       </div>
       <!-- Card 4: AI -->
@@ -481,8 +482,8 @@ body::after {
           <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-7xl">&#x1F916;</span>
           </div>
-          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">קורס AI — כלים לעתיד</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">ChatGPT, מידג'רני, אוטומציות — כלים שישנו את הקריירה שלכם. בלי ניסיון קודם, עם תוצאות מיידיות.</p>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">×§×•×¨×¡ AI â€” ×›×œ×™× ×œ×¢×ª×™×“</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">ChatGPT, ×ž×™×“×’'×¨× ×™, ××•×˜×•×ž×¦×™×•×ª â€” ×›×œ×™× ×©×™×©× ×• ××ª ×”×§×¨×™×™×¨×” ×©×œ×›×. ×‘×œ×™ × ×™×¡×™×•×Ÿ ×§×•×“×, ×¢× ×ª×•×¦××•×ª ×ž×™×™×“×™×•×ª.</p>
         </div>
       </div>
       <!-- Card 5: Location -->
@@ -491,8 +492,8 @@ body::after {
           <div class="aspect-[4/5] bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-7xl">&#x1F305;</span>
           </div>
-          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">ים המלח / אילת</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">שקיעות שורפות, אוויר מדברי מרפא, שקט שאי אפשר למצוא בעיר. המקום עצמו הוא חלק מהטיפול.</p>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">×™× ×”×ž×œ×— / ××™×œ×ª</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">×©×§×™×¢×•×ª ×©×•×¨×¤×•×ª, ××•×•×™×¨ ×ž×“×‘×¨×™ ×ž×¨×¤×, ×©×§×˜ ×©××™ ××¤×©×¨ ×œ×ž×¦×•× ×‘×¢×™×¨. ×”×ž×§×•× ×¢×¦×ž×• ×”×•× ×—×œ×§ ×ž×”×˜×™×¤×•×œ.</p>
         </div>
       </div>
       <!-- Card 6: Food -->
@@ -502,8 +503,8 @@ body::after {
           <div class="aspect-square bg-surface-container-low mb-4 overflow-hidden flex items-center justify-center">
             <span class="text-7xl">&#x1F37D;&#xFE0F;</span>
           </div>
-          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">ארוחות ולינה מלאה</h3>
-          <p class="font-body font-light text-sm text-charcoal/70">אוכל מזין, טעים ומפנק. לינה נוחה. הכל כלול — מגיעים עם תיק ויוצאים עם חוויה שתשנה אתכם.</p>
+          <h3 class="font-headline font-black text-xl text-secondary-container mb-1">××¨×•×—×•×ª ×•×œ×™× ×” ×ž×œ××”</h3>
+          <p class="font-body font-light text-sm text-charcoal/70">××•×›×œ ×ž×–×™×Ÿ, ×˜×¢×™× ×•×ž×¤× ×§. ×œ×™× ×” × ×•×—×”. ×”×›×œ ×›×œ×•×œ â€” ×ž×’×™×¢×™× ×¢× ×ª×™×§ ×•×™×•×¦××™× ×¢× ×—×•×•×™×” ×©×ª×©× ×” ××ª×›×.</p>
         </div>
       </div>
     </div>
@@ -513,39 +514,39 @@ body::after {
 <!-- ========== SECTION 5: SCHEDULE ========== -->
 <section class="bg-surface-container-low py-32 px-6 md:px-20" id="schedule">
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-16 text-center fade-in">לו״ז סוף השבוע</h2>
+    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-16 text-center fade-in">×œ×•×´×– ×¡×•×£ ×”×©×‘×•×¢</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
       <div class="fade-in">
-        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">יום שישי</h3>
+        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">×™×•× ×©×™×©×™</h3>
         <div class="space-y-3">
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">14:00</span><span class="font-body font-light">הגעה והתארגנות</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:30</span><span class="font-body font-light">מעגל פתיחה + היכרות</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">17:00</span><span class="font-body font-light">שיעור אקרויוגה ראשון — בייסינג, טיסות, ואמון</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:30</span><span class="font-body font-light">ארוחת ערב</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">21:00</span><span class="font-body font-light">מדיטציית שקיעה + מוזיקה חיה</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">14:00</span><span class="font-body font-light">×”×’×¢×” ×•×”×ª××¨×’× ×•×ª</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:30</span><span class="font-body font-light">×ž×¢×’×œ ×¤×ª×™×—×” + ×”×™×›×¨×•×ª</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">17:00</span><span class="font-body font-light">×©×™×¢×•×¨ ××§×¨×•×™×•×’×” ×¨××©×•×Ÿ â€” ×‘×™×™×¡×™× ×’, ×˜×™×¡×•×ª, ×•××ž×•×Ÿ</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:30</span><span class="font-body font-light">××¨×•×—×ª ×¢×¨×‘</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">21:00</span><span class="font-body font-light">×ž×“×™×˜×¦×™×™×ª ×©×§×™×¢×” + ×ž×•×–×™×§×” ×—×™×”</span></div>
         </div>
       </div>
       <div class="fade-in d1">
-        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">שבת</h3>
+        <h3 class="font-headline font-black text-3xl text-secondary mb-8 text-center">×©×‘×ª</h3>
         <div class="space-y-3">
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">07:30</span><span class="font-body font-light">ויניאסה יוגה + פראנאיאמה בזריחה</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">09:00</span><span class="font-body font-light">ארוחת בוקר</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">10:30</span><span class="font-body font-light">סדנת פיתוח אישי — NLP, מיינדפולנס, תקשורת מקרבת</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">13:00</span><span class="font-body font-light">ארוחת צהריים + הפסקה</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:00</span><span class="font-body font-light">קורס AI — ChatGPT, אוטומציות, כלים לחיים</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">17:00</span><span class="font-body font-light">שיעור אקרויוגה מסכם — הטיסה האחרונה</span></div>
-          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:00</span><span class="font-body font-light">מעגל סיום + ארוחת ערב</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">07:30</span><span class="font-body font-light">×•×™× ×™××¡×” ×™×•×’×” + ×¤×¨×× ××™××ž×” ×‘×–×¨×™×—×”</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">09:00</span><span class="font-body font-light">××¨×•×—×ª ×‘×•×§×¨</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">10:30</span><span class="font-body font-light">×¡×“× ×ª ×¤×™×ª×•×— ××™×©×™ â€” NLP, ×ž×™×™× ×“×¤×•×œ× ×¡, ×ª×§×©×•×¨×ª ×ž×§×¨×‘×ª</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">13:00</span><span class="font-body font-light">××¨×•×—×ª ×¦×”×¨×™×™× + ×”×¤×¡×§×”</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-teal min-w-[50px]">15:00</span><span class="font-body font-light">×§×•×¨×¡ AI â€” ChatGPT, ××•×˜×•×ž×¦×™×•×ª, ×›×œ×™× ×œ×—×™×™×</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">17:00</span><span class="font-body font-light">×©×™×¢×•×¨ ××§×¨×•×™×•×’×” ×ž×¡×›× â€” ×”×˜×™×¡×” ×”××—×¨×•× ×”</span></div>
+          <div class="flex gap-4 p-4 bg-surface-container-high hover:translate-x-[-4px] transition-transform"><span class="font-headline font-bold text-secondary min-w-[50px]">19:00</span><span class="font-body font-light">×ž×¢×’×œ ×¡×™×•× + ××¨×•×—×ª ×¢×¨×‘</span></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== SECTION 6: INSTRUCTOR — Magazine Editorial ========== -->
+<!-- ========== SECTION 6: INSTRUCTOR â€” Magazine Editorial ========== -->
 <section class="relative min-h-screen bg-night-soft pt-24 pb-32 px-6 md:px-24 overflow-hidden" id="instructor">
   <!-- Vertical background name -->
   <div class="fixed right-0 top-0 bottom-0 pointer-events-none z-0 overflow-hidden flex items-center">
-    <h1 class="vertical-text text-[132px] md:text-[200px] font-headline font-black text-on-surface opacity-[0.03] leading-none tracking-tighter select-none">שי פלג</h1>
+    <h1 class="vertical-text text-[132px] md:text-[200px] font-headline font-black text-on-surface opacity-[0.03] leading-none tracking-tighter select-none">×©×™ ×¤×œ×’</h1>
   </div>
   <!-- Geometric accents -->
   <div class="absolute top-40 left-10 w-32 h-32 border-l border-t border-secondary opacity-20 pointer-events-none"></div>
@@ -553,26 +554,26 @@ body::after {
 
   <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start max-w-6xl mx-auto">
     <div class="lg:col-span-7 flex flex-col gap-8 fade-in">
-      <span class="text-teal font-headline font-light tracking-widest uppercase text-sm">מייסד Acroyoga Academy TLV</span>
-      <h2 class="text-6xl md:text-8xl font-headline font-black text-on-surface leading-[0.9] tracking-tighter">שי<br>פלג</h2>
+      <span class="text-teal font-headline font-light tracking-widest uppercase text-sm">×ž×™×™×¡×“ Acroyoga Academy TLV</span>
+      <h2 class="text-6xl md:text-8xl font-headline font-black text-on-surface leading-[0.9] tracking-tighter">×©×™<br>×¤×œ×’</h2>
       <div class="max-w-xl text-cream font-light text-lg leading-relaxed space-y-4">
-        <p>שי חי ונושם אקרויוגה. מה שהתחיל כשיעור ניסיון הפך למסע של שנים של הוראה, ביצוע ובניית קהילה תוססת בתל אביב.</p>
-        <p>עם מאות תלמידים שעברו דרך הידיים שלו — ממתחילים שפחדו לעמוד על הידיים ועד זוגות שעפו ביחד — שי מאמין שאקרויוגה היא לא ספורט, היא שפה. שפה של אמון, חיבור ושמחה שעוברת דרך הגוף.</p>
-        <p>הרטריט הזה הוא החלום שלו: להוציא אנשים מהשגרה, מהמסכים, מהמתח — ולהחזיר אותם לעצמם.</p>
+        <p>×©×™ ×—×™ ×•× ×•×©× ××§×¨×•×™×•×’×”. ×ž×” ×©×”×ª×—×™×œ ×›×©×™×¢×•×¨ × ×™×¡×™×•×Ÿ ×”×¤×š ×œ×ž×¡×¢ ×©×œ ×©× ×™× ×©×œ ×”×•×¨××”, ×‘×™×¦×•×¢ ×•×‘× ×™×™×ª ×§×”×™×œ×” ×ª×•×¡×¡×ª ×‘×ª×œ ××‘×™×‘.</p>
+        <p>×¢× ×ž××•×ª ×ª×œ×ž×™×“×™× ×©×¢×‘×¨×• ×“×¨×š ×”×™×“×™×™× ×©×œ×• â€” ×ž×ž×ª×—×™×œ×™× ×©×¤×—×“×• ×œ×¢×ž×•×“ ×¢×œ ×”×™×“×™×™× ×•×¢×“ ×–×•×’×•×ª ×©×¢×¤×• ×‘×™×—×“ â€” ×©×™ ×ž××ž×™×Ÿ ×©××§×¨×•×™×•×’×” ×”×™× ×œ× ×¡×¤×•×¨×˜, ×”×™× ×©×¤×”. ×©×¤×” ×©×œ ××ž×•×Ÿ, ×—×™×‘×•×¨ ×•×©×ž×—×” ×©×¢×•×‘×¨×ª ×“×¨×š ×”×’×•×£.</p>
+        <p>×”×¨×˜×¨×™×˜ ×”×–×” ×”×•× ×”×—×œ×•× ×©×œ×•: ×œ×”×•×¦×™× ×× ×©×™× ×ž×”×©×’×¨×”, ×ž×”×ž×¡×›×™×, ×ž×”×ž×ª×— â€” ×•×œ×”×—×–×™×¨ ××•×ª× ×œ×¢×¦×ž×.</p>
       </div>
       <!-- Badges -->
       <div class="flex flex-wrap gap-3 mt-4">
         <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
           <span class="material-symbols-outlined text-secondary">groups</span>
-          <span class="font-headline font-light text-on-surface">מאות תלמידים</span>
+          <span class="font-headline font-light text-on-surface">×ž××•×ª ×ª×œ×ž×™×“×™×</span>
         </div>
         <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
           <span class="material-symbols-outlined text-secondary">hub</span>
-          <span class="font-headline font-light text-on-surface">מייסד הקהילה</span>
+          <span class="font-headline font-light text-on-surface">×ž×™×™×¡×“ ×”×§×”×™×œ×”</span>
         </div>
         <div class="bg-surface-container-high border-r-4 border-secondary px-5 py-3 flex items-center gap-2 shadow-2xl">
           <span class="material-symbols-outlined text-secondary">psychology</span>
-          <span class="font-headline font-light text-on-surface">מורה ומבצע</span>
+          <span class="font-headline font-light text-on-surface">×ž×•×¨×” ×•×ž×‘×¦×¢</span>
         </div>
       </div>
       <!-- Instagram -->
@@ -588,7 +589,7 @@ body::after {
     <div class="lg:col-span-5 relative fade-in d1">
       <div class="relative aspect-[4/5] w-full overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-tr from-secondary via-teal to-night-soft mix-blend-multiply opacity-80"></div>
-        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuLozcJjAQ3F7Hrwv-LvW4PPlmvgEF0T-CekXMv5teQicuItqEh5uRjuObB4-DYGn2ns7nPkgxQoPs9tAmhJptmWmw7lPfG-VfbdBl5tvE0-WQnBeAn-e_oVoKEgVz6ZlzA0-qkZtNKBNiGedt6DUF5Ptpb4JAfO0Bo-wRTunUnTfd47yq0m_05OdGbmaneWD0tMGbKX4YI7e8eKkg7wbGJIqUfCctyWBzhigwA6fV6lqnLcStxlW7TkODWCZcFGsSIdAkKCJfbuPE" alt="שי פלג — Acroyoga Academy TLV" class="w-full h-full object-cover grayscale brightness-75 contrast-125">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCuLozcJjAQ3F7Hrwv-LvW4PPlmvgEF0T-CekXMv5teQicuItqEh5uRjuObB4-DYGn2ns7nPkgxQoPs9tAmhJptmWmw7lPfG-VfbdBl5tvE0-WQnBeAn-e_oVoKEgVz6ZlzA0-qkZtNKBNiGedt6DUF5Ptpb4JAfO0Bo-wRTunUnTfd47yq0m_05OdGbmaneWD0tMGbKX4YI7e8eKkg7wbGJIqUfCctyWBzhigwA6fV6lqnLcStxlW7TkODWCZcFGsSIdAkKCJfbuPE" alt="×©×™ ×¤×œ×’ â€” Acroyoga Academy TLV" class="w-full h-full object-cover grayscale brightness-75 contrast-125">
         <div class="absolute -bottom-12 -left-12 w-48 h-48 rounded-full bg-gradient-to-br from-secondary to-teal opacity-40 blur-3xl"></div>
       </div>
       <div class="absolute top-1/2 -right-12 w-24 h-24 rounded-full border border-teal/30 flex items-center justify-center">
@@ -600,35 +601,35 @@ body::after {
 
 <!-- ========== SECTION 7: TESTIMONIALS MARQUEE ========== -->
 <section class="bg-teal-soft py-8 overflow-hidden">
-  <p class="text-center text-teal font-headline font-bold text-xs tracking-widest uppercase mb-4">מה אומרים משתתפים</p>
+  <p class="text-center text-teal font-headline font-bold text-xs tracking-widest uppercase mb-4">×ž×” ××•×ž×¨×™× ×ž×©×ª×ª×¤×™×</p>
   <div class="relative overflow-hidden">
     <div class="flex gap-12 w-max" style="animation: marquee 30s linear infinite;">
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"הגוף שלי אמר תודה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"באתי לבד ויצאתי עם משפחה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"פעם ראשונה שבאמת נשמתי"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"כל אחד חייב את זה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חזרתי בן אדם אחר"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חוויה שלא חוויתי מעולם &#x1F64F;"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"הגוף שלי אמר תודה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"באתי לבד ויצאתי עם משפחה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"פעם ראשונה שבאמת נשמתי"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"כל אחד חייב את זה"</span>
-      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"חזרתי בן אדם אחר"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×—×•×•×™×” ×©×œ× ×—×•×•×™×ª×™ ×ž×¢×•×œ× &#x1F64F;"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×”×’×•×£ ×©×œ×™ ××ž×¨ ×ª×•×“×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×‘××ª×™ ×œ×‘×“ ×•×™×¦××ª×™ ×¢× ×ž×©×¤×—×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×¤×¢× ×¨××©×•× ×” ×©×‘××ž×ª × ×©×ž×ª×™"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×›×œ ××—×“ ×—×™×™×‘ ××ª ×–×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×—×–×¨×ª×™ ×‘×Ÿ ××“× ××—×¨"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×—×•×•×™×” ×©×œ× ×—×•×•×™×ª×™ ×ž×¢×•×œ× &#x1F64F;"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×”×’×•×£ ×©×œ×™ ××ž×¨ ×ª×•×“×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×‘××ª×™ ×œ×‘×“ ×•×™×¦××ª×™ ×¢× ×ž×©×¤×—×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×¤×¢× ×¨××©×•× ×” ×©×‘××ž×ª × ×©×ž×ª×™"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×›×œ ××—×“ ×—×™×™×‘ ××ª ×–×”"</span>
+      <span class="text-charcoal font-headline text-lg whitespace-nowrap">"×—×–×¨×ª×™ ×‘×Ÿ ××“× ××—×¨"</span>
     </div>
   </div>
 </section>
 
-<!-- ========== SECTION 8: PRICING — Concert Ticket ========== -->
+<!-- ========== SECTION 8: PRICING â€” Concert Ticket ========== -->
 <section class="bg-night py-32 px-6 md:px-20 relative overflow-hidden" id="pricing">
   <div class="absolute -top-20 -left-20 w-96 h-96 bg-secondary-container opacity-20 rotate-12 -z-10"></div>
 
   <div class="max-w-5xl mx-auto">
-    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-6 text-center fade-in">ההשקעה שלכם</h2>
+    <h2 class="font-display font-black text-5xl md:text-7xl text-on-surface tracking-tighter mb-6 text-center fade-in">×”×”×©×§×¢×” ×©×œ×›×</h2>
     <div class="text-center mb-12 fade-in">
       <span class="inline-flex items-center gap-2 bg-secondary/10 text-secondary font-headline font-bold text-sm px-4 py-2">
         <span class="w-2 h-2 bg-red-500" style="animation: pulseDot 1.5s infinite;"></span>
-        נשארו מקומות אחרונים במחיר השקה
+        × ×©××¨×• ×ž×§×•×ž×•×ª ××—×¨×•× ×™× ×‘×ž×—×™×¨ ×”×©×§×”
       </span>
     </div>
 
@@ -638,7 +639,7 @@ body::after {
         <!-- Top half -->
         <div class="p-8 pb-4">
           <div class="flex justify-between items-start mb-6">
-            <span class="bg-secondary text-sand px-3 py-1 font-headline font-bold text-xs tracking-wider uppercase">&#x1F525; מחיר השקה — לזמן מוגבל</span>
+            <span class="bg-secondary text-sand px-3 py-1 font-headline font-bold text-xs tracking-wider uppercase">&#x1F525; ×ž×—×™×¨ ×”×©×§×” â€” ×œ×–×ž×Ÿ ×ž×•×’×‘×œ</span>
             <div class="text-left font-display font-black text-sm tracking-tighter opacity-40">BOARDING PASS / 2026</div>
           </div>
           <div class="mb-6">
@@ -648,7 +649,7 @@ body::after {
           <div class="flex justify-between items-end border-b border-charcoal/10 pb-4">
             <div>
               <span class="text-xs uppercase font-label font-bold tracking-widest opacity-60">REGULAR PRICE</span>
-              <span class="block text-2xl font-headline font-light line-through decoration-2 decoration-secondary">₪1,900</span>
+              <span class="block text-2xl font-headline font-light line-through decoration-2 decoration-secondary">â‚ª1,900</span>
             </div>
             <div class="text-left">
               <span class="text-xs uppercase font-label font-bold tracking-widest opacity-60">LOCATION</span>
@@ -664,24 +665,24 @@ body::after {
         <div class="p-8 pt-6">
           <div class="flex flex-col items-center mb-6">
             <span class="text-xs font-label font-bold tracking-[0.2em] mb-2">ADMISSION PRICE</span>
-            <span class="font-headline font-black text-7xl md:text-8xl tracking-tighter leading-none">₪1,500</span>
-            <div class="bg-teal-soft text-teal px-4 py-1 mt-3 text-sm font-bold">חיסכון של ₪400!</div>
-            <div class="bg-white/40 px-4 py-1 mt-2 text-sm font-bold border border-charcoal/10">מקדמה: ₪500 בלבד</div>
+            <span class="font-headline font-black text-7xl md:text-8xl tracking-tighter leading-none">â‚ª1,500</span>
+            <div class="bg-teal-soft text-teal px-4 py-1 mt-3 text-sm font-bold">×—×™×¡×›×•×Ÿ ×©×œ â‚ª400!</div>
+            <div class="bg-white/40 px-4 py-1 mt-2 text-sm font-bold border border-charcoal/10">×ž×§×“×ž×”: â‚ª500 ×‘×œ×‘×“</div>
           </div>
 
           <div class="grid grid-cols-2 gap-y-3 gap-x-6 mb-8 border-y border-charcoal/10 py-4">
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">אקרויוגה ויוגה</span></div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">פיתוח אישי</span></div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">קורס AI</span></div>
-            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">לינה + ארוחות</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">××§×¨×•×™×•×’×” ×•×™×•×’×”</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">×¤×™×ª×•×— ××™×©×™</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">×§×•×¨×¡ AI</span></div>
+            <div class="flex items-center gap-2"><span class="material-symbols-outlined text-sm font-bold">check</span><span class="font-headline font-medium text-sm">×œ×™× ×” + ××¨×•×—×•×ª</span></div>
           </div>
 
           <a href="#" class="block w-full bg-secondary hover:bg-secondary-container text-sand font-headline font-black text-xl py-5 text-center transition-all active:scale-[0.98]" onclick="return false;">
-            שריינו מקום במחיר השקה &larr;
+            ×©×¨×™×™× ×• ×ž×§×•× ×‘×ž×—×™×¨ ×”×©×§×” &larr;
           </a>
           <div class="flex justify-between text-[10px] font-label font-bold tracking-widest opacity-60 uppercase mt-4">
-            <span>ביטול חינם עד 3 ימים</span>
-            <span>₪1,000 BALANCE AT RETREAT</span>
+            <span>×‘×™×˜×•×œ ×—×™× × ×¢×“ 3 ×™×ž×™×</span>
+            <span>â‚ª1,000 BALANCE AT RETREAT</span>
           </div>
         </div>
 
@@ -692,13 +693,13 @@ body::after {
 
     <!-- Referral -->
     <div class="max-w-xl mx-auto mt-12 bg-surface-container-high p-8 text-center fade-in">
-      <h4 class="font-headline font-black text-xl text-on-surface mb-3">&#x1F381; יש לכם חבר/ה שצריכ/ה את זה?</h4>
-      <p class="font-body font-light text-on-surface-variant mb-6">שלחו את הדף — אם הם נרשמים, שניכם מקבלים 10% הנחה!</p>
+      <h4 class="font-headline font-black text-xl text-on-surface mb-3">&#x1F381; ×™×© ×œ×›× ×—×‘×¨/×” ×©×¦×¨×™×›/×” ××ª ×–×”?</h4>
+      <p class="font-body font-light text-on-surface-variant mb-6">×©×œ×—×• ××ª ×”×“×£ â€” ×× ×”× × ×¨×©×ž×™×, ×©× ×™×›× ×ž×§×‘×œ×™× 10% ×”× ×—×”!</p>
       <div class="flex gap-3 justify-center flex-wrap">
-        <a href="#" class="bg-whatsapp text-white px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="shareWhatsApp">&#x1F4F2; שיתוף בוואטסאפ</a>
-        <button class="bg-surface-container-highest text-on-surface px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="copyLink">&#x1F4CB; העתקת קישור</button>
+        <a href="#" class="bg-whatsapp text-white px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="shareWhatsApp">&#x1F4F2; ×©×™×ª×•×£ ×‘×•×•××˜×¡××¤</a>
+        <button class="bg-surface-container-highest text-on-surface px-5 py-3 font-headline font-bold text-sm flex items-center gap-2 hover:translate-y-[-2px] transition-transform" id="copyLink">&#x1F4CB; ×”×¢×ª×§×ª ×§×™×©×•×¨</button>
       </div>
-      <p class="text-xs text-on-surface-variant/50 mt-3">ההנחה תינתן בעת התשלום הסופי ביום הרטריט</p>
+      <p class="text-xs text-on-surface-variant/50 mt-3">×”×”× ×—×” ×ª×™× ×ª×Ÿ ×‘×¢×ª ×”×ª×©×œ×•× ×”×¡×•×¤×™ ×‘×™×•× ×”×¨×˜×¨×™×˜</p>
     </div>
   </div>
 </section>
@@ -706,80 +707,80 @@ body::after {
 <!-- ========== SECTION 9: WHATSAPP GROUP ========== -->
 <section class="bg-surface-container-low py-24 px-6 text-center text-on-surface" id="wa-group">
   <div class="max-w-lg mx-auto">
-    <h2 class="font-headline font-black text-4xl mb-4 fade-in">לא חייבים להחליט עכשיו.</h2>
-    <p class="font-body font-light text-on-surface-variant mb-8 fade-in d1">הצטרפו לקבוצת הוואטסאפ — קבלו עדכונים, הכירו משתתפים, שאלו שאלות.</p>
+    <h2 class="font-headline font-black text-4xl mb-4 fade-in">×œ× ×—×™×™×‘×™× ×œ×”×—×œ×™×˜ ×¢×›×©×™×•.</h2>
+    <p class="font-body font-light text-on-surface-variant mb-8 fade-in d1">×”×¦×˜×¨×¤×• ×œ×§×‘×•×¦×ª ×”×•×•××˜×¡××¤ â€” ×§×‘×œ×• ×¢×“×›×•× ×™×, ×”×›×™×¨×• ×ž×©×ª×ª×¤×™×, ×©××œ×• ×©××œ×•×ª.</p>
     <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="inline-flex items-center gap-2 bg-whatsapp text-white px-10 py-4 font-headline font-black text-xl hover:translate-y-[-2px] transition-transform fade-in d2">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-      הצטרפו לקבוצה &larr;
+      ×”×¦×˜×¨×¤×• ×œ×§×‘×•×¦×” &larr;
     </a>
-    <p class="text-on-surface-variant/40 text-sm mt-4 fade-in d3">47 אנשים כבר בקבוצה</p>
+    <p class="text-on-surface-variant/40 text-sm mt-4 fade-in d3">47 ×× ×©×™× ×›×‘×¨ ×‘×§×‘×•×¦×”</p>
   </div>
 </section>
 
 <!-- ========== SECTION 10: FAQ ========== -->
 <section class="bg-surface-container py-32 px-6" id="faq">
   <div class="max-w-2xl mx-auto">
-    <h2 class="font-display font-black text-5xl text-on-surface tracking-tighter mb-12 text-center fade-in">שאלות ותשובות</h2>
+    <h2 class="font-display font-black text-5xl text-on-surface tracking-tighter mb-12 text-center fade-in">×©××œ×•×ª ×•×ª×©×•×‘×•×ª</h2>
     <div class="faq-list">
       <div class="faq-item border-b border-outline-variant/20 fade-in">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה זה אקרויוגה? צריך ניסיון?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">אקרויוגה היא שילוב מדהים של יוגה, אקרובטיקה ומגע ריפוי (Thai massage). לא צריך ניסיון — מתחילים מאפס ובונים ביחד. זה בדיוק המקום ללמוד.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×ž×” ×–×” ××§×¨×•×™×•×’×”? ×¦×¨×™×š × ×™×¡×™×•×Ÿ?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">××§×¨×•×™×•×’×” ×”×™× ×©×™×œ×•×‘ ×ž×“×”×™× ×©×œ ×™×•×’×”, ××§×¨×•×‘×˜×™×§×” ×•×ž×’×¢ ×¨×™×¤×•×™ (Thai massage). ×œ× ×¦×¨×™×š × ×™×¡×™×•×Ÿ â€” ×ž×ª×—×™×œ×™× ×ž××¤×¡ ×•×‘×•× ×™× ×‘×™×—×“. ×–×” ×‘×“×™×•×§ ×”×ž×§×•× ×œ×œ×ž×•×“.</div></div>
       </div>
       <div class="faq-item border-b border-outline-variant/20 fade-in d1">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מגיעים לבד? מתאים?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">רוב המשתתפים מגיעים לבד! זה בדיוק המקום להכיר אנשים חדשים ולבנות חיבורים אמיתיים. האקרויוגה עצמה בנויה על עבודה בזוגות עם אנשים חדשים.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×ž×’×™×¢×™× ×œ×‘×“? ×ž×ª××™×?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">×¨×•×‘ ×”×ž×©×ª×ª×¤×™× ×ž×’×™×¢×™× ×œ×‘×“! ×–×” ×‘×“×™×•×§ ×”×ž×§×•× ×œ×”×›×™×¨ ×× ×©×™× ×—×“×©×™× ×•×œ×‘× ×•×ª ×—×™×‘×•×¨×™× ××ž×™×ª×™×™×. ×”××§×¨×•×™×•×’×” ×¢×¦×ž×” ×‘× ×•×™×” ×¢×œ ×¢×‘×•×“×” ×‘×–×•×’×•×ª ×¢× ×× ×©×™× ×—×“×©×™×.</div></div>
       </div>
       <div class="faq-item border-b border-outline-variant/20 fade-in">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה כולל המחיר?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">הכל כלול — שיעורי אקרויוגה ויוגה, סדנת פיתוח אישי, קורס AI, לינה מלאה, ארוחות, מדיטציות ומעגלי שיתוף. הכל.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×ž×” ×›×•×œ×œ ×”×ž×—×™×¨?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">×”×›×œ ×›×œ×•×œ â€” ×©×™×¢×•×¨×™ ××§×¨×•×™×•×’×” ×•×™×•×’×”, ×¡×“× ×ª ×¤×™×ª×•×— ××™×©×™, ×§×•×¨×¡ AI, ×œ×™× ×” ×ž×œ××”, ××¨×•×—×•×ª, ×ž×“×™×˜×¦×™×•×ª ×•×ž×¢×’×œ×™ ×©×™×ª×•×£. ×”×›×œ.</div></div>
       </div>
       <div class="faq-item border-b border-outline-variant/20 fade-in d1">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה מדיניות הביטולים?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">ביטול חינם עד 3 ימים לפני הרטריט. המקדמה של ₪500 מוחזרת במלואה. אפס סיכון.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×ž×” ×ž×“×™× ×™×•×ª ×”×‘×™×˜×•×œ×™×?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">×‘×™×˜×•×œ ×—×™× × ×¢×“ 3 ×™×ž×™× ×œ×¤× ×™ ×”×¨×˜×¨×™×˜. ×”×ž×§×“×ž×” ×©×œ â‚ª500 ×ž×•×—×–×¨×ª ×‘×ž×œ×•××”. ××¤×¡ ×¡×™×›×•×Ÿ.</div></div>
       </div>
       <div class="faq-item border-b border-outline-variant/20 fade-in">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">מה צריך להביא?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">בגדים נוחים לתנועה, בגד ים, מגבת, קרם הגנה, ורצון לחוויה חדשה.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×ž×” ×¦×¨×™×š ×œ×”×‘×™×?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">×‘×’×“×™× × ×•×—×™× ×œ×ª× ×•×¢×”, ×‘×’×“ ×™×, ×ž×’×‘×ª, ×§×¨× ×”×’× ×”, ×•×¨×¦×•×Ÿ ×œ×—×•×•×™×” ×—×“×©×”.</div></div>
       </div>
       <div class="faq-item border-b border-outline-variant/20 fade-in d1">
-        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">יש הסעות?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
-        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">פרטים על הסעות יפורסמו בקרוב בקבוצת הוואטסאפ.</div></div>
+        <button class="faq-q w-full text-right py-5 font-headline font-bold text-lg text-on-surface flex justify-between items-center gap-4 cursor-pointer">×™×© ×”×¡×¢×•×ª?<span class="material-symbols-outlined text-secondary transition-transform duration-300">add</span></button>
+        <div class="faq-answer"><div class="pb-5 font-body font-light text-on-surface-variant leading-relaxed">×¤×¨×˜×™× ×¢×œ ×”×¡×¢×•×ª ×™×¤×•×¨×¡×ž×• ×‘×§×¨×•×‘ ×‘×§×‘×•×¦×ª ×”×•×•××˜×¡××¤.</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ========== SECTION 11: FINAL CTA — Nike Meets Brutalism ========== -->
+<!-- ========== SECTION 11: FINAL CTA â€” Nike Meets Brutalism ========== -->
 <section class="relative pt-32 pb-40 px-6 min-h-[80vh] flex flex-col items-start desert-glow" id="final">
   <div class="absolute -left-20 top-1/4 w-64 h-96 bg-secondary-container/10 rotate-12 -z-10 blur-3xl"></div>
   <div class="max-w-4xl mx-auto w-full">
     <div class="mb-8 flex flex-col gap-2 fade-in">
-      <p class="font-label text-secondary font-light tracking-widest uppercase text-sm border-r-2 border-secondary pr-4">המקומות מוגבלים.</p>
-      <p class="font-label text-on-surface-variant font-light tracking-widest uppercase text-xs pr-4">המחיר עולה בקרוב.</p>
+      <p class="font-label text-secondary font-light tracking-widest uppercase text-sm border-r-2 border-secondary pr-4">×”×ž×§×•×ž×•×ª ×ž×•×’×‘×œ×™×.</p>
+      <p class="font-label text-on-surface-variant font-light tracking-widest uppercase text-xs pr-4">×”×ž×—×™×¨ ×¢×•×œ×” ×‘×§×¨×•×‘.</p>
     </div>
 
     <h2 class="monolith-text font-headline font-black text-on-surface flex flex-col items-start gap-2 mb-12 select-none fade-in d1">
-      <span class="text-[clamp(2.5rem,12vw,9rem)] leading-none text-on-surface">הגוף</span>
-      <span class="text-[clamp(2rem,10vw,7rem)] leading-none text-secondary -mt-2">שלך כבר</span>
-      <span class="text-[clamp(3rem,14vw,10rem)] leading-none -mt-4">יודע</span>
-      <span class="text-[clamp(1.5rem,7vw,5rem)] leading-none font-light italic text-on-surface-variant border-b border-outline-variant/30 pb-4">את התשובה</span>
+      <span class="text-[clamp(2.5rem,12vw,9rem)] leading-none text-on-surface">×”×’×•×£</span>
+      <span class="text-[clamp(2rem,10vw,7rem)] leading-none text-secondary -mt-2">×©×œ×š ×›×‘×¨</span>
+      <span class="text-[clamp(3rem,14vw,10rem)] leading-none -mt-4">×™×•×“×¢</span>
+      <span class="text-[clamp(1.5rem,7vw,5rem)] leading-none font-light italic text-on-surface-variant border-b border-outline-variant/30 pb-4">××ª ×”×ª×©×•×‘×”</span>
     </h2>
 
     <div class="flex flex-col md:flex-row gap-4 w-full max-w-2xl fade-in d2">
       <a href="#" class="flex-1 bg-secondary text-on-secondary font-headline font-black text-lg md:text-xl py-5 md:py-6 px-6 md:px-8 hover:heat-gradient transition-all flex items-center justify-between group text-center" onclick="return false;">
-        <span>שריינו מקום במחיר השקה</span>
+        <span>×©×¨×™×™× ×• ×ž×§×•× ×‘×ž×—×™×¨ ×”×©×§×”</span>
         <span class="material-symbols-outlined group-hover:translate-x-[-8px] transition-transform">arrow_back</span>
       </a>
       <a href="https://chat.whatsapp.com/PLACEHOLDER" target="_blank" class="border border-whatsapp/40 text-whatsapp font-headline font-bold text-base md:text-lg py-5 md:py-6 px-6 md:px-8 hover:bg-whatsapp/5 transition-colors flex items-center justify-center gap-3">
         <span class="material-symbols-outlined">chat</span>
-        הצטרפו לוואטסאפ
+        ×”×¦×˜×¨×¤×• ×œ×•×•××˜×¡××¤
       </a>
     </div>
 
     <div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-on-surface-variant/50 font-label text-xs tracking-widest mt-6 fade-in d3">
-      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>מקדמה ₪500</div>
-      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>ביטול חינם</div>
-      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>אפס סיכון</div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>×ž×§×“×ž×” â‚ª500</div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>×‘×™×˜×•×œ ×—×™× ×</div>
+      <div class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-secondary-container"></span>××¤×¡ ×¡×™×›×•×Ÿ</div>
     </div>
   </div>
 
@@ -801,11 +802,11 @@ body::after {
     </a>
   </div>
   <p class="text-on-surface/30 text-xs tracking-widest">info@acroyoga-academy.co.il</p>
-  <p class="text-on-surface/20 text-xs tracking-widest mt-2">&copy; 2026 Acroyoga Academy TLV. כל הזכויות שמורות.</p>
+  <p class="text-on-surface/20 text-xs tracking-widest mt-2">&copy; 2026 Acroyoga Academy TLV. ×›×œ ×”×–×›×•×™×•×ª ×©×ž×•×¨×•×ª.</p>
 </footer>
 
 <!-- Toast -->
-<div class="copy-toast" id="copyToast">הקישור הועתק &#x2713;</div>
+<div class="copy-toast" id="copyToast">×”×§×™×©×•×¨ ×”×•×¢×ª×§ &#x2713;</div>
 
 <!-- ========== JAVASCRIPT ========== -->
 <script>
@@ -872,7 +873,7 @@ document.querySelectorAll('.faq-q').forEach(btn => {
 // Share
 document.getElementById('shareWhatsApp').addEventListener('click', (e) => {
   e.preventDefault();
-  const text = encodeURIComponent('היי! ראיתי רטריט אקרויוגה מטורף בים המלח/אילת \uD83E\uDD38 — בואי נלך ביחד! ' + window.location.href);
+  const text = encodeURIComponent('×”×™×™! ×¨××™×ª×™ ×¨×˜×¨×™×˜ ××§×¨×•×™×•×’×” ×ž×˜×•×¨×£ ×‘×™× ×”×ž×œ×—/××™×œ×ª \uD83E\uDD38 â€” ×‘×•××™ × ×œ×š ×‘×™×—×“! ' + window.location.href);
   window.open('https://wa.me/?text=' + text, '_blank');
 });
 document.getElementById('copyLink').addEventListener('click', () => {
