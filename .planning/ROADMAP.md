@@ -35,7 +35,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Visitor can toggle between Hebrew (RTL, Heebo font) and English on any page with no layout breaks
   4. App can be installed to a mobile home screen and loads a skeleton UI offline
   5. User must accept terms of service before completing signup; the acceptance is recorded
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 01-01-PLAN.md — Project scaffold + Drizzle/Neon + Better Auth backend
+- [ ] 01-02-PLAN.md — Bilingual next-intl routing + RTL layout + Heebo font + language toggle
+- [ ] 01-03-PLAN.md — Auth UI pages (signup, signin, reset, TOS, onboarding, dashboard)
+- [ ] 01-04-PLAN.md — PWA setup (Serwist, manifest, offline fallback, install prompt)
+- [ ] 01-05-PLAN.md — Integration wiring + human verification checkpoint
 
 ### Phase 2: Brand Identity
 **Goal**: The platform has a real name and a visual identity system — not "AcroRetreat" or a placeholder — so every subsequent phase builds on the actual brand rather than requiring a retroactive rename pass
@@ -141,13 +147,13 @@ Decimal phases appear between their surrounding integers in numeric order.
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 
 Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can begin in parallel with Phases 3-4 once Phase 1 is complete.
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 0/TBD | Not started | - |
+| 1. Foundation + Auth | 0/5 | Planned | - |
 | 2. Brand Identity | 0/TBD | Not started | - |
 | 3. Community Profiles + Partner Matching | 0/TBD | Not started | - |
 | 4. Jam Board + Messaging | 0/TBD | Not started | - |
