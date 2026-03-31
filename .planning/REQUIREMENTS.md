@@ -9,7 +9,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Foundation
 
-- [ ] **FOUND-01**: Site loads on Vercel with Next.js, Vercel Postgres (Neon), Drizzle ORM
+- [x] **FOUND-01**: Site loads on Vercel with Next.js, Vercel Postgres (Neon), Drizzle ORM
 - [ ] **FOUND-02**: Bilingual Hebrew RTL + English with language toggle (next-intl)
 - [ ] **FOUND-03**: PWA installable with home screen icon and offline profile/skills view
 - [ ] **FOUND-04**: Mobile-first responsive design across all pages
@@ -17,9 +17,9 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User can log in and stay logged in across sessions (session persistence)
-- [ ] **AUTH-03**: User can reset password via email link
+- [x] **AUTH-01**: User can sign up with email and password
+- [x] **AUTH-02**: User can log in and stay logged in across sessions (session persistence)
+- [x] **AUTH-03**: User can reset password via email link
 
 ### Profiles
 
@@ -137,14 +137,14 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-01 | Phase 1 — Foundation + Auth | Complete |
 | FOUND-02 | Phase 1 — Foundation + Auth | Pending |
 | FOUND-03 | Phase 1 — Foundation + Auth | Pending |
 | FOUND-04 | Phase 1 — Foundation + Auth | Pending |
 | FOUND-05 | Phase 1 — Foundation + Auth | Pending |
-| AUTH-01 | Phase 1 — Foundation + Auth | Pending |
-| AUTH-02 | Phase 1 — Foundation + Auth | Pending |
-| AUTH-03 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-01 | Phase 1 — Foundation + Auth | Complete |
+| AUTH-02 | Phase 1 — Foundation + Auth | Complete |
+| AUTH-03 | Phase 1 — Foundation + Auth | Complete |
 | BRAND-01 | Phase 2 — Brand Identity | Pending |
 | PROF-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
 | PROF-02 | Phase 3 — Community Profiles + Partner Matching | Pending |

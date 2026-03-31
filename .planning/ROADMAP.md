@@ -37,7 +37,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   5. User must accept terms of service before completing signup; the acceptance is recorded
 **Plans**: 5 plans
 Plans:
-- [ ] 01-01-PLAN.md — Project scaffold + Drizzle/Neon + Better Auth backend
+- [x] 01-01-PLAN.md — Project scaffold + Drizzle/Neon + Better Auth backend
 - [ ] 01-02-PLAN.md — Bilingual next-intl routing + RTL layout + Heebo font + language toggle
 - [ ] 01-03-PLAN.md — Auth UI pages (signup, signin, reset, TOS, onboarding, dashboard)
 - [ ] 01-04-PLAN.md — PWA setup (Serwist, manifest, offline fallback, install prompt)
@@ -153,7 +153,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 0/5 | Planned | - |
+| 1. Foundation + Auth | 1/5 | In Progress|  |
 | 2. Brand Identity | 0/TBD | Not started | - |
 | 3. Community Profiles + Partner Matching | 0/TBD | Not started | - |
 | 4. Jam Board + Messaging | 0/TBD | Not started | - |
