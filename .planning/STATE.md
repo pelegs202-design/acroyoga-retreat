@@ -56,6 +56,8 @@ Recent decisions affecting current work:
 - 01-04: swSrc path for Serwist is src/app/sw.ts (not app/sw.ts) — project uses src/ prefix for App Router
 - 01-04: sw.ts declares self as any for __SW_MANIFEST — avoids webworker lib requirement in tsconfig
 - 01-04: Offline page is self-contained (own html/body, inline styles) — lives outside [locale] segment for cache reliability
+- [Phase 01-03]: 01-03: getAuthSession() in every protected Server Component — middleware not trusted for security (CVE-2025-29927)
+- [Phase 01-03]: 01-03: tosAcceptedAt updated via raw Drizzle sql tag (not authClient) — input:false additionalField cannot be set through Better Auth client SDK
 
 ### Pending Todos
 
