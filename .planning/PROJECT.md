@@ -62,19 +62,21 @@ A brutalist, interactive community platform for acroyoga practitioners in Israel
 
 ## Constraints
 
-- **Stack**: Next.js on Vercel, Vercel Postgres (Neon), Auth.js for authentication
+- **Stack**: Next.js 16 on Vercel, Vercel Postgres (Neon), Drizzle ORM, Better Auth
 - **Payments**: Green Invoice (Israeli gateway + invoicing combined)
 - **Domain**: acroretreat.co.il (repoint from Site123 to Vercel)
 - **Language**: Bilingual Hebrew RTL + English, Hebrew primary
-- **Design**: Brutalist / interactive chaos — cursor effects, draggable elements, unconventional scroll. Must still be accessible and fast.
+- **Design Stack**: Tailwind CSS v4 (CSS logical properties for RTL), Framer Motion v12 (draggable, cursor effects, scroll animations, quiz transitions), shadcn/ui + Radix UI (accessible headless primitives, heavily customized for brutalist aesthetic), Heebo font (Hebrew)
+- **Design Direction**: Brutalist / interactive chaos — cursor effects, draggable elements, unconventional scroll. Must still be accessible (WCAG AA) and fast.
 - **Performance**: Vercel-optimized, targeting high Lighthouse scores despite heavy interactivity
 - **SEO**: Critical growth channel — must rank for Hebrew acroyoga terms (אקרויוגה)
+- **Design Skills**: Use `/frontend-design` skill for all UI implementation — produces distinctive, production-grade interfaces that avoid generic AI aesthetics. Critical for brutalist design goal.
 
 ## Key Decisions
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Vercel + Next.js over Supabase | User wants Vercel's native DB/auth stack | — Pending |
+| Vercel + Next.js 16 + Drizzle + Better Auth | Vercel-native stack; Drizzle avoids Prisma cold-start penalty on serverless; Better Auth replaces stalled Auth.js v5 | — Pending |
 | Green Invoice for payments + invoicing | Single tool handles both Israeli payment processing and חשבונית generation | — Pending |
 | Built-in chat over WhatsApp integration | The whole point is replacing WA group chaos with structured communication | — Pending |
 | PWA over native app | Faster to ship, still feels app-like, no app store friction | — Pending |
@@ -83,4 +85,4 @@ A brutalist, interactive community platform for acroyoga practitioners in Israel
 | Standard acroyoga moves for skills | Use universally recognized poses rather than custom curriculum | — Pending |
 
 ---
-*Last updated: 2026-03-31 after initialization*
+*Last updated: 2026-03-31 after requirements definition*

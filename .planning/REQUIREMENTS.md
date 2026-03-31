@@ -68,6 +68,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **DSGN-01**: Brutalist interactive design with cursor effects, draggable elements, and unconventional scroll behavior
 - [ ] **DSGN-02**: Design is accessible (WCAG AA) despite brutalist aesthetic
 - [ ] **DSGN-03**: High Lighthouse performance scores on mobile despite heavy interactivity
+- [ ] **DSGN-04**: All UI built with Tailwind CSS v4 (CSS logical properties for RTL), Framer Motion v12 (animations/interactions), shadcn/ui + Radix UI (accessible primitives), Heebo font (Hebrew)
+- [ ] **DSGN-05**: All pages and components use `/frontend-design` skill to produce distinctive, non-generic interfaces matching brutalist vision
 
 ### SEO & Social
 
@@ -137,9 +139,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | (populated during roadmap creation) | | |
 
 **Coverage:**
-- v1 requirements: 37 total
+- v1 requirements: 39 total
 - Mapped to phases: 0
-- Unmapped: 37
+- Unmapped: 39
 
 ---
 *Requirements defined: 2026-03-31*
