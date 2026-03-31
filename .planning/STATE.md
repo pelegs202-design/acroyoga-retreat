@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 1 of 10 (Foundation + Auth)
-Plan: 1 of 5 in current phase
+Plan: 2 of 5 in current phase
 Status: In progress
-Last activity: 2026-03-31 — Plan 01-01 completed: Next.js 16 scaffold + Drizzle + Better Auth
+Last activity: 2026-03-31 — Plan 01-02 completed: next-intl bilingual routing (en/he), RTL support, Heebo font, flag-icon language toggle
 
-Progress: [█░░░░░░░░░] 5%
+Progress: [██░░░░░░░░] 10%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 10 min
-- Total execution time: 0.17 hours
+- Total plans completed: 2
+- Average duration: 8 min
+- Total execution time: 0.28 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-auth | 1 | 10 min | 10 min |
+| 01-foundation-auth | 2 | 17 min | 8.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10 min)
-- Trend: —
+- Last 5 plans: 01-01 (10 min), 01-02 (7 min)
+- Trend: Improving
 
 *Updated after each plan completion*
 
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - 01-01: role/level user fields use string type not Postgres enum — Better Auth generate unreliable with custom enums; validate at app layer
 - 01-01: Better Auth auth route uses toNextJsHandler(auth) pattern (not raw auth.handler)
 - 01-01: Next.js 16 dev script uses --webpack flag (not --no-turbopack) for Serwist compatibility
+- 01-02: Next.js 16 uses proxy.ts (not middleware.ts) — middleware filename was deprecated in v16
+- 01-02: Root layout returns children only (no html/body) — locale layout provides its own html element
+- 01-02: Import typed navigation from @/i18n/navigation (not next-intl directly) for type-safe locale routing
 
 ### Pending Todos
 
@@ -64,5 +67,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-31
-Stopped at: Completed 01-01-PLAN.md — Next.js scaffold + Drizzle + Better Auth. User must set DATABASE_URL + RESEND_API_KEY before auth UI work (01-03)
+Stopped at: Completed 01-02-PLAN.md — next-intl bilingual routing, RTL support, Heebo font, flag-icon language toggle
 Resume file: None
