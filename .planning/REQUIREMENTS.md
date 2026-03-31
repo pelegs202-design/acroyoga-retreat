@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **FOUND-01**: Site loads on Vercel with Next.js, Vercel Postgres (Neon), Drizzle ORM
 - [x] **FOUND-02**: Bilingual Hebrew RTL + English with language toggle (next-intl)
-- [ ] **FOUND-03**: PWA installable with home screen icon and offline profile/skills view
+- [x] **FOUND-03**: PWA installable with home screen icon and offline profile/skills view
 - [x] **FOUND-04**: Mobile-first responsive design across all pages
 - [ ] **FOUND-05**: Digital terms of service acceptance on signup
 
@@ -139,7 +139,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 |-------------|-------|--------|
 | FOUND-01 | Phase 1 — Foundation + Auth | Complete |
 | FOUND-02 | Phase 1 — Foundation + Auth | Complete |
-| FOUND-03 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-03 | Phase 1 — Foundation + Auth | Complete |
 | FOUND-04 | Phase 1 — Foundation + Auth | Complete |
 | FOUND-05 | Phase 1 — Foundation + Auth | Pending |
 | AUTH-01 | Phase 1 — Foundation + Auth | Complete |

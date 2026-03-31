@@ -153,7 +153,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation + Auth | 1/5 | In Progress|  |
+| 1. Foundation + Auth | 3/5 | In Progress|  |
 | 2. Brand Identity | 0/TBD | Not started | - |
 | 3. Community Profiles + Partner Matching | 0/TBD | Not started | - |
 | 4. Jam Board + Messaging | 0/TBD | Not started | - |

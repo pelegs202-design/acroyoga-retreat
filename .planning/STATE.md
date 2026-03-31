@@ -10,27 +10,27 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 1 of 10 (Foundation + Auth)
-Plan: 2 of 5 in current phase
+Plan: 4 of 5 in current phase
 Status: In progress
-Last activity: 2026-03-31 — Plan 01-02 completed: next-intl bilingual routing (en/he), RTL support, Heebo font, flag-icon language toggle
+Last activity: 2026-03-31 — Plan 01-04 completed: Serwist PWA service worker, web manifest, offline fallback, install prompt, iOS banner
 
-Progress: [██░░░░░░░░] 10%
+Progress: [███░░░░░░░] 14%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
-- Average duration: 8 min
-- Total execution time: 0.28 hours
+- Total plans completed: 4
+- Average duration: 7.5 min
+- Total execution time: 0.50 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-foundation-auth | 2 | 17 min | 8.5 min |
+| 01-foundation-auth | 4 | 30 min | 7.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10 min), 01-02 (7 min)
+- Last 5 plans: 01-01 (10 min), 01-02 (7 min), 01-03 (8 min), 01-04 (5 min)
 - Trend: Improving
 
 *Updated after each plan completion*
@@ -53,6 +53,9 @@ Recent decisions affecting current work:
 - 01-02: Next.js 16 uses proxy.ts (not middleware.ts) — middleware filename was deprecated in v16
 - 01-02: Root layout returns children only (no html/body) — locale layout provides its own html element
 - 01-02: Import typed navigation from @/i18n/navigation (not next-intl directly) for type-safe locale routing
+- 01-04: swSrc path for Serwist is src/app/sw.ts (not app/sw.ts) — project uses src/ prefix for App Router
+- 01-04: sw.ts declares self as any for __SW_MANIFEST — avoids webworker lib requirement in tsconfig
+- 01-04: Offline page is self-contained (own html/body, inline styles) — lives outside [locale] segment for cache reliability
 
 ### Pending Todos
 
@@ -67,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-31
-Stopped at: Completed 01-02-PLAN.md — next-intl bilingual routing, RTL support, Heebo font, flag-icon language toggle
+Stopped at: Completed 01-04-PLAN.md — Serwist PWA service worker, dark manifest, offline page, install prompt, iOS banner
 Resume file: None
