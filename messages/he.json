@@ -1,0 +1,48 @@
+{
+  "common": {
+    "appName": "אקדמיית אקרויוגה",
+    "switchLanguage": "החלף שפה"
+  },
+  "home": {
+    "title": "ברוכים הבאים לאקדמיית אקרויוגה",
+    "subtitle": "מצאו את הפרטנר המושלם לאקרו"
+  },
+  "auth": {
+    "signIn": "התחברות",
+    "signUp": "הרשמה",
+    "email": "אימייל",
+    "password": "סיסמה",
+    "name": "שם מלא",
+    "forgotPassword": "שכחת סיסמה?",
+    "resetPassword": "איפוס סיסמה",
+    "sendResetLink": "שלח קישור לאיפוס",
+    "noAccount": "אין לך חשבון?",
+    "hasAccount": "כבר יש לך חשבון?",
+    "signOut": "התנתקות"
+  },
+  "tos": {
+    "title": "תנאי שימוש ומדיניות פרטיות",
+    "accept": "אני מסכים/ה",
+    "decline": "לא מסכים/ה",
+    "mustAccept": "יש לאשר את תנאי השימוש כדי להשתמש בפלטפורמה"
+  },
+  "onboarding": {
+    "title": "הגדרת הפרופיל שלך",
+    "city": "עיר",
+    "cityPlaceholder": "לדוגמה: תל אביב",
+    "role": "תפקיד מועדף",
+    "roleBase": "בייס",
+    "roleFlyer": "פלייר",
+    "roleBoth": "שניהם",
+    "level": "רמת ניסיון",
+    "levelBeginner": "מתחיל/ה",
+    "levelIntermediate": "בינוני/ת",
+    "levelAdvanced": "מתקדם/ת",
+    "continue": "המשך",
+    "skip": "דלג לעת עתה"
+  },
+  "offline": {
+    "title": "אין חיבור לאינטרנט",
+    "message": "התחבר לאינטרנט כדי להמשיך"
+  }
+}

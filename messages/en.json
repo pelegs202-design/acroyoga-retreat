@@ -1,0 +1,48 @@
+{
+  "common": {
+    "appName": "AcroYoga Academy",
+    "switchLanguage": "Switch language"
+  },
+  "home": {
+    "title": "Welcome to AcroYoga Academy",
+    "subtitle": "Find your perfect acro partner"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "forgotPassword": "Forgot password?",
+    "resetPassword": "Reset Password",
+    "sendResetLink": "Send Reset Link",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signOut": "Sign Out"
+  },
+  "tos": {
+    "title": "Terms of Service & Privacy Policy",
+    "accept": "I Accept",
+    "decline": "Decline",
+    "mustAccept": "You must accept the terms to use the platform"
+  },
+  "onboarding": {
+    "title": "Set Up Your Profile",
+    "city": "City",
+    "cityPlaceholder": "e.g., Tel Aviv",
+    "role": "Preferred Role",
+    "roleBase": "Base",
+    "roleFlyer": "Flyer",
+    "roleBoth": "Both",
+    "level": "Experience Level",
+    "levelBeginner": "Beginner",
+    "levelIntermediate": "Intermediate",
+    "levelAdvanced": "Advanced",
+    "continue": "Continue",
+    "skip": "Skip for now"
+  },
+  "offline": {
+    "title": "You're Offline",
+    "message": "Connect to the internet to continue"
+  }
+}
