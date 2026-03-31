@@ -70,6 +70,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **DSGN-03**: High Lighthouse performance scores on mobile despite heavy interactivity
 - [ ] **DSGN-04**: All UI built with Tailwind CSS v4 (CSS logical properties for RTL), Framer Motion v12 (animations/interactions), shadcn/ui + Radix UI (accessible primitives), Heebo font (Hebrew)
 - [ ] **DSGN-05**: All pages and components use `/frontend-design` skill to produce distinctive, non-generic interfaces matching brutalist vision
+- [ ] **DSGN-06**: Use Google Stitch (stitch-mcp) for AI-powered UI prototyping and Tailwind/React code generation before implementation
 
 ### SEO & Social
 
@@ -139,9 +140,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | (populated during roadmap creation) | | |
 
 **Coverage:**
-- v1 requirements: 39 total
+- v1 requirements: 40 total
 - Mapped to phases: 0
-- Unmapped: 39
+- Unmapped: 40
 
 ---
 *Requirements defined: 2026-03-31*

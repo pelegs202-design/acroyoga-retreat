@@ -70,7 +70,7 @@ A brutalist, interactive community platform for acroyoga practitioners in Israel
 - **Design Direction**: Brutalist / interactive chaos — cursor effects, draggable elements, unconventional scroll. Must still be accessible (WCAG AA) and fast.
 - **Performance**: Vercel-optimized, targeting high Lighthouse scores despite heavy interactivity
 - **SEO**: Critical growth channel — must rank for Hebrew acroyoga terms (אקרויוגה)
-- **Design Skills**: Use `/frontend-design` skill for all UI implementation — produces distinctive, production-grade interfaces that avoid generic AI aesthetics. Critical for brutalist design goal.
+- **Design Tools**: Google Stitch (via `stitch-mcp` MCP server) for AI-powered UI prototyping and Tailwind/React code generation. Use `/frontend-design` skill for all UI implementation — produces distinctive, production-grade interfaces that avoid generic AI aesthetics. Critical for brutalist design goal.
 
 ## Key Decisions
 

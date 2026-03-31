@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "stitch": {
+      "command": "npx.cmd",
+      "args": ["-y", "stitch-mcp"],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "glassy-chalice-427116-e6",
+        "GOOGLE_APPLICATION_CREDENTIALS": "C:/Users/somet/tennis/service-account.json"
+      }
+    }
+  }
+}
