@@ -18,16 +18,47 @@
     "sendResetLink": "Send Reset Link",
     "noAccount": "Don't have an account?",
     "hasAccount": "Already have an account?",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "welcomeBack": "Welcome back",
+    "dashboard": "Dashboard"
   },
   "tos": {
     "title": "Terms of Service & Privacy Policy",
     "accept": "I Accept",
     "decline": "Decline",
-    "mustAccept": "You must accept the terms to use the platform"
+    "mustAccept": "You must accept the terms to use the platform",
+    "scrollToAccept": "Please scroll through the full terms before accepting"
+  },
+  "tosContent": {
+    "intro": {
+      "heading": "Welcome to AcroYoga Academy",
+      "body": "AcroYoga Academy (\"the Platform\") is a community hub for acroyoga practitioners to find partners, join events, and connect. By using this Platform you agree to the following terms. Please read them carefully before creating an account."
+    },
+    "communityConduct": {
+      "heading": "Community Conduct",
+      "body": "AcroYoga is built on trust, consent, and mutual care. As a member you agree to: (1) communicate clearly about skill levels, physical limitations, and boundaries before partnering; (2) obtain explicit consent before attempting any technique with a new partner; (3) treat all members with respect regardless of experience level, body type, gender, or background; (4) not use the Platform to harass, intimidate, or demean other members; (5) report unsafe or inappropriate behavior using the in-app reporting tools. Violation of community conduct may result in suspension or permanent removal of your account."
+    },
+    "dataCollection": {
+      "heading": "Data We Collect",
+      "body": "To operate the Platform, we collect: your name, email address, city, role preference (base/flyer/both), experience level, and usage data. Your profile information is visible to other logged-in members to facilitate partner matching. We do not sell your personal data to third parties. Data is stored securely on Neon PostgreSQL servers."
+    },
+    "privacy": {
+      "heading": "Privacy",
+      "body": "Your email address is never displayed publicly — only your name, city, role, and level are shown on your public profile. You can update or delete your account and associated data at any time from your settings. We retain account data for up to 90 days after deletion to prevent abuse, then permanently delete it. We use cookies and session tokens to keep you logged in. Sessions expire after 30 days of inactivity."
+    },
+    "accountTermination": {
+      "heading": "Account Termination",
+      "body": "You may close your account at any time. We reserve the right to suspend or terminate accounts that violate community conduct guidelines, engage in fraudulent activity, or abuse the Platform. Upon termination you will lose access to all Platform features. Content you created (profiles, messages) may be retained for moderation purposes for up to 90 days."
+    },
+    "acceptance": {
+      "heading": "Acceptance of Terms",
+      "body": "By clicking \"I Accept\" below, you confirm that you have read and agree to these Terms of Service and Privacy Policy, and that you are at least 16 years of age. These terms were last updated on March 2026 (version 1.0)."
+    }
   },
   "onboarding": {
     "title": "Set Up Your Profile",
+    "subtitle": "Help partners find you",
+    "step": "Step {current} of {total}",
     "city": "City",
     "cityPlaceholder": "e.g., Tel Aviv",
     "role": "Preferred Role",
@@ -39,7 +70,13 @@
     "levelIntermediate": "Intermediate",
     "levelAdvanced": "Advanced",
     "continue": "Continue",
-    "skip": "Skip for now"
+    "skip": "Skip for now",
+    "finish": "Finish"
+  },
+  "dashboard": {
+    "welcome": "Welcome, {name}!",
+    "subtitle": "Your dashboard is coming soon.",
+    "comingSoon": "We're building something great. Partner matching, events, and community features are on the way."
   },
   "offline": {
     "title": "You're Offline",
