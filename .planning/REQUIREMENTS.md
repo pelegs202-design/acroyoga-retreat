@@ -137,13 +137,62 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (populated during roadmap creation) | | |
+| FOUND-01 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-02 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-03 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-04 | Phase 1 — Foundation + Auth | Pending |
+| FOUND-05 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-01 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-02 | Phase 1 — Foundation + Auth | Pending |
+| AUTH-03 | Phase 1 — Foundation + Auth | Pending |
+| BRAND-01 | Phase 2 — Brand Identity | Pending |
+| PROF-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-02 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-03 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-04 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-05 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-06 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| COMM-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| COMM-02 | Phase 4 — Jam Board + Messaging | Pending |
+| COMM-03 | Phase 4 — Jam Board + Messaging | Pending |
+| COMM-04 | Phase 4 — Jam Board + Messaging | Pending |
+| COMM-05 | Phase 4 — Jam Board + Messaging | Pending |
+| COMM-06 | Phase 4 — Jam Board + Messaging | Pending |
+| QUIZ-01 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-02 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-03 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-04 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-05 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-06 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-07 | Phase 5 — Quiz Funnels | Pending |
+| PAY-01 | Phase 6 — Payments + Invoicing | Pending |
+| PAY-02 | Phase 6 — Payments + Invoicing | Pending |
+| PAY-03 | Phase 6 — Payments + Invoicing | Pending |
+| NOTIF-01 | Phase 7 — Notifications + Automations | Pending |
+| NOTIF-02 | Phase 7 — Notifications + Automations | Pending |
+| NOTIF-03 | Phase 7 — Notifications + Automations | Pending |
+| NOTIF-04 | Phase 7 — Notifications + Automations | Pending |
+| NOTIF-05 | Phase 7 — Notifications + Automations | Pending |
+| ADMIN-01 | Phase 8 — Admin Panel | Pending |
+| ADMIN-02 | Phase 8 — Admin Panel | Pending |
+| ADMIN-03 | Phase 8 — Admin Panel | Pending |
+| ADMIN-04 | Phase 8 — Admin Panel | Pending |
+| SEO-01 | Phase 9 — SEO + Social Surface | Pending |
+| SEO-02 | Phase 9 — SEO + Social Surface | Pending |
+| SEO-03 | Phase 9 — SEO + Social Surface | Pending |
+| SEO-04 | Phase 9 — SEO + Social Surface | Pending |
+| DSGN-01 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-02 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-03 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-04 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-05 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-06 | Phase 10 — Brutalist Design Polish + Performance | Pending |
 
 **Coverage:**
 - v1 requirements: 40 total
-- Mapped to phases: 0
-- Unmapped: 40
+- Mapped to phases: 40
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-31*
-*Last updated: 2026-03-31 after initial definition*
+*Last updated: 2026-03-31 — traceability populated after roadmap creation*
