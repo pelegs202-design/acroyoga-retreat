@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 const signInSchema = z.object({
   email: z.string().email("Invalid email address"),
@@ -21,7 +21,7 @@ type Props = {
 
 export default function SignInForm({ locale }: Props) {
   const t = useTranslations("auth");
-  const router = useRouter();
+  const currentLocale = useLocale();
   const [serverError, setServerError] = useState<string | null>(null);
 
   const {
@@ -55,13 +55,13 @@ export default function SignInForm({ locale }: Props) {
 
     if (!user?.tosAcceptedAt) {
       // TOS not yet accepted
-      router.push(`/${locale}/tos` as Parameters<typeof router.push>[0]);
+      window.location.href = `/${currentLocale}/tos`;
     } else if (!user.city || !user.role || !user.level) {
       // Onboarding incomplete
-      router.push(`/${locale}/onboarding` as Parameters<typeof router.push>[0]);
+      window.location.href = `/${currentLocale}/onboarding`;
     } else {
       // Fully onboarded — go to dashboard
-      router.push(`/${locale}/dashboard` as Parameters<typeof router.push>[0]);
+      window.location.href = `/${currentLocale}/dashboard`;
     }
   }
 

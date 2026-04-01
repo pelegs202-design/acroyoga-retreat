@@ -1,9 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
 
 type Role = "base" | "flyer" | "both";
 type Level = "beginner" | "intermediate" | "advanced";
@@ -15,7 +13,6 @@ type Props = {
 export default function OnboardingWizard({ locale }: Props) {
   const t = useTranslations("onboarding");
   const currentLocale = useLocale();
-  const router = useRouter();
 
   const [step, setStep] = useState(1);
   const totalSteps = 2;
@@ -58,7 +55,7 @@ export default function OnboardingWizard({ locale }: Props) {
         throw new Error(body.error ?? "Failed to save profile");
       }
 
-      router.push(`/${locale}/dashboard` as Parameters<typeof router.push>[0]);
+      window.location.href = `/${currentLocale}/dashboard`;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       setIsSubmitting(false);

@@ -1,8 +1,7 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { useState } from "react";
-import { useRouter } from "@/i18n/navigation";
 
 type Props = {
   locale: string;
@@ -11,7 +10,7 @@ type Props = {
 export default function TosAcceptance({ locale }: Props) {
   const t = useTranslations("tos");
   const tc = useTranslations("tosContent");
-  const router = useRouter();
+  const currentLocale = useLocale();
 
   const [isAccepting, setIsAccepting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,8 +30,8 @@ export default function TosAcceptance({ locale }: Props) {
         throw new Error(body.error ?? "Failed to accept TOS");
       }
 
-      // Redirect to onboarding after TOS acceptance
-      router.push(`/${locale}/onboarding` as Parameters<typeof router.push>[0]);
+      // Hard navigate to onboarding — ensures server re-checks auth state
+      window.location.href = `/${currentLocale}/onboarding`;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
       setIsAccepting(false);
@@ -40,8 +39,7 @@ export default function TosAcceptance({ locale }: Props) {
   }
 
   function handleDecline() {
-    // User declined — redirect to home page (can browse public content)
-    router.push(`/${locale}/` as Parameters<typeof router.push>[0]);
+    window.location.href = `/${currentLocale}/`;
   }
 
   const sections = [

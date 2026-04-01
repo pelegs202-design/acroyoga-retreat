@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/db";
+import * as schema from "@/lib/db/schema";
 import { Resend } from "resend";
 
 const resend = process.env.RESEND_API_KEY
@@ -14,7 +15,7 @@ const FROM_EMAIL =
 
 export const auth = betterAuth({
   baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  database: drizzleAdapter(db, { provider: "pg" }),
+  database: drizzleAdapter(db, { provider: "pg", schema }),
 
   emailAndPassword: {
     enabled: true,
@@ -37,10 +38,8 @@ export const auth = betterAuth({
   session: {
     expiresIn: 60 * 60 * 24 * 30, // 30 days
     updateAge: 60 * 60 * 24, // refresh session daily
-    cookieCache: {
-      enabled: true,
-      maxAge: 5 * 60, // 5-minute client cookie cache
-    },
+    // Cookie cache disabled — causes stale session reads after TOS/onboarding
+    // updates, leading to redirect loops. Re-enable once onboarding flow is stable.
   },
 
   user: {

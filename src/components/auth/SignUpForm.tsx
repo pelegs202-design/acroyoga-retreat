@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 const signUpSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -22,7 +22,7 @@ type Props = {
 
 export default function SignUpForm({ locale }: Props) {
   const t = useTranslations("auth");
-  const router = useRouter();
+  const currentLocale = useLocale();
   const [serverError, setServerError] = useState<string | null>(null);
 
   const {
@@ -47,7 +47,7 @@ export default function SignUpForm({ locale }: Props) {
     }
 
     // Success — redirect to TOS acceptance (not dashboard)
-    router.push(`/${locale}/tos` as Parameters<typeof router.push>[0]);
+    window.location.href = `/${currentLocale}/tos`;
   }
 
   return (
