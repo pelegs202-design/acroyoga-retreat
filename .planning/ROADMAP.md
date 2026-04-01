@@ -51,7 +51,9 @@ Plans:
   1. A new brand name has been selected and confirmed (replaces "AcroRetreat" everywhere)
   2. Brand name and identity tokens (colors, typography scale, logo mark or wordmark) are applied in the codebase
   3. The domain and any visible references to the old name are updated to the new brand
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 02-01-PLAN.md — AcroHavura brand identity: dark-first tokens, full rename, branded PWA icons
 
 ### Phase 3: Community Profiles + Partner Matching
 **Goal**: Members can build complete profiles and find compatible acroyoga partners near them — delivering the platform's core value proposition
