@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Foundation + Auth** - Next.js stack on Vercel with RTL i18n, PWA, database layer, auth, and terms acceptance
 - [x] **Phase 2: Brand Identity** - Resolve new brand name, visual identity tokens, and apply across the codebase (completed 2026-04-01)
 - [x] **Phase 3: Community Profiles + Partner Matching** - User profiles with skills checklist and partner search by city/role/level (completed 2026-04-01)
-- [ ] **Phase 4: Jam Board + Messaging** - Real-time 1:1 DMs via Ably, jam session posting with RSVP/waitlist
+- [ ] **Phase 4: Jam Board + Messaging** - 1:1 DMs via polling, jam session posting with RSVP/waitlist
 - [ ] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching
 - [ ] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation
 - [ ] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences
@@ -85,11 +85,11 @@ Plans:
   4. Two users can exchange 1:1 direct messages that arrive in real time without a page refresh
 **Plans**: 5 plans
 Plans:
-- [ ] 04-01-PLAN.md — DB schema migration (jam + messaging tables) + Ably install + next.config
-- [ ] 04-02-PLAN.md — Jam Board API (create jam, RSVP with race-safe transaction, waitlist promotion)
-- [ ] 04-03-PLAN.md — Messaging backend (Ably token auth, conversation/message APIs, AblyProvider)
+- [ ] 04-01-PLAN.md — DB schema migration (jam + messaging tables, isJamHost flag, unique constraints)
+- [ ] 04-02-PLAN.md — Jam Board API (create jam, RSVP with race-safe capacity check, waitlist promotion, canReview fix)
+- [ ] 04-03-PLAN.md — Messaging API (conversations, messages, unread count — polling-based, no Ably)
 - [ ] 04-04-PLAN.md — Jam Board UI (feed page, jam cards, filters, create form, i18n)
-- [ ] 04-05-PLAN.md — Messaging UI (chat thread, conversation list, unread badge, canReview fix, i18n)
+- [ ] 04-05-PLAN.md — Messaging UI (chat thread with polling, conversation list, unread badge, i18n)
 
 ### Phase 5: Quiz Funnels
 **Goal**: Prospective students can complete engaging, visually playful assessment quizzes that qualify them for the 30-day challenge or a private workshop — and receive a personalized result that leads naturally to a payment or inquiry action
@@ -171,7 +171,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 1. Foundation + Auth | 4/5 | In Progress|  |
 | 2. Brand Identity | 3/3 | Complete    | 2026-04-01 |
 | 3. Community Profiles + Partner Matching | 4/4 | Complete    | 2026-04-01 |
-| 4. Jam Board + Messaging | 0/TBD | Not started | - |
+| 4. Jam Board + Messaging | 0/5 | Not started | - |
 | 5. Quiz Funnels | 0/TBD | Not started | - |
 | 6. Payments + Invoicing | 0/TBD | Not started | - |
 | 7. Notifications + Automations | 0/TBD | Not started | - |
