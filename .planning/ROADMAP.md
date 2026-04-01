@@ -101,7 +101,13 @@ Plans:
   3. User reaches a personalized results page that reflects their level/strengths before seeing the payment CTA
   4. User can complete the shorter workshop inquiry quiz (2-3 steps: group type, size, preferred dates) and submit it
   5. Per-step completion events are tracked so funnel drop-off is measurable from day one
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 05-01-PLAN.md — Quiz infrastructure (dependencies, DB schema, QuizEngine, components, analytics)
+- [ ] 05-02-PLAN.md — Quiz content (challenge questions, branching logic, result calculator, workshop questions)
+- [ ] 05-03-PLAN.md — Challenge quiz pages (entry, flow, API routes, i18n)
+- [ ] 05-04-PLAN.md — Results page (radar chart, fake loader, testimonials, price CTA, FAQ, shareable URL)
+- [ ] 05-05-PLAN.md — Workshop quiz flow, advantages page, GA4 + Meta Pixel, human verification
 
 ### Phase 6: Payments + Invoicing
 **Goal**: Users can pay for the 30-day challenge and submit workshop bookings through a compliant Israeli checkout that automatically issues a Hebrew tax invoice — so the platform can generate real revenue on day one
@@ -172,7 +178,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 2. Brand Identity | 3/3 | Complete    | 2026-04-01 |
 | 3. Community Profiles + Partner Matching | 4/4 | Complete    | 2026-04-01 |
 | 4. Jam Board + Messaging | 5/5 | Complete    | 2026-04-01 |
-| 5. Quiz Funnels | 0/TBD | Not started | - |
+| 5. Quiz Funnels | 0/5 | Not started | - |
 | 6. Payments + Invoicing | 0/TBD | Not started | - |
 | 7. Notifications + Automations | 0/TBD | Not started | - |
 | 8. Admin Panel | 0/TBD | Not started | - |
