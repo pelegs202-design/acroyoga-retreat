@@ -83,7 +83,13 @@ Plans:
   2. User can RSVP to a jam, see remaining spots, and join a waitlist when full
   3. User can cancel an RSVP on a jam they have joined
   4. Two users can exchange 1:1 direct messages that arrive in real time without a page refresh
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 04-01-PLAN.md — DB schema migration (jam + messaging tables) + Ably install + next.config
+- [ ] 04-02-PLAN.md — Jam Board API (create jam, RSVP with race-safe transaction, waitlist promotion)
+- [ ] 04-03-PLAN.md — Messaging backend (Ably token auth, conversation/message APIs, AblyProvider)
+- [ ] 04-04-PLAN.md — Jam Board UI (feed page, jam cards, filters, create form, i18n)
+- [ ] 04-05-PLAN.md — Messaging UI (chat thread, conversation list, unread badge, canReview fix, i18n)
 
 ### Phase 5: Quiz Funnels
 **Goal**: Prospective students can complete engaging, visually playful assessment quizzes that qualify them for the 30-day challenge or a private workshop — and receive a personalized result that leads naturally to a payment or inquiry action
