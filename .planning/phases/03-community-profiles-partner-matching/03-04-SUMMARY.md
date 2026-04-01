@@ -54,11 +54,11 @@ completed: 2026-04-01
 
 ## Performance
 
-- **Duration:** 8 min
+- **Duration:** ~45 min (including human verification of full Phase 3 flow)
 - **Started:** 2026-04-01T12:25:00Z
-- **Completed:** 2026-04-01T12:33:45Z
-- **Tasks:** 2 auto (Task 3 is checkpoint:human-verify — paused for user verification)
-- **Files modified:** 3
+- **Completed:** 2026-04-01T13:10:00Z
+- **Tasks:** 3 (2 auto + 1 human-verify checkpoint — APPROVED)
+- **Files modified:** 6
 
 ## Accomplishments
 - POST /api/reviews: validates all inputs, prevents self-review (400), enforces 30-day duplicate window (409), stubs Phase 4 jam-gating
@@ -71,13 +71,19 @@ Each task was committed atomically:
 
 1. **Task 1: Create reviews API route + ReviewForm component** - `712f484` (feat)
 2. **Task 2: Wire ReviewForm into member profile page** - `7f1e58b` (feat)
+3. **Task 3: Human verification checkpoint** - APPROVED (30/33 UI tests passed, 3 skipped avatar file-picker; full Phase 3 end-to-end flow confirmed)
 
-_Task 3 is a checkpoint:human-verify — plan paused for user verification._
+**Deviation fix:** `8ecbe7f` (fix) — ICU {filter} placeholder bug in noResultsHint
+
+**Plan metadata:** `194c353` (docs: complete review system plan)
 
 ## Files Created/Modified
 - `src/app/api/reviews/route.ts` - POST endpoint: auth, validation, self-review guard, 30-day duplicate check, DB insert
 - `src/components/profile/ReviewForm.tsx` - Client component: thumbs toggle, comment textarea, fetch to /api/reviews, all state variants
 - `src/app/[locale]/(app)/members/[userId]/page.tsx` - Added ReviewForm import and conditional render for !isOwnProfile
+- `messages/en.json` - Fixed noResultsHint placeholder from ICU {filter} to __filter__ plain text
+- `messages/he.json` - Same fix for Hebrew locale
+- `src/components/members/MembersGrid.tsx` - client-side .replace('__filter__', value) to rehydrate the hint
 
 ## Decisions Made
 - canReview stub is a top-level const (not in a function) with a clear TODO comment referencing Phase 4, so it is trivially findable for replacement
@@ -86,7 +92,20 @@ _Task 3 is a checkpoint:human-verify — plan paused for user verification._
 
 ## Deviations from Plan
 
-None - plan executed exactly as written.
+### Auto-fixed Issues
+
+**1. [Rule 1 - Bug] ICU {filter} placeholder in noResultsHint caused next-intl FORMATTING_ERROR**
+- **Found during:** Task 3 (Human verification checkpoint — testing Hebrew RTL layout)
+- **Issue:** The `noResultsHint` i18n string used `{filter}` as a placeholder value. next-intl treats curly-brace tokens as ICU message format variables and throws `FORMATTING_ERROR` when `t()` is called on the server side without the corresponding variable being passed.
+- **Fix:** Changed placeholder from `{filter}` to `__filter__` (plain text) in both `messages/en.json` and `messages/he.json`. Updated `MembersGrid.tsx` to use `.replace('__filter__', filterValue)` client-side to rehydrate the hint text.
+- **Files modified:** `messages/en.json`, `messages/he.json`, `src/components/members/MembersGrid.tsx`
+- **Verification:** No FORMATTING_ERROR thrown; filter hint renders correctly in both locales.
+- **Committed in:** `8ecbe7f` (fix: separate commit during verification)
+
+---
+
+**Total deviations:** 1 auto-fixed (Rule 1 — Bug)
+**Impact on plan:** Bug only surfaced during Hebrew RTL verification. Fix is minimal and does not change component behavior or API contracts.
 
 ## Issues Encountered
 
@@ -98,10 +117,11 @@ None - no external service configuration required. Reviews table was already cre
 
 ## Next Phase Readiness
 
-- Phase 3 auto tasks complete. Awaiting human verification checkpoint (Task 3).
-- After checkpoint approval, Phase 3 is fully complete.
-- Phase 4 jam board can replace the canReview stub in src/app/api/reviews/route.ts (marked with TODO comment).
-- i18n translations for `review.*` namespace already present in both en.json and he.json.
+- Phase 3 is fully complete. Human verification APPROVED (2026-04-01).
+- 30/33 UI tests passed; 3 skipped (avatar file-picker tests require native file dialog interaction — not automatable in current test harness, low risk).
+- Phase 4 jam board can replace the canReview stub in `src/app/api/reviews/route.ts` (marked with `// TODO Phase 4` comment).
+- `review.*` i18n namespace is complete in both en.json and he.json.
+- Complete Phase 3 flow verified: profile edit → avatar upload → partner search with filters → profile view → leave review → own profile shows feedback count.
 
 ---
 *Phase: 03-community-profiles-partner-matching*
