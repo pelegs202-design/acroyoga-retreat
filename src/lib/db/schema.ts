@@ -187,6 +187,34 @@ export const conversationReads = pgTable(
   ],
 );
 
+// ─── Quiz tables ───
+
+export const quizLeads = pgTable("quiz_leads", {
+  id: text("id").primaryKey(),
+  sessionId: text("session_id").notNull().unique(),
+  quizType: text("quiz_type").notNull(), // 'challenge' | 'workshop'
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  phone: text("phone").notNull(),
+  answers: text("answers").notNull(), // JSON string of answer map
+  resultType: text("result_type"),    // null for workshop
+  city: text("city"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const quizEvents = pgTable("quiz_events", {
+  id: text("id").primaryKey(),
+  sessionId: text("session_id").notNull(),
+  quizType: text("quiz_type").notNull(),
+  questionId: text("question_id").notNull(),
+  answer: text("answer"),
+  eventType: text("event_type").notNull(), // 'view' | 'answer' | 'abandon'
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("quiz_events_session_idx").on(table.sessionId),
+  index("quiz_events_quiz_type_idx").on(table.quizType),
+]);
+
 // ─── Relations ───
 
 export const userRelations = relations(user, ({ many }) => ({
