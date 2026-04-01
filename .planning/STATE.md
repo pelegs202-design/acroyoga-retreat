@@ -120,6 +120,10 @@ Recent decisions affecting current work:
 - [Phase 05-quiz-funnels]: 05-03: QuizEngine gained onStepAnswer optional prop — per-step tracking required but original interface had no hook; added backward-compatible callback
 - [Phase 05-quiz-funnels]: 05-03: Question.type widened to include text-inputs — challenge-questions.ts uses this type; QuizEngine original union was incomplete
 - [Phase 05-quiz-funnels]: 05-03: Lead submission non-blocking — quiz redirects to results regardless of API error; localStorage preserves answers for retry
+- [Phase 05-quiz-funnels]: 05-05: TextInputsStep added inline to QuizEngine — small enough to colocate; avoids extra file for single-use sub-component
+- [Phase 05-quiz-funnels]: 05-05: Workshop confirmation page shows advantages immediately (no loader) — direct conversion; inquiry is already submitted
+- [Phase 05-quiz-funnels]: 05-05: Resend email failure is non-blocking — DB insert happens first; email error logged but does not fail the API response
+- [Phase 05-quiz-funnels]: 05-05: GA4 + Meta Pixel use strategy='afterInteractive' in locale layout — defers analytics until page is interactive, no render blocking
 
 ### Pending Todos
 

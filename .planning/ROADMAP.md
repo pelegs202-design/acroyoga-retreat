@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Brand Identity** - Resolve new brand name, visual identity tokens, and apply across the codebase (completed 2026-04-01)
 - [x] **Phase 3: Community Profiles + Partner Matching** - User profiles with skills checklist and partner search by city/role/level (completed 2026-04-01)
 - [x] **Phase 4: Jam Board + Messaging** - 1:1 DMs via polling, jam session posting with RSVP/waitlist (completed 2026-04-01)
-- [ ] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching
+- [x] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching (completed 2026-04-01)
 - [ ] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation
 - [ ] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences
 - [ ] **Phase 8: Admin Panel** - Member management, jam host approval, challenge signups, workshop bookings
@@ -178,7 +178,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 2. Brand Identity | 3/3 | Complete    | 2026-04-01 |
 | 3. Community Profiles + Partner Matching | 4/4 | Complete    | 2026-04-01 |
 | 4. Jam Board + Messaging | 5/5 | Complete    | 2026-04-01 |
-| 5. Quiz Funnels | 4/5 | In Progress|  |
+| 5. Quiz Funnels | 5/5 | Complete   | 2026-04-01 |
 | 6. Payments + Invoicing | 0/TBD | Not started | - |
 | 7. Notifications + Automations | 0/TBD | Not started | - |
 | 8. Admin Panel | 0/TBD | Not started | - |
