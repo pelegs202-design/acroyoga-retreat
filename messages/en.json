@@ -180,5 +180,57 @@
     "sending": "Sending...",
     "sendError": "Failed to send",
     "retry": "Retry"
+  },
+  "quiz": {
+    "entry": {
+      "title": "Find Your Path",
+      "subtitle": "Choose your journey into the world of acroyoga",
+      "challengeTitle": "30-Day Challenge",
+      "challengeDesc": "Discover your acroyoga profile and join the next cohort",
+      "challengeCta": "Take the Quiz",
+      "workshopTitle": "Private Workshop",
+      "workshopDesc": "Plan a custom acroyoga experience for your group",
+      "workshopCta": "Get a Quote",
+      "time": "2 min"
+    },
+    "challenge": {
+      "title": "Your Acro Profile",
+      "stepOf": "Step {current} of {total}",
+      "back": "Back",
+      "almostThere": "Almost there!",
+      "seeResults": "See My Results",
+      "contact": {
+        "name": "Full Name",
+        "email": "Email Address",
+        "phone": "Phone Number",
+        "phoneHint": "Include country code, e.g. +972-54-1234567",
+        "submit": "Show My Results"
+      }
+    },
+    "results": {
+      "title": "Your Acro Profile",
+      "youAre": "You are",
+      "currentVsPotential": "Where You Are → Where You Could Be",
+      "strengths": "Your Strengths",
+      "dontWorry": "We've Got You",
+      "testimonials": "What Our Students Say",
+      "ctaTitle": "Join the 30-Day Challenge",
+      "earlyBird": "Early Bird Price",
+      "regularPrice": "Regular price",
+      "currency": "₪",
+      "spotsLeft": "Only {count} spots left in the next group",
+      "nextStart": "Next group starts {date}",
+      "joinNow": "I Want to Join Now",
+      "comingSoon": "Payment page coming soon",
+      "share": "Share Your Results",
+      "faq": "Frequently Asked Questions",
+      "faqItems": [
+        { "q": "Do I need experience?", "a": "Not at all! 80% of our students start as complete beginners. Our classes are designed to welcome everyone." },
+        { "q": "Do I need to bring a partner?", "a": "No partner needed! We pair everyone up in class. Many students come alone and meet their regular practice partners here." },
+        { "q": "What should I wear?", "a": "Comfortable athletic clothes that you can move in. Avoid zippers and buttons that could scratch your partner." },
+        { "q": "How fit do I need to be?", "a": "Any fitness level works. AcroYoga builds strength and flexibility progressively — you'll surprise yourself by week 2." },
+        { "q": "What if I'm afraid of heights?", "a": "We start low to the ground and build up gradually. You'll always feel safe and supported by your base and spotter." }
+      ]
+    }
   }
 }
