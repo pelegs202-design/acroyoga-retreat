@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "AcroYoga Academy",
-    short_name: "AcroAcademy",
-    description: "Find acro partners and events near you",
+    name: "AcroHavura",
+    short_name: "AcroHavura",
+    description: "Find your perfect acro partner",
     start_url: "/",
     display: "standalone",
     background_color: "#0a0a0a",

@@ -1,10 +1,10 @@
 {
   "common": {
-    "appName": "AcroYoga Academy",
+    "appName": "AcroHavura",
     "switchLanguage": "Switch language"
   },
   "home": {
-    "title": "Welcome to AcroYoga Academy",
+    "title": "Welcome to AcroHavura",
     "subtitle": "Find your perfect acro partner"
   },
   "auth": {
@@ -31,8 +31,8 @@
   },
   "tosContent": {
     "intro": {
-      "heading": "Welcome to AcroYoga Academy",
-      "body": "AcroYoga Academy (\"the Platform\") is a community hub for acroyoga practitioners to find partners, join events, and connect. By using this Platform you agree to the following terms. Please read them carefully before creating an account."
+      "heading": "Welcome to AcroHavura",
+      "body": "AcroHavura (\"the Platform\") is a community hub for acroyoga practitioners to find partners, join events, and connect. By using this Platform you agree to the following terms. Please read them carefully before creating an account."
     },
     "communityConduct": {
       "heading": "Community Conduct",

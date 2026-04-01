@@ -18,7 +18,7 @@ const heebo = Heebo({
 });
 
 export const metadata: Metadata = {
-  title: "AcroYoga Academy",
+  title: { default: "AcroHavura", template: "%s | AcroHavura" },
   description: "Find acro partners and events near you",
 };
 

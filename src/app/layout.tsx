@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AcroYoga Academy",
+  title: "AcroHavura",
   description: "Find acro partners and events near you",
 };
 
