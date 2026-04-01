@@ -33,11 +33,11 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Community
 
 - [x] **COMM-01**: User can search for partners by city, role, skill level, and known moves
-- [ ] **COMM-02**: User can send and receive 1:1 direct messages with other members
-- [ ] **COMM-03**: Approved hosts can post jam sessions (date, location, capacity, level)
-- [ ] **COMM-04**: User can RSVP to join a posted jam session
-- [ ] **COMM-05**: Jam sessions show capacity and waitlist when full
-- [ ] **COMM-06**: User can cancel RSVP on a jam session
+- [x] **COMM-02**: User can send and receive 1:1 direct messages with other members
+- [x] **COMM-03**: Approved hosts can post jam sessions (date, location, capacity, level)
+- [x] **COMM-04**: User can RSVP to join a posted jam session
+- [x] **COMM-05**: Jam sessions show capacity and waitlist when full
+- [x] **COMM-06**: User can cancel RSVP on a jam session
 
 ### Quiz Funnels
 
@@ -153,11 +153,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROF-05 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | PROF-06 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | COMM-01 | Phase 3 — Community Profiles + Partner Matching | Complete |
-| COMM-02 | Phase 4 — Jam Board + Messaging | Pending |
-| COMM-03 | Phase 4 — Jam Board + Messaging | Pending |
-| COMM-04 | Phase 4 — Jam Board + Messaging | Pending |
-| COMM-05 | Phase 4 — Jam Board + Messaging | Pending |
-| COMM-06 | Phase 4 — Jam Board + Messaging | Pending |
+| COMM-02 | Phase 4 — Jam Board + Messaging | Complete |
+| COMM-03 | Phase 4 — Jam Board + Messaging | Complete |
+| COMM-04 | Phase 4 — Jam Board + Messaging | Complete |
+| COMM-05 | Phase 4 — Jam Board + Messaging | Complete |
+| COMM-06 | Phase 4 — Jam Board + Messaging | Complete |
 | QUIZ-01 | Phase 5 — Quiz Funnels | Pending |
 | QUIZ-02 | Phase 5 — Quiz Funnels | Pending |
 | QUIZ-03 | Phase 5 — Quiz Funnels | Pending |

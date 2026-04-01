@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 4 of 10 (Jam Board + Messaging)
-Plan: 1 of 4 in current phase
-Status: In progress — Plan 04-01 complete
-Last activity: 2026-04-01 — Plan 04-01 complete: Phase 4 DB schema (jam sessions, messaging tables) pushed to Neon
+Plan: 3 of 5 in current phase
+Status: In progress — Plan 04-03 complete
+Last activity: 2026-04-01 — Plan 04-03 complete: Messaging API (conversation list, history, send, unread count)
 
 Progress: [████░░░░░░] 30%
 
@@ -37,6 +37,7 @@ Progress: [████░░░░░░] 30%
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 04 P03 | 4 | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,13 @@ Recent decisions affecting current work:
 - [Phase 04-01]: 04-01: conversationReads uses text id PK + unique constraint on (conversationId, userId) — consistent with all other schema tables
 - [Phase 04-01]: 04-01: Application layer must sort participant IDs alphabetically (A < B) before INSERT to conversations — unique(participantA, participantB) does not handle (A,B) vs (B,A) ordering
 - [Phase 04-01]: 04-01: drizzle/migration.sql gitignored — migration 0001 applied to Neon via drizzle-kit push; schema.ts is canonical source of truth
+- [Phase 04-02]: 04-02: Race safety uses unique constraint (23505) as final net rather than SELECT FOR UPDATE — neon-http is stateless HTTP, no persistent connections for row locks
+- [Phase 04-02]: 04-02: Email failure on waitlist promotion is non-blocking — DB is already updated, log error and continue
+- [Phase 04-02]: 04-02: canReview subquery requires 'confirmed' status for both parties — waitlisted and cancelled attendees cannot review
+- [Phase 04-02]: 04-02: 4-hour cancellation lock is enforced server-side only — client time is never trusted
+- [Phase 04]: 04-03: inArray batch query used for other-user details and last messages — avoids N+1 pattern in conversation list
+- [Phase 04]: 04-03: hasUnread excludes own messages (senderId !== userId) — prevents self-messages from triggering badge
+- [Phase 04]: 04-03: Unread count uses raw sql template tag for complex LEFT JOIN with OR + IS NULL — cleaner than verbose Drizzle builder
 
 ### Pending Todos
 
@@ -100,5 +108,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 04-01-PLAN.md — Phase 4 DB schema applied. Ready for 04-02 jam board API.
-Resume file: .planning/phases/04-jam-board-messaging/04-01-SUMMARY.md
+Stopped at: Completed 04-02-PLAN.md — Jam Board API complete (GET+POST /api/jams, RSVP endpoint, real canReview). Ready for 04-03/04-04.
+Resume file: .planning/phases/04-jam-board-messaging/04-02-SUMMARY.md
