@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 5 of 10 (Quiz Funnels)
-Plan: 2 of 3 in current phase
-Status: In Progress — Phase 05 running, Plans 01+02 complete
-Last activity: 2026-04-01 — Plan 05-02 complete: Quiz content (challenge-questions, branching-logic, result-calculator, workshop-questions — all bilingual, 4 archetypes)
+Plan: 4 of 5 in current phase
+Status: In Progress — Phase 05 running, Plans 01+02+03+04 complete
+Last activity: 2026-04-01 — Plan 05-04 complete: Results page (QuizLoader, QuizRadarChart, QuizResultsPage, ChallengeResultsFlow, results route, results API, i18n)
 
-Progress: [████░░░░░░] 44%
+Progress: [████░░░░░░] 46%
 
 ## Performance Metrics
 
@@ -40,6 +40,7 @@ Progress: [████░░░░░░] 44%
 *Updated after each plan completion*
 | Phase 04 P03 | 4 | 3 tasks | 3 files |
 | Phase 04-jam-board-messaging P05 | 18 | 2 tasks | 12 files |
+| Phase 05-quiz-funnels P04 | 7 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -112,6 +113,9 @@ Recent decisions affecting current work:
 - [Phase 05-02]: 05-02: workshopQuestions has 4 steps — plan header says "3 steps" but task detail lists 4 distinct IDs; task detail is authoritative
 - [Phase 05-02]: 05-02: text-inputs workshop step uses options[] to carry field metadata — reuses existing Question schema without adding a non-standard fields property
 - [Phase 05-02]: 05-02: Tie-breaking priority Explorer > Artist > Connector > Athlete — favours beginner-friendly archetypes on tied scores
+- [Phase 05-04]: 05-04: ChallengeResultsFlow tries localStorage before API — original quiz taker gets instant cached result; sharers fetch from API; consistent experience across both paths
+- [Phase 05-04]: 05-04: FAQ items hardcoded in component as bilingual constants — avoids next-intl array-of-objects complexity; stable marketing copy
+- [Phase 05-04]: 05-04: Price anchoring (299/499) with hardcoded urgency — display-only spot count and next-start date sufficient for MVP
 
 ### Pending Todos
 
@@ -125,5 +129,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 05-02-PLAN.md — Quiz content (challenge-questions 13 entries, branching-logic, result-calculator 4 archetypes, workshop-questions). Ready for Plan 05-03.
-Resume file: .planning/phases/05-quiz-funnels/05-02-SUMMARY.md
+Stopped at: Completed 05-04-PLAN.md — Results page (QuizLoader, QuizRadarChart, QuizResultsPage, ChallengeResultsFlow, results API, i18n). Ready for Plan 05-05.
+Resume file: .planning/phases/05-quiz-funnels/05-04-SUMMARY.md
