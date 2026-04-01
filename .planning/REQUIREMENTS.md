@@ -23,12 +23,12 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Profiles
 
-- [ ] **PROF-01**: User can create profile with photo, bio, and city
-- [ ] **PROF-02**: User can set acroyoga role preference (base / flyer / both)
-- [ ] **PROF-03**: User can set skill level (beginner / intermediate / advanced)
-- [ ] **PROF-04**: User can select known moves from standard acroyoga skills checklist
+- [x] **PROF-01**: User can create profile with photo, bio, and city
+- [x] **PROF-02**: User can set acroyoga role preference (base / flyer / both)
+- [x] **PROF-03**: User can set skill level (beginner / intermediate / advanced)
+- [x] **PROF-04**: User can select known moves from standard acroyoga skills checklist
 - [ ] **PROF-05**: User can view other members' profiles
-- [ ] **PROF-06**: User can rate and review partners after completing a jam session together
+- [x] **PROF-06**: User can rate and review partners after completing a jam session together
 
 ### Community
 
@@ -146,12 +146,12 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-02 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-03 | Phase 1 — Foundation + Auth | Complete |
 | BRAND-01 | Phase 2 — Brand Identity | Complete |
-| PROF-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
-| PROF-02 | Phase 3 — Community Profiles + Partner Matching | Pending |
-| PROF-03 | Phase 3 — Community Profiles + Partner Matching | Pending |
-| PROF-04 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-01 | Phase 3 — Community Profiles + Partner Matching | Complete |
+| PROF-02 | Phase 3 — Community Profiles + Partner Matching | Complete |
+| PROF-03 | Phase 3 — Community Profiles + Partner Matching | Complete |
+| PROF-04 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | PROF-05 | Phase 3 — Community Profiles + Partner Matching | Pending |
-| PROF-06 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-06 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | COMM-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
 | COMM-02 | Phase 4 — Jam Board + Messaging | Pending |
 | COMM-03 | Phase 4 — Jam Board + Messaging | Pending |

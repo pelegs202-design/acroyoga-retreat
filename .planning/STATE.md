@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 2 of 10 (Brand Identity)
-Plan: 3 of 5 in current phase
+Phase: 3 of 10 (Community Profiles + Partner Matching)
+Plan: 1 of 5 in current phase
 Status: In progress
-Last activity: 2026-04-01 — Plan 02-03 completed: Pink applied to all interactive surfaces — wordmarks, primary buttons, chips, progress bar, install prompt, branded PWA icons
+Last activity: 2026-04-01 — Plan 03-01 completed: Schema extended with bio/skills/reviews, 54-move skills taxonomy created, Phase 3 i18n keys added to both locales
 
-Progress: [████░░░░░░] 22%
+Progress: [████░░░░░░] 24%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 6.5 min
-- Total execution time: 0.65 hours
+- Total plans completed: 7
+- Average duration: 6.1 min
+- Total execution time: 0.72 hours
 
 **By Phase:**
 
@@ -29,9 +29,10 @@ Progress: [████░░░░░░] 22%
 |-------|-------|-------|----------|
 | 01-foundation-auth | 4 | 30 min | 7.5 min |
 | 02-brand-identity | 2 | 9 min | 4.5 min |
+| 03-community-profiles-partner-matching | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-02 (7 min), 01-03 (8 min), 01-04 (5 min), 02-01 (1 min), 02-02 (8 min)
+- Last 5 plans: 01-04 (5 min), 02-01 (1 min), 02-02 (8 min), 02-03 (4 min), 03-01 (3 min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -66,6 +67,10 @@ Recent decisions affecting current work:
 - [Phase 02-03]: 02-03: Offline page wordmark uses inline style hex #F472B6 (not text-brand) — self-contained page outside [locale], Tailwind not guaranteed in cache context
 - [Phase 02-03]: 02-03: PWA icon border thickness 15% of icon size — brutalist frame proportion readable at small icon sizes
 - [Phase 02-03]: 02-03: Root page.tsx uses bg-background replacing bg-white dark:bg-black — single CSS variable, no light/dark conditionals
+- [Phase 03-01]: 03-01: Relations defined after all table declarations to avoid TypeScript forward-reference errors when userRelations references reviews table
+- [Phase 03-01]: 03-01: skills text[] default uses sql template tag with '{}'::text[] PostgreSQL array literal — required for correct Drizzle migration SQL
+- [Phase 03-01]: 03-01: SKILL_CATEGORIES is a static TypeScript constant (not DB-stored) — user.skills stores move name strings from this list
+- [Phase 03-01]: 03-01: Drizzle migration 0000 is the initial full-schema migration — DB was blank, no prior migrations existed; gitignored per project config
 
 ### Pending Todos
 
@@ -73,12 +78,11 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 3 dependency: Skills checklist content (~50-100 standard acroyoga moves) must be sourced from business owner before Phase 3 begins — content dependency, not technical
 - Phase 6 dependency: Confirm business VAT registration status (Osek Patur / Osek Murshe / Ltd.) before writing any Green Invoice code — determines legally valid document types
 - Phase 7 dependency: WhatsApp Business API phone verification (1-3 days) + template approval (1-5 days) — start submission process during Phase 6
 
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 02-03-PLAN.md — Pink applied to all interactive surfaces, branded PWA icons generated
-Resume file: None
+Stopped at: Completed 03-01-PLAN.md — Schema extended with bio/skills/reviews, skills-data.ts created, Phase 3 i18n keys added
+Resume file: .planning/phases/03-community-profiles-partner-matching/03-01-SUMMARY.md
