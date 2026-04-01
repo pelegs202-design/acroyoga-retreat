@@ -103,8 +103,8 @@ Plans:
   5. Per-step completion events are tracked so funnel drop-off is measurable from day one
 **Plans**: 5 plans
 Plans:
-- [ ] 05-01-PLAN.md — Quiz infrastructure (dependencies, DB schema, QuizEngine, components, analytics)
-- [ ] 05-02-PLAN.md — Quiz content (challenge questions, branching logic, result calculator, workshop questions)
+- [x] 05-01-PLAN.md — Quiz infrastructure (dependencies, DB schema, QuizEngine, components, analytics)
+- [x] 05-02-PLAN.md — Quiz content (challenge questions, branching logic, result calculator, workshop questions)
 - [ ] 05-03-PLAN.md — Challenge quiz pages (entry, flow, API routes, i18n)
 - [ ] 05-04-PLAN.md — Results page (radar chart, fake loader, testimonials, price CTA, FAQ, shareable URL)
 - [ ] 05-05-PLAN.md — Workshop quiz flow, advantages page, GA4 + Meta Pixel, human verification
