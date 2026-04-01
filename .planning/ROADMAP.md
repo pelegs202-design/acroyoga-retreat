@@ -67,7 +67,12 @@ Plans:
   3. User can search for partners by city, role, skill level, and known moves and see real results
   4. User can view another member's full profile page
   5. User can leave a rating and review for a partner after a jam session together
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 03-01-PLAN.md — Schema extension (bio, skills, reviews table) + skills data + i18n keys
+- [ ] 03-02-PLAN.md — Avatar upload (Vercel Blob) + profile edit page with skills checklist
+- [ ] 03-03-PLAN.md — Partner search page with filters + member profile view page
+- [ ] 03-04-PLAN.md — Private review system (thumbs up/down) + integration verification
 
 ### Phase 4: Jam Board + Messaging
 **Goal**: Community members can coordinate practice together through posted jam sessions and 1:1 messaging — replacing the WhatsApp group chaos that motivated this platform
@@ -159,7 +164,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/5 | In Progress|  |
 | 2. Brand Identity | 3/3 | Complete    | 2026-04-01 |
-| 3. Community Profiles + Partner Matching | 0/TBD | Not started | - |
+| 3. Community Profiles + Partner Matching | 0/4 | Not started | - |
 | 4. Jam Board + Messaging | 0/TBD | Not started | - |
 | 5. Quiz Funnels | 0/TBD | Not started | - |
 | 6. Payments + Invoicing | 0/TBD | Not started | - |
