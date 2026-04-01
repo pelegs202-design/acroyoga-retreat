@@ -75,6 +75,11 @@ Recent decisions affecting current work:
 - [Phase 03-03]: 03-03: ProfileHero/ProfileBio are server components receiving locale prop — getTranslations called directly; SkillsDisplay is client component for expand/collapse interactivity
 - [Phase 03-03]: 03-03: Empty-state visibility rule — own profile sees nudge, other user sees nothing — applied consistently in ProfileBio and SkillsDisplay
 - [Phase 03-03]: 03-03: MembersGrid broadening suggestion uses level > role > city priority to identify most-restrictive active filter for removal hint
+- [Phase 03-02]: 03-02: Vercel Blob client-upload pattern used (not server-upload) — avoids 4.5 MB Next.js body limit for image files
+- [Phase 03-02]: 03-02: Old blob deleted in onUploadCompleted callback — prevents CDN storage accumulation on photo replacement
+- [Phase 03-02]: 03-02: Skills array update uses Drizzle typed .update().set({ skills }) — raw SQL template tag cannot serialize text[] correctly
+- [Phase 03-02]: 03-02: ProfileEditForm extracted as 'use client' co-located file — server component handles auth/data fetch, client form manages all interactive state
+- [Phase 03-02]: 03-02: next.config.ts remotePatterns added for *.public.blob.vercel-storage.com — required for Next.js Image to render Vercel Blob CDN images
 
 ### Pending Todos
 
@@ -88,5 +93,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 03-03-PLAN.md — Partner search page with URL-driven filters + public profile view with hero/bio/skills/feedback count
-Resume file: .planning/phases/03-community-profiles-partner-matching/03-03-SUMMARY.md
+Stopped at: Completed 03-02-PLAN.md — Vercel Blob avatar upload, SkillsChecklist, profile edit page, extended update-profile API
+Resume file: .planning/phases/03-community-profiles-partner-matching/03-02-SUMMARY.md
