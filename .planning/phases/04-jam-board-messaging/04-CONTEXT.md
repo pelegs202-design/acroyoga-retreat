@@ -31,7 +31,7 @@ Community members can coordinate practice through posted jam sessions (with RSVP
 - Two entry points: "Message" button on member profiles + "New message" button in conversations list
 - No read receipts — just sent timestamps, less pressure
 - Unread message badge in header — pink dot or count on Messages link
-- Real-time via Ably — messages appear without page refresh
+- Polling-based (every 3-5 seconds) — no Ably dependency, simpler stack. Can upgrade to WebSockets later if needed.
 - Text only — no images, files, reactions, or voice messages
 
 ### Jam board layout
