@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 3 of 10 (Community Profiles + Partner Matching)
-Plan: 3 of 5 in current phase
-Status: In progress
-Last activity: 2026-04-01 — Plan 03-03 completed: Partner search page with URL-driven filters, member cards, and public profile view with hero/bio/skills/feedback count
+Plan: 4 of 5 in current phase
+Status: In progress (checkpoint — awaiting human verification of Phase 3 end-to-end flow)
+Last activity: 2026-04-01 — Plan 03-04 completed (auto tasks): Private review API (POST /api/reviews), ReviewForm component, profile page integration
 
 Progress: [████░░░░░░] 28%
 
@@ -80,6 +80,8 @@ Recent decisions affecting current work:
 - [Phase 03-02]: 03-02: Skills array update uses Drizzle typed .update().set({ skills }) — raw SQL template tag cannot serialize text[] correctly
 - [Phase 03-02]: 03-02: ProfileEditForm extracted as 'use client' co-located file — server component handles auth/data fetch, client form manages all interactive state
 - [Phase 03-02]: 03-02: next.config.ts remotePatterns added for *.public.blob.vercel-storage.com — required for Next.js Image to render Vercel Blob CDN images
+- [Phase 03-04]: 03-04: canReview stub is a top-level const=true with TODO comment — Phase 4 replaces with real jam attendance check
+- [Phase 03-04]: 03-04: isOwnProfile gates feedback count (owner sees) and ReviewForm (others see) — mutually exclusive privacy boundary
 
 ### Pending Todos
 
@@ -93,5 +95,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 03-02-PLAN.md — Vercel Blob avatar upload, SkillsChecklist, profile edit page, extended update-profile API
-Resume file: .planning/phases/03-community-profiles-partner-matching/03-02-SUMMARY.md
+Stopped at: 03-04 Task 3 checkpoint:human-verify — verifying complete Phase 3 flow end-to-end
+Resume file: .planning/phases/03-community-profiles-partner-matching/03-04-SUMMARY.md
