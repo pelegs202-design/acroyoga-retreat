@@ -51,12 +51,11 @@ export default function OfflinePage() {
           >
             <div
               style={{
-                fontSize: "0.875rem",
-                fontWeight: 700,
-                letterSpacing: "0.15em",
-                textTransform: "uppercase",
+                fontSize: "1.25rem",
+                fontWeight: 900,
+                letterSpacing: "-0.025em",
                 marginBottom: "2rem",
-                opacity: 0.45,
+                color: "#F472B6",
               }}
             >
               AcroHavura
