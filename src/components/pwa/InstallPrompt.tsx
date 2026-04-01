@@ -108,7 +108,7 @@ export default function InstallPrompt() {
         onClick={handleInstall}
         style={{
           padding: "0.5rem 1rem",
-          backgroundColor: "#f5f5f5",
+          backgroundColor: "#F472B6",
           color: "#0a0a0a",
           border: "none",
           fontFamily: "inherit",

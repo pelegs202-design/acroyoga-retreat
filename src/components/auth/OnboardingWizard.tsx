@@ -101,7 +101,7 @@ export default function OnboardingWizard({ locale }: Props) {
       {/* Progress bar */}
       <div className="mb-8 h-1.5 w-full overflow-hidden rounded-full bg-neutral-800">
         <div
-          className="h-full rounded-full bg-neutral-100 transition-all duration-300"
+          className="h-full rounded-full bg-brand transition-all duration-300"
           style={{ width: `${(step / totalSteps) * 100}%` }}
         />
       </div>
@@ -138,7 +138,7 @@ export default function OnboardingWizard({ locale }: Props) {
                   onClick={() => setRole(opt.value)}
                   className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
                     role === opt.value
-                      ? "border-neutral-100 bg-neutral-100 text-neutral-950"
+                      ? "border-brand bg-brand text-brand-foreground"
                       : "border-neutral-700 bg-neutral-800 text-neutral-300 hover:border-neutral-500 hover:text-neutral-100"
                   }`}
                 >
@@ -158,7 +158,7 @@ export default function OnboardingWizard({ locale }: Props) {
             <button
               type="button"
               onClick={handleStep1Continue}
-              className="w-full rounded-lg bg-neutral-100 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white"
+              className="w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-muted"
             >
               {t("continue")}
             </button>
@@ -187,7 +187,7 @@ export default function OnboardingWizard({ locale }: Props) {
                   onClick={() => setLevel(opt.value)}
                   className={`rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
                     level === opt.value
-                      ? "border-neutral-100 bg-neutral-100 text-neutral-950"
+                      ? "border-brand bg-brand text-brand-foreground"
                       : "border-neutral-700 bg-neutral-800 text-neutral-300 hover:border-neutral-500 hover:text-neutral-100"
                   }`}
                 >
@@ -208,7 +208,7 @@ export default function OnboardingWizard({ locale }: Props) {
               type="button"
               onClick={handleStep2Finish}
               disabled={isSubmitting}
-              className="w-full rounded-lg bg-neutral-100 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isSubmitting ? "..." : t("finish")}
             </button>

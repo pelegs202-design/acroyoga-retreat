@@ -131,7 +131,7 @@ export default function ResetPasswordForm({ locale }: Props) {
           <button
             type="submit"
             disabled={requestForm.formState.isSubmitting || status === "success"}
-            className="w-full rounded-lg bg-neutral-100 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
           >
             {requestForm.formState.isSubmitting ? "..." : t("sendResetLink")}
           </button>
@@ -188,7 +188,7 @@ export default function ResetPasswordForm({ locale }: Props) {
           <button
             type="submit"
             disabled={resetForm.formState.isSubmitting || status === "success"}
-            className="w-full rounded-lg bg-neutral-100 px-4 py-2.5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
           >
             {resetForm.formState.isSubmitting ? "..." : t("resetPassword")}
           </button>
