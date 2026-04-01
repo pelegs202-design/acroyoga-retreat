@@ -11,7 +11,7 @@ const resend = process.env.RESEND_API_KEY
 
 // Default from address — override via RESEND_FROM_EMAIL env var
 const FROM_EMAIL =
-  process.env.RESEND_FROM_EMAIL ?? "AcroYoga Academy <noreply@acro.academy>";
+  process.env.RESEND_FROM_EMAIL ?? "AcroHavura <noreply@acro.academy>";
 
 export const auth = betterAuth({
   baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
@@ -29,7 +29,7 @@ export const auth = betterAuth({
       void resend.emails.send({
         from: FROM_EMAIL,
         to: user.email,
-        subject: "Reset your AcroYoga Academy password",
+        subject: "Reset your password.",
         text: `Click the link below to reset your password. The link expires in 1 hour.\n\n${url}\n\nIf you did not request a password reset, you can ignore this email.`,
       });
     },

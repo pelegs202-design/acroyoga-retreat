@@ -15,7 +15,7 @@ export default function OfflinePage() {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>AcroYoga Academy — Offline</title>
+        <title>AcroHavura — Offline</title>
       </head>
       <body
         style={{
@@ -59,7 +59,7 @@ export default function OfflinePage() {
                 opacity: 0.45,
               }}
             >
-              AcroYoga Academy
+              AcroHavura
             </div>
 
             <div

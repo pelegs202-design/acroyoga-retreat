@@ -91,7 +91,7 @@ export default function InstallPrompt() {
             letterSpacing: "0.02em",
           }}
         >
-          Install AcroYoga Academy
+          Install AcroHavura
         </p>
         <p
           style={{
