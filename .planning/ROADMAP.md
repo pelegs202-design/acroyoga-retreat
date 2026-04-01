@@ -64,7 +64,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User can create a profile with photo, bio, city, role preference (base/flyer/both), and skill level
   2. User can select their known moves from a standard acroyoga skills checklist (~50-100 moves)
-  3. User can search for partners by city, role, skill level, and known moves and see real results
+  3. User can search for partners by city, role, and skill level and see real results
   4. User can view another member's full profile page
   5. User can leave a rating and review for a partner after a jam session together
 **Plans**: 4 plans
