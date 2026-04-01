@@ -41,10 +41,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Quiz Funnels
 
-- [ ] **QUIZ-01**: 30-day challenge assessment quiz with 10+ visual/playful questions that assess acroyoga level and readiness
-- [ ] **QUIZ-02**: Quiz includes city selection (Tel Aviv / Kfar Saba) as part of the flow
-- [ ] **QUIZ-03**: Quiz provides personalized assessment results based on answers (level, strengths, areas to develop)
-- [ ] **QUIZ-04**: Post-quiz results page showcases what makes us special and different before the payment CTA
+- [x] **QUIZ-01**: 30-day challenge assessment quiz with 10+ visual/playful questions that assess acroyoga level and readiness
+- [x] **QUIZ-02**: Quiz includes city selection (Tel Aviv / Kfar Saba) as part of the flow
+- [x] **QUIZ-03**: Quiz provides personalized assessment results based on answers (level, strengths, areas to develop)
+- [x] **QUIZ-04**: Post-quiz results page showcases what makes us special and different before the payment CTA
 - [ ] **QUIZ-05**: Workshop inquiry quiz with 2-3 questions (group type: couples/friends/corporate, group size, preferred dates)
 - [x] **QUIZ-06**: Quiz has conditional branching (different paths based on answers)
 - [x] **QUIZ-07**: Quiz progress is visually indicated (progress bar or step counter)
@@ -158,10 +158,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | COMM-04 | Phase 4 — Jam Board + Messaging | Complete |
 | COMM-05 | Phase 4 — Jam Board + Messaging | Complete |
 | COMM-06 | Phase 4 — Jam Board + Messaging | Complete |
-| QUIZ-01 | Phase 5 — Quiz Funnels | Pending |
-| QUIZ-02 | Phase 5 — Quiz Funnels | Pending |
-| QUIZ-03 | Phase 5 — Quiz Funnels | Pending |
-| QUIZ-04 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-01 | Phase 5 — Quiz Funnels | Complete |
+| QUIZ-02 | Phase 5 — Quiz Funnels | Complete |
+| QUIZ-03 | Phase 5 — Quiz Funnels | Complete |
+| QUIZ-04 | Phase 5 — Quiz Funnels | Complete |
 | QUIZ-05 | Phase 5 — Quiz Funnels | Pending |
 | QUIZ-06 | Phase 5 — Quiz Funnels | Complete |
 | QUIZ-07 | Phase 5 — Quiz Funnels | Complete |

@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 5 of 10 (Quiz Funnels)
-Plan: 4 of 5 in current phase
-Status: In Progress — Phase 05 running, Plans 01+02+03+04 complete
-Last activity: 2026-04-01 — Plan 05-04 complete: Results page (QuizLoader, QuizRadarChart, QuizResultsPage, ChallengeResultsFlow, results route, results API, i18n)
+Plan: 5 of 5 in current phase
+Status: In Progress — Phase 05 running, Plans 01+02+03+04+05-03 complete
+Last activity: 2026-04-01 — Plan 05-03 complete: quiz entry page, challenge quiz flow, /api/quiz/events, /api/quiz/leads
 
 Progress: [████░░░░░░] 46%
 
@@ -41,6 +41,7 @@ Progress: [████░░░░░░] 46%
 | Phase 04 P03 | 4 | 3 tasks | 3 files |
 | Phase 04-jam-board-messaging P05 | 18 | 2 tasks | 12 files |
 | Phase 05-quiz-funnels P04 | 7 | 2 tasks | 8 files |
+| Phase 05-quiz-funnels P03 | 4 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -116,6 +117,9 @@ Recent decisions affecting current work:
 - [Phase 05-04]: 05-04: ChallengeResultsFlow tries localStorage before API — original quiz taker gets instant cached result; sharers fetch from API; consistent experience across both paths
 - [Phase 05-04]: 05-04: FAQ items hardcoded in component as bilingual constants — avoids next-intl array-of-objects complexity; stable marketing copy
 - [Phase 05-04]: 05-04: Price anchoring (299/499) with hardcoded urgency — display-only spot count and next-start date sufficient for MVP
+- [Phase 05-quiz-funnels]: 05-03: QuizEngine gained onStepAnswer optional prop — per-step tracking required but original interface had no hook; added backward-compatible callback
+- [Phase 05-quiz-funnels]: 05-03: Question.type widened to include text-inputs — challenge-questions.ts uses this type; QuizEngine original union was incomplete
+- [Phase 05-quiz-funnels]: 05-03: Lead submission non-blocking — quiz redirects to results regardless of API error; localStorage preserves answers for retry
 
 ### Pending Todos
 
@@ -129,5 +133,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 05-04-PLAN.md — Results page (QuizLoader, QuizRadarChart, QuizResultsPage, ChallengeResultsFlow, results API, i18n). Ready for Plan 05-05.
-Resume file: .planning/phases/05-quiz-funnels/05-04-SUMMARY.md
+Stopped at: Completed 05-03-PLAN.md — quiz entry page, challenge quiz flow, events API, leads API. Ready for Plan 05-05.
+Resume file: .planning/phases/05-quiz-funnels/05-03-SUMMARY.md
