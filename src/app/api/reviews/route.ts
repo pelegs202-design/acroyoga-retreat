@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { reviews, user } from '@/lib/db/schema';
-import { eq, and, gt } from 'drizzle-orm';
+import { reviews, user, jamAttendees } from '@/lib/db/schema';
+import { eq, and, gt, inArray } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 
 export async function POST(request: NextRequest) {
@@ -65,9 +65,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Already reviewed this partner recently' }, { status: 409 });
   }
 
-  // TODO Phase 4: Replace with real jam attendance check
-  // Stub: canReview always returns true in Phase 3
-  const canReview = true;
+  // Phase 4: Real jam attendance check — both users must have attended the same jam as 'confirmed'
+  const myJamIds = db
+    .select({ jamId: jamAttendees.jamId })
+    .from(jamAttendees)
+    .where(
+      and(
+        eq(jamAttendees.userId, session.user.id),
+        eq(jamAttendees.status, 'confirmed'),
+      )
+    );
+
+  const [sharedJam] = await db
+    .select({ id: jamAttendees.id })
+    .from(jamAttendees)
+    .where(
+      and(
+        eq(jamAttendees.userId, revieweeId),
+        eq(jamAttendees.status, 'confirmed'),
+        inArray(jamAttendees.jamId, myJamIds),
+      )
+    )
+    .limit(1);
+
+  const canReview = !!sharedJam;
   if (!canReview) {
     return NextResponse.json({ error: 'Must attend a jam together first' }, { status: 403 });
   }
