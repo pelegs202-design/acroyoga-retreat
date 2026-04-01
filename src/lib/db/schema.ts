@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
 
 // ─── Better Auth tables (generated via @better-auth/cli generate) ───
@@ -19,6 +19,8 @@ export const user = pgTable("user", {
   level: text("level"),
   preferredLocale: text("preferred_locale"),
   tosAcceptedAt: timestamp("tos_accepted_at"),
+  bio: text("bio"),
+  skills: text("skills").array().notNull().default(sql`'{}'::text[]`),
 });
 
 export const session = pgTable(
@@ -80,11 +82,36 @@ export const verification = pgTable(
   (table) => [index("verification_identifier_idx").on(table.identifier)],
 );
 
+// ─── Custom tables ───
+
+export const tosAcceptances = pgTable("tos_acceptances", {
+  id: text("id").primaryKey(),
+  userId: text("user_id").notNull(),
+  tosVersion: text("tos_version").notNull().default("v1"),
+  acceptedAt: timestamp("accepted_at").notNull().defaultNow(),
+  ipAddress: text("ip_address"),
+});
+
+export const reviews = pgTable("reviews", {
+  id: text("id").primaryKey(),
+  reviewerId: text("reviewer_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
+  revieweeId: text("reviewee_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
+  jamSessionId: text("jam_session_id"), // nullable — stub until Phase 4 jam board exists
+  thumbsUp: boolean("thumbs_up").notNull(),
+  comment: text("comment"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("reviews_reviewee_idx").on(table.revieweeId),
+  index("reviews_reviewer_idx").on(table.reviewerId),
+]);
+
 // ─── Relations ───
 
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  reviewsGiven: many(reviews, { relationName: 'reviewsGiven' }),
+  reviewsReceived: many(reviews, { relationName: 'reviewsReceived' }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -101,12 +128,7 @@ export const accountRelations = relations(account, ({ one }) => ({
   }),
 }));
 
-// ─── Custom tables ───
-
-export const tosAcceptances = pgTable("tos_acceptances", {
-  id: text("id").primaryKey(),
-  userId: text("user_id").notNull(),
-  tosVersion: text("tos_version").notNull().default("v1"),
-  acceptedAt: timestamp("accepted_at").notNull().defaultNow(),
-  ipAddress: text("ip_address"),
-});
+export const reviewsRelations = relations(reviews, ({ one }) => ({
+  reviewer: one(user, { fields: [reviews.reviewerId], references: [user.id], relationName: 'reviewsGiven' }),
+  reviewee: one(user, { fields: [reviews.revieweeId], references: [user.id], relationName: 'reviewsReceived' }),
+}));
