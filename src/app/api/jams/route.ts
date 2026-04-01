@@ -48,6 +48,14 @@ export async function GET(request: NextRequest) {
 
   const rsvpMap = new Map(userRsvps.map((r) => [r.jamId, r.status]));
 
+  // Fetch current user's isJamHost flag to include in response
+  const [currentUser] = await db
+    .select({ isJamHost: user.isJamHost })
+    .from(user)
+    .where(eq(user.id, session.user.id))
+    .limit(1);
+  const isJamHost = currentUser?.isJamHost ?? false;
+
   // Fetch upcoming jams
   const upcomingJams = await db
     .select({
@@ -101,7 +109,7 @@ export async function GET(request: NextRequest) {
     }));
   }
 
-  return NextResponse.json({ upcoming, past });
+  return NextResponse.json({ upcoming, past, isJamHost });
 }
 
 export async function POST(request: NextRequest) {
