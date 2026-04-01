@@ -21,7 +21,7 @@ export type Question = {
   id: string;
   text: { en: string; he: string };
   subtitle?: { en: string; he: string };
-  type: "single-choice" | "city-select" | "contact";
+  type: "single-choice" | "city-select" | "contact" | "text-inputs";
   options?: QuestionOption[];
   defaultNextId?: string;
 };
@@ -108,6 +108,8 @@ interface QuizEngineProps {
   onComplete: (state: QuizState) => void;
   storageKey?: string;
   locale?: string;
+  /** Optional callback fired on each step answer — sessionId, questionId, answerId */
+  onStepAnswer?: (sessionId: string, questionId: string, answerId: string) => void;
 }
 
 const BACK_LABEL = { en: "Back", he: "חזור" };
@@ -118,6 +120,7 @@ export default function QuizEngine({
   onComplete,
   storageKey,
   locale = "en",
+  onStepAnswer,
 }: QuizEngineProps) {
   const firstQuestion = questions[0];
   const isRestored = useRef(false);
@@ -194,6 +197,7 @@ export default function QuizEngine({
       nextQuestionId: nextId,
     });
     trackQuizStep(currentQuestion.id, currentQuestion.id, option.id);
+    onStepAnswer?.(state.sessionId, currentQuestion.id, option.id);
 
     // If no next question, the quiz is done
     if (!nextId || !questions.find((q) => q.id === nextId)) {
