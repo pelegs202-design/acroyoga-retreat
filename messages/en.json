@@ -81,5 +81,44 @@
   "offline": {
     "title": "You're Offline",
     "message": "Connect to the internet to continue"
+  },
+  "profile": {
+    "editButton": "Edit Profile",
+    "bio": "About",
+    "bioPlaceholder": "Tell partners about your acro journey...",
+    "bioEmpty": "Add your bio to help partners find you",
+    "skills": "Skills",
+    "skillsEmpty": "Select your known moves",
+    "reviews": "Feedback",
+    "reviewsEmpty": "No feedback yet",
+    "reviewCount": "{count} reviews received",
+    "photoUpload": "Change Photo",
+    "andMore": "and {count} more",
+    "saveSuccess": "Profile updated",
+    "saveError": "Failed to update profile",
+    "photoSuccess": "Photo updated",
+    "photoError": "Failed to upload photo",
+    "city": "City",
+    "role": "Role",
+    "level": "Level"
+  },
+  "members": {
+    "title": "Find a Partner",
+    "filterCity": "City",
+    "filterRole": "Role",
+    "filterLevel": "Level",
+    "filterAll": "All",
+    "noResults": "No partners found",
+    "noResultsHint": "Try removing the {filter} filter",
+    "searchPlaceholder": "Search by city...",
+    "viewProfile": "View Profile"
+  },
+  "review": {
+    "thumbsUp": "Great partner",
+    "thumbsDown": "Needs improvement",
+    "commentPlaceholder": "Optional note (1-2 sentences)...",
+    "submit": "Leave Feedback",
+    "success": "Feedback submitted",
+    "alreadyReviewed": "You've already reviewed this partner recently"
   }
 }

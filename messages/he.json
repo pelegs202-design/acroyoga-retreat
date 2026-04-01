@@ -81,5 +81,44 @@
   "offline": {
     "title": "אין חיבור לאינטרנט",
     "message": "התחבר לאינטרנט כדי להמשיך"
+  },
+  "profile": {
+    "editButton": "עריכת פרופיל",
+    "bio": "אודות",
+    "bioPlaceholder": "ספרו לשותפים על המסע שלכם באקרויוגה...",
+    "bioEmpty": "הוסיפו ביו כדי לעזור לשותפים למצוא אתכם",
+    "skills": "מיומנויות",
+    "skillsEmpty": "בחרו את התנועות שאתם יודעים",
+    "reviews": "משוב",
+    "reviewsEmpty": "אין משוב עדיין",
+    "reviewCount": "{count} משובים התקבלו",
+    "photoUpload": "שינוי תמונה",
+    "andMore": "ועוד {count}",
+    "saveSuccess": "הפרופיל עודכן",
+    "saveError": "עדכון הפרופיל נכשל",
+    "photoSuccess": "התמונה עודכנה",
+    "photoError": "העלאת התמונה נכשלה",
+    "city": "עיר",
+    "role": "תפקיד",
+    "level": "רמה"
+  },
+  "members": {
+    "title": "מצאו שותף",
+    "filterCity": "עיר",
+    "filterRole": "תפקיד",
+    "filterLevel": "רמה",
+    "filterAll": "הכל",
+    "noResults": "לא נמצאו שותפים",
+    "noResultsHint": "נסו להסיר את הסינון לפי {filter}",
+    "searchPlaceholder": "חיפוש לפי עיר...",
+    "viewProfile": "צפייה בפרופיל"
+  },
+  "review": {
+    "thumbsUp": "שותף מעולה",
+    "thumbsDown": "צריך שיפור",
+    "commentPlaceholder": "הערה אופציונלית (משפט-שניים)...",
+    "submit": "שליחת משוב",
+    "success": "המשוב נשלח",
+    "alreadyReviewed": "כבר נתתם משוב לשותף הזה לאחרונה"
   }
 }
