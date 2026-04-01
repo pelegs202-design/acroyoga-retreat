@@ -4,13 +4,16 @@ import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/db";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 // Default from address — override via RESEND_FROM_EMAIL env var
 const FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL ?? "AcroYoga Academy <noreply@acro.academy>";
 
 export const auth = betterAuth({
+  baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
   database: drizzleAdapter(db, { provider: "pg" }),
 
   emailAndPassword: {
@@ -18,6 +21,10 @@ export const auth = betterAuth({
     minPasswordLength: 8,
     sendResetPassword: async ({ user, url }) => {
       // void the await to prevent timing attacks — serverless-safe
+      if (!resend) {
+        console.warn("[auth] RESEND_API_KEY not set — skipping password reset email");
+        return;
+      }
       void resend.emails.send({
         from: FROM_EMAIL,
         to: user.email,
