@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 3 of 10 (Community Profiles + Partner Matching)
-Plan: 5 of 5 in current phase
-Status: Phase 3 complete — human verification approved 2026-04-01
-Last activity: 2026-04-01 — Plan 03-04 complete: review system verified end-to-end (30/33 UI tests passed, ICU {filter} bug fixed)
+Phase: 4 of 10 (Jam Board + Messaging)
+Plan: 1 of 4 in current phase
+Status: In progress — Plan 04-01 complete
+Last activity: 2026-04-01 — Plan 04-01 complete: Phase 4 DB schema (jam sessions, messaging tables) pushed to Neon
 
-Progress: [████░░░░░░] 28%
+Progress: [████░░░░░░] 30%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 8
 - Average duration: 6.1 min
-- Total execution time: 0.72 hours
+- Total execution time: 0.82 hours
 
 **By Phase:**
 
@@ -30,9 +30,10 @@ Progress: [████░░░░░░] 28%
 | 01-foundation-auth | 4 | 30 min | 7.5 min |
 | 02-brand-identity | 2 | 9 min | 4.5 min |
 | 03-community-profiles-partner-matching | 3 | 9 min | 3 min |
+| 04-jam-board-messaging | 1 | 6 min | 6 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-01 (1 min), 02-02 (8 min), 02-03 (4 min), 03-01 (3 min), 03-03 (3 min)
+- Last 5 plans: 02-02 (8 min), 02-03 (4 min), 03-01 (3 min), 03-03 (3 min), 04-01 (6 min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -82,6 +83,10 @@ Recent decisions affecting current work:
 - [Phase 03-02]: 03-02: next.config.ts remotePatterns added for *.public.blob.vercel-storage.com — required for Next.js Image to render Vercel Blob CDN images
 - [Phase 03-04]: 03-04: canReview stub is a top-level const=true with TODO comment — Phase 4 replaces with real jam attendance check
 - [Phase 03-04]: 03-04: isOwnProfile gates feedback count (owner sees) and ReviewForm (others see) — mutually exclusive privacy boundary
+- [Phase 04-01]: 04-01: isJamHost is boolean column on user table (not a separate role value) — preserves existing role field for base/flyer encoding
+- [Phase 04-01]: 04-01: conversationReads uses text id PK + unique constraint on (conversationId, userId) — consistent with all other schema tables
+- [Phase 04-01]: 04-01: Application layer must sort participant IDs alphabetically (A < B) before INSERT to conversations — unique(participantA, participantB) does not handle (A,B) vs (B,A) ordering
+- [Phase 04-01]: 04-01: drizzle/migration.sql gitignored — migration 0001 applied to Neon via drizzle-kit push; schema.ts is canonical source of truth
 
 ### Pending Todos
 
@@ -95,5 +100,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: 03-04 complete — Phase 3 fully verified and closed. Ready for Phase 4 planning.
-Resume file: .planning/phases/03-community-profiles-partner-matching/03-04-SUMMARY.md
+Stopped at: Completed 04-01-PLAN.md — Phase 4 DB schema applied. Ready for 04-02 jam board API.
+Resume file: .planning/phases/04-jam-board-messaging/04-01-SUMMARY.md
