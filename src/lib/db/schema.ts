@@ -1,5 +1,5 @@
 import { relations, sql } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index, integer, unique } from "drizzle-orm/pg-core";
 
 // ─── Better Auth tables (generated via @better-auth/cli generate) ───
 
@@ -21,6 +21,7 @@ export const user = pgTable("user", {
   tosAcceptedAt: timestamp("tos_accepted_at"),
   bio: text("bio"),
   skills: text("skills").array().notNull().default(sql`'{}'::text[]`),
+  isJamHost: boolean("is_jam_host").default(false).notNull(),
 });
 
 export const session = pgTable(
@@ -96,7 +97,7 @@ export const reviews = pgTable("reviews", {
   id: text("id").primaryKey(),
   reviewerId: text("reviewer_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
   revieweeId: text("reviewee_id").notNull().references(() => user.id, { onDelete: 'cascade' }),
-  jamSessionId: text("jam_session_id"), // nullable — stub until Phase 4 jam board exists
+  jamSessionId: text("jam_session_id"), // nullable — links to jam_sessions once Phase 4 applies
   thumbsUp: boolean("thumbs_up").notNull(),
   comment: text("comment"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
@@ -105,6 +106,87 @@ export const reviews = pgTable("reviews", {
   index("reviews_reviewer_idx").on(table.reviewerId),
 ]);
 
+// ─── Phase 4: Jam Sessions ───
+
+export const jamSessions = pgTable(
+  "jam_sessions",
+  {
+    id: text("id").primaryKey(),
+    hostId: text("host_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    scheduledAt: timestamp("scheduled_at", { withTimezone: true }).notNull(),
+    location: text("location").notNull(),
+    capacity: integer("capacity").notNull(),
+    level: text("level").notNull(), // 'beginner' | 'intermediate' | 'advanced' | 'all'
+    notes: text("notes"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("jam_sessions_scheduled_at_idx").on(table.scheduledAt),
+    index("jam_sessions_host_id_idx").on(table.hostId),
+  ],
+);
+
+export const jamAttendees = pgTable(
+  "jam_attendees",
+  {
+    id: text("id").primaryKey(),
+    jamId: text("jam_id").notNull().references(() => jamSessions.id, { onDelete: "cascade" }),
+    userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    status: text("status").notNull(), // 'confirmed' | 'waitlist' | 'cancelled'
+    joinedAt: timestamp("joined_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("jam_attendees_jam_id_idx").on(table.jamId),
+    index("jam_attendees_user_id_idx").on(table.userId),
+    unique("jam_attendees_unique").on(table.jamId, table.userId),
+  ],
+);
+
+// ─── Phase 4: Direct Messaging ───
+
+export const conversations = pgTable(
+  "conversations",
+  {
+    id: text("id").primaryKey(),
+    participantA: text("participant_a").notNull().references(() => user.id, { onDelete: "cascade" }),
+    participantB: text("participant_b").notNull().references(() => user.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    lastMessageAt: timestamp("last_message_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("conversations_participants_idx").on(table.participantA, table.participantB),
+    unique("conversations_pair_unique").on(table.participantA, table.participantB),
+  ],
+);
+
+export const directMessages = pgTable(
+  "direct_messages",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
+    senderId: text("sender_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    text: text("text").notNull(),
+    sentAt: timestamp("sent_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("direct_messages_conversation_id_idx").on(table.conversationId),
+    index("direct_messages_sent_at_idx").on(table.sentAt),
+  ],
+);
+
+export const conversationReads = pgTable(
+  "conversation_reads",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id").notNull().references(() => conversations.id, { onDelete: "cascade" }),
+    userId: text("user_id").notNull().references(() => user.id, { onDelete: "cascade" }),
+    lastReadAt: timestamp("last_read_at").defaultNow().notNull(),
+  },
+  (table) => [
+    unique("conversation_reads_unique").on(table.conversationId, table.userId),
+  ],
+);
+
 // ─── Relations ───
 
 export const userRelations = relations(user, ({ many }) => ({
@@ -112,6 +194,10 @@ export const userRelations = relations(user, ({ many }) => ({
   accounts: many(account),
   reviewsGiven: many(reviews, { relationName: 'reviewsGiven' }),
   reviewsReceived: many(reviews, { relationName: 'reviewsReceived' }),
+  jamsHosted: many(jamSessions),
+  jamAttendances: many(jamAttendees),
+  conversationsAsA: many(conversations, { relationName: 'conversationsAsA' }),
+  conversationsAsB: many(conversations, { relationName: 'conversationsAsB' }),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -131,4 +217,60 @@ export const accountRelations = relations(account, ({ one }) => ({
 export const reviewsRelations = relations(reviews, ({ one }) => ({
   reviewer: one(user, { fields: [reviews.reviewerId], references: [user.id], relationName: 'reviewsGiven' }),
   reviewee: one(user, { fields: [reviews.revieweeId], references: [user.id], relationName: 'reviewsReceived' }),
+}));
+
+export const jamSessionsRelations = relations(jamSessions, ({ one, many }) => ({
+  host: one(user, {
+    fields: [jamSessions.hostId],
+    references: [user.id],
+  }),
+  attendees: many(jamAttendees),
+}));
+
+export const jamAttendeesRelations = relations(jamAttendees, ({ one }) => ({
+  jam: one(jamSessions, {
+    fields: [jamAttendees.jamId],
+    references: [jamSessions.id],
+  }),
+  user: one(user, {
+    fields: [jamAttendees.userId],
+    references: [user.id],
+  }),
+}));
+
+export const conversationsRelations = relations(conversations, ({ one, many }) => ({
+  participantAUser: one(user, {
+    fields: [conversations.participantA],
+    references: [user.id],
+    relationName: 'conversationsAsA',
+  }),
+  participantBUser: one(user, {
+    fields: [conversations.participantB],
+    references: [user.id],
+    relationName: 'conversationsAsB',
+  }),
+  messages: many(directMessages),
+  reads: many(conversationReads),
+}));
+
+export const directMessagesRelations = relations(directMessages, ({ one }) => ({
+  conversation: one(conversations, {
+    fields: [directMessages.conversationId],
+    references: [conversations.id],
+  }),
+  sender: one(user, {
+    fields: [directMessages.senderId],
+    references: [user.id],
+  }),
+}));
+
+export const conversationReadsRelations = relations(conversationReads, ({ one }) => ({
+  conversation: one(conversations, {
+    fields: [conversationReads.conversationId],
+    references: [conversations.id],
+  }),
+  user: one(user, {
+    fields: [conversationReads.userId],
+    references: [user.id],
+  }),
 }));
