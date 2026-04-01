@@ -88,7 +88,7 @@ Plans:
 - [ ] 04-01-PLAN.md — DB schema migration (jam + messaging tables, isJamHost flag, unique constraints)
 - [ ] 04-02-PLAN.md — Jam Board API (create jam, RSVP with race-safe capacity check, waitlist promotion, canReview fix)
 - [ ] 04-03-PLAN.md — Messaging API (conversations, messages, unread count — polling-based, no Ably)
-- [ ] 04-04-PLAN.md — Jam Board UI (feed page, jam cards, filters, create form, i18n)
+- [x] 04-04-PLAN.md — Jam Board UI (feed page, jam cards, filters, create form, i18n) (completed 2026-04-01)
 - [ ] 04-05-PLAN.md — Messaging UI (chat thread with polling, conversation list, unread badge, i18n)
 
 ### Phase 5: Quiz Funnels

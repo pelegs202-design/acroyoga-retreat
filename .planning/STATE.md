@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 4 of 10 (Jam Board + Messaging)
-Plan: 3 of 5 in current phase
-Status: In progress — Plan 04-03 complete
-Last activity: 2026-04-01 — Plan 04-03 complete: Messaging API (conversation list, history, send, unread count)
+Plan: 4 of 5 in current phase
+Status: In progress — Plan 04-04 complete
+Last activity: 2026-04-01 — Plan 04-04 complete: Jam Board UI (JamFeed, JamCard, JamForm, /jams page, /jams/new page, i18n en+he)
 
-Progress: [████░░░░░░] 30%
+Progress: [████░░░░░░] 32%
 
 ## Performance Metrics
 
@@ -95,6 +95,9 @@ Recent decisions affecting current work:
 - [Phase 04]: 04-03: inArray batch query used for other-user details and last messages — avoids N+1 pattern in conversation list
 - [Phase 04]: 04-03: hasUnread excludes own messages (senderId !== userId) — prevents self-messages from triggering badge
 - [Phase 04]: 04-03: Unread count uses raw sql template tag for complex LEFT JOIN with OR + IS NULL — cleaner than verbose Drizzle builder
+- [Phase 04-04]: 04-04: isJamHost added to GET /api/jams response so JamFeed can show host button without extra fetch — one query in existing handler
+- [Phase 04-04]: 04-04: Past jams lazy-fetched on first collapsible toggle — historical data rarely needed, keeps initial page load light
+- [Phase 04-04]: 04-04: Optimistic RSVP UI reverts on any API error — client state never diverges from server truth permanently
 
 ### Pending Todos
 
@@ -108,5 +111,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 04-02-PLAN.md — Jam Board API complete (GET+POST /api/jams, RSVP endpoint, real canReview). Ready for 04-03/04-04.
-Resume file: .planning/phases/04-jam-board-messaging/04-02-SUMMARY.md
+Stopped at: Completed 04-04-PLAN.md — Jam Board UI complete (JamFeed, JamCard, JamForm, /jams, /jams/new, i18n en+he). Ready for 04-05.
+Resume file: .planning/phases/04-jam-board-messaging/04-04-SUMMARY.md
