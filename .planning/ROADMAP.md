@@ -13,7 +13,7 @@ Ten phases from scaffolding to launch-ready community platform. Foundation locks
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation + Auth** - Next.js stack on Vercel with RTL i18n, PWA, database layer, auth, and terms acceptance
-- [ ] **Phase 2: Brand Identity** - Resolve new brand name, visual identity tokens, and apply across the codebase
+- [x] **Phase 2: Brand Identity** - Resolve new brand name, visual identity tokens, and apply across the codebase (completed 2026-04-01)
 - [ ] **Phase 3: Community Profiles + Partner Matching** - User profiles with skills checklist and partner search by city/role/level
 - [ ] **Phase 4: Jam Board + Messaging** - Real-time 1:1 DMs via Ably, jam session posting with RSVP/waitlist
 - [ ] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching
@@ -158,7 +158,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation + Auth | 4/5 | In Progress|  |
-| 2. Brand Identity | 1/3 | In Progress|  |
+| 2. Brand Identity | 3/3 | Complete   | 2026-04-01 |
 | 3. Community Profiles + Partner Matching | 0/TBD | Not started | - |
 | 4. Jam Board + Messaging | 0/TBD | Not started | - |
 | 5. Quiz Funnels | 0/TBD | Not started | - |

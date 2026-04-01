@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 2 of 10 (Brand Identity)
-Plan: 2 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-04-01 — Plan 02-02 completed: Brand renamed to AcroHavura across 8 files (metadata, manifest, i18n, offline, install prompt, auth email)
+Last activity: 2026-04-01 — Plan 02-03 completed: Pink applied to all interactive surfaces — wordmarks, primary buttons, chips, progress bar, install prompt, branded PWA icons
 
-Progress: [████░░░░░░] 20%
+Progress: [████░░░░░░] 22%
 
 ## Performance Metrics
 
@@ -63,6 +63,9 @@ Recent decisions affecting current work:
 - 02-01: Brand tokens use :root --brand variable bridged to @theme --color-brand via var() — preserves runtime CSS variable flexibility while generating Tailwind utilities
 - [Phase 02-02]: 02-02: [locale]/layout.tsx uses title template { default: 'AcroHavura', template: '%s | AcroHavura' } — enables per-page title suffixing in future phases
 - [Phase 02-02]: 02-02: Password reset email subject is 'Reset your password.' — direct bold voice, period intentional, no brand name in subject
+- [Phase 02-03]: 02-03: Offline page wordmark uses inline style hex #F472B6 (not text-brand) — self-contained page outside [locale], Tailwind not guaranteed in cache context
+- [Phase 02-03]: 02-03: PWA icon border thickness 15% of icon size — brutalist frame proportion readable at small icon sizes
+- [Phase 02-03]: 02-03: Root page.tsx uses bg-background replacing bg-white dark:bg-black — single CSS variable, no light/dark conditionals
 
 ### Pending Todos
 
@@ -77,5 +80,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 02-02-PLAN.md — Brand renamed to AcroHavura / אקרוחבורה across all 8 surfaces
+Stopped at: Completed 02-03-PLAN.md — Pink applied to all interactive surfaces, branded PWA icons generated
 Resume file: None
