@@ -88,7 +88,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Branding
 
-- [ ] **BRAND-01**: Develop new brand name (replacing AcroRetreat)
+- [x] **BRAND-01**: Develop new brand name (replacing AcroRetreat)
 
 ## v2 Requirements
 
@@ -145,7 +145,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-01 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-02 | Phase 1 — Foundation + Auth | Complete |
 | AUTH-03 | Phase 1 — Foundation + Auth | Complete |
-| BRAND-01 | Phase 2 — Brand Identity | Pending |
+| BRAND-01 | Phase 2 — Brand Identity | Complete |
 | PROF-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
 | PROF-02 | Phase 3 — Community Profiles + Partner Matching | Pending |
 | PROF-03 | Phase 3 — Community Profiles + Partner Matching | Pending |

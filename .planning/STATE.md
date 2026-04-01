@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 1 of 10 (Foundation + Auth)
-Plan: 4 of 5 in current phase
+Phase: 2 of 10 (Brand Identity)
+Plan: 1 of 5 in current phase
 Status: In progress
-Last activity: 2026-03-31 — Plan 01-04 completed: Serwist PWA service worker, web manifest, offline fallback, install prompt, iOS banner
+Last activity: 2026-04-01 — Plan 02-01 completed: Dark-first globals.css with hot pink brand accent tokens in Tailwind @theme block
 
-Progress: [███░░░░░░░] 14%
+Progress: [████░░░░░░] 18%
 
 ## Performance Metrics
 
@@ -28,9 +28,10 @@ Progress: [███░░░░░░░] 14%
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-auth | 4 | 30 min | 7.5 min |
+| 02-brand-identity | 1 | 1 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10 min), 01-02 (7 min), 01-03 (8 min), 01-04 (5 min)
+- Last 5 plans: 01-01 (10 min), 01-02 (7 min), 01-03 (8 min), 01-04 (5 min), 02-01 (1 min)
 - Trend: Improving
 
 *Updated after each plan completion*
@@ -58,6 +59,8 @@ Recent decisions affecting current work:
 - 01-04: Offline page is self-contained (own html/body, inline styles) — lives outside [locale] segment for cache reliability
 - [Phase 01-03]: 01-03: getAuthSession() in every protected Server Component — middleware not trusted for security (CVE-2025-29927)
 - [Phase 01-03]: 01-03: tosAcceptedAt updated via raw Drizzle sql tag (not authClient) — input:false additionalField cannot be set through Better Auth client SDK
+- 02-01: Plain @theme block used for brand color tokens (not @theme inline) — inline modifier embeds values at build time, breaking runtime CSS variable overrides
+- 02-01: Brand tokens use :root --brand variable bridged to @theme --color-brand via var() — preserves runtime CSS variable flexibility while generating Tailwind utilities
 
 ### Pending Todos
 
@@ -71,6 +74,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-31
-Stopped at: Completed 01-04-PLAN.md — Serwist PWA service worker, dark manifest, offline page, install prompt, iOS banner
+Last session: 2026-04-01
+Stopped at: Completed 02-01-PLAN.md — Dark-first globals.css with hot pink (#F472B6) brand accent tokens in Tailwind @theme block
 Resume file: None
