@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 5 of 10 (Quiz Funnels)
-Plan: 5 of 5 in current phase
-Status: In Progress — Phase 05 running, Plans 01+02+03+04+05-03 complete
-Last activity: 2026-04-01 — Plan 05-03 complete: quiz entry page, challenge quiz flow, /api/quiz/events, /api/quiz/leads
+Phase: 5 of 10 (Quiz Funnels) — COMPLETE
+Plan: 5 of 5 in current phase — COMPLETE
+Status: Phase 05 complete — all 5 plans done; ready to begin Phase 06 (Payment + Green Invoice)
+Last activity: 2026-04-01 — Plan 05-05 complete: workshop quiz, workshop API, advantages page, GA4 + Meta Pixel; both funnels verified end-to-end by human
 
-Progress: [████░░░░░░] 46%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -42,6 +42,7 @@ Progress: [████░░░░░░] 46%
 | Phase 04-jam-board-messaging P05 | 18 | 2 tasks | 12 files |
 | Phase 05-quiz-funnels P04 | 7 | 2 tasks | 8 files |
 | Phase 05-quiz-funnels P03 | 4 | 2 tasks | 5 files |
+| Phase 05-quiz-funnels P05 | 12 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -124,6 +125,7 @@ Recent decisions affecting current work:
 - [Phase 05-quiz-funnels]: 05-05: Workshop confirmation page shows advantages immediately (no loader) — direct conversion; inquiry is already submitted
 - [Phase 05-quiz-funnels]: 05-05: Resend email failure is non-blocking — DB insert happens first; email error logged but does not fail the API response
 - [Phase 05-quiz-funnels]: 05-05: GA4 + Meta Pixel use strategy='afterInteractive' in locale layout — defers analytics until page is interactive, no render blocking
+- [Phase 05-quiz-funnels]: 05-05: WorkshopAdvantages uses t.raw('items') cast to AdvantageItem[] — cleanest pattern for next-intl array-of-objects consumption
 
 ### Pending Todos
 
@@ -137,5 +139,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 05-03-PLAN.md — quiz entry page, challenge quiz flow, events API, leads API. Ready for Plan 05-05.
+Stopped at: Completed 05-05-PLAN.md — workshop quiz, advantages page, workshop API, GA4 + Meta Pixel scripts, human verification passed. Phase 5 complete. Ready for Phase 06.
 Resume file: .planning/phases/05-quiz-funnels/05-03-SUMMARY.md

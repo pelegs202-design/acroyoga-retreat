@@ -76,7 +76,7 @@ completed: 2026-04-01
 - **Duration:** 12 min
 - **Started:** 2026-04-01T22:05:54Z
 - **Completed:** 2026-04-01T22:18:00Z
-- **Tasks:** 1 of 2 complete (Task 2 is human-verify checkpoint)
+- **Tasks:** 2 of 2 complete (Task 2 human-verify checkpoint passed)
 - **Files modified:** 8
 
 ## Accomplishments
@@ -90,8 +90,7 @@ completed: 2026-04-01
 ## Task Commits
 
 1. **Task 1: Workshop quiz + API + advantages page + analytics scripts** - `c2e7692` (feat)
-
-_Task 2 (human-verify checkpoint) pending human verification_
+2. **Task 2: Verify both quiz funnels end-to-end** - human-verify checkpoint PASSED (2026-04-01)
 
 ## Files Created/Modified
 
@@ -139,8 +138,12 @@ None — RESEND_API_KEY and OWNER_EMAIL env vars are already documented from Pha
 
 ## Next Phase Readiness
 
-- Both quiz funnels are feature-complete pending human verification (Task 2 checkpoint)
-- Phase 5 closes after human verifies end-to-end flows in both languages
+- Both quiz funnels verified end-to-end by human (Task 2 checkpoint passed 2026-04-01)
+- Challenge quiz: 11 steps, branching, loader, results with Explorer archetype, radar chart, price CTA, FAQ, shareable URL — all verified
+- Workshop quiz: 4 steps, text inputs, confirmation page with 8 advantages, lead saved to DB — all verified
+- Analytics: GA4 + Meta Pixel scripts loaded, per-step events firing — verified via browser Network tab
+- Hebrew/RTL: full RTL layout and Hebrew text verified in both flows
+- Phase 5 complete
 - Phase 6 (payment): CTA button links to `#coming-soon` — replace with payment URL when ready
 - Phase 7 (WhatsApp): workshop route has `// TODO: Phase 7 — WhatsApp notification` comment
 
