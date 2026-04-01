@@ -9,19 +9,19 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 4 of 10 (Jam Board + Messaging)
-Plan: 5 of 5 in current phase — PHASE COMPLETE
-Status: Complete — Phase 04 done, ready for Phase 05
-Last activity: 2026-04-01 — Plan 04-05 complete: Messaging UI (ConversationList, ChatThread, MessageBubble, NewMessagePicker, Header unread badge)
+Phase: 5 of 10 (Quiz Funnels)
+Plan: 2 of 3 in current phase
+Status: In Progress — Phase 05 running, Plans 01+02 complete
+Last activity: 2026-04-01 — Plan 05-02 complete: Quiz content (challenge-questions, branching-logic, result-calculator, workshop-questions — all bilingual, 4 archetypes)
 
-Progress: [████░░░░░░] 38%
+Progress: [████░░░░░░] 44%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 8
-- Average duration: 6.1 min
-- Total execution time: 0.82 hours
+- Total plans completed: 9
+- Average duration: 5.8 min
+- Total execution time: 0.87 hours
 
 **By Phase:**
 
@@ -31,9 +31,10 @@ Progress: [████░░░░░░] 38%
 | 02-brand-identity | 2 | 9 min | 4.5 min |
 | 03-community-profiles-partner-matching | 3 | 9 min | 3 min |
 | 04-jam-board-messaging | 1 | 6 min | 6 min |
+| 05-quiz-funnels | 1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 02-02 (8 min), 02-03 (4 min), 03-01 (3 min), 03-03 (3 min), 04-01 (6 min)
+- Last 5 plans: 02-03 (4 min), 03-01 (3 min), 03-03 (3 min), 04-01 (6 min), 05-01 (4 min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -102,6 +103,15 @@ Recent decisions affecting current work:
 - [Phase 04-jam-board-messaging]: 04-05: ChatThread polls /api/messages/[conversationId] every 3s using setInterval — no Ably or WebSocket
 - [Phase 04-jam-board-messaging]: 04-05: Optimistic send appends localId-keyed pending message, replaced by server-confirmed on success
 - [Phase 04-jam-board-messaging]: 04-05: /api/user/search and /api/user/profile created (Rule 3 deviation) — required by NewMessagePicker
+- [Phase 05-01]: 05-01: Quiz table IDs use text PK — consistent with all other schema tables in this project
+- [Phase 05-01]: 05-01: QuestionOption.label uses inline { en: string; he: string } bilingual object — avoids next-intl dependency inside quiz components
+- [Phase 05-01]: 05-01: RTL slide direction derived from document.documentElement.dir at render time — DOM dir attribute is authoritative (not locale prop)
+- [Phase 05-01]: 05-01: drizzle migration folder is gitignored — schema.ts is canonical source of truth, push applied directly to Neon
+- [Phase 05-01]: 05-01: fbq and gtag declared as global function overloads in analytics file — avoids any cast while preserving type safety
+- [Phase 05-02]: 05-02: Question/QuestionOption types re-declared in challenge-questions.ts — plans 05-01 and 05-02 execute in parallel so direct import from QuizEngine.tsx is not available; shapes identical for drop-in compatibility
+- [Phase 05-02]: 05-02: workshopQuestions has 4 steps — plan header says "3 steps" but task detail lists 4 distinct IDs; task detail is authoritative
+- [Phase 05-02]: 05-02: text-inputs workshop step uses options[] to carry field metadata — reuses existing Question schema without adding a non-standard fields property
+- [Phase 05-02]: 05-02: Tie-breaking priority Explorer > Artist > Connector > Athlete — favours beginner-friendly archetypes on tied scores
 
 ### Pending Todos
 
@@ -114,6 +124,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: Completed 04-05-PLAN.md — Messaging UI complete (ConversationList, ChatThread, MessageBubble, NewMessagePicker, Header badge). Phase 04 COMPLETE. Ready for Phase 05.
-Resume file: .planning/phases/04-jam-board-messaging/04-05-SUMMARY.md
+Last session: 2026-04-02
+Stopped at: Completed 05-01-PLAN.md — Quiz infrastructure (framer-motion, recharts, quiz_leads/quiz_events tables, QuizEngine, QuizCard, QuizProgressBar, QuizContactStep, quiz-analytics.ts). Ready for Plan 05-02.
+Resume file: .planning/phases/05-quiz-funnels/05-01-SUMMARY.md

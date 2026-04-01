@@ -46,8 +46,8 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **QUIZ-03**: Quiz provides personalized assessment results based on answers (level, strengths, areas to develop)
 - [ ] **QUIZ-04**: Post-quiz results page showcases what makes us special and different before the payment CTA
 - [ ] **QUIZ-05**: Workshop inquiry quiz with 2-3 questions (group type: couples/friends/corporate, group size, preferred dates)
-- [ ] **QUIZ-06**: Quiz has conditional branching (different paths based on answers)
-- [ ] **QUIZ-07**: Quiz progress is visually indicated (progress bar or step counter)
+- [x] **QUIZ-06**: Quiz has conditional branching (different paths based on answers)
+- [x] **QUIZ-07**: Quiz progress is visually indicated (progress bar or step counter)
 
 ### Payments
 
@@ -163,8 +163,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | QUIZ-03 | Phase 5 — Quiz Funnels | Pending |
 | QUIZ-04 | Phase 5 — Quiz Funnels | Pending |
 | QUIZ-05 | Phase 5 — Quiz Funnels | Pending |
-| QUIZ-06 | Phase 5 — Quiz Funnels | Pending |
-| QUIZ-07 | Phase 5 — Quiz Funnels | Pending |
+| QUIZ-06 | Phase 5 — Quiz Funnels | Complete |
+| QUIZ-07 | Phase 5 — Quiz Funnels | Complete |
 | PAY-01 | Phase 6 — Payments + Invoicing | Pending |
 | PAY-02 | Phase 6 — Payments + Invoicing | Pending |
 | PAY-03 | Phase 6 — Payments + Invoicing | Pending |
