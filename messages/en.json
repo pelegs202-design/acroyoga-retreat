@@ -100,7 +100,8 @@
     "photoError": "Failed to upload photo",
     "city": "City",
     "role": "Role",
-    "level": "Level"
+    "level": "Level",
+    "save": "Save profile"
   },
   "members": {
     "title": "Find a Partner",
