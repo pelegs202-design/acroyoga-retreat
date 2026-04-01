@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useEffect, useRef } from "react";
+import { useReducer, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import QuizProgressBar from "./QuizProgressBar";
 import QuizCard from "./QuizCard";
@@ -99,6 +99,50 @@ const slideVariants = {
     opacity: 0,
   }),
 };
+
+// ─── TextInputsStep (for workshop-details step) ───
+
+interface TextInputsStepProps {
+  question: Question;
+  locale: string;
+  onSubmit: (values: Record<string, string>) => void;
+}
+
+function TextInputsStep({ question, locale, onSubmit }: TextInputsStepProps) {
+  const [values, setValues] = useState<Record<string, string>>({});
+  const submitLabel = locale === "he" ? "המשך →" : "Continue →";
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(values);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      {question.options?.map((field) => {
+        const label = locale === "he" ? field.label.he : field.label.en;
+        return (
+          <div key={field.id} className="flex flex-col gap-1.5">
+            <label className="text-sm text-neutral-300 font-medium">{label}</label>
+            <textarea
+              rows={3}
+              value={values[field.id] ?? ""}
+              onChange={(e) => setValues((v) => ({ ...v, [field.id]: e.target.value }))}
+              className="w-full rounded-lg bg-neutral-800 border border-neutral-700 text-white px-3 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-pink-400 placeholder:text-neutral-500"
+              placeholder={label}
+            />
+          </div>
+        );
+      })}
+      <button
+        type="submit"
+        className="mt-2 w-full bg-pink-500 hover:bg-pink-400 text-white font-bold py-3 rounded-xl transition-colors"
+      >
+        {submitLabel}
+      </button>
+    </form>
+  );
+}
 
 // ─── Props ───
 
@@ -252,6 +296,35 @@ export default function QuizEngine({
             {/* Question body */}
             {currentQuestion.type === "contact" ? (
               <QuizContactStep onSubmit={handleContact} locale={locale} />
+            ) : currentQuestion.type === "text-inputs" ? (
+              <TextInputsStep
+                question={currentQuestion}
+                locale={locale}
+                onSubmit={(values) => {
+                  // Each field's value stored individually, then advance
+                  const nextId = currentQuestion.defaultNextId ?? "";
+                  // Store all field values under their option IDs
+                  let updatedState = state;
+                  for (const [key, val] of Object.entries(values)) {
+                    updatedState = quizReducer(updatedState, {
+                      type: "ANSWER",
+                      questionId: key,
+                      answerId: val,
+                      nextQuestionId: nextId,
+                    });
+                  }
+                  // We need to dispatch all at once — dispatch a synthetic action
+                  dispatch({
+                    type: "ANSWER",
+                    questionId: currentQuestion.id,
+                    answerId: JSON.stringify(values),
+                    nextQuestionId: nextId,
+                  });
+                  if (!nextId || !questions.find((q) => q.id === nextId)) {
+                    onComplete({ ...state, answers: { ...state.answers, [currentQuestion.id]: JSON.stringify(values) } });
+                  }
+                }}
+              />
             ) : (
               <div className="grid grid-cols-2 gap-3">
                 {currentQuestion.options?.map((option) => (

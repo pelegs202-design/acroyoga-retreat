@@ -231,6 +231,27 @@
         { "q": "How fit do I need to be?", "a": "Any fitness level works. AcroYoga builds strength and flexibility progressively — you'll surprise yourself by week 2." },
         { "q": "What if I'm afraid of heights?", "a": "We start low to the ground and build up gradually. You'll always feel safe and supported by your base and spotter." }
       ]
+    },
+    "workshop": {
+      "title": "Plan Your Workshop",
+      "confirmation": {
+        "title": "Request Received!",
+        "subtitle": "We'll send you a personalized quote within 24 hours",
+        "whatsapp": "Or message us directly on WhatsApp"
+      },
+      "advantages": {
+        "title": "Why Choose AcroHavura for Your Event",
+        "items": [
+          { "icon": "🎓", "title": "Experienced Instructors", "desc": "Led by Shai Peleg with international teaching experience across Europe and South America" },
+          { "icon": "🎯", "title": "Customized to Your Group", "desc": "Every workshop is tailored to your group's size, goals, and experience level" },
+          { "icon": "🎉", "title": "Fun & Memorable", "desc": "Your group will bond through trust, laughter, and shared accomplishment" },
+          { "icon": "🧰", "title": "All Equipment Provided", "desc": "Mats, props, and everything needed — just show up and play" },
+          { "icon": "👥", "title": "Small Group Attention", "desc": "Intimate group sizes ensure everyone gets personal guidance" },
+          { "icon": "🌿", "title": "Outdoor Vibes", "desc": "Beautiful outdoor settings that make the experience even more special" },
+          { "icon": "🤝", "title": "Social Connection", "desc": "Build trust and connection through partner-based movement" },
+          { "icon": "🎊", "title": "Perfect for Celebrations", "desc": "Bachelorettes, birthdays, team-building — an experience they'll never forget" }
+        ]
+      }
     }
   }
 }
