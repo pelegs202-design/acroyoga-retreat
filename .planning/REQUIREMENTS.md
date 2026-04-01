@@ -27,12 +27,12 @@ Requirements for initial release. Each maps to roadmap phases.
 - [x] **PROF-02**: User can set acroyoga role preference (base / flyer / both)
 - [x] **PROF-03**: User can set skill level (beginner / intermediate / advanced)
 - [x] **PROF-04**: User can select known moves from standard acroyoga skills checklist
-- [ ] **PROF-05**: User can view other members' profiles
+- [x] **PROF-05**: User can view other members' profiles
 - [x] **PROF-06**: User can rate and review partners after completing a jam session together
 
 ### Community
 
-- [ ] **COMM-01**: User can search for partners by city, role, skill level, and known moves
+- [x] **COMM-01**: User can search for partners by city, role, skill level, and known moves
 - [ ] **COMM-02**: User can send and receive 1:1 direct messages with other members
 - [ ] **COMM-03**: Approved hosts can post jam sessions (date, location, capacity, level)
 - [ ] **COMM-04**: User can RSVP to join a posted jam session
@@ -150,9 +150,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PROF-02 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | PROF-03 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | PROF-04 | Phase 3 — Community Profiles + Partner Matching | Complete |
-| PROF-05 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| PROF-05 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | PROF-06 | Phase 3 — Community Profiles + Partner Matching | Complete |
-| COMM-01 | Phase 3 — Community Profiles + Partner Matching | Pending |
+| COMM-01 | Phase 3 — Community Profiles + Partner Matching | Complete |
 | COMM-02 | Phase 4 — Jam Board + Messaging | Pending |
 | COMM-03 | Phase 4 — Jam Board + Messaging | Pending |
 | COMM-04 | Phase 4 — Jam Board + Messaging | Pending |

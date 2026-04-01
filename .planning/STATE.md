@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 3 of 10 (Community Profiles + Partner Matching)
-Plan: 1 of 5 in current phase
+Plan: 3 of 5 in current phase
 Status: In progress
-Last activity: 2026-04-01 — Plan 03-01 completed: Schema extended with bio/skills/reviews, 54-move skills taxonomy created, Phase 3 i18n keys added to both locales
+Last activity: 2026-04-01 — Plan 03-03 completed: Partner search page with URL-driven filters, member cards, and public profile view with hero/bio/skills/feedback count
 
-Progress: [████░░░░░░] 24%
+Progress: [████░░░░░░] 28%
 
 ## Performance Metrics
 
@@ -29,10 +29,10 @@ Progress: [████░░░░░░] 24%
 |-------|-------|-------|----------|
 | 01-foundation-auth | 4 | 30 min | 7.5 min |
 | 02-brand-identity | 2 | 9 min | 4.5 min |
-| 03-community-profiles-partner-matching | 1 | 3 min | 3 min |
+| 03-community-profiles-partner-matching | 3 | 9 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-04 (5 min), 02-01 (1 min), 02-02 (8 min), 02-03 (4 min), 03-01 (3 min)
+- Last 5 plans: 02-01 (1 min), 02-02 (8 min), 02-03 (4 min), 03-01 (3 min), 03-03 (3 min)
 - Trend: Stable
 
 *Updated after each plan completion*
@@ -71,6 +71,10 @@ Recent decisions affecting current work:
 - [Phase 03-01]: 03-01: skills text[] default uses sql template tag with '{}'::text[] PostgreSQL array literal — required for correct Drizzle migration SQL
 - [Phase 03-01]: 03-01: SKILL_CATEGORIES is a static TypeScript constant (not DB-stored) — user.skills stores move name strings from this list
 - [Phase 03-01]: 03-01: Drizzle migration 0000 is the initial full-schema migration — DB was blank, no prior migrations existed; gitignored per project config
+- [Phase 03-03]: 03-03: Drizzle filter conditions built as array with .filter(Boolean) cast — avoids conditional chaining and keeps and() call clean with dynamic number of conditions
+- [Phase 03-03]: 03-03: ProfileHero/ProfileBio are server components receiving locale prop — getTranslations called directly; SkillsDisplay is client component for expand/collapse interactivity
+- [Phase 03-03]: 03-03: Empty-state visibility rule — own profile sees nudge, other user sees nothing — applied consistently in ProfileBio and SkillsDisplay
+- [Phase 03-03]: 03-03: MembersGrid broadening suggestion uses level > role > city priority to identify most-restrictive active filter for removal hint
 
 ### Pending Todos
 
@@ -84,5 +88,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 03-01-PLAN.md — Schema extended with bio/skills/reviews, skills-data.ts created, Phase 3 i18n keys added
-Resume file: .planning/phases/03-community-profiles-partner-matching/03-01-SUMMARY.md
+Stopped at: Completed 03-03-PLAN.md — Partner search page with URL-driven filters + public profile view with hero/bio/skills/feedback count
+Resume file: .planning/phases/03-community-profiles-partner-matching/03-03-SUMMARY.md
