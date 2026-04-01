@@ -8,6 +8,7 @@ import { eq, sql } from "drizzle-orm";
 import ProfileHero from "@/components/profile/ProfileHero";
 import ProfileBio from "@/components/profile/ProfileBio";
 import SkillsDisplay from "@/components/profile/SkillsDisplay";
+import { ReviewForm } from "@/components/profile/ReviewForm";
 
 type Props = {
   params: Promise<{ locale: string; userId: string }>;
@@ -81,6 +82,11 @@ export default async function MemberProfilePage({ params }: Props) {
               {t("reviewCount", { count: feedbackCount })}
             </p>
           </section>
+        )}
+
+        {/* Review form — only visible when viewing someone else's profile */}
+        {!isOwnProfile && (
+          <ReviewForm revieweeId={userId} />
         )}
       </div>
     </div>
