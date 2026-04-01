@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 4 of 10 (Jam Board + Messaging)
-Plan: 4 of 5 in current phase
-Status: In progress — Plan 04-04 complete
-Last activity: 2026-04-01 — Plan 04-04 complete: Jam Board UI (JamFeed, JamCard, JamForm, /jams page, /jams/new page, i18n en+he)
+Plan: 5 of 5 in current phase — PHASE COMPLETE
+Status: Complete — Phase 04 done, ready for Phase 05
+Last activity: 2026-04-01 — Plan 04-05 complete: Messaging UI (ConversationList, ChatThread, MessageBubble, NewMessagePicker, Header unread badge)
 
-Progress: [████░░░░░░] 32%
+Progress: [████░░░░░░] 38%
 
 ## Performance Metrics
 
@@ -38,6 +38,7 @@ Progress: [████░░░░░░] 32%
 
 *Updated after each plan completion*
 | Phase 04 P03 | 4 | 3 tasks | 3 files |
+| Phase 04-jam-board-messaging P05 | 18 | 2 tasks | 12 files |
 
 ## Accumulated Context
 
@@ -98,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 04-04]: 04-04: isJamHost added to GET /api/jams response so JamFeed can show host button without extra fetch — one query in existing handler
 - [Phase 04-04]: 04-04: Past jams lazy-fetched on first collapsible toggle — historical data rarely needed, keeps initial page load light
 - [Phase 04-04]: 04-04: Optimistic RSVP UI reverts on any API error — client state never diverges from server truth permanently
+- [Phase 04-jam-board-messaging]: 04-05: ChatThread polls /api/messages/[conversationId] every 3s using setInterval — no Ably or WebSocket
+- [Phase 04-jam-board-messaging]: 04-05: Optimistic send appends localId-keyed pending message, replaced by server-confirmed on success
+- [Phase 04-jam-board-messaging]: 04-05: /api/user/search and /api/user/profile created (Rule 3 deviation) — required by NewMessagePicker
 
 ### Pending Todos
 
@@ -111,5 +115,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 04-04-PLAN.md — Jam Board UI complete (JamFeed, JamCard, JamForm, /jams, /jams/new, i18n en+he). Ready for 04-05.
-Resume file: .planning/phases/04-jam-board-messaging/04-04-SUMMARY.md
+Stopped at: Completed 04-05-PLAN.md — Messaging UI complete (ConversationList, ChatThread, MessageBubble, NewMessagePicker, Header badge). Phase 04 COMPLETE. Ready for Phase 05.
+Resume file: .planning/phases/04-jam-board-messaging/04-05-SUMMARY.md
