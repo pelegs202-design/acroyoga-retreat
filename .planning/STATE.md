@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 2 of 10 (Brand Identity)
-Plan: 1 of 5 in current phase
+Plan: 2 of 5 in current phase
 Status: In progress
-Last activity: 2026-04-01 — Plan 02-01 completed: Dark-first globals.css with hot pink brand accent tokens in Tailwind @theme block
+Last activity: 2026-04-01 — Plan 02-02 completed: Brand renamed to AcroHavura across 8 files (metadata, manifest, i18n, offline, install prompt, auth email)
 
-Progress: [████░░░░░░] 18%
+Progress: [████░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 7.5 min
-- Total execution time: 0.50 hours
+- Total plans completed: 6
+- Average duration: 6.5 min
+- Total execution time: 0.65 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation-auth | 4 | 30 min | 7.5 min |
-| 02-brand-identity | 1 | 1 min | 1 min |
+| 02-brand-identity | 2 | 9 min | 4.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 01-01 (10 min), 01-02 (7 min), 01-03 (8 min), 01-04 (5 min), 02-01 (1 min)
-- Trend: Improving
+- Last 5 plans: 01-02 (7 min), 01-03 (8 min), 01-04 (5 min), 02-01 (1 min), 02-02 (8 min)
+- Trend: Stable
 
 *Updated after each plan completion*
 
@@ -61,6 +61,8 @@ Recent decisions affecting current work:
 - [Phase 01-03]: 01-03: tosAcceptedAt updated via raw Drizzle sql tag (not authClient) — input:false additionalField cannot be set through Better Auth client SDK
 - 02-01: Plain @theme block used for brand color tokens (not @theme inline) — inline modifier embeds values at build time, breaking runtime CSS variable overrides
 - 02-01: Brand tokens use :root --brand variable bridged to @theme --color-brand via var() — preserves runtime CSS variable flexibility while generating Tailwind utilities
+- [Phase 02-02]: 02-02: [locale]/layout.tsx uses title template { default: 'AcroHavura', template: '%s | AcroHavura' } — enables per-page title suffixing in future phases
+- [Phase 02-02]: 02-02: Password reset email subject is 'Reset your password.' — direct bold voice, period intentional, no brand name in subject
 
 ### Pending Todos
 
@@ -75,5 +77,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 02-01-PLAN.md — Dark-first globals.css with hot pink (#F472B6) brand accent tokens in Tailwind @theme block
+Stopped at: Completed 02-02-PLAN.md — Brand renamed to AcroHavura / אקרוחבורה across all 8 surfaces
 Resume file: None
