@@ -110,7 +110,7 @@
     "filterLevel": "Level",
     "filterAll": "All",
     "noResults": "No partners found",
-    "noResultsHint": "Try removing the {filter} filter",
+    "noResultsHint": "Try removing the __filter__ filter",
     "searchPlaceholder": "Search by city...",
     "viewProfile": "View Profile"
   },

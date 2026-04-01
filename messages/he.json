@@ -110,7 +110,7 @@
     "filterLevel": "רמה",
     "filterAll": "הכל",
     "noResults": "לא נמצאו שותפים",
-    "noResultsHint": "נסו להסיר את הסינון לפי {filter}",
+    "noResultsHint": "נסו להסיר את הסינון לפי __filter__",
     "searchPlaceholder": "חיפוש לפי עיר...",
     "viewProfile": "צפייה בפרופיל"
   },

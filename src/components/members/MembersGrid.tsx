@@ -46,7 +46,7 @@ export default function MembersGrid({
         <p className="text-lg font-medium text-neutral-300">{noResultsLabel}</p>
         {activeFilter && (
           <p className="mt-2 text-sm text-neutral-500">
-            {noResultsHint.replace("{filter}", activeFilter)}
+            {noResultsHint.replace("__filter__", activeFilter)}
           </p>
         )}
       </div>
