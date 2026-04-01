@@ -117,7 +117,10 @@ Plans:
   1. User can complete payment for the 30-day challenge (under 500 NIS) via Green Invoice checkout
   2. User can submit a workshop inquiry after the quiz and receive a confirmation that a quote is coming
   3. A valid Hebrew tax invoice (חשבונית) is automatically generated and delivered after every successful payment
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 06-01-PLAN.md — GI client, DB schema (challenge_enrollments), checkout API, webhook handler
+- [ ] 06-02-PLAN.md — Results page CTA wiring, success page with onboarding info, add-to-calendar
 
 ### Phase 7: Notifications + Automations
 **Goal**: The platform reaches out to users at the right moment — jam reminders, message alerts, challenge prep — so engagement does not depend on users remembering to check the app
