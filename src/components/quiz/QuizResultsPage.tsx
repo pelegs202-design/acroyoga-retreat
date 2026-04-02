@@ -41,6 +41,7 @@ interface QuizResultsPageProps {
   personalizedFears: Array<{ en: string; he: string }>;
   leadName: string;
   locale: string;
+  sessionId: string;
 }
 
 // ─── FAQ Accordion ────────────────────────────────────────────────────────────
@@ -113,10 +114,26 @@ export default function QuizResultsPage({
   personalizedFears,
   leadName,
   locale,
+  sessionId,
 }: QuizResultsPageProps) {
   const [copied, setCopied] = useState(false);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
+  const [checkoutError, setCheckoutError] = useState(false);
 
   const isHe = locale === "he";
+
+  // Calculate next Monday for cohort start date
+  const nextMondayDate = (() => {
+    const d = new Date();
+    const day = d.getDay();
+    const daysUntilMonday = day === 1 ? 7 : (8 - day) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilMonday);
+    return d;
+  })();
+
+  const formattedStartDate = isHe
+    ? nextMondayDate.toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" })
+    : nextMondayDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 
   const name = isHe ? result.name.he : result.name.en;
   const tagline = isHe ? result.tagline.he : result.tagline.en;
@@ -267,19 +284,44 @@ export default function QuizResultsPage({
           {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
         </p>
         <p className="text-neutral-500 text-xs mb-6">
-          {isHe ? "הקבוצה הבאה מתחילה ב-15 במאי 2026" : "Next group starts May 15, 2026"}
+          {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
         </p>
 
         {/* CTA Button */}
-        <a
-          href="#coming-soon"
-          className="block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
+        <button
+          type="button"
+          disabled={checkoutLoading}
+          onClick={async () => {
+            setCheckoutLoading(true);
+            setCheckoutError(false);
+            try {
+              const res = await fetch("/api/payments/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ sessionId, locale }),
+              });
+              const data = await res.json();
+              if (!res.ok || !data.url) {
+                throw new Error(data.error || "Checkout failed");
+              }
+              window.location.href = data.url;
+            } catch (err) {
+              console.error("Checkout error:", err);
+              setCheckoutError(true);
+              setCheckoutLoading(false);
+            }
+          }}
+          className="block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
-        </a>
-        <p className="text-neutral-600 text-xs mt-3">
-          {isHe ? "עמוד תשלום בקרוב" : "Payment page coming soon"}
-        </p>
+          {checkoutLoading
+            ? (isHe ? "מעביר לתשלום..." : "Redirecting to checkout...")
+            : (isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now")}
+        </button>
+        {checkoutError && (
+          <p className="text-red-400 text-xs mt-3">
+            {isHe ? "שגיאה בהעברה לתשלום. נסו שוב." : "Error redirecting to checkout. Please try again."}
+          </p>
+        )}
       </motion.section>
 
       {/* 7. FAQ */}

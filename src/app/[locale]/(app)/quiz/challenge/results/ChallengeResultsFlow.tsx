@@ -113,6 +113,7 @@ export default function ChallengeResultsFlow({
           personalizedFears={payload.personalizedFears}
           leadName={payload.lead.name}
           locale={locale}
+          sessionId={sessionId}
         />
       )}
     </>
