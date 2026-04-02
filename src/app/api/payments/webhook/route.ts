@@ -5,6 +5,14 @@ import { nextMonday } from "@/lib/green-invoice/client";
 
 export async function POST(req: NextRequest) {
   try {
+    // Validate webhook secret from Green Invoice dashboard
+    const secret = req.headers.get("x-webhook-secret") ?? req.nextUrl.searchParams.get("secret");
+    const expectedSecret = process.env.GI_WEBHOOK_SECRET;
+    if (expectedSecret && secret !== expectedSecret) {
+      console.error("[payments/webhook] Invalid webhook secret");
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await req.json();
 
     // Basic validation — GI sends the full document object
