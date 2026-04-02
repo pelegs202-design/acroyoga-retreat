@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const MORNING_PAYMENT_URL =
   process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
@@ -30,56 +30,40 @@ function CheckoutContent() {
   const sessionId = searchParams.get("session");
   const isHe = locale === "he";
 
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-  const [phase, setPhase] = useState<"waiting" | "paying" | "done">("waiting");
-  const [showFallback, setShowFallback] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
-  // Monitor child frame count inside the Morning iframe
-  // Meshulam (payment processor) opens a nested iframe for card form
-  // When payment completes, that nested iframe closes → frame count drops
+  // Poll Morning API every 5 seconds to check if payment was made
+  const checkPayment = useCallback(async () => {
+    if (!sessionId) return false;
+    try {
+      const res = await fetch(`/api/payments/status?session=${sessionId}`);
+      const data = await res.json();
+      return data.paid === true;
+    } catch {
+      return false;
+    }
+  }, [sessionId]);
+
   useEffect(() => {
-    if (!iframeRef.current || !sessionId) return;
+    if (!sessionId || redirecting) return;
 
-    let maxFrameCount = 0;
-    let payingStartTime = 0;
-
-    const interval = setInterval(() => {
-      try {
-        const count = iframeRef.current?.contentWindow?.length ?? 0;
-
-        // Frame count increased — payment processor opened
-        if (count > maxFrameCount) {
-          maxFrameCount = count;
-          if (payingStartTime === 0) payingStartTime = Date.now();
-          setPhase("paying");
-        }
-
-        // Frame count dropped back to 0 after being higher — payment completed
-        if (maxFrameCount > 0 && count === 0) {
+    // Start polling after 10 seconds (give user time to fill in the form)
+    const startDelay = setTimeout(() => {
+      const interval = setInterval(async () => {
+        const paid = await checkPayment();
+        if (paid) {
           clearInterval(interval);
-          setPhase("done");
+          setRedirecting(true);
           window.location.href = `/${locale}/quiz/challenge/success?session=${sessionId}`;
         }
+      }, 5000); // Check every 5 seconds
 
-        // Fallback: if in paying phase for 15+ seconds, show manual button
-        // (covers Bit/PayPal flows that may not use nested iframes)
-        if (payingStartTime > 0 && Date.now() - payingStartTime > 15000) {
-          setShowFallback(true);
-        }
-      } catch {
-        // contentWindow access might throw — ignore
-      }
-    }, 500);
+      // Cleanup interval on unmount
+      return () => clearInterval(interval);
+    }, 10000);
 
-    // Also show fallback button after 45 seconds regardless
-    // (in case frame count detection doesn't work at all)
-    const fallbackTimer = setTimeout(() => setShowFallback(true), 45000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(fallbackTimer);
-    };
-  }, [sessionId, locale]);
+    return () => clearTimeout(startDelay);
+  }, [sessionId, redirecting, checkPayment, locale]);
 
   if (!sessionId) {
     router.push("/quiz");
@@ -98,20 +82,12 @@ function CheckoutContent() {
             : "Fill in your payment details below — you'll be redirected automatically after payment"}
         </p>
 
-        {/* Status indicator */}
-        {phase === "paying" && (
+        {/* Redirecting indicator */}
+        {redirecting && (
           <div className="flex items-center justify-center gap-2 mb-4">
             <div className="animate-spin h-4 w-4 border-2 border-brand border-t-transparent rounded-full" />
-            <p className="text-brand text-sm font-semibold">
-              {isHe ? "...מעבד תשלום" : "Processing payment..."}
-            </p>
-          </div>
-        )}
-
-        {phase === "done" && (
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <p className="text-green-400 text-sm font-semibold animate-pulse">
-              {isHe ? "...מעביר לעמוד ההצלחה" : "Redirecting to success page..."}
+            <p className="text-green-400 text-sm font-semibold">
+              {isHe ? "!תשלום התקבל — מעבירים אתכם" : "Payment received — redirecting..."}
             </p>
           </div>
         )}
@@ -119,7 +95,6 @@ function CheckoutContent() {
         {/* Morning payment form iframe */}
         <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white">
           <iframe
-            ref={iframeRef}
             src={MORNING_PAYMENT_URL}
             title={isHe ? "טופס תשלום" : "Payment Form"}
             width="100%"
@@ -128,21 +103,6 @@ function CheckoutContent() {
             allow="payment"
           />
         </div>
-
-        {/* Fallback button — appears if auto-detection is slow */}
-        {showFallback && phase !== "done" && (
-          <button
-            type="button"
-            onClick={() =>
-              (window.location.href = `/${locale}/quiz/challenge/success?session=${sessionId}`)
-            }
-            className="mt-6 w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-all"
-          >
-            {isHe
-              ? "✓ שילמתי — המשיכו לשלב הבא"
-              : "✓ I've Paid — Continue to Next Step"}
-          </button>
-        )}
 
         <button
           type="button"

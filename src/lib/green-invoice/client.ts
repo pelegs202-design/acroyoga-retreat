@@ -43,6 +43,47 @@ export function nextMonday(from: Date): Date {
   return d;
 }
 
+/**
+ * Search for recent paid documents by customer email.
+ * Returns true if a document was created in the last 10 minutes for this email.
+ */
+export async function checkPaymentByEmail(email: string): Promise<boolean> {
+  const token = await getToken();
+
+  // Search documents created in the last 10 minutes for this email
+  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+
+  const res = await fetch(`${GI_BASE_URL}/documents/search`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      page: 1,
+      pageSize: 1,
+      sort: 'createdAt',
+      direction: 'desc',
+      type: [320, 305, 400, 100], // invoice types: tax invoice receipt, receipt, etc.
+      fromDate: tenMinutesAgo.toISOString().split('T')[0],
+      toDate: new Date().toISOString().split('T')[0],
+      client: {
+        emails: [email],
+      },
+    }),
+  });
+
+  if (!res.ok) {
+    console.error(`[GI] Document search failed (${res.status}):`, await res.text());
+    return false;
+  }
+
+  const data = await res.json();
+  // data.items should be an array of documents
+  const items = data.items ?? data.docs ?? [];
+  return items.length > 0;
+}
+
 interface CheckoutParams {
   sessionId: string;
   name: string;
