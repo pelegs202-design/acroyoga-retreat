@@ -75,7 +75,7 @@ completed: 2026-04-02
 1. **Task 1: DB schema + Green Invoice client library** - `34d6ba2` (feat)
 2. **Task 2: Checkout API route + webhook handler** - `ecebb2d` (feat)
 
-**Plan metadata:** (pending final commit)
+**Plan metadata:** `33d97d3` (docs: complete plan)
 
 ## Files Created/Modified
 - `src/lib/db/schema.ts` - Added challengeEnrollments table definition with all fields and indexes
