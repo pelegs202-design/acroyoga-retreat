@@ -215,6 +215,27 @@ export const quizEvents = pgTable("quiz_events", {
   index("quiz_events_quiz_type_idx").on(table.quizType),
 ]);
 
+// ─── Phase 6: Payment + Enrollments ───
+
+export const challengeEnrollments = pgTable("challenge_enrollments", {
+  id: text("id").primaryKey(),
+  sessionId: text("session_id").notNull(),       // matches quiz_leads.session_id
+  giDocumentId: text("gi_document_id").notNull().unique(),
+  giDocumentNumber: text("gi_document_number"),   // GI's sequential invoice number (text for safety)
+  amountPaid: integer("amount_paid").notNull(),    // in NIS (integer, e.g. 299)
+  currency: text("currency").notNull().default("ILS"),
+  customerEmail: text("customer_email"),
+  customerName: text("customer_name"),
+  customerPhone: text("customer_phone"),
+  status: text("status").notNull().default("confirmed"),  // 'confirmed' | 'refunded'
+  cohortStartDate: timestamp("cohort_start_date"),
+  paidAt: timestamp("paid_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("challenge_enrollments_session_idx").on(table.sessionId),
+  index("challenge_enrollments_status_idx").on(table.status),
+]);
+
 // ─── Relations ───
 
 export const userRelations = relations(user, ({ many }) => ({
