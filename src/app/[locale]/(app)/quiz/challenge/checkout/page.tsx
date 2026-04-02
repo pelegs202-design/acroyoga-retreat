@@ -4,7 +4,9 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect } from "react";
+
+const MORNING_PAYMENT_URL =
+  process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
 
 export default function CheckoutPage() {
   return (
@@ -27,23 +29,6 @@ function CheckoutContent() {
   const sessionId = searchParams.get("session");
   const isHe = locale === "he";
 
-  const [redirecting, setRedirecting] = useState(false);
-
-  // Listen for PAYMENT_SUCCESS message from the proxied iframe
-  useEffect(() => {
-    if (!sessionId || redirecting) return;
-
-    const handler = (event: MessageEvent) => {
-      if (event.data?.type === "PAYMENT_SUCCESS") {
-        setRedirecting(true);
-        router.push(`/quiz/challenge/success?session=${sessionId}`);
-      }
-    };
-
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
-  }, [sessionId, redirecting, router]);
-
   if (!sessionId) {
     router.push("/quiz");
     return null;
@@ -57,14 +42,14 @@ function CheckoutContent() {
         </h1>
         <p className="text-neutral-400 text-sm text-center mb-6">
           {isHe
-            ? "מלאו את פרטי התשלום למטה — תועברו אוטומטית לאחר התשלום"
-            : "Fill in your payment details below — you'll be redirected automatically after payment"}
+            ? "מלאו את פרטי התשלום ולחצו על הכפתור למטה"
+            : "Complete payment below, then click the button"}
         </p>
 
-        {/* Morning payment form via same-origin proxy */}
+        {/* Morning payment form iframe */}
         <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white">
           <iframe
-            src="/api/payments/proxy"
+            src={MORNING_PAYMENT_URL}
             title={isHe ? "טופס תשלום" : "Payment Form"}
             width="100%"
             height="600"
@@ -73,18 +58,25 @@ function CheckoutContent() {
           />
         </div>
 
-        {redirecting && (
-          <p className="mt-4 text-brand text-center text-sm font-semibold animate-pulse">
-            {isHe ? "...מעביר לעמוד ההצלחה" : "Redirecting to success page..."}
-          </p>
-        )}
+        {/* Always visible — user clicks after paying */}
+        <button
+          type="button"
+          onClick={() =>
+            router.push(`/quiz/challenge/success?session=${sessionId}`)
+          }
+          className="mt-6 w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-all"
+        >
+          {isHe
+            ? "✓ שילמתי — המשיכו לשלב הבא"
+            : "✓ I've Paid — Continue to Next Step"}
+        </button>
 
         <button
           type="button"
           onClick={() =>
             router.push(`/quiz/challenge/results?session=${sessionId}`)
           }
-          className="mt-4 text-neutral-500 text-sm hover:text-neutral-300 transition-colors mx-auto block"
+          className="mt-3 text-neutral-500 text-sm hover:text-neutral-300 transition-colors mx-auto block"
         >
           {isHe ? "← חזרה לתוצאות" : "← Back to results"}
         </button>
