@@ -36,6 +36,11 @@ Users pay for the 30-day challenge through a compliant Israeli checkout (Green I
 - New challenge_enrollments table in DB — links quiz session/user to payment, enables Phase 8 admin view
 - Green Invoice webhook confirms payment server-side — don't trust client redirect alone
 
+### Deployment & Webhook Testing
+- Deploy to Vercel for testing — use the Vercel deployment URL as the webhook target in GI dashboard
+- No ngrok/tunnel needed — test against the live Vercel preview deployment
+- Webhook URL will be: `https://{vercel-domain}/api/payments/webhook`
+
 ### Claude's Discretion
 - Green Invoice API integration details (endpoint structure, auth headers, webhook signature validation)
 - Success page layout and specific fear-addressing copy
