@@ -1,0 +1,206 @@
+"use client";
+
+import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
+
+// Dynamic import for add-to-calendar (no SSR — uses browser APIs)
+const AddToCalendarButton = dynamic(
+  () => import("add-to-calendar-button-react").then((m) => m.AddToCalendarButton),
+  { ssr: false }
+);
+
+interface SuccessContentProps {
+  sessionId: string;
+  locale: string;
+}
+
+export default function SuccessContent({ sessionId: _sessionId, locale }: SuccessContentProps) {
+  const isHe = locale === "he";
+
+  // Calculate next Monday for cohort start
+  const nextMondayDate = (() => {
+    const d = new Date();
+    const day = d.getDay();
+    const daysUntilMonday = day === 1 ? 7 : (8 - day) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilMonday);
+    d.setHours(0, 0, 0, 0);
+    return d;
+  })();
+
+  const startDateFormatted = isHe
+    ? nextMondayDate.toLocaleDateString("he-IL", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
+    : nextMondayDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" });
+
+  // Format for add-to-calendar (YYYY-MM-DD)
+  const calendarDate = nextMondayDate.toISOString().split("T")[0];
+
+  const waGroupUrl = process.env.NEXT_PUBLIC_CHALLENGE_WA_GROUP_URL;
+
+  // Onboarding info items
+  const onboardingItems = isHe
+    ? [
+        { emoji: "👕", title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
+        { emoji: "🎒", title: "מה להביא", text: "בקבוק מים, מגבת קטנה. מזרנים מסופקים במקום." },
+        { emoji: "📍", title: "איפה", text: "המיקום המדויק ישלח אליכם בהודעת ווטסאפ לפני השיעור הראשון." },
+        { emoji: "⏰", title: "מתי מתחילים", text: `השיעור הראשון שלכם: ${startDateFormatted}` },
+      ]
+    : [
+        { emoji: "👕", title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
+        { emoji: "🎒", title: "What to Bring", text: "Water bottle, small towel. Mats are provided at the venue." },
+        { emoji: "📍", title: "Where", text: "Exact location will be sent via WhatsApp before your first class." },
+        { emoji: "⏰", title: "When You Start", text: `Your first class: ${startDateFormatted}` },
+      ];
+
+  // Fear-addressing reassurances
+  const reassurances = isHe
+    ? [
+        "אל תדאגו אם אין לכם ניסיון — 80% מהתלמידים שלנו מתחילים כמתחילים מוחלטים.",
+        "לא צריך פרטנר — אנחנו מזווגים את כולם בשיעור.",
+        "כל רמת כושר מתאימה — אנחנו מתקדמים בהדרגה.",
+        "שי ילווה אתכם אישית בכל שלב של הדרך.",
+      ]
+    : [
+        "Don't worry if you have no experience — 80% of our students start as complete beginners.",
+        "No partner needed — we pair everyone up in class.",
+        "Any fitness level works — we progress gradually.",
+        "Shai will guide you personally every step of the way.",
+      ];
+
+  return (
+    <div className="w-full max-w-lg mx-auto flex flex-col gap-8 pb-20 px-4 pt-8">
+      {/* 1. Celebration Header */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center"
+      >
+        <div className="text-5xl mb-4">🎉</div>
+        <h1 className="text-3xl font-black text-brand mb-2">
+          {isHe ? "!אתם בפנים" : "You're In!"}
+        </h1>
+        <p className="text-neutral-300 text-base">
+          {isHe
+            ? "ההרשמה שלכם לאתגר 30 הימים אושרה. חשבונית נשלחה למייל."
+            : "Your 30-day challenge enrollment is confirmed. Invoice sent to your email."}
+        </p>
+      </motion.section>
+
+      {/* 2. What to Expect (reassurances) */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        <h2 className="text-xl font-bold text-white mb-3">
+          {isHe ? "מה מחכה לכם" : "What to Expect"}
+        </h2>
+        <div className="flex flex-col gap-2">
+          {reassurances.map((text, i) => (
+            <div
+              key={i}
+              className="flex items-start gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+            >
+              <span className="text-brand mt-0.5">✓</span>
+              <p className="text-neutral-300 text-sm leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* 3. Onboarding Info Cards */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.15 }}
+      >
+        <h2 className="text-xl font-bold text-white mb-3">
+          {isHe ? "הכנה לשיעור הראשון" : "Preparing for Your First Class"}
+        </h2>
+        <div className="flex flex-col gap-3">
+          {onboardingItems.map((item, i) => (
+            <div
+              key={i}
+              className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <span className="text-lg">{item.emoji}</span>
+                <h3 className="font-bold text-white text-sm">{item.title}</h3>
+              </div>
+              <p className="text-neutral-400 text-sm leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* 4. Add to Calendar */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="flex flex-col items-center gap-3"
+      >
+        <h2 className="text-lg font-bold text-white">
+          {isHe ? "הוסיפו ליומן" : "Add to Calendar"}
+        </h2>
+        <AddToCalendarButton
+          name={isHe ? "אקרוחבורה — אתגר 30 הימים מתחיל!" : "AcroHavura — 30-Day Challenge Starts!"}
+          startDate={calendarDate}
+          startTime="10:00"
+          endTime="12:00"
+          timeZone="Asia/Jerusalem"
+          options={["Apple", "Google", "iCal"]}
+          location={isHe ? "ישראל" : "Israel"}
+          buttonStyle="round"
+          lightMode="dark"
+        />
+      </motion.section>
+
+      {/* 5. WhatsApp Group */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.25 }}
+        className="text-center"
+      >
+        <h2 className="text-lg font-bold text-white mb-2">
+          {isHe ? "הצטרפו לקבוצת הווטסאפ" : "Join the WhatsApp Group"}
+        </h2>
+        <p className="text-neutral-400 text-sm mb-4">
+          {isHe
+            ? "כאן נשלח עדכונים, מיקומים, ותזכורות לשיעורים."
+            : "We'll send updates, locations, and class reminders here."}
+        </p>
+        {waGroupUrl ? (
+          <a
+            href={waGroupUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 rounded-xl bg-green-600 text-white px-6 py-3 font-bold hover:bg-green-700 transition-colors"
+          >
+            <span>💬</span>
+            {isHe ? "כניסה לקבוצה" : "Join Group"}
+          </a>
+        ) : (
+          <p className="text-neutral-500 text-sm italic">
+            {isHe ? "קישור לקבוצה ישלח בקרוב" : "Group link coming soon"}
+          </p>
+        )}
+      </motion.section>
+
+      {/* 6. Bottom encouragement */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="text-center py-4 border-t border-neutral-800"
+      >
+        <p className="text-neutral-500 text-sm">
+          {isHe
+            ? "שאלות? שלחו הודעה בווטסאפ ושי יחזור אליכם."
+            : "Questions? Send a WhatsApp message and Shai will get back to you."}
+        </p>
+      </motion.section>
+    </div>
+  );
+}
