@@ -87,6 +87,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
       type: 3,              // Payment type 3 = payment request (hosted checkout)
       price: 299,
       currency: 'ILS',
+      date: new Date().toISOString().split('T')[0], // YYYY-MM-DD today
     }],
     remarks: `sessionId:${params.sessionId}`,  // Embed sessionId for webhook extraction
     successUrl,
