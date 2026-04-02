@@ -4,10 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect, useCallback } from "react";
-
-const MORNING_PAYMENT_URL =
-  process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
+import { useState, useEffect } from "react";
 
 export default function CheckoutPage() {
   return (
@@ -30,40 +27,22 @@ function CheckoutContent() {
   const sessionId = searchParams.get("session");
   const isHe = locale === "he";
 
-  const [showButton, setShowButton] = useState(false);
   const [redirecting, setRedirecting] = useState(false);
 
-  // Poll enrollment status every 3 seconds
-  // When Morning webhook fires and writes enrollment, this detects it and auto-redirects
-  const checkEnrollment = useCallback(async () => {
-    if (!sessionId) return false;
-    try {
-      const res = await fetch(`/api/payments/status?session=${sessionId}`);
-      const data = await res.json();
-      return data.enrolled === true;
-    } catch {
-      return false;
-    }
-  }, [sessionId]);
-
+  // Listen for PAYMENT_SUCCESS message from the proxied iframe
   useEffect(() => {
     if (!sessionId || redirecting) return;
-    const interval = setInterval(async () => {
-      const enrolled = await checkEnrollment();
-      if (enrolled) {
+
+    const handler = (event: MessageEvent) => {
+      if (event.data?.type === "PAYMENT_SUCCESS") {
         setRedirecting(true);
-        clearInterval(interval);
         router.push(`/quiz/challenge/success?session=${sessionId}`);
       }
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [sessionId, redirecting, checkEnrollment, router]);
+    };
 
-  // Show manual "I've paid" button after 15 seconds as fallback
-  useEffect(() => {
-    const timer = setTimeout(() => setShowButton(true), 15000);
-    return () => clearTimeout(timer);
-  }, []);
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, [sessionId, redirecting, router]);
 
   if (!sessionId) {
     router.push("/quiz");
@@ -82,10 +61,10 @@ function CheckoutContent() {
             : "Fill in your payment details below — you'll be redirected automatically after payment"}
         </p>
 
-        {/* Morning payment form iframe */}
+        {/* Morning payment form via same-origin proxy */}
         <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white">
           <iframe
-            src={MORNING_PAYMENT_URL}
+            src="/api/payments/proxy"
             title={isHe ? "טופס תשלום" : "Payment Form"}
             width="100%"
             height="600"
@@ -94,26 +73,10 @@ function CheckoutContent() {
           />
         </div>
 
-        {/* Redirecting indicator */}
         {redirecting && (
           <p className="mt-4 text-brand text-center text-sm font-semibold animate-pulse">
             {isHe ? "...מעביר לעמוד ההצלחה" : "Redirecting to success page..."}
           </p>
-        )}
-
-        {/* Fallback button after 15s in case webhook is slow */}
-        {showButton && !redirecting && (
-          <button
-            type="button"
-            onClick={() =>
-              router.push(`/quiz/challenge/success?session=${sessionId}`)
-            }
-            className="mt-6 w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-all"
-          >
-            {isHe
-              ? "✓ שילמתי — קחו אותי לשלב הבא"
-              : "✓ I've Paid — Take Me to the Next Step"}
-          </button>
         )}
 
         <button
