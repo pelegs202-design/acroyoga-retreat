@@ -44,10 +44,10 @@ export function nextMonday(from: Date): Date {
 }
 
 /**
- * Search for documents by customer email created after a given timestamp.
- * Returns true if a document exists for this email after `since`.
+ * Check if any new document was created after a given timestamp.
+ * Uses creationDate (unix timestamp) from the most recent document.
  */
-export async function checkPaymentByEmail(email: string, since: Date): Promise<boolean> {
+export async function checkNewPaymentSince(since: Date): Promise<boolean> {
   const token = await getToken();
 
   const res = await fetch(`${GI_BASE_URL}/documents/search`, {
@@ -58,38 +58,33 @@ export async function checkPaymentByEmail(email: string, since: Date): Promise<b
     },
     body: JSON.stringify({
       page: 1,
-      pageSize: 5,
+      pageSize: 1,
       sort: 'createdAt',
       direction: 'desc',
-      type: [320, 305, 400, 100], // tax invoice receipt, receipt, etc.
       fromDate: since.toISOString().split('T')[0],
       toDate: new Date().toISOString().split('T')[0],
-      client: {
-        emails: [email],
-      },
     }),
   });
 
   if (!res.ok) {
-    const errText = await res.text();
-    console.error(`[GI] Document search failed (${res.status}):`, errText);
+    console.error(`[GI] Document search failed (${res.status}):`, await res.text());
     return false;
   }
 
   const data = await res.json();
-  console.log(`[GI] Search response keys:`, Object.keys(data));
-  console.log(`[GI] Search response preview:`, JSON.stringify(data).substring(0, 500));
-  const items = data.items ?? data.docs ?? data.rows ?? [];
+  const items = data.items ?? [];
 
-  // Check if any document was created AFTER the since timestamp
-  for (const doc of items) {
-    const docDate = new Date(doc.createdAt ?? doc.date ?? 0);
-    if (docDate.getTime() >= since.getTime()) {
-      return true;
-    }
-  }
+  if (items.length === 0) return false;
 
-  return false;
+  // creationDate is a unix timestamp (seconds)
+  const latestDoc = items[0];
+  const docCreatedAt = latestDoc.creationDate
+    ? new Date(latestDoc.creationDate * 1000)
+    : null;
+
+  if (!docCreatedAt) return false;
+
+  return docCreatedAt.getTime() > since.getTime();
 }
 
 interface CheckoutParams {
