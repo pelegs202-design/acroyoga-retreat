@@ -6,6 +6,7 @@ import { checkPaymentByEmail } from "@/lib/green-invoice/client";
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session");
+  const since = req.nextUrl.searchParams.get("since"); // ISO timestamp — only find payments after this time
 
   if (!sessionId) {
     return NextResponse.json({ paid: false });
@@ -34,7 +35,8 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const paid = await checkPaymentByEmail(lead.email);
+    const sinceDate = since ? new Date(since) : new Date();
+    const paid = await checkPaymentByEmail(lead.email, sinceDate);
     return NextResponse.json({ paid, source: paid ? "morning-api" : null });
   } catch (err) {
     console.error("[payments/status] GI check failed:", err);

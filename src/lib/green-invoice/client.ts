@@ -44,14 +44,11 @@ export function nextMonday(from: Date): Date {
 }
 
 /**
- * Search for recent paid documents by customer email.
- * Returns true if a document was created in the last 10 minutes for this email.
+ * Search for documents by customer email created after a given timestamp.
+ * Returns true if a document exists for this email after `since`.
  */
-export async function checkPaymentByEmail(email: string): Promise<boolean> {
+export async function checkPaymentByEmail(email: string, since: Date): Promise<boolean> {
   const token = await getToken();
-
-  // Search documents created in the last 10 minutes for this email
-  const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
 
   const res = await fetch(`${GI_BASE_URL}/documents/search`, {
     method: 'POST',
@@ -61,11 +58,11 @@ export async function checkPaymentByEmail(email: string): Promise<boolean> {
     },
     body: JSON.stringify({
       page: 1,
-      pageSize: 1,
+      pageSize: 5,
       sort: 'createdAt',
       direction: 'desc',
-      type: [320, 305, 400, 100], // invoice types: tax invoice receipt, receipt, etc.
-      fromDate: tenMinutesAgo.toISOString().split('T')[0],
+      type: [320, 305, 400, 100], // tax invoice receipt, receipt, etc.
+      fromDate: since.toISOString().split('T')[0],
       toDate: new Date().toISOString().split('T')[0],
       client: {
         emails: [email],
@@ -79,9 +76,17 @@ export async function checkPaymentByEmail(email: string): Promise<boolean> {
   }
 
   const data = await res.json();
-  // data.items should be an array of documents
   const items = data.items ?? data.docs ?? [];
-  return items.length > 0;
+
+  // Check if any document was created AFTER the since timestamp
+  for (const doc of items) {
+    const docDate = new Date(doc.createdAt ?? doc.date ?? 0);
+    if (docDate.getTime() >= since.getTime()) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 interface CheckoutParams {

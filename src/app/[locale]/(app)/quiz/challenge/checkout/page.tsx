@@ -31,18 +31,20 @@ function CheckoutContent() {
   const isHe = locale === "he";
 
   const [redirecting, setRedirecting] = useState(false);
+  // Record when user opened checkout — only detect payments AFTER this time
+  const [checkoutOpenedAt] = useState(() => new Date().toISOString());
 
   // Poll Morning API every 5 seconds to check if payment was made
   const checkPayment = useCallback(async () => {
     if (!sessionId) return false;
     try {
-      const res = await fetch(`/api/payments/status?session=${sessionId}`);
+      const res = await fetch(`/api/payments/status?session=${sessionId}&since=${encodeURIComponent(checkoutOpenedAt)}`);
       const data = await res.json();
       return data.paid === true;
     } catch {
       return false;
     }
-  }, [sessionId]);
+  }, [sessionId, checkoutOpenedAt]);
 
   useEffect(() => {
     if (!sessionId || redirecting) return;
