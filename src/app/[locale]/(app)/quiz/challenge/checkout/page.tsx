@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const MORNING_PAYMENT_URL =
   process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
@@ -31,11 +31,37 @@ function CheckoutContent() {
   const isHe = locale === "he";
 
   const [showButton, setShowButton] = useState(false);
+  const [redirecting, setRedirecting] = useState(false);
 
-  // Show the "I've paid" button after 10 seconds
-  // (enough time for the Morning form to load, but before the user finishes paying)
+  // Poll enrollment status every 3 seconds
+  // When Morning webhook fires and writes enrollment, this detects it and auto-redirects
+  const checkEnrollment = useCallback(async () => {
+    if (!sessionId) return false;
+    try {
+      const res = await fetch(`/api/payments/status?session=${sessionId}`);
+      const data = await res.json();
+      return data.enrolled === true;
+    } catch {
+      return false;
+    }
+  }, [sessionId]);
+
   useEffect(() => {
-    const timer = setTimeout(() => setShowButton(true), 10000);
+    if (!sessionId || redirecting) return;
+    const interval = setInterval(async () => {
+      const enrolled = await checkEnrollment();
+      if (enrolled) {
+        setRedirecting(true);
+        clearInterval(interval);
+        router.push(`/quiz/challenge/success?session=${sessionId}`);
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [sessionId, redirecting, checkEnrollment, router]);
+
+  // Show manual "I've paid" button after 15 seconds as fallback
+  useEffect(() => {
+    const timer = setTimeout(() => setShowButton(true), 15000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -52,8 +78,8 @@ function CheckoutContent() {
         </h1>
         <p className="text-neutral-400 text-sm text-center mb-6">
           {isHe
-            ? "מלאו את פרטי התשלום למטה"
-            : "Fill in your payment details below"}
+            ? "מלאו את פרטי התשלום למטה — תועברו אוטומטית לאחר התשלום"
+            : "Fill in your payment details below — you'll be redirected automatically after payment"}
         </p>
 
         {/* Morning payment form iframe */}
@@ -68,8 +94,15 @@ function CheckoutContent() {
           />
         </div>
 
-        {/* Show after 10s — by then the form is loaded and user knows what this page is */}
-        {showButton && (
+        {/* Redirecting indicator */}
+        {redirecting && (
+          <p className="mt-4 text-brand text-center text-sm font-semibold animate-pulse">
+            {isHe ? "...מעביר לעמוד ההצלחה" : "Redirecting to success page..."}
+          </p>
+        )}
+
+        {/* Fallback button after 15s in case webhook is slow */}
+        {showButton && !redirecting && (
           <button
             type="button"
             onClick={() =>
