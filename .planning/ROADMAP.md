@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Community Profiles + Partner Matching** - User profiles with skills checklist and partner search by city/role/level (completed 2026-04-01)
 - [x] **Phase 4: Jam Board + Messaging** - 1:1 DMs via polling, jam session posting with RSVP/waitlist (completed 2026-04-01)
 - [x] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching (completed 2026-04-01)
-- [ ] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation
+- [x] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation (completed 2026-04-02)
 - [ ] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences
 - [ ] **Phase 8: Admin Panel** - Member management, jam host approval, challenge signups, workshop bookings
 - [ ] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons
@@ -182,7 +182,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 3. Community Profiles + Partner Matching | 4/4 | Complete    | 2026-04-01 |
 | 4. Jam Board + Messaging | 5/5 | Complete    | 2026-04-01 |
 | 5. Quiz Funnels | 5/5 | Complete    | 2026-04-01 |
-| 6. Payments + Invoicing | 1/2 | In Progress|  |
+| 6. Payments + Invoicing | 2/2 | Complete   | 2026-04-02 |
 | 7. Notifications + Automations | 0/TBD | Not started | - |
 | 8. Admin Panel | 0/TBD | Not started | - |
 | 9. SEO + Social Surface | 0/TBD | Not started | - |

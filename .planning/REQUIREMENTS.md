@@ -52,7 +52,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Payments
 
 - [x] **PAY-01**: User can pay for 30-day challenge via Green Invoice checkout (under 500 NIS)
-- [ ] **PAY-02**: User can submit workshop inquiry and receive quote/booking confirmation
+- [x] **PAY-02**: User can submit workshop inquiry and receive quote/booking confirmation
 - [x] **PAY-03**: Green Invoice generates automatic Hebrew tax invoice (חשבונית) on payment
 
 ### Automations & Notifications
@@ -166,7 +166,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | QUIZ-06 | Phase 5 — Quiz Funnels | Complete |
 | QUIZ-07 | Phase 5 — Quiz Funnels | Complete |
 | PAY-01 | Phase 6 — Payments + Invoicing | Complete |
-| PAY-02 | Phase 6 — Payments + Invoicing | Pending |
+| PAY-02 | Phase 6 — Payments + Invoicing | Complete |
 | PAY-03 | Phase 6 — Payments + Invoicing | Complete |
 | NOTIF-01 | Phase 7 — Notifications + Automations | Pending |
 | NOTIF-02 | Phase 7 — Notifications + Automations | Pending |

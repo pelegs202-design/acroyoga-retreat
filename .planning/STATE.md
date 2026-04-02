@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** People can find and connect with the right acroyoga partner near them — by level, role, and skills — and show up to practice together.
-**Current focus:** Phase 6 — Payments + Invoicing
+**Current focus:** Phase 7 — WhatsApp Onboarding
 
 ## Current Position
 
-Phase: 6 of 10 (Payments + Invoicing) — IN PROGRESS
-Plan: 1 of 2 in current phase — COMPLETE
-Status: Phase 06 Plan 01 complete — challenge_enrollments schema, GI client, checkout + webhook API routes ready
-Last activity: 2026-04-02 — Plan 06-01 complete: Green Invoice payment backend (schema, client, checkout API, webhook handler)
+Phase: 7 of 10 (WhatsApp Onboarding) — NEXT
+Plan: 0 of 2 in current phase — NOT STARTED
+Status: Phase 06 complete — payment flow end-to-end: GI checkout backend + results page CTA + success page with onboarding info
+Last activity: 2026-04-02 — Plan 06-02 complete: results page CTA wired to checkout, success page with calendar link, WA group, onboarding info
 
-Progress: [█████░░░░░] 50%
+Progress: [██████░░░░] 60%
 
 ## Performance Metrics
 
@@ -44,6 +44,7 @@ Progress: [█████░░░░░] 50%
 | Phase 05-quiz-funnels P03 | 4 | 2 tasks | 5 files |
 | Phase 05-quiz-funnels P05 | 12 | 2 tasks | 8 files |
 | Phase 06-payments-invoicing P01 | 13 | 2 tasks | 5 files |
+| Phase 06-payments-invoicing P02 | 12 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -130,6 +131,9 @@ Recent decisions affecting current work:
 - [Phase 06-01]: GI document remarks field carries sessionId (format: sessionId:xxx) for webhook-to-lead linking
 - [Phase 06-01]: Webhook returns HTTP 200 on all errors to prevent GI retry storms; idempotency via gi_document_id unique constraint
 - [Phase 06-01]: challengeEnrollments links via sessionId not userId FK — quiz takers may not have auth accounts
+- [Phase 06-02]: AddToCalendarButton loaded via dynamic import ssr:false — library uses browser APIs; crashes on server
+- [Phase 06-02]: .env.example CHALLENGE_WA_GROUP_URL renamed to NEXT_PUBLIC_CHALLENGE_WA_GROUP_URL — client components require NEXT_PUBLIC_ prefix
+- [Phase 06-02]: PAY-02 confirmed satisfied by Phase 5 workshop inquiry flow — no new work required in Phase 6
 
 ### Pending Todos
 
@@ -143,5 +147,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-02
-Stopped at: Completed 06-01-PLAN.md — challenge_enrollments schema, Green Invoice JWT client, checkout + webhook API routes. Phase 06 Plan 01 complete.
-Resume file: .planning/phases/06-payments-invoicing/06-01-SUMMARY.md
+Stopped at: Completed 06-02-PLAN.md — results page CTA wired to GI checkout, success page with onboarding info/calendar/WA group. Phase 06 complete.
+Resume file: .planning/phases/06-payments-invoicing/06-02-SUMMARY.md
