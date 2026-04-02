@@ -83,11 +83,14 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
       emails: [params.email],
       phone: params.phone,
     },
+    payment: [{
+      type: 3,              // Payment type 3 = payment request (hosted checkout)
+      price: 299,
+      currency: 'ILS',
+    }],
     remarks: `sessionId:${params.sessionId}`,  // Embed sessionId for webhook extraction
     successUrl,
     failUrl: failureUrl,
-    // Payment method types accepted: credit card (1), Bit (10), PayPal (11)
-    // These are configured in GI dashboard payment form settings
   };
 
   const res = await fetch(`${GI_BASE_URL}/documents`, {
