@@ -71,12 +71,15 @@ export async function checkPaymentByEmail(email: string, since: Date): Promise<b
   });
 
   if (!res.ok) {
-    console.error(`[GI] Document search failed (${res.status}):`, await res.text());
+    const errText = await res.text();
+    console.error(`[GI] Document search failed (${res.status}):`, errText);
     return false;
   }
 
   const data = await res.json();
-  const items = data.items ?? data.docs ?? [];
+  console.log(`[GI] Search response keys:`, Object.keys(data));
+  console.log(`[GI] Search response preview:`, JSON.stringify(data).substring(0, 500));
+  const items = data.items ?? data.docs ?? data.rows ?? [];
 
   // Check if any document was created AFTER the since timestamp
   for (const doc of items) {
