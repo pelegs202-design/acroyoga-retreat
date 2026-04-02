@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { challengeEnrollments } from "@/lib/db/schema";
+import { challengeEnrollments, quizLeads } from "@/lib/db/schema";
+import { eq, desc } from "drizzle-orm";
 import { nextMonday } from "@/lib/green-invoice/client";
 
 export async function POST(req: NextRequest) {
@@ -15,8 +16,6 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    // Basic validation — GI sends the full document object
-    // Validate document type is 320 (חשבונית מס קבלה) and amount is 299
     if (!body || typeof body !== "object") {
       console.error("[payments/webhook] Invalid body");
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
@@ -33,26 +32,31 @@ export async function POST(req: NextRequest) {
 
     if (typeof total === "number" && total !== 299) {
       console.warn(`[payments/webhook] Unexpected total: ${total}`);
-      // Still process — amount mismatch could be a discount scenario. Log for review.
     }
 
-    // Extract sessionId from remarks field (format: "sessionId:abc123")
-    let sessionId: string | null = null;
-    if (typeof body.remarks === "string") {
-      const match = body.remarks.match(/sessionId:([^\s,]+)/);
-      if (match) sessionId = match[1];
-    }
-
-    if (!sessionId) {
-      console.error("[payments/webhook] Could not extract sessionId from remarks:", body.remarks);
-      // Still write enrollment with null sessionId — better to record payment than lose it
-    }
-
-    // Extract client info
+    // Extract client info from webhook payload
     const customerEmail = body.client?.emails?.[0] ?? null;
     const customerName = body.client?.name ?? null;
     const customerPhone = body.client?.phone ?? null;
     const giDocumentNumber = body.number?.toString() ?? null;
+
+    // Match payment to quiz lead by email — find the most recent lead with this email
+    let sessionId = "unknown";
+    if (customerEmail) {
+      const [lead] = await db
+        .select({ sessionId: quizLeads.sessionId })
+        .from(quizLeads)
+        .where(eq(quizLeads.email, customerEmail))
+        .orderBy(desc(quizLeads.createdAt))
+        .limit(1);
+
+      if (lead) {
+        sessionId = lead.sessionId;
+        console.log(`[payments/webhook] Matched email ${customerEmail} to session ${sessionId}`);
+      } else {
+        console.warn(`[payments/webhook] No quiz lead found for email ${customerEmail}`);
+      }
+    }
 
     // Calculate cohort start date (next Monday from now)
     const cohortStart = nextMonday(new Date());
@@ -60,9 +64,9 @@ export async function POST(req: NextRequest) {
     // Write enrollment — use giDocumentId unique constraint to prevent duplicates
     await db.insert(challengeEnrollments).values({
       id: crypto.randomUUID(),
-      sessionId: sessionId ?? "unknown",
+      sessionId,
       giDocumentId: String(docId),
-      giDocumentNumber: giDocumentNumber,
+      giDocumentNumber,
       amountPaid: typeof total === "number" ? total : 299,
       currency: body.currency ?? "ILS",
       customerEmail,
@@ -71,15 +75,13 @@ export async function POST(req: NextRequest) {
       status: "confirmed",
       cohortStartDate: cohortStart,
       paidAt: body.createdAt ? new Date(body.createdAt) : new Date(),
-    }).onConflictDoNothing(); // Idempotent — GI may retry webhooks
+    }).onConflictDoNothing();
 
-    console.log(`[payments/webhook] Enrollment recorded for session ${sessionId}, GI doc ${docId}`);
+    console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${customerEmail}, GI doc=${docId}`);
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     console.error("[payments/webhook] Error:", err);
-    // Return 200 even on error to prevent GI from retrying indefinitely
-    // The error is logged for manual investigation
     return NextResponse.json({ ok: true });
   }
 }
