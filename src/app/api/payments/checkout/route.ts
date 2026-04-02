@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { quizLeads } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { createCheckoutUrl } from "@/lib/green-invoice/client";
+
+// Morning payment form link — created in dashboard, fixed for 30-day challenge
+const MORNING_PAYMENT_URL = process.env.MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { sessionId, locale } = body as { sessionId?: string; locale?: string };
+    const { sessionId } = body as { sessionId?: string };
 
     if (!sessionId) {
       return NextResponse.json({ error: "Missing sessionId" }, { status: 400 });
@@ -24,16 +26,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
 
-    // Create GI checkout URL
-    const url = await createCheckoutUrl({
-      sessionId,
-      name: lead.name,
-      email: lead.email,
-      phone: lead.phone,
-      locale: locale || "he",
-    });
-
-    return NextResponse.json({ ok: true, url });
+    // Return the Morning payment form URL
+    // The webhook handles enrollment after payment confirmation
+    return NextResponse.json({ ok: true, url: MORNING_PAYMENT_URL });
   } catch (err: unknown) {
     console.error("[payments/checkout] Error:", err);
     const message = err instanceof Error ? err.message : "Internal error";
