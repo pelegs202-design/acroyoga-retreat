@@ -42,7 +42,8 @@ function CheckoutContent() {
       // After the second load (payment completed, Morning shows success),
       // show the "Continue" button
       if (next >= 2) {
-        setShowPaidButton(true);
+        // Auto-redirect to success page on payment completion
+        router.push(`/quiz/challenge/success?session=${sessionId}`);
       }
       return next;
     });
@@ -59,19 +60,13 @@ function CheckoutContent() {
         event.origin.includes("mrng.to") ||
         event.origin.includes("morning")
       ) {
-        setShowPaidButton(true);
+        router.push(`/quiz/challenge/success?session=${sessionId}`);
       }
     };
     window.addEventListener("message", handler);
     return () => window.removeEventListener("message", handler);
   }, []);
 
-  // Auto-show the "I've paid" button after 30 seconds regardless
-  // (user might be slow to fill in payment details)
-  useEffect(() => {
-    const timer = setTimeout(() => setShowPaidButton(true), 30000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const goToSuccess = () => {
     router.push(`/quiz/challenge/success?session=${sessionId}`);
@@ -108,18 +103,7 @@ function CheckoutContent() {
           />
         </div>
 
-        {/* Show "Continue" button after payment detected or after 30s */}
-        {showPaidButton && (
-          <button
-            type="button"
-            onClick={goToSuccess}
-            className="mt-6 w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-all animate-pulse"
-          >
-            {isHe ? "✓ שילמתי — קחו אותי לשלב הבא" : "✓ I've Paid — Take Me to the Next Step"}
-          </button>
-        )}
-
-        {/* Manual fallback link always visible */}
+        {/* Back link */}
         <button
           type="button"
           onClick={() =>
