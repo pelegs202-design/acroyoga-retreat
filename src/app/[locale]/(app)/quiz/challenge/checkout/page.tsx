@@ -4,7 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect } from "react";
 
 const MORNING_PAYMENT_URL =
   process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
@@ -30,47 +30,14 @@ function CheckoutContent() {
   const sessionId = searchParams.get("session");
   const isHe = locale === "he";
 
-  const [iframeLoads, setIframeLoads] = useState(0);
-  const [showPaidButton, setShowPaidButton] = useState(false);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const [showButton, setShowButton] = useState(false);
 
-  // Detect iframe navigation — Morning reloads/redirects after successful payment
-  // First load = payment form. Second load = success page inside iframe.
-  const handleIframeLoad = useCallback(() => {
-    setIframeLoads((prev) => {
-      const next = prev + 1;
-      // After the second load (payment completed, Morning shows success),
-      // show the "Continue" button
-      if (next >= 2) {
-        // Auto-redirect to success page on payment completion
-        router.push(`/quiz/challenge/success?session=${sessionId}`);
-      }
-      return next;
-    });
-  }, []);
-
-  // Also listen for postMessage from Morning (in case they send one)
+  // Show the "I've paid" button after 10 seconds
+  // (enough time for the Morning form to load, but before the user finishes paying)
   useEffect(() => {
-    const handler = (event: MessageEvent) => {
-      // Log any messages from the iframe for debugging
-      console.log("[checkout] postMessage received:", event.origin, event.data);
-      // If Morning sends any message after payment, show the button
-      if (
-        event.origin.includes("greeninvoice") ||
-        event.origin.includes("mrng.to") ||
-        event.origin.includes("morning")
-      ) {
-        router.push(`/quiz/challenge/success?session=${sessionId}`);
-      }
-    };
-    window.addEventListener("message", handler);
-    return () => window.removeEventListener("message", handler);
+    const timer = setTimeout(() => setShowButton(true), 10000);
+    return () => clearTimeout(timer);
   }, []);
-
-
-  const goToSuccess = () => {
-    router.push(`/quiz/challenge/success?session=${sessionId}`);
-  };
 
   if (!sessionId) {
     router.push("/quiz");
@@ -92,18 +59,30 @@ function CheckoutContent() {
         {/* Morning payment form iframe */}
         <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white">
           <iframe
-            ref={iframeRef}
             src={MORNING_PAYMENT_URL}
             title={isHe ? "טופס תשלום" : "Payment Form"}
             width="100%"
             height="600"
             style={{ border: "none", minHeight: "600px" }}
             allow="payment"
-            onLoad={handleIframeLoad}
           />
         </div>
 
-        {/* Back link */}
+        {/* Show after 10s — by then the form is loaded and user knows what this page is */}
+        {showButton && (
+          <button
+            type="button"
+            onClick={() =>
+              router.push(`/quiz/challenge/success?session=${sessionId}`)
+            }
+            className="mt-6 w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-all"
+          >
+            {isHe
+              ? "✓ שילמתי — קחו אותי לשלב הבא"
+              : "✓ I've Paid — Take Me to the Next Step"}
+          </button>
+        )}
+
         <button
           type="button"
           onClick={() =>
