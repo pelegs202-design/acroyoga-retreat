@@ -117,8 +117,6 @@ export default function QuizResultsPage({
   sessionId,
 }: QuizResultsPageProps) {
   const [copied, setCopied] = useState(false);
-  const [checkoutLoading, setCheckoutLoading] = useState(false);
-  const [checkoutError, setCheckoutError] = useState(false);
 
   const isHe = locale === "he";
 
@@ -290,38 +288,13 @@ export default function QuizResultsPage({
         {/* CTA Button */}
         <button
           type="button"
-          disabled={checkoutLoading}
-          onClick={async () => {
-            setCheckoutLoading(true);
-            setCheckoutError(false);
-            try {
-              const res = await fetch("/api/payments/checkout", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ sessionId, locale }),
-              });
-              const data = await res.json();
-              if (!res.ok || !data.url) {
-                throw new Error(data.error || "Checkout failed");
-              }
-              window.location.href = data.url;
-            } catch (err) {
-              console.error("Checkout error:", err);
-              setCheckoutError(true);
-              setCheckoutLoading(false);
-            }
+          onClick={() => {
+            window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
           }}
-          className="block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+          className="block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
         >
-          {checkoutLoading
-            ? (isHe ? "מעביר לתשלום..." : "Redirecting to checkout...")
-            : (isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now")}
+          {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
         </button>
-        {checkoutError && (
-          <p className="text-red-400 text-xs mt-3">
-            {isHe ? "שגיאה בהעברה לתשלום. נסו שוב." : "Error redirecting to checkout. Please try again."}
-          </p>
-        )}
       </motion.section>
 
       {/* 7. FAQ */}
