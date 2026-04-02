@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** People can find and connect with the right acroyoga partner near them — by level, role, and skills — and show up to practice together.
-**Current focus:** Phase 1 — Foundation + Auth
+**Current focus:** Phase 6 — Payments + Invoicing
 
 ## Current Position
 
-Phase: 5 of 10 (Quiz Funnels) — COMPLETE
-Plan: 5 of 5 in current phase — COMPLETE
-Status: Phase 05 complete — all 5 plans done; ready to begin Phase 06 (Payment + Green Invoice)
-Last activity: 2026-04-01 — Plan 05-05 complete: workshop quiz, workshop API, advantages page, GA4 + Meta Pixel; both funnels verified end-to-end by human
+Phase: 6 of 10 (Payments + Invoicing) — IN PROGRESS
+Plan: 1 of 2 in current phase — COMPLETE
+Status: Phase 06 Plan 01 complete — challenge_enrollments schema, GI client, checkout + webhook API routes ready
+Last activity: 2026-04-02 — Plan 06-01 complete: Green Invoice payment backend (schema, client, checkout API, webhook handler)
 
 Progress: [█████░░░░░] 50%
 
@@ -43,6 +43,7 @@ Progress: [█████░░░░░] 50%
 | Phase 05-quiz-funnels P04 | 7 | 2 tasks | 8 files |
 | Phase 05-quiz-funnels P03 | 4 | 2 tasks | 5 files |
 | Phase 05-quiz-funnels P05 | 12 | 2 tasks | 8 files |
+| Phase 06-payments-invoicing P01 | 13 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -126,6 +127,9 @@ Recent decisions affecting current work:
 - [Phase 05-quiz-funnels]: 05-05: Resend email failure is non-blocking — DB insert happens first; email error logged but does not fail the API response
 - [Phase 05-quiz-funnels]: 05-05: GA4 + Meta Pixel use strategy='afterInteractive' in locale layout — defers analytics until page is interactive, no render blocking
 - [Phase 05-quiz-funnels]: 05-05: WorkshopAdvantages uses t.raw('items') cast to AdvantageItem[] — cleanest pattern for next-intl array-of-objects consumption
+- [Phase 06-01]: GI document remarks field carries sessionId (format: sessionId:xxx) for webhook-to-lead linking
+- [Phase 06-01]: Webhook returns HTTP 200 on all errors to prevent GI retry storms; idempotency via gi_document_id unique constraint
+- [Phase 06-01]: challengeEnrollments links via sessionId not userId FK — quiz takers may not have auth accounts
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: Completed 05-05-PLAN.md — workshop quiz, advantages page, workshop API, GA4 + Meta Pixel scripts, human verification passed. Phase 5 complete. Ready for Phase 06.
-Resume file: .planning/phases/05-quiz-funnels/05-03-SUMMARY.md
+Last session: 2026-04-02
+Stopped at: Completed 06-01-PLAN.md — challenge_enrollments schema, Green Invoice JWT client, checkout + webhook API routes. Phase 06 Plan 01 complete.
+Resume file: .planning/phases/06-payments-invoicing/06-01-SUMMARY.md

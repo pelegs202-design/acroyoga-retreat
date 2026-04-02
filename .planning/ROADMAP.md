@@ -182,7 +182,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 3. Community Profiles + Partner Matching | 4/4 | Complete    | 2026-04-01 |
 | 4. Jam Board + Messaging | 5/5 | Complete    | 2026-04-01 |
 | 5. Quiz Funnels | 5/5 | Complete    | 2026-04-01 |
-| 6. Payments + Invoicing | 0/TBD | Not started | - |
+| 6. Payments + Invoicing | 1/2 | In Progress|  |
 | 7. Notifications + Automations | 0/TBD | Not started | - |
 | 8. Admin Panel | 0/TBD | Not started | - |
 | 9. SEO + Social Surface | 0/TBD | Not started | - |
