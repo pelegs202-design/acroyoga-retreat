@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 7 of 10 (Notifications/Automations) — IN PROGRESS
-Plan: 4 of 5 in current phase — 07-04 COMPLETE
-Status: Email notification system complete — 4 React Email templates, Resend wrapper, email-drip cron, unsubscribe endpoint (RFC 8058)
-Last activity: 2026-04-01 — Plan 07-04 complete: React Email templates (confirmation/reminder/nurture/certificate), email-drip cron, one-click unsubscribe
+Plan: 5 of 5 in current phase — 07-03 COMPLETE
+Status: WhatsApp automation engine complete — drip cron, jam reminder cron, quiz lead enrollment hooks, payment drip transition
+Last activity: 2026-04-03 — Plan 07-03 complete: WhatsApp drip cron, jam reminder cron, drip enrollment in quiz leads + payment webhook
 
 Progress: [███████░░░] 68%
 
@@ -48,6 +48,7 @@ Progress: [███████░░░] 68%
 | Phase 07-notifications-automations P01 | 5 | 2 tasks | 8 files |
 | Phase 07-notifications-automations P02 | 4 | 2 tasks | 10 files |
 | Phase 07-notifications-automations P04 | 7 | 2 tasks | 7 files |
+| Phase 07-notifications-automations P03 | 3 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -153,6 +154,8 @@ Recent decisions affecting current work:
 - [Phase 07-04]: 07-04: CompletionCertificate sent on final email_challenge_reminders step (transactional)
 - [Phase 07-04]: 07-04: Unsubscribe POST returns JSON (RFC 8058); GET returns branded HTML page
 - [Phase 07-04]: 07-04: Unsub upserts notificationPreferences with emailMarketing=false — handles users with no prefs row
+- [Phase 07-03]: WA drip cron tracks consecutive failures in enrollment metadata; cancels after 3 strikes with reason 'error'
+- [Phase 07-03]: cancel-first then enroll-new on payment; sequential awaits prevent race with drip cron
 
 ### Pending Todos
 
