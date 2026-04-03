@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** People can find and connect with the right acroyoga partner near them — by level, role, and skills — and show up to practice together.
-**Current focus:** Phase 7 — WhatsApp Onboarding
+**Current focus:** Phase 8 — Admin Panel
 
 ## Current Position
 
-Phase: 7 of 10 (Notifications/Automations) — COMPLETE
-Plan: 6 of 6 in current phase — 07-06 COMPLETE
-Status: Phase 7 complete — NOTIF-03 gap closed: WhatsApp session reminders now resolve phone from challengeEnrollments/quizLeads
-Last activity: 2026-04-01 — Plan 07-06 complete: fixed dead WhatsApp phone lookup in jam-reminders cron (gap closure)
+Phase: 8 of 10 (Admin Panel) — IN PROGRESS
+Plan: 1 of 3 in current phase — 08-01 COMPLETE
+Status: Admin backend infrastructure complete — schema changes (user.status, workshopBookings, adminAuditLog), admin guard + audit utilities, 7 API routes for member/challenge/workshop/audit management
+Last activity: 2026-04-01 — Plan 08-01 complete: admin API layer with member CRUD, host revoke cascade, challenge signups, workshop bookings, audit log
 
-Progress: [████████░░] 75%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [████████░░] 75%
 | Phase 07-notifications-automations P03 | 3 | 2 tasks | 4 files |
 | Phase 07-notifications-automations P05 | 12 | 2 tasks | 5 files |
 | Phase 07-notifications-automations P06 | 5 | 1 tasks | 1 files |
+| Phase 08-admin-panel P01 | 3 | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -164,6 +165,10 @@ Recent decisions affecting current work:
 - [Phase 07-05]: 07-05: WhatsApp opt-out cancels dripEnrollments with reason 'opted_out' via bulk UPDATE — all active WA sequences stopped atomically
 - [Phase 07-06]: 07-06: Phone lookup queries challengeEnrollments (confirmed, ordered by paidAt desc) first, falls back to quizLeads (ordered by createdAt desc) — no schema migration required
 - [Phase 07-06]: 07-06: Both DB lookups use .catch(() => []) — phone lookup failure is non-fatal; cron falls through to email-only for that attendee
+- [Phase 08-01]: 08-01: Admin routes return 404 (not 403) for non-admin authenticated users — avoids leaking that admin endpoints exist
+- [Phase 08-01]: 08-01: workshopBookings uses onConflictDoUpdate on leadId unique constraint — upsert pattern for idempotent status updates
+- [Phase 08-01]: 08-01: DELETE member writes audit log before deletion to preserve user name/email in audit record
+- [Phase 08-01]: 08-01: Host revoke cascade writes audit log after all DB mutations and push notifications complete
 
 ### Pending Todos
 
@@ -177,5 +182,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 07-06-PLAN.md — NOTIF-03 gap closed: WhatsApp phone lookup via challengeEnrollments/quizLeads
-Resume file: .planning/phases/07-notifications-automations/07-06-SUMMARY.md
+Stopped at: Completed 08-01-PLAN.md — Admin backend infrastructure: schema + guard + audit utilities + 7 API routes
+Resume file: .planning/phases/08-admin-panel/08-01-SUMMARY.md

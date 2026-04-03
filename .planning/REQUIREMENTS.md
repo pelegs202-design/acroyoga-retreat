@@ -81,10 +81,10 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Admin
 
-- [ ] **ADMIN-01**: Admin can view and manage all community members (approve, suspend)
-- [ ] **ADMIN-02**: Admin can approve or revoke jam host permissions
-- [ ] **ADMIN-03**: Admin can view all 30-day challenge signups and payment status
-- [ ] **ADMIN-04**: Admin can view all workshop booking requests
+- [x] **ADMIN-01**: Admin can view and manage all community members (approve, suspend)
+- [x] **ADMIN-02**: Admin can approve or revoke jam host permissions
+- [x] **ADMIN-03**: Admin can view all 30-day challenge signups and payment status
+- [x] **ADMIN-04**: Admin can view all workshop booking requests
 
 ### Branding
 
@@ -173,10 +173,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 | NOTIF-03 | Phase 7 — Notifications + Automations | Complete |
 | NOTIF-04 | Phase 7 — Notifications + Automations | Complete |
 | NOTIF-05 | Phase 7 — Notifications + Automations | Complete |
-| ADMIN-01 | Phase 8 — Admin Panel | Pending |
-| ADMIN-02 | Phase 8 — Admin Panel | Pending |
-| ADMIN-03 | Phase 8 — Admin Panel | Pending |
-| ADMIN-04 | Phase 8 — Admin Panel | Pending |
+| ADMIN-01 | Phase 8 — Admin Panel | Complete |
+| ADMIN-02 | Phase 8 — Admin Panel | Complete |
+| ADMIN-03 | Phase 8 — Admin Panel | Complete |
+| ADMIN-04 | Phase 8 — Admin Panel | Complete |
 | SEO-01 | Phase 9 — SEO + Social Surface | Pending |
 | SEO-02 | Phase 9 — SEO + Social Surface | Pending |
 | SEO-03 | Phase 9 — SEO + Social Surface | Pending |
