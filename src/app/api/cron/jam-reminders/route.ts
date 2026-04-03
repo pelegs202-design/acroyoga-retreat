@@ -5,8 +5,10 @@ import {
   jamAttendees,
   user,
   notificationPreferences,
+  challengeEnrollments,
+  quizLeads,
 } from "@/lib/db/schema";
-import { and, eq, gte, lt } from "drizzle-orm";
+import { and, desc, eq, gte, lt } from "drizzle-orm";
 import { sendWhatsAppTemplate } from "@/lib/whatsapp";
 import { sendTransactionalEmail } from "@/lib/email";
 import SessionReminder from "@/lib/email/templates/SessionReminder";
@@ -151,10 +153,7 @@ export async function GET(request: NextRequest) {
 
         // ─── WhatsApp reminder ───
         if (whatsappEnabled) {
-          // Look up phone from user — user table doesn't have phone, skip if unavailable
-          // Note: phone is stored in quizLeads; for registered users we send email only
-          // WhatsApp reminder will be sent when we have phone data (Phase 7+ enhancement)
-          // For now, send WhatsApp only if we have a phone from prefs metadata
+          // Look up phone from challengeEnrollments (paid) or quizLeads (quiz taker) by email
           const waTemplateName =
             locale === "he"
               ? isEveReminder
@@ -164,9 +163,34 @@ export async function GET(request: NextRequest) {
                 ? "session_reminder_eve_en"
                 : "session_reminder_morning_en";
 
-          // Attempt WhatsApp — phone comes from user.phone if available (user schema
-          // doesn't currently store phone; send is silently skipped if no phone).
-          const userPhone = (attendeeUser as { phone?: string }).phone;
+          // Primary: most recent confirmed enrollment for this email
+          let userPhone: string | null | undefined;
+          const [enrollmentRow] = await db
+            .select({ customerPhone: challengeEnrollments.customerPhone })
+            .from(challengeEnrollments)
+            .where(
+              and(
+                eq(challengeEnrollments.customerEmail, attendeeUser.email),
+                eq(challengeEnrollments.status, "confirmed"),
+              ),
+            )
+            .orderBy(desc(challengeEnrollments.paidAt))
+            .limit(1)
+            .catch(() => []);
+          userPhone = enrollmentRow?.customerPhone;
+
+          // Fallback: most recent quiz lead for this email
+          if (!userPhone) {
+            const [leadRow] = await db
+              .select({ phone: quizLeads.phone })
+              .from(quizLeads)
+              .where(eq(quizLeads.email, attendeeUser.email))
+              .orderBy(desc(quizLeads.createdAt))
+              .limit(1)
+              .catch(() => []);
+            userPhone = leadRow?.phone;
+          }
+
           if (userPhone) {
             await sendWhatsAppTemplate({
               to: userPhone,
