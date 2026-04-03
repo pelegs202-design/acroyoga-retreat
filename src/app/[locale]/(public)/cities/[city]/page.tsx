@@ -8,6 +8,7 @@ import CityHero from "@/components/city/CityHero";
 import CityJamList from "@/components/city/CityJamList";
 import CityStats from "@/components/city/CityStats";
 import CityFAQ from "@/components/city/CityFAQ";
+import { ShareButton } from "@/components/social/ShareButton";
 
 export const revalidate = 3600; // ISR: revalidate every hour for fresh jam data
 
@@ -111,6 +112,16 @@ export default async function CityPage({ params }: Props) {
   const citySlug = city as CitySlug;
   const faqItems = FAQ_ITEMS[citySlug];
 
+  const canonicalUrl = `https://acroretreat.co.il/${locale}/cities/${city}`;
+  const cityTitle =
+    citySlug === "tel-aviv"
+      ? locale === "he"
+        ? "אקרויוגה בתל אביב | אקרוחבורה"
+        : "Acroyoga in Tel Aviv | AcroHavura"
+      : locale === "he"
+        ? "אקרויוגה בכפר סבא | אקרוחבורה"
+        : "Acroyoga in Kfar Saba | AcroHavura";
+
   return (
     <>
       <JsonLd data={buildLocalBusinessSchema(citySlug)} />
@@ -122,6 +133,8 @@ export default async function CityPage({ params }: Props) {
         <CityStats city={citySlug} />
         <CityFAQ city={citySlug} locale={locale} faqItems={faqItems} />
       </div>
+
+      <ShareButton url={canonicalUrl} title={cityTitle} />
     </>
   );
 }

@@ -3,6 +3,7 @@ import { redirect } from "@/i18n/navigation";
 import { getAuthSession } from "@/lib/auth-guard";
 import type { Metadata } from "next";
 import JamFeed from "@/components/jams/JamFeed";
+import { ShareButton } from "@/components/social/ShareButton";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -23,9 +24,13 @@ export default async function JamsPage({ params }: Props) {
     redirect({ href: "/sign-in", locale });
   }
 
+  const jamsUrl = `https://acroretreat.co.il/${locale}/jams`;
+  const jamsTitle = locale === "he" ? "לוח ג׳אמים | אקרוחבורה" : "Jam Board | AcroHavura";
+
   return (
     <div className="py-6">
       <JamFeed />
+      <ShareButton url={jamsUrl} title={jamsTitle} />
     </div>
   );
 }
