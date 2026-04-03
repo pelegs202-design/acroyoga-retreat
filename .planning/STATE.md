@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 9 of 10 (SEO + Social Surface) — IN PROGRESS
-Plan: 2 of 4 in current phase — 09-02 COMPLETE
-Status: City landing pages complete — Tel Aviv + Kfar Saba at /[locale]/cities/[city], public route group, LocalBusiness + FAQPage + Event JSON-LD, AEO FAQ, city column on jamSessions
-Last activity: 2026-04-01 — Plan 09-02 complete: city landing pages with structured data, ISR, and AEO-optimized Hebrew FAQ
+Plan: 3 of 4 in current phase — 09-03 COMPLETE
+Status: Instagram RSC feed embed on homepage (graceful degradation) + floating WhatsApp-first share sheet on city pages, jams, and quiz results
+Last activity: 2026-04-03 — Plan 09-03 complete: Instagram Grid + ShareButton/ShareBottomSheet integrated on 3 page types
 
-Progress: [█████████░] 90%
+Progress: [█████████░] 92%
 
 ## Performance Metrics
 
@@ -183,6 +183,12 @@ Recent decisions affecting current work:
 - [Phase 09-02]: 09-02: details/summary HTML accordion used for CityFAQ — no JS dependency, semantic HTML for AEO crawlers, FAQPage JSON-LD at page level
 - [Phase 09-02]: 09-02: (public) route group has no auth guard — naturally bypasses (app) auth; no proxy.ts changes needed
 - [Phase 09-02]: 09-02: drizzle-kit push requires dotenv-cli -e .env.local to load DATABASE_URL — env not auto-loaded by drizzle-kit in this project config
+- [Phase 09-03]: 09-03: InstagramGrid renders null (not empty grid) when feed is empty — no broken UI, no whitespace gap on homepage
+- [Phase 09-03]: 09-03: InstagramGrid is pure RSC — fetchInstagramFeed called directly in component body, zero client JS for the grid
+- [Phase 09-03]: 09-03: WhatsApp is first/most prominent share option in bottom sheet — primary communication channel in Israel
+- [Phase 09-03]: 09-03: ShareButton uses end-4 (Tailwind logical property) not right-4 — correct RTL layout without manual dir checks
+- [Phase 09-03]: 09-03: INSTAGRAM_ACCESS_TOKEN has no NEXT_PUBLIC_ prefix — server-only token, never exposed to client bundle
+- [Phase 09-03]: 09-03: Quiz results ShareButton includes ?session= query param in URL — full shareable URL per Phase 05-04 design
 
 ### Pending Todos
 
@@ -195,6 +201,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: Completed 09-02-PLAN.md — City landing pages for Tel Aviv + Kfar Saba, public route group, LocalBusiness/FAQPage/Event JSON-LD, AEO Hebrew FAQ
+Last session: 2026-04-03
+Stopped at: Completed 09-03-PLAN.md — Instagram RSC feed + ShareButton/ShareBottomSheet on city pages, jams, and quiz results
 Resume file: .planning/phases/09-seo-social-surface/09-02-SUMMARY.md

@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation (completed 2026-04-02)
 - [x] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences (completed 2026-04-01)
 - [x] **Phase 8: Admin Panel** - Member management, jam host approval, challenge signups, workshop bookings (completed 2026-04-03)
-- [ ] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons — 1/3 plans complete
+- [x] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons — 1/3 plans complete (completed 2026-04-03)
 - [ ] **Phase 10: Brutalist Design Polish + Performance** - Full interactive design system, cursor effects, Lighthouse audit
 
 ## Phase Details
@@ -199,5 +199,5 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 6. Payments + Invoicing | 2/2 | Complete    | 2026-04-02 |
 | 7. Notifications + Automations | 6/6 | Complete   | 2026-04-03 |
 | 8. Admin Panel | 2/2 | Complete   | 2026-04-03 |
-| 9. SEO + Social Surface | 2/3 | In Progress|  |
+| 9. SEO + Social Surface | 3/3 | Complete   | 2026-04-03 |
 | 10. Brutalist Design Polish + Performance | 0/TBD | Not started | - |
