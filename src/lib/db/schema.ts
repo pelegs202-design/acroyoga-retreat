@@ -236,9 +236,93 @@ export const challengeEnrollments = pgTable("challenge_enrollments", {
   index("challenge_enrollments_status_idx").on(table.status),
 ]);
 
+// ─── Phase 7: Notifications ───
+
+export const pushSubscriptions = pgTable(
+  "push_subscriptions",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    endpoint: text("endpoint").notNull().unique(),
+    p256dh: text("p256dh").notNull(),
+    auth: text("auth").notNull(),
+    userAgent: text("user_agent"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("push_subscriptions_user_id_idx").on(table.userId),
+  ],
+);
+
+export const notificationPreferences = pgTable("notification_preferences", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  pushEnabled: boolean("push_enabled").default(true).notNull(),
+  emailMarketing: boolean("email_marketing").default(true).notNull(),
+  whatsappEnabled: boolean("whatsapp_enabled").default(true).notNull(),
+  quietHoursStart: integer("quiet_hours_start").default(22).notNull(),
+  quietHoursEnd: integer("quiet_hours_end").default(8).notNull(),
+  updatedAt: timestamp("updated_at")
+    .defaultNow()
+    .$onUpdate(() => new Date())
+    .notNull(),
+});
+
+export const pushQueue = pgTable(
+  "push_queue",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    eventType: text("event_type").notNull(), // 'new_message' | 'jam_rsvp' | 'review' | 'partner_match'
+    title: text("title").notNull(),
+    body: text("body").notNull(),
+    deepLink: text("deep_link").notNull(),
+    batchKey: text("batch_key"),
+    queuedAt: timestamp("queued_at").defaultNow().notNull(),
+    sentAt: timestamp("sent_at", { withTimezone: true }),
+    heldUntil: timestamp("held_until", { withTimezone: true }),
+  },
+  (table) => [
+    index("push_queue_user_sent_idx").on(table.userId, table.sentAt),
+  ],
+);
+
+export const dripEnrollments = pgTable(
+  "drip_enrollments",
+  {
+    id: text("id").primaryKey(),
+    leadId: text("lead_id").notNull(),
+    userId: text("user_id"),
+    sequenceType: text("sequence_type").notNull(), // 'wa_challenge_prepay' | 'wa_challenge_postpay' | 'email_nurture' | 'wa_workshop' | 'email_challenge_reminders'
+    channel: text("channel").notNull(), // 'whatsapp' | 'email'
+    recipientPhone: text("recipient_phone"),
+    recipientEmail: text("recipient_email"),
+    recipientName: text("recipient_name").notNull(),
+    preferredLocale: text("preferred_locale").default("he").notNull(),
+    currentStep: integer("current_step").default(0).notNull(),
+    totalSteps: integer("total_steps").notNull(),
+    nextFireAt: timestamp("next_fire_at", { withTimezone: true }),
+    completedAt: timestamp("completed_at", { withTimezone: true }),
+    cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
+    cancelReason: text("cancel_reason"), // 'paid' | 'opted_out' | 'expired'
+    metadata: text("metadata"), // JSON string for extra data like cohortStartDate, archetype
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (table) => [
+    index("drip_enrollments_next_fire_at_idx").on(table.nextFireAt),
+    index("drip_enrollments_lead_id_idx").on(table.leadId),
+    index("drip_enrollments_sequence_type_idx").on(table.sequenceType),
+  ],
+);
+
 // ─── Relations ───
 
-export const userRelations = relations(user, ({ many }) => ({
+export const userRelations = relations(user, ({ many, one }) => ({
   sessions: many(session),
   accounts: many(account),
   reviewsGiven: many(reviews, { relationName: 'reviewsGiven' }),
@@ -247,6 +331,9 @@ export const userRelations = relations(user, ({ many }) => ({
   jamAttendances: many(jamAttendees),
   conversationsAsA: many(conversations, { relationName: 'conversationsAsA' }),
   conversationsAsB: many(conversations, { relationName: 'conversationsAsB' }),
+  pushSubscriptions: many(pushSubscriptions),
+  notificationPreferences: one(notificationPreferences),
+  pushQueue: many(pushQueue),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -320,6 +407,27 @@ export const conversationReadsRelations = relations(conversationReads, ({ one })
   }),
   user: one(user, {
     fields: [conversationReads.userId],
+    references: [user.id],
+  }),
+}));
+
+export const pushSubscriptionsRelations = relations(pushSubscriptions, ({ one }) => ({
+  user: one(user, {
+    fields: [pushSubscriptions.userId],
+    references: [user.id],
+  }),
+}));
+
+export const notificationPreferencesRelations = relations(notificationPreferences, ({ one }) => ({
+  user: one(user, {
+    fields: [notificationPreferences.userId],
+    references: [user.id],
+  }),
+}));
+
+export const pushQueueRelations = relations(pushQueue, ({ one }) => ({
+  user: one(user, {
+    fields: [pushQueue.userId],
     references: [user.id],
   }),
 }));
