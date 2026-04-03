@@ -20,7 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation (completed 2026-04-02)
 - [x] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences (completed 2026-04-01)
 - [x] **Phase 8: Admin Panel** - Member management, jam host approval, challenge signups, workshop bookings (completed 2026-04-03)
-- [ ] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons
+- [ ] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons — 1/3 plans complete
 - [ ] **Phase 10: Brutalist Design Polish + Performance** - Full interactive design system, cursor effects, Lighthouse audit
 
 ## Phase Details
@@ -166,7 +166,7 @@ Plans:
   4. User can share a jam session or profile to WhatsApp or other platforms with a single tap
 **Plans**: 3 plans
 Plans:
-- [ ] 09-01-PLAN.md — SEO infrastructure (metadata helper, JSON-LD schemas, sitemap, robots, OG image)
+- [x] 09-01-PLAN.md — SEO infrastructure (metadata helper, JSON-LD schemas, sitemap, robots, OG image) — COMPLETE 2026-04-01
 - [ ] 09-02-PLAN.md — City landing pages (Tel Aviv + Kfar Saba) with structured data and AEO FAQ
 - [ ] 09-03-PLAN.md — Instagram feed embed + social share buttons (WhatsApp, native, copy, Facebook)
 

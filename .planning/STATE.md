@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** People can find and connect with the right acroyoga partner near them — by level, role, and skills — and show up to practice together.
-**Current focus:** Phase 8 — Admin Panel
+**Current focus:** Phase 9 — SEO + Social Surface
 
 ## Current Position
 
-Phase: 8 of 10 (Admin Panel) — IN PROGRESS
-Plan: 2 of 3 in current phase — 08-02 COMPLETE
-Status: Admin UI complete — 7 admin components (AdminPanel, SummaryStats, MemberTable, MemberActionButtons, ChallengeSignupsTable, WorkshopBookingsTable, AuditLogTable) + Settings page integration + bilingual i18n
-Last activity: 2026-04-03 — Plan 08-02 complete: admin UI with TanStack Table, member CRUD actions, all data views, server-side admin gate in Settings page
+Phase: 9 of 10 (SEO + Social Surface) — IN PROGRESS
+Plan: 1 of 4 in current phase — 09-01 COMPLETE
+Status: SEO infrastructure complete — buildPageMetadata helper, JSON-LD schema builders, JsonLd RSC component, dynamic sitemap.xml + robots.txt, branded OG image, Organization schema on every page, homepage metadata
+Last activity: 2026-04-01 — Plan 09-01 complete: SEO foundation with hreflang, OG data, JSON-LD schemas, sitemap, robots
 
-Progress: [████████░░] 83%
+Progress: [█████████░] 88%
 
 ## Performance Metrics
 
@@ -174,6 +174,10 @@ Recent decisions affecting current work:
 - [Phase 08-02]: 08-02: MemberTable hostsOnly toggle filters data before TanStack Table — cleaner than custom filter function
 - [Phase 08-02]: 08-02: WorkshopBookingsTable PATCH uses leadId as URL param — matches /api/admin/workshop-bookings/[id] route which accepts leadId
 - [Phase 08-02]: 08-02: AuditLogTable uses hardcoded ACTION_LABELS map for DRY action code → readable string mapping alongside i18n namespace
+- [Phase 09-01]: 09-01: JsonLd component uses inline __html with JSON.stringify + angle-bracket unicode escaping — safe because payload is server-only typed JSON-LD output from schema builders, not user input
+- [Phase 09-01]: 09-01: Hebrew is x-default in hreflang alternates — primary market is Israel
+- [Phase 09-01]: 09-01: sitemap.ts excludes past jams (scheduledAt >= now()) — past jams have no search ranking value
+- [Phase 09-01]: 09-01: OG image generated as SVG then converted to JPG via sharp — avoids canvas or browser-based ImageResponse complexity
 
 ### Pending Todos
 
@@ -186,6 +190,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03
-Stopped at: Completed 08-02-PLAN.md — Admin UI: 7 components + Settings page admin gate + bilingual i18n
-Resume file: .planning/phases/08-admin-panel/08-01-SUMMARY.md
+Last session: 2026-04-01
+Stopped at: Completed 09-01-PLAN.md — SEO infrastructure: buildPageMetadata, JSON-LD schemas, sitemap, robots, OG image, Organization schema in layout
+Resume file: .planning/phases/09-seo-social-surface/09-01-SUMMARY.md
