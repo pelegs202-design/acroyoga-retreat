@@ -250,11 +250,26 @@
       "share": "Share Your Results",
       "faq": "Frequently Asked Questions",
       "faqItems": [
-        { "q": "Do I need experience?", "a": "Not at all! 80% of our students start as complete beginners. Our classes are designed to welcome everyone." },
-        { "q": "Do I need to bring a partner?", "a": "No partner needed! We pair everyone up in class. Many students come alone and meet their regular practice partners here." },
-        { "q": "What should I wear?", "a": "Comfortable athletic clothes that you can move in. Avoid zippers and buttons that could scratch your partner." },
-        { "q": "How fit do I need to be?", "a": "Any fitness level works. AcroYoga builds strength and flexibility progressively — you'll surprise yourself by week 2." },
-        { "q": "What if I'm afraid of heights?", "a": "We start low to the ground and build up gradually. You'll always feel safe and supported by your base and spotter." }
+        {
+          "q": "Do I need experience?",
+          "a": "Not at all! 80% of our students start as complete beginners. Our classes are designed to welcome everyone."
+        },
+        {
+          "q": "Do I need to bring a partner?",
+          "a": "No partner needed! We pair everyone up in class. Many students come alone and meet their regular practice partners here."
+        },
+        {
+          "q": "What should I wear?",
+          "a": "Comfortable athletic clothes that you can move in. Avoid zippers and buttons that could scratch your partner."
+        },
+        {
+          "q": "How fit do I need to be?",
+          "a": "Any fitness level works. AcroYoga builds strength and flexibility progressively — you'll surprise yourself by week 2."
+        },
+        {
+          "q": "What if I'm afraid of heights?",
+          "a": "We start low to the ground and build up gradually. You'll always feel safe and supported by your base and spotter."
+        }
       ]
     },
     "workshop": {
@@ -267,14 +282,46 @@
       "advantages": {
         "title": "Why Choose AcroHavura for Your Event",
         "items": [
-          { "icon": "🎓", "title": "Experienced Instructors", "desc": "Led by Shai Peleg with international teaching experience across Europe and South America" },
-          { "icon": "🎯", "title": "Customized to Your Group", "desc": "Every workshop is tailored to your group's size, goals, and experience level" },
-          { "icon": "🎉", "title": "Fun & Memorable", "desc": "Your group will bond through trust, laughter, and shared accomplishment" },
-          { "icon": "🧰", "title": "All Equipment Provided", "desc": "Mats, props, and everything needed — just show up and play" },
-          { "icon": "👥", "title": "Small Group Attention", "desc": "Intimate group sizes ensure everyone gets personal guidance" },
-          { "icon": "🌿", "title": "Outdoor Vibes", "desc": "Beautiful outdoor settings that make the experience even more special" },
-          { "icon": "🤝", "title": "Social Connection", "desc": "Build trust and connection through partner-based movement" },
-          { "icon": "🎊", "title": "Perfect for Celebrations", "desc": "Bachelorettes, birthdays, team-building — an experience they'll never forget" }
+          {
+            "icon": "🎓",
+            "title": "Experienced Instructors",
+            "desc": "Led by Shai Peleg with international teaching experience across Europe and South America"
+          },
+          {
+            "icon": "🎯",
+            "title": "Customized to Your Group",
+            "desc": "Every workshop is tailored to your group's size, goals, and experience level"
+          },
+          {
+            "icon": "🎉",
+            "title": "Fun & Memorable",
+            "desc": "Your group will bond through trust, laughter, and shared accomplishment"
+          },
+          {
+            "icon": "🧰",
+            "title": "All Equipment Provided",
+            "desc": "Mats, props, and everything needed — just show up and play"
+          },
+          {
+            "icon": "👥",
+            "title": "Small Group Attention",
+            "desc": "Intimate group sizes ensure everyone gets personal guidance"
+          },
+          {
+            "icon": "🌿",
+            "title": "Outdoor Vibes",
+            "desc": "Beautiful outdoor settings that make the experience even more special"
+          },
+          {
+            "icon": "🤝",
+            "title": "Social Connection",
+            "desc": "Build trust and connection through partner-based movement"
+          },
+          {
+            "icon": "🎊",
+            "title": "Perfect for Celebrations",
+            "desc": "Bachelorettes, birthdays, team-building — an experience they'll never forget"
+          }
         ]
       }
     }
@@ -367,6 +414,20 @@
         "revoke_host": "Revoked host",
         "update_workshop_status": "Updated workshop status"
       }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "AcroHavura — Find Your Acro Partner",
+      "description": "AcroHavura — the Israeli acroyoga community. Find an acroyoga partner, join jams, and practice with people who love acro like you. Tel Aviv, Kfar Saba and more."
+    },
+    "cityTelAviv": {
+      "title": "Acroyoga in Tel Aviv — Find a Partner | AcroHavura",
+      "description": "Acroyoga in Tel Aviv — find an acroyoga partner, upcoming jams, and people to practice with in Tel Aviv. Join the AcroHavura community."
+    },
+    "cityKfarSaba": {
+      "title": "Acroyoga in Kfar Saba — Find a Partner | AcroHavura",
+      "description": "Acroyoga in Kfar Saba — jams, partners, and people to practice with in Kfar Saba and the Sharon area. Join the AcroHavura community."
     }
   }
 }
