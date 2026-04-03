@@ -150,7 +150,10 @@ Plans:
   2. Admin can grant or revoke jam host permission for any member
   3. Admin can see all 30-day challenge signups with payment status in a single view
   4. Admin can see all workshop booking requests and their current state
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 08-01-PLAN.md — Schema (user.status, workshopBookings, auditLog) + admin guard + all admin API routes
+- [ ] 08-02-PLAN.md — Admin UI (TanStack Table member management, challenge/workshop/audit views, Settings integration, i18n)
 
 ### Phase 9: SEO + Social Surface
 **Goal**: The platform is discoverable by Hebrew-speaking acroyoga practitioners searching online, and active members can easily share jams and profiles to grow the community organically
@@ -191,6 +194,6 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 5. Quiz Funnels | 5/5 | Complete    | 2026-04-01 |
 | 6. Payments + Invoicing | 2/2 | Complete    | 2026-04-02 |
 | 7. Notifications + Automations | 6/6 | Complete   | 2026-04-03 |
-| 8. Admin Panel | 0/TBD | Not started | - |
+| 8. Admin Panel | 0/2 | Not started | - |
 | 9. SEO + Social Surface | 0/TBD | Not started | - |
 | 10. Brutalist Design Polish + Performance | 0/TBD | Not started | - |
