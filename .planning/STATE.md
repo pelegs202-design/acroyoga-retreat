@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 7 of 10 (WhatsApp Onboarding) — NEXT
-Plan: 0 of 2 in current phase — NOT STARTED
-Status: Phase 06 complete — payment flow end-to-end: GI checkout backend + results page CTA + success page with onboarding info
-Last activity: 2026-04-02 — Plan 06-02 complete: results page CTA wired to checkout, success page with calendar link, WA group, onboarding info
+Phase: 7 of 10 (Notifications/Automations) — IN PROGRESS
+Plan: 1 of 5 in current phase — 07-01 COMPLETE
+Status: Notification foundation complete — 4 new DB tables, push/WA/drip libs, service worker push handlers, Vercel cron config
+Last activity: 2026-04-01 — Plan 07-01 complete: VAPID push + WhatsApp Meta API + drip enrollment engine
 
-Progress: [██████░░░░] 60%
+Progress: [██████░░░░] 62%
 
 ## Performance Metrics
 
@@ -45,6 +45,7 @@ Progress: [██████░░░░] 60%
 | Phase 05-quiz-funnels P05 | 12 | 2 tasks | 8 files |
 | Phase 06-payments-invoicing P01 | 13 | 2 tasks | 5 files |
 | Phase 06-payments-invoicing P02 | 12 | 2 tasks | 6 files |
+| Phase 07-notifications-automations P01 | 5 | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -134,6 +135,13 @@ Recent decisions affecting current work:
 - [Phase 06-02]: AddToCalendarButton loaded via dynamic import ssr:false — library uses browser APIs; crashes on server
 - [Phase 06-02]: .env.example CHALLENGE_WA_GROUP_URL renamed to NEXT_PUBLIC_CHALLENGE_WA_GROUP_URL — client components require NEXT_PUBLIC_ prefix
 - [Phase 06-02]: PAY-02 confirmed satisfied by Phase 5 workshop inquiry flow — no new work required in Phase 6
+- [Phase 07-01]: 07-01: push.ts catches 410 from web-push and rethrows with code SUBSCRIPTION_EXPIRED — callers delete stale subscription records
+- [Phase 07-01]: 07-01: notificationPreferences defaults all channels ON with quiet hours 22:00-08:00 Israel time
+- [Phase 07-01]: 07-01: quiet hours use fixed UTC+3 offset (summer Israel time) — app operates primarily in spring/summer months
+- [Phase 07-01]: 07-01: WA drip nextFireAt defaults to tomorrow 19:00 Israel time (16:00 UTC) per user decision
+- [Phase 07-01]: 07-01: email_nurture step 12 wraps to step 6 for rotating evergreen content (cycle continues)
+- [Phase 07-01]: 07-01: push/notificationclick listeners placed BEFORE serwist.addEventListeners() — Serwist takes event loop ownership after that call
+- [Phase 07-01]: 07-01: vercel.json crons all in UTC: push-batch every 5min, WA+email drip 16:00 UTC=19:00 IL, jam-reminders 05:00+15:00 UTC
 
 ### Pending Todos
 
@@ -146,6 +154,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-02
-Stopped at: Completed 06-02-PLAN.md — results page CTA wired to GI checkout, success page with onboarding info/calendar/WA group. Phase 06 complete.
-Resume file: .planning/phases/06-payments-invoicing/06-02-SUMMARY.md
+Last session: 2026-04-01
+Stopped at: Completed 07-01-PLAN.md — notification foundation: 4 DB tables, push/WA/drip libs, service worker push handlers, Vercel cron config
+Resume file: .planning/phases/07-notifications-automations/07-01-SUMMARY.md

@@ -57,11 +57,11 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Automations & Notifications
 
-- [ ] **NOTIF-01**: Push notifications for new messages, jam RSVPs, and partner activity
-- [ ] **NOTIF-02**: Email notifications for confirmations, jam reminders, and account actions
-- [ ] **NOTIF-03**: WhatsApp reminder before class (day before + morning of for 30-day challenge sessions)
-- [ ] **NOTIF-04**: WhatsApp warm-up automation sequence after quiz signup (drip messages to build excitement before first class)
-- [ ] **NOTIF-05**: Email nurture campaign (follow-up sequences, re-engagement for leads who didn't convert)
+- [x] **NOTIF-01**: Push notifications for new messages, jam RSVPs, and partner activity
+- [x] **NOTIF-02**: Email notifications for confirmations, jam reminders, and account actions
+- [x] **NOTIF-03**: WhatsApp reminder before class (day before + morning of for 30-day challenge sessions)
+- [x] **NOTIF-04**: WhatsApp warm-up automation sequence after quiz signup (drip messages to build excitement before first class)
+- [x] **NOTIF-05**: Email nurture campaign (follow-up sequences, re-engagement for leads who didn't convert)
 
 ### Design
 
@@ -168,11 +168,11 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PAY-01 | Phase 6 — Payments + Invoicing | Complete |
 | PAY-02 | Phase 6 — Payments + Invoicing | Complete |
 | PAY-03 | Phase 6 — Payments + Invoicing | Complete |
-| NOTIF-01 | Phase 7 — Notifications + Automations | Pending |
-| NOTIF-02 | Phase 7 — Notifications + Automations | Pending |
-| NOTIF-03 | Phase 7 — Notifications + Automations | Pending |
-| NOTIF-04 | Phase 7 — Notifications + Automations | Pending |
-| NOTIF-05 | Phase 7 — Notifications + Automations | Pending |
+| NOTIF-01 | Phase 7 — Notifications + Automations | Complete |
+| NOTIF-02 | Phase 7 — Notifications + Automations | Complete |
+| NOTIF-03 | Phase 7 — Notifications + Automations | Complete |
+| NOTIF-04 | Phase 7 — Notifications + Automations | Complete |
+| NOTIF-05 | Phase 7 — Notifications + Automations | Complete |
 | ADMIN-01 | Phase 8 — Admin Panel | Pending |
 | ADMIN-02 | Phase 8 — Admin Panel | Pending |
 | ADMIN-03 | Phase 8 — Admin Panel | Pending |
