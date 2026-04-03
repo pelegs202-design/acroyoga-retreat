@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 8 of 10 (Admin Panel) — IN PROGRESS
-Plan: 1 of 3 in current phase — 08-01 COMPLETE
-Status: Admin backend infrastructure complete — schema changes (user.status, workshopBookings, adminAuditLog), admin guard + audit utilities, 7 API routes for member/challenge/workshop/audit management
-Last activity: 2026-04-01 — Plan 08-01 complete: admin API layer with member CRUD, host revoke cascade, challenge signups, workshop bookings, audit log
+Plan: 2 of 3 in current phase — 08-02 COMPLETE
+Status: Admin UI complete — 7 admin components (AdminPanel, SummaryStats, MemberTable, MemberActionButtons, ChallengeSignupsTable, WorkshopBookingsTable, AuditLogTable) + Settings page integration + bilingual i18n
+Last activity: 2026-04-03 — Plan 08-02 complete: admin UI with TanStack Table, member CRUD actions, all data views, server-side admin gate in Settings page
 
-Progress: [████████░░] 80%
+Progress: [████████░░] 83%
 
 ## Performance Metrics
 
@@ -52,6 +52,7 @@ Progress: [████████░░] 80%
 | Phase 07-notifications-automations P05 | 12 | 2 tasks | 5 files |
 | Phase 07-notifications-automations P06 | 5 | 1 tasks | 1 files |
 | Phase 08-admin-panel P01 | 3 | 2 tasks | 13 files |
+| Phase 08-admin-panel P02 | 5 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -169,6 +170,10 @@ Recent decisions affecting current work:
 - [Phase 08-01]: 08-01: workshopBookings uses onConflictDoUpdate on leadId unique constraint — upsert pattern for idempotent status updates
 - [Phase 08-01]: 08-01: DELETE member writes audit log before deletion to preserve user name/email in audit record
 - [Phase 08-01]: 08-01: Host revoke cascade writes audit log after all DB mutations and push notifications complete
+- [Phase 08-02]: 08-02: AdminPanel exports type definitions for all data shapes — co-located with component, imported by all child tables
+- [Phase 08-02]: 08-02: MemberTable hostsOnly toggle filters data before TanStack Table — cleaner than custom filter function
+- [Phase 08-02]: 08-02: WorkshopBookingsTable PATCH uses leadId as URL param — matches /api/admin/workshop-bookings/[id] route which accepts leadId
+- [Phase 08-02]: 08-02: AuditLogTable uses hardcoded ACTION_LABELS map for DRY action code → readable string mapping alongside i18n namespace
 
 ### Pending Todos
 
@@ -181,6 +186,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: Completed 08-01-PLAN.md — Admin backend infrastructure: schema + guard + audit utilities + 7 API routes
+Last session: 2026-04-03
+Stopped at: Completed 08-02-PLAN.md — Admin UI: 7 components + Settings page admin gate + bilingual i18n
 Resume file: .planning/phases/08-admin-panel/08-01-SUMMARY.md
