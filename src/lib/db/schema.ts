@@ -22,6 +22,7 @@ export const user = pgTable("user", {
   bio: text("bio"),
   skills: text("skills").array().notNull().default(sql`'{}'::text[]`),
   isJamHost: boolean("is_jam_host").default(false).notNull(),
+  status: text("status").notNull().default("active"), // 'active' | 'suspended'
 });
 
 export const session = pgTable(
@@ -320,6 +321,33 @@ export const dripEnrollments = pgTable(
   ],
 );
 
+// ─── Phase 8: Admin Panel ───
+
+export const workshopBookings = pgTable("workshop_bookings", {
+  id: text("id").primaryKey(),
+  leadId: text("lead_id").notNull().references(() => quizLeads.id, { onDelete: "cascade" }),
+  contactStatus: text("contact_status").notNull().default("new"), // 'new'|'contacted'|'confirmed'|'cancelled'
+  adminNotes: text("admin_notes"),
+  updatedAt: timestamp("updated_at").defaultNow().$onUpdate(() => new Date()).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("workshop_bookings_lead_id_idx").on(table.leadId),
+  unique("workshop_bookings_lead_unique").on(table.leadId),
+]);
+
+export const adminAuditLog = pgTable("admin_audit_log", {
+  id: text("id").primaryKey(),
+  adminEmail: text("admin_email").notNull(),
+  action: text("action").notNull(), // approve_member | suspend_member | delete_member | grant_host | revoke_host | update_workshop_status
+  targetType: text("target_type").notNull(), // user | jam_session | workshop_booking
+  targetId: text("target_id").notNull(),
+  metadata: text("metadata"), // JSON string for extra context
+  performedAt: timestamp("performed_at").defaultNow().notNull(),
+}, (table) => [
+  index("admin_audit_log_performed_at_idx").on(table.performedAt),
+  index("admin_audit_log_admin_email_idx").on(table.adminEmail),
+]);
+
 // ─── Relations ───
 
 export const userRelations = relations(user, ({ many, one }) => ({
@@ -429,5 +457,12 @@ export const pushQueueRelations = relations(pushQueue, ({ one }) => ({
   user: one(user, {
     fields: [pushQueue.userId],
     references: [user.id],
+  }),
+}));
+
+export const workshopBookingsRelations = relations(workshopBookings, ({ one }) => ({
+  lead: one(quizLeads, {
+    fields: [workshopBookings.leadId],
+    references: [quizLeads.id],
   }),
 }));
