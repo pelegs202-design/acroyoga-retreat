@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { user } from "@/lib/db/schema";
-import { sql, eq } from "drizzle-orm";
+import { user, pushQueue } from "@/lib/db/schema";
+import { sql, eq, and, inArray, gte } from "drizzle-orm";
 import { ALL_MOVES } from "@/lib/skills-data";
+import { queuePushNotification } from "@/lib/notifications";
 
 const VALID_ROLES = ["base", "flyer", "both"] as const;
 const VALID_LEVELS = ["beginner", "intermediate", "advanced"] as const;
@@ -129,6 +130,111 @@ export async function POST(request: NextRequest) {
       updates.map(({ col, val }) => [col, val])
     );
     if (skills !== undefined) updated.skills = skills as unknown as string;
+
+    // ─── Partner-match push trigger (non-blocking) ────────────────────────────
+    // Only fire if city, role, or level was included and has a non-empty value
+    const hasMeaningfulLocationOrRoleUpdate =
+      (city !== undefined && typeof city === "string" && city.trim().length > 0) ||
+      (role !== undefined && typeof role === "string" && role.trim().length > 0) ||
+      (level !== undefined && typeof level === "string" && level.trim().length > 0);
+
+    if (hasMeaningfulLocationOrRoleUpdate) {
+      // Fire partner-match in background — never block the profile update response
+      (async () => {
+        try {
+          // Fetch the updated user's current city, role, level from DB
+          const [updatedUser] = await db
+            .select({
+              id: user.id,
+              name: user.name,
+              city: user.city,
+              role: user.role,
+              level: user.level,
+            })
+            .from(user)
+            .where(eq(user.id, userId))
+            .limit(1);
+
+          if (!updatedUser || !updatedUser.city || !updatedUser.role || !updatedUser.level) {
+            return; // Incomplete profile — skip matching
+          }
+
+          // Complementary roles
+          const { role: updatedRole, level: updatedLevel, city: updatedCity } = updatedUser;
+
+          const complementaryRoles: string[] =
+            updatedRole === "base"
+              ? ["flyer", "both"]
+              : updatedRole === "flyer"
+              ? ["base", "both"]
+              : ["base", "flyer", "both"]; // 'both' matches all
+
+          // Same or adjacent levels
+          const compatibleLevels: string[] =
+            updatedLevel === "beginner"
+              ? ["beginner", "intermediate"]
+              : updatedLevel === "intermediate"
+              ? ["beginner", "intermediate", "advanced"]
+              : ["intermediate", "advanced"];
+
+          // Query matching users (same city, complementary role, adjacent level)
+          const matchedUsers = await db
+            .select({ id: user.id, name: user.name })
+            .from(user)
+            .where(
+              and(
+                eq(user.city, updatedCity),
+                inArray(user.role, complementaryRoles),
+                inArray(user.level, compatibleLevels),
+                // Exclude the updated user themselves
+                sql`${user.id} != ${userId}`,
+              )
+            );
+
+          if (matchedUsers.length === 0) return;
+
+          // Israel timezone start-of-today (UTC+3)
+          const israelOffsetMs = 3 * 60 * 60 * 1000;
+          const nowMs = Date.now();
+          const israelMs = nowMs + israelOffsetMs;
+          const ilDate = new Date(israelMs);
+          // Start of today in Israel time, converted back to UTC
+          const israelMidnightUTC = new Date(
+            Date.UTC(ilDate.getUTCFullYear(), ilDate.getUTCMonth(), ilDate.getUTCDate())
+          );
+          const startOfIsraelToday = new Date(israelMidnightUTC.getTime() - israelOffsetMs);
+
+          for (const matchedUser of matchedUsers) {
+            // Rate limit: max 1 partner_match push per user per Israel day
+            const [existingToday] = await db
+              .select({ id: pushQueue.id })
+              .from(pushQueue)
+              .where(
+                and(
+                  eq(pushQueue.userId, matchedUser.id),
+                  eq(pushQueue.eventType, "partner_match"),
+                  gte(pushQueue.queuedAt, startOfIsraelToday),
+                )
+              )
+              .limit(1);
+
+            if (existingToday) continue; // Already notified today — skip
+
+            const notifBody = `A new ${updatedRole} in ${updatedCity} just joined`;
+            await queuePushNotification(
+              matchedUser.id,
+              "partner_match",
+              "New partner near you",
+              notifBody,
+              `/members/${userId}`,
+            );
+          }
+        } catch (err) {
+          console.error("[update-profile] Partner-match push error:", err);
+          // Non-blocking — profile update already succeeded
+        }
+      })();
+    }
 
     return NextResponse.json({ ok: true, updated });
   } catch (err) {

@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { useSession } from "@/lib/auth-client";
 import { useTranslations } from "next-intl";
 import MessageBubble, { type MessageData } from "./MessageBubble";
+import { usePushPermission } from "@/hooks/usePushPermission";
 
 type ApiMessage = {
   id: string;
@@ -27,6 +28,7 @@ export default function ChatThread({ conversationId }: Props) {
   const t = useTranslations("messages");
   const router = useRouter();
   const { data: session } = useSession();
+  const { promptForPush, permissionState } = usePushPermission();
 
   const [messages, setMessages] = useState<LocalMessage[]>([]);
   const [loading, setLoading] = useState(true);
@@ -236,6 +238,11 @@ export default function ChatThread({ conversationId }: Props) {
         )
       );
       latestMessageIdRef.current = confirmed.id;
+
+      // Prompt for push permission after first successful message send (fire-and-forget)
+      if (permissionState === "default") {
+        void promptForPush();
+      }
     } catch {
       setMessages((prev) =>
         prev.map((m) =>

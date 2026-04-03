@@ -5,6 +5,7 @@ import { db } from '@/lib/db';
 import { reviews, user, jamAttendees } from '@/lib/db/schema';
 import { eq, and, gt, inArray } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
+import { queuePushNotification } from '@/lib/notifications';
 
 export async function POST(request: NextRequest) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -102,6 +103,20 @@ export async function POST(request: NextRequest) {
     comment: (comment as string | undefined) ?? null,
     jamSessionId: null, // Stub — will be populated in Phase 4
   });
+
+  // Queue push notification for reviewee (non-blocking)
+  try {
+    await queuePushNotification(
+      revieweeId,
+      'review',
+      'New feedback received',
+      'Someone left you feedback',
+      `/profile/${revieweeId}`,
+    );
+  } catch (err) {
+    console.error('[reviews] Failed to queue push for reviewee:', err);
+    // Non-blocking — review is already stored
+  }
 
   return NextResponse.json({ ok: true });
 }

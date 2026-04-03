@@ -6,6 +6,7 @@ import { jamSessions, jamAttendees, user } from '@/lib/db/schema';
 import { eq, and, inArray, asc, count } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
 import { Resend } from 'resend';
+import { queuePushNotification } from '@/lib/notifications';
 
 const resend = process.env.RESEND_API_KEY
   ? new Resend(process.env.RESEND_API_KEY)
@@ -54,6 +55,8 @@ export async function POST(
       id: jamSessions.id,
       scheduledAt: jamSessions.scheduledAt,
       capacity: jamSessions.capacity,
+      hostId: jamSessions.hostId,
+      location: jamSessions.location,
     })
     .from(jamSessions)
     .where(eq(jamSessions.id, jamId))
@@ -110,6 +113,45 @@ export async function POST(
         return NextResponse.json({ error: 'Already RSVPed' }, { status: 409 });
       }
       throw err;
+    }
+
+    // Queue push for jam host (non-blocking)
+    try {
+      const joiningUserId = session.user.id;
+      // Fetch joining user's name and preferred locale
+      const [joiningUser] = await db
+        .select({ name: user.name, preferredLocale: user.preferredLocale })
+        .from(user)
+        .where(eq(user.id, joiningUserId))
+        .limit(1);
+
+      const joinerName = joiningUser?.name ?? 'Someone';
+      const jamDateStr = formatDate(jam.scheduledAt);
+      const locale = joiningUser?.preferredLocale ?? 'he';
+
+      const hostTitle =
+        locale === 'he'
+          ? `${joinerName} הצטרף לג'ם שלך`
+          : `${joinerName} joined your jam`;
+      const hostBody =
+        locale === 'he'
+          ? `RSVP חדש ל-${jamDateStr} ב-${jam.location}`
+          : `New RSVP for ${jamDateStr} at ${jam.location}`;
+
+      // Only notify host if they're not the one joining
+      if (jam.hostId !== joiningUserId) {
+        await queuePushNotification(
+          jam.hostId,
+          'jam_rsvp',
+          hostTitle,
+          hostBody,
+          `/jams/${jamId}`,
+          `jam_${jamId}`,
+        );
+      }
+    } catch (err) {
+      console.error('[rsvp] Failed to queue push for host:', err);
+      // Non-blocking — RSVP is already stored
     }
 
     return NextResponse.json({ status });
@@ -170,14 +212,15 @@ export async function POST(
 
       promoted = true;
 
+      // Fetch promoted user details (needed for both email and push)
+      const [promotedUser] = await db
+        .select({ email: user.email, name: user.name, preferredLocale: user.preferredLocale })
+        .from(user)
+        .where(eq(user.id, nextInLine.userId))
+        .limit(1);
+
       // Send promotion email (non-blocking on failure)
       if (resend) {
-        const [promotedUser] = await db
-          .select({ email: user.email, name: user.name })
-          .from(user)
-          .where(eq(user.id, nextInLine.userId))
-          .limit(1);
-
         if (promotedUser) {
           try {
             await resend.emails.send({
@@ -193,6 +236,28 @@ export async function POST(
         }
       } else {
         console.warn('[rsvp] RESEND_API_KEY not set — skipping promotion email');
+      }
+
+      // Queue push notification for promoted user (non-blocking)
+      try {
+        const locale = promotedUser?.preferredLocale ?? 'he';
+        const jamDateStr = formatDate(jam.scheduledAt);
+        const promTitle = locale === 'he' ? 'קיבלת מקום!' : "You're in!";
+        const promBody =
+          locale === 'he'
+            ? `נפתח מקום ב-${jamDateStr} ב-${jam.location}`
+            : `A spot opened up for ${jamDateStr} at ${jam.location}`;
+
+        await queuePushNotification(
+          nextInLine.userId,
+          'jam_rsvp',
+          promTitle,
+          promBody,
+          `/jams/${jamId}`,
+        );
+      } catch (err) {
+        console.error('[rsvp] Failed to queue push for promoted user:', err);
+        // Non-blocking — promotion is already stored
       }
     }
   }

@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { conversations, directMessages, conversationReads } from '@/lib/db/schema';
+import { conversations, directMessages, conversationReads, user } from '@/lib/db/schema';
 import { eq, and, desc, lt } from 'drizzle-orm';
 import { randomUUID } from 'crypto';
+import { queuePushNotification } from '@/lib/notifications';
 
 type RouteContext = { params: Promise<{ conversationId: string }> };
 
@@ -164,6 +165,34 @@ export async function POST(request: NextRequest, { params }: RouteContext) {
     .update(conversations)
     .set({ lastMessageAt: now })
     .where(eq(conversations.id, conversationId));
+
+  // Queue push notification for the recipient (non-blocking)
+  try {
+    const recipientId =
+      conversation.participantA === userId
+        ? conversation.participantB
+        : conversation.participantA;
+
+    // Look up sender's name for the notification body
+    const [sender] = await db
+      .select({ name: user.name })
+      .from(user)
+      .where(eq(user.id, userId))
+      .limit(1);
+
+    const senderName = sender?.name ?? 'Someone';
+    await queuePushNotification(
+      recipientId,
+      'new_message',
+      `New message from ${senderName}`,
+      text.trim().substring(0, 100),
+      `/messages/${conversationId}`,
+      `msg_${conversationId}`,
+    );
+  } catch (err) {
+    console.error('[messages] Failed to queue push notification:', err);
+    // Non-blocking — message is already stored
+  }
 
   // Mark sender as read (up to their own message — they've obviously seen it)
   const [existingRead] = await db

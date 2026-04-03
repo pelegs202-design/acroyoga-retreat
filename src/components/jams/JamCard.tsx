@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { usePushPermission } from "@/hooks/usePushPermission";
 
 export type JamData = {
   id: string;
@@ -69,6 +70,7 @@ function getInitials(name: string | null): string {
 
 export default function JamCard({ jam, onRsvpChange }: Props) {
   const t = useTranslations("jams");
+  const { promptForPush, permissionState } = usePushPermission();
   const [optimisticStatus, setOptimisticStatus] = useState<string | null>(
     jam.userRsvpStatus
   );
@@ -120,6 +122,11 @@ export default function JamCard({ jam, onRsvpChange }: Props) {
       const newStatus = action === "cancel" ? null : data.status;
       setOptimisticStatus(newStatus);
       onRsvpChange?.(jam.id, newStatus);
+
+      // Prompt for push permission after first successful RSVP join (fire-and-forget)
+      if (action === "join" && permissionState === "default") {
+        void promptForPush();
+      }
     } catch {
       setOptimisticStatus(prevStatus);
       setError(t("rsvpError"));
