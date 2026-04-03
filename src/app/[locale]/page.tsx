@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { InstagramGrid } from "@/components/social/InstagramGrid";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -17,7 +18,12 @@ export default async function HomePage({ params }: Props) {
   // Enable static rendering
   setRequestLocale(locale);
 
-  return <HomeContent />;
+  return (
+    <>
+      <HomeContent />
+      <InstagramGrid />
+    </>
+  );
 }
 
 // Client-side translations component

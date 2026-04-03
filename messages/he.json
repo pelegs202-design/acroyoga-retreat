@@ -453,5 +453,19 @@
     "faq": {
       "title": "שאלות נפוצות"
     }
+  },
+  "social": {
+    "instagram": {
+      "title": "עקבו אחרינו באינסטגרם",
+      "followLink": "@acroshay"
+    },
+    "share": {
+      "title": "שיתוף",
+      "whatsapp": "וואטסאפ",
+      "copyLink": "העתקת קישור",
+      "copied": "!הועתק",
+      "nativeShare": "שיתוף",
+      "facebook": "פייסבוק"
+    }
   }
 }
