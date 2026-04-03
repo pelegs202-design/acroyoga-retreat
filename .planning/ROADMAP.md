@@ -132,7 +132,13 @@ Plans:
   3. Challenge participant receives WhatsApp reminders the day before and morning of each session
   4. New quiz signup receives a WhatsApp warm-up drip sequence building excitement before the first class
   5. Lead who did not convert receives an email nurture follow-up sequence
-**Plans**: TBD
+**Plans**: 5 plans
+Plans:
+- [ ] 07-01-PLAN.md — DB schema (push/drip/preferences tables) + notification libs (push, WhatsApp, email) + SW push handlers + Vercel crons
+- [ ] 07-02-PLAN.md — Push notification system (subscribe API, batch cron, event triggers in messages/jams/reviews, permission hook)
+- [ ] 07-03-PLAN.md — WhatsApp drip engine (drip cron, jam reminders cron, quiz lead enrollment, payment webhook drip switching)
+- [ ] 07-04-PLAN.md — Email sequences (React Email templates, email drip cron, nurture engine, unsubscribe endpoint)
+- [ ] 07-05-PLAN.md — Notification preferences UI in Settings + integration verification checkpoint
 
 ### Phase 8: Admin Panel
 **Goal**: The site owner has full operational control — approving members, managing jam hosts, viewing challenge signups and workshop bookings — without needing to touch the database directly
@@ -183,7 +189,7 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 4. Jam Board + Messaging | 5/5 | Complete    | 2026-04-01 |
 | 5. Quiz Funnels | 5/5 | Complete    | 2026-04-01 |
 | 6. Payments + Invoicing | 2/2 | Complete    | 2026-04-02 |
-| 7. Notifications + Automations | 0/TBD | Not started | - |
+| 7. Notifications + Automations | 0/5 | Not started | - |
 | 8. Admin Panel | 0/TBD | Not started | - |
 | 9. SEO + Social Surface | 0/TBD | Not started | - |
 | 10. Brutalist Design Polish + Performance | 0/TBD | Not started | - |
