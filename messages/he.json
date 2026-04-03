@@ -278,5 +278,95 @@
         ]
       }
     }
+  },
+  "admin": {
+    "title": "פאנל ניהול",
+    "tabs": {
+      "members": "חברים",
+      "challengeSignups": "הרשמות לאתגר",
+      "workshopBookings": "הזמנות סדנאות",
+      "auditLog": "יומן פעולות"
+    },
+    "stats": {
+      "totalMembers": "סה״כ חברים",
+      "newThisWeek": "חדשים השבוע",
+      "activeChallenges": "אתגרים פעילים",
+      "pendingWorkshops": "סדנאות ממתינות"
+    },
+    "members": {
+      "search": "חיפוש לפי שם או אימייל...",
+      "filterStatus": "סטטוס",
+      "filterCity": "עיר",
+      "filterRole": "תפקיד",
+      "filterLevel": "רמה",
+      "hostsOnly": "מארחים בלבד",
+      "allMembers": "כל החברים",
+      "approve": "אשר",
+      "suspend": "השעה",
+      "grantHost": "הענק מארח",
+      "revokeHost": "בטל מארח",
+      "delete": "מחק",
+      "viewProfile": "צפה בפרופיל",
+      "confirmSuspend": "האם אתה בטוח שברצונך להשעות את {name}?",
+      "confirmRevokeHost": "ביטול מארח יבטל את כל הג׳אמים העתידיים שלו. להמשיך?",
+      "confirmDelete": "פעולה זו תמחק לצמיתות את החשבון של {name}. לא ניתן לבטל.",
+      "statusActive": "פעיל",
+      "statusSuspended": "מושעה",
+      "host": "מארח",
+      "name": "שם",
+      "email": "אימייל",
+      "city": "עיר",
+      "role": "תפקיד",
+      "level": "רמה",
+      "status": "סטטוס",
+      "joined": "הצטרף",
+      "actions": "פעולות",
+      "noMembers": "לא נמצאו חברים"
+    },
+    "challenge": {
+      "name": "שם",
+      "email": "אימייל",
+      "phone": "טלפון",
+      "amount": "סכום",
+      "status": "סטטוס",
+      "archetype": "ארכיטיפ",
+      "cohortStart": "תחילת קבוצה",
+      "paidAt": "תאריך תשלום",
+      "noSignups": "אין הרשמות לאתגר עדיין"
+    },
+    "workshop": {
+      "name": "שם",
+      "email": "אימייל",
+      "phone": "טלפון",
+      "city": "עיר",
+      "groupType": "סוג קבוצה",
+      "groupSize": "גודל קבוצה",
+      "preferredDates": "תאריכים מועדפים",
+      "status": "סטטוס",
+      "notes": "הערות",
+      "actions": "פעולות",
+      "noBookings": "אין הזמנות סדנאות עדיין",
+      "statusNew": "חדש",
+      "statusContacted": "ליצרנו קשר",
+      "statusConfirmed": "מאושר",
+      "statusCancelled": "בוטל"
+    },
+    "audit": {
+      "date": "תאריך",
+      "admin": "מנהל",
+      "action": "פעולה",
+      "targetType": "סוג יעד",
+      "targetId": "מזהה יעד",
+      "details": "פרטים",
+      "noActions": "אין פעולות מנהל מתועדות עדיין",
+      "actions": {
+        "approve_member": "אישר חבר",
+        "suspend_member": "השעה חבר",
+        "delete_member": "מחק חבר",
+        "grant_host": "העניק מארח",
+        "revoke_host": "ביטל מארח",
+        "update_workshop_status": "עדכן סטטוס סדנה"
+      }
+    }
   }
 }

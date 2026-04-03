@@ -278,5 +278,95 @@
         ]
       }
     }
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "tabs": {
+      "members": "Members",
+      "challengeSignups": "Challenge Signups",
+      "workshopBookings": "Workshop Bookings",
+      "auditLog": "Audit Log"
+    },
+    "stats": {
+      "totalMembers": "Total Members",
+      "newThisWeek": "New This Week",
+      "activeChallenges": "Active Challenges",
+      "pendingWorkshops": "Pending Workshops"
+    },
+    "members": {
+      "search": "Search by name or email...",
+      "filterStatus": "Status",
+      "filterCity": "City",
+      "filterRole": "Role",
+      "filterLevel": "Level",
+      "hostsOnly": "Hosts only",
+      "allMembers": "All members",
+      "approve": "Approve",
+      "suspend": "Suspend",
+      "grantHost": "Grant Host",
+      "revokeHost": "Revoke Host",
+      "delete": "Delete",
+      "viewProfile": "View Profile",
+      "confirmSuspend": "Are you sure you want to suspend {name}?",
+      "confirmRevokeHost": "Revoking host will cancel all their future jams. Continue?",
+      "confirmDelete": "This will permanently delete {name}'s account. This cannot be undone.",
+      "statusActive": "Active",
+      "statusSuspended": "Suspended",
+      "host": "Host",
+      "name": "Name",
+      "email": "Email",
+      "city": "City",
+      "role": "Role",
+      "level": "Level",
+      "status": "Status",
+      "joined": "Joined",
+      "actions": "Actions",
+      "noMembers": "No members found"
+    },
+    "challenge": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "amount": "Amount",
+      "status": "Status",
+      "archetype": "Archetype",
+      "cohortStart": "Cohort Start",
+      "paidAt": "Paid At",
+      "noSignups": "No challenge signups yet"
+    },
+    "workshop": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "city": "City",
+      "groupType": "Group Type",
+      "groupSize": "Group Size",
+      "preferredDates": "Preferred Dates",
+      "status": "Status",
+      "notes": "Notes",
+      "actions": "Actions",
+      "noBookings": "No workshop bookings yet",
+      "statusNew": "New",
+      "statusContacted": "Contacted",
+      "statusConfirmed": "Confirmed",
+      "statusCancelled": "Cancelled"
+    },
+    "audit": {
+      "date": "Date",
+      "admin": "Admin",
+      "action": "Action",
+      "targetType": "Target Type",
+      "targetId": "Target ID",
+      "details": "Details",
+      "noActions": "No admin actions recorded yet",
+      "actions": {
+        "approve_member": "Approved member",
+        "suspend_member": "Suspended member",
+        "delete_member": "Deleted member",
+        "grant_host": "Granted host",
+        "revoke_host": "Revoked host",
+        "update_workshop_status": "Updated workshop status"
+      }
+    }
   }
 }

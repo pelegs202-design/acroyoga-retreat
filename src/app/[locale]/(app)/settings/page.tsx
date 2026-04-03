@@ -1,7 +1,9 @@
 import { setRequestLocale, getTranslations } from 'next-intl/server';
 import { redirect } from '@/i18n/navigation';
 import { getAuthSession } from '@/lib/auth-guard';
+import { isAdminEmail } from '@/lib/admin-guard';
 import { NotificationPreferences } from '@/components/settings/NotificationPreferences';
+import { AdminPanel } from '@/components/admin/AdminPanel';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -22,6 +24,8 @@ export default async function SettingsPage({ params }: Props) {
     redirect({ href: '/sign-in', locale });
   }
 
+  const isAdmin = session ? isAdminEmail(session.user.email) : false;
+
   const t = await getTranslations({ locale, namespace: 'settings' });
 
   return (
@@ -29,6 +33,12 @@ export default async function SettingsPage({ params }: Props) {
       <h1 className="mb-8 text-3xl font-bold text-neutral-100">{t('title')}</h1>
 
       <NotificationPreferences />
+
+      {isAdmin && (
+        <div className="mt-12 border-t border-neutral-800 pt-8">
+          <AdminPanel />
+        </div>
+      )}
     </div>
   );
 }
