@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 9 of 10 (SEO + Social Surface) — IN PROGRESS
-Plan: 1 of 4 in current phase — 09-01 COMPLETE
-Status: SEO infrastructure complete — buildPageMetadata helper, JSON-LD schema builders, JsonLd RSC component, dynamic sitemap.xml + robots.txt, branded OG image, Organization schema on every page, homepage metadata
-Last activity: 2026-04-01 — Plan 09-01 complete: SEO foundation with hreflang, OG data, JSON-LD schemas, sitemap, robots
+Plan: 2 of 4 in current phase — 09-02 COMPLETE
+Status: City landing pages complete — Tel Aviv + Kfar Saba at /[locale]/cities/[city], public route group, LocalBusiness + FAQPage + Event JSON-LD, AEO FAQ, city column on jamSessions
+Last activity: 2026-04-01 — Plan 09-02 complete: city landing pages with structured data, ISR, and AEO-optimized Hebrew FAQ
 
-Progress: [█████████░] 88%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -178,6 +178,11 @@ Recent decisions affecting current work:
 - [Phase 09-01]: 09-01: Hebrew is x-default in hreflang alternates — primary market is Israel
 - [Phase 09-01]: 09-01: sitemap.ts excludes past jams (scheduledAt >= now()) — past jams have no search ranking value
 - [Phase 09-01]: 09-01: OG image generated as SVG then converted to JPG via sharp — avoids canvas or browser-based ImageResponse complexity
+- [Phase 09-02]: 09-02: city column on jamSessions is nullable — CityJamList uses ILIKE fallback on location field when city IS NULL for existing jams
+- [Phase 09-02]: 09-02: FAQ items are inline bilingual constants per city slug in page.tsx — passed to CityFAQ as props; avoids next-intl array-of-objects complexity for stable marketing copy
+- [Phase 09-02]: 09-02: details/summary HTML accordion used for CityFAQ — no JS dependency, semantic HTML for AEO crawlers, FAQPage JSON-LD at page level
+- [Phase 09-02]: 09-02: (public) route group has no auth guard — naturally bypasses (app) auth; no proxy.ts changes needed
+- [Phase 09-02]: 09-02: drizzle-kit push requires dotenv-cli -e .env.local to load DATABASE_URL — env not auto-loaded by drizzle-kit in this project config
 
 ### Pending Todos
 
@@ -191,5 +196,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 09-01-PLAN.md — SEO infrastructure: buildPageMetadata, JSON-LD schemas, sitemap, robots, OG image, Organization schema in layout
-Resume file: .planning/phases/09-seo-social-surface/09-01-SUMMARY.md
+Stopped at: Completed 09-02-PLAN.md — City landing pages for Tel Aviv + Kfar Saba, public route group, LocalBusiness/FAQPage/Event JSON-LD, AEO Hebrew FAQ
+Resume file: .planning/phases/09-seo-social-surface/09-02-SUMMARY.md

@@ -199,5 +199,5 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 6. Payments + Invoicing | 2/2 | Complete    | 2026-04-02 |
 | 7. Notifications + Automations | 6/6 | Complete   | 2026-04-03 |
 | 8. Admin Panel | 2/2 | Complete   | 2026-04-03 |
-| 9. SEO + Social Surface | 0/3 | Not started | - |
+| 9. SEO + Social Surface | 2/3 | In Progress|  |
 | 10. Brutalist Design Polish + Performance | 0/TBD | Not started | - |

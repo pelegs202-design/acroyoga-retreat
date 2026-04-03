@@ -75,7 +75,7 @@ Requirements for initial release. Each maps to roadmap phases.
 ### SEO & Social
 
 - [x] **SEO-01**: Hebrew SEO optimization (meta tags, structured data, hreflang for אקרויוגה terms)
-- [ ] **SEO-02**: City landing pages for Tel Aviv and Kfar Saba targeting local acroyoga searches
+- [x] **SEO-02**: City landing pages for Tel Aviv and Kfar Saba targeting local acroyoga searches
 - [ ] **SEO-03**: Instagram feed embed on public pages
 - [ ] **SEO-04**: Share-to-WhatsApp and social share buttons on jams and profiles
 
@@ -178,7 +178,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | ADMIN-03 | Phase 8 — Admin Panel | Complete |
 | ADMIN-04 | Phase 8 — Admin Panel | Complete |
 | SEO-01 | Phase 9 — SEO + Social Surface | Complete |
-| SEO-02 | Phase 9 — SEO + Social Surface | Pending |
+| SEO-02 | Phase 9 — SEO + Social Surface | Complete |
 | SEO-03 | Phase 9 — SEO + Social Surface | Pending |
 | SEO-04 | Phase 9 — SEO + Social Surface | Pending |
 | DSGN-01 | Phase 10 — Brutalist Design Polish + Performance | Pending |
