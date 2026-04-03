@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { quizLeads } from "@/lib/db/schema";
+import { enrollInDrip } from "@/lib/notifications";
+import { normalizeIsraeliPhone } from "@/lib/whatsapp";
+import { nextMonday } from "@/lib/green-invoice/client";
 
 const bodySchema = z.object({
   sessionId: z.string().min(1),
@@ -35,9 +38,11 @@ export async function POST(req: NextRequest) {
   // Ensure answers is a valid JSON string
   const answersStr = typeof answers === "string" ? answers : JSON.stringify(answers);
 
+  let leadId: string;
   try {
+    leadId = crypto.randomUUID();
     await db.insert(quizLeads).values({
-      id: crypto.randomUUID(),
+      id: leadId,
       sessionId,
       quizType,
       name,
@@ -54,6 +59,52 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ ok: true, sessionId });
     }
     return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
+  }
+
+  // ─── Drip enrollment (non-blocking) ───
+  // Detect locale from phone country code (+972 = Hebrew, otherwise English)
+  const detectedLocale = phone.startsWith("+972") || phone.startsWith("972") ? "he" : "en";
+  const firstName = name.split(" ")[0] ?? name;
+  const normalizedPhone = normalizeIsraeliPhone(phone);
+
+  try {
+    if (quizType === "challenge") {
+      // Enroll in WhatsApp warm-up drip
+      const nextCohortDate = nextMonday(new Date());
+      await enrollInDrip({
+        leadId,
+        sequenceType: "wa_challenge_prepay",
+        channel: "whatsapp",
+        recipientPhone: normalizedPhone,
+        recipientName: firstName,
+        preferredLocale: detectedLocale,
+        metadata: { cohortStartDate: nextCohortDate.toISOString() },
+      });
+
+      // Also enroll in email nurture
+      await enrollInDrip({
+        leadId,
+        sequenceType: "email_nurture",
+        channel: "email",
+        recipientEmail: email,
+        recipientName: firstName,
+        preferredLocale: detectedLocale,
+        metadata: { archetype: resultType ?? "Explorer" },
+      });
+    } else if (quizType === "workshop") {
+      // Enroll in WhatsApp workshop drip (3-message sequence)
+      await enrollInDrip({
+        leadId,
+        sequenceType: "wa_workshop",
+        channel: "whatsapp",
+        recipientPhone: normalizedPhone,
+        recipientName: firstName,
+        preferredLocale: detectedLocale,
+      });
+    }
+  } catch (err) {
+    // Non-blocking — log and continue; lead is already saved
+    console.error("[quiz/leads] Drip enrollment failed (non-blocking):", err);
   }
 
   return NextResponse.json({ ok: true, sessionId });

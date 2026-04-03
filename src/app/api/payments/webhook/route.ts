@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { challengeEnrollments, quizLeads } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
 import { nextMonday } from "@/lib/green-invoice/client";
+import { enrollInDrip, cancelDrip } from "@/lib/notifications";
+import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,9 +55,11 @@ export async function POST(req: NextRequest) {
 
     // Match payment to quiz lead by email — find the most recent lead with this email
     let sessionId = "unknown";
+    let leadId: string | null = null;
+    let leadPreferredLocale = "he";
     if (customerEmail) {
       const [lead] = await db
-        .select({ sessionId: quizLeads.sessionId })
+        .select({ sessionId: quizLeads.sessionId, id: quizLeads.id, phone: quizLeads.phone })
         .from(quizLeads)
         .where(eq(quizLeads.email, customerEmail))
         .orderBy(desc(quizLeads.createdAt))
@@ -63,6 +67,11 @@ export async function POST(req: NextRequest) {
 
       if (lead) {
         sessionId = lead.sessionId;
+        leadId = lead.id;
+        // Detect locale from quiz lead's phone (Israeli +972 → Hebrew)
+        const leadPhone = lead.phone ?? "";
+        leadPreferredLocale =
+          leadPhone.startsWith("+972") || leadPhone.startsWith("972") ? "he" : "en";
         console.log(`[payments/webhook] Matched email ${customerEmail} to session ${sessionId}`);
       } else {
         console.warn(`[payments/webhook] No quiz lead found for email ${customerEmail}`);
@@ -89,6 +98,55 @@ export async function POST(req: NextRequest) {
     }).onConflictDoNothing();
 
     console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${customerEmail}, GI doc=${docId}`);
+
+    // ─── Drip transition on payment (non-blocking) ───
+    // Cancel-first then enroll to prevent race with WA drip cron (Pitfall 9).
+    if (leadId) {
+      try {
+        const effectiveName = customerName?.split(" ")[0] ?? "friend";
+        const effectivePhone = customerPhone
+          ? normalizeIsraeliPhone(customerPhone)
+          : null;
+        const cohortDateStr = cohortStart.toISOString();
+
+        // 1. Cancel pre-payment WhatsApp drip
+        await cancelDrip(leadId, "wa_challenge_prepay", "paid");
+
+        // 2. Cancel email nurture (lead converted — stop marketing drip)
+        await cancelDrip(leadId, "email_nurture", "paid");
+
+        // 3. Start post-payment WhatsApp drip (only if we have a phone)
+        if (effectivePhone) {
+          await enrollInDrip({
+            leadId,
+            sequenceType: "wa_challenge_postpay",
+            channel: "whatsapp",
+            recipientPhone: effectivePhone,
+            recipientName: effectiveName,
+            preferredLocale: leadPreferredLocale,
+            metadata: { cohortStartDate: cohortDateStr },
+          });
+        }
+
+        // 4. Start email challenge reminders (always — email available)
+        if (customerEmail) {
+          await enrollInDrip({
+            leadId,
+            sequenceType: "email_challenge_reminders",
+            channel: "email",
+            recipientEmail: customerEmail,
+            recipientName: effectiveName,
+            preferredLocale: leadPreferredLocale,
+            metadata: { cohortStartDate: cohortDateStr },
+          });
+        }
+
+        console.log(`[payments/webhook] Drip transition complete for lead ${leadId}`);
+      } catch (dripErr) {
+        // Non-blocking — enrollment is already recorded; log and continue
+        console.error("[payments/webhook] Drip transition failed (non-blocking):", dripErr);
+      }
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
