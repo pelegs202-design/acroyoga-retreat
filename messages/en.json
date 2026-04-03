@@ -181,6 +181,31 @@
     "sendError": "Failed to send",
     "retry": "Retry"
   },
+  "settings": {
+    "title": "Settings",
+    "notifications": {
+      "title": "Notifications",
+      "push": {
+        "label": "Push Notifications",
+        "description": "Get alerts for new messages, jam updates, and reviews"
+      },
+      "email": {
+        "label": "Marketing Emails",
+        "description": "Receive tips, community highlights, and offers. Confirmations always send."
+      },
+      "whatsapp": {
+        "label": "WhatsApp Messages",
+        "description": "Receive reminders and updates via WhatsApp"
+      },
+      "quietHours": {
+        "label": "Quiet Hours",
+        "description": "No push notifications during these hours",
+        "start": "From",
+        "end": "Until"
+      },
+      "saved": "Preferences saved"
+    }
+  },
   "quiz": {
     "entry": {
       "title": "Find Your Path",
