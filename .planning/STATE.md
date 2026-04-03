@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 7 of 10 (Notifications/Automations) — IN PROGRESS
-Plan: 2 of 5 in current phase — 07-02 COMPLETE
-Status: Push notification pipeline complete — subscribe API, batch cron, triggers in messages/rsvp/reviews/profile-update, partner-match with daily rate limit, permission hook wired into JamCard and ChatThread
-Last activity: 2026-04-03 — Plan 07-02 complete: push subscribe endpoint, batch cron dispatcher, event triggers, partner-match matching, usePushPermission hook
+Plan: 4 of 5 in current phase — 07-04 COMPLETE
+Status: Email notification system complete — 4 React Email templates, Resend wrapper, email-drip cron, unsubscribe endpoint (RFC 8058)
+Last activity: 2026-04-01 — Plan 07-04 complete: React Email templates (confirmation/reminder/nurture/certificate), email-drip cron, one-click unsubscribe
 
-Progress: [██████░░░░] 62%
+Progress: [███████░░░] 68%
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Progress: [██████░░░░] 62%
 | Phase 06-payments-invoicing P02 | 12 | 2 tasks | 6 files |
 | Phase 07-notifications-automations P01 | 5 | 2 tasks | 8 files |
 | Phase 07-notifications-automations P02 | 4 | 2 tasks | 10 files |
+| Phase 07-notifications-automations P04 | 7 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -146,6 +147,12 @@ Recent decisions affecting current work:
 - [Phase 07-02]: POST /api/push/subscribe uses onConflictDoUpdate on endpoint unique constraint — handles subscription refresh without duplicate rows
 - [Phase 07-02]: Partner-match IIFE is fire-and-forget — profile update response returns before potentially slow matching query
 - [Phase 07-02]: promptForPush called with void operator in UI — fire-and-forget, never blocks RSVP or send flow
+- [Phase 07-04]: 07-04: @react-email/components installed (was missing from package.json) — required for JSX email templates
+- [Phase 07-04]: 07-04: email_nurture wraps to step 6 (NURTURE_CYCLE_START=6) after completing 12 steps — matches locked decision from 07-01
+- [Phase 07-04]: 07-04: Challenge reminders: even steps = day-before (18:00 IL), odd steps = morning-of (08:00 IL) — interleaved timing
+- [Phase 07-04]: 07-04: CompletionCertificate sent on final email_challenge_reminders step (transactional)
+- [Phase 07-04]: 07-04: Unsubscribe POST returns JSON (RFC 8058); GET returns branded HTML page
+- [Phase 07-04]: 07-04: Unsub upserts notificationPreferences with emailMarketing=false — handles users with no prefs row
 
 ### Pending Todos
 
@@ -158,6 +165,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03
-Stopped at: Completed 07-02-PLAN.md — push notification end-to-end: subscribe API, batch cron, triggers in all APIs, partner-match with daily rate limit, permission hook wired into JamCard and ChatThread
-Resume file: .planning/phases/07-notifications-automations/07-02-SUMMARY.md
+Last session: 2026-04-01
+Stopped at: Completed 07-04-PLAN.md — email notification system: React Email templates, email-drip cron, unsubscribe endpoint
+Resume file: .planning/phases/07-notifications-automations/07-04-SUMMARY.md
