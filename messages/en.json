@@ -429,5 +429,29 @@
       "title": "Acroyoga in Kfar Saba — Find a Partner | AcroHavura",
       "description": "Acroyoga in Kfar Saba — jams, partners, and people to practice with in Kfar Saba and the Sharon area. Join the AcroHavura community."
     }
+  },
+  "city": {
+    "telAviv": {
+      "heroTitle": "Acroyoga in Tel Aviv",
+      "heroSubtitle": "Find a partner, join a jam, and practice AcroYoga with the Tel Aviv community.",
+      "heroCta": "Find Partners in Tel Aviv"
+    },
+    "kfarSaba": {
+      "heroTitle": "Acroyoga in Kfar Saba",
+      "heroSubtitle": "Find a partner, join a jam, and practice AcroYoga with the Kfar Saba community.",
+      "heroCta": "Find Partners in Kfar Saba"
+    },
+    "noJams": "No upcoming jams in {city} yet — be the first to host!",
+    "upcomingJams": "Upcoming Jams",
+    "spotsRemaining": "{confirmed}/{capacity} spots",
+    "joinJam": "Join",
+    "stats": {
+      "title": "Our Community",
+      "members": "{count} members",
+      "jams": "{count} upcoming jams"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions"
+    }
   }
 }

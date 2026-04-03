@@ -116,6 +116,7 @@ export const jamSessions = pgTable(
     hostId: text("host_id").notNull().references(() => user.id, { onDelete: "cascade" }),
     scheduledAt: timestamp("scheduled_at", { withTimezone: true }).notNull(),
     location: text("location").notNull(),
+    city: text("city"), // nullable — city slug for filtering (e.g. 'tel-aviv', 'kfar-saba')
     capacity: integer("capacity").notNull(),
     level: text("level").notNull(), // 'beginner' | 'intermediate' | 'advanced' | 'all'
     notes: text("notes"),
