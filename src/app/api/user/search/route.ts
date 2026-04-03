@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { user } from '@/lib/db/schema';
-import { and, ilike, ne, isNotNull, or } from 'drizzle-orm';
+import { and, eq, ilike, ne, isNotNull, or } from 'drizzle-orm';
 
 // GET /api/user/search?q=... — Search members by name for NewMessagePicker
 export async function GET(request: NextRequest) {
@@ -28,6 +28,7 @@ export async function GET(request: NextRequest) {
       and(
         isNotNull(user.tosAcceptedAt),
         ne(user.id, session.user.id),
+        eq(user.status, 'active'),
         or(
           ilike(user.name, `%${q}%`),
         )

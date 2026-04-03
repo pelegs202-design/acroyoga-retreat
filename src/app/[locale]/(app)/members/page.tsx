@@ -28,6 +28,7 @@ export default async function MembersPage({ params, searchParams }: Props) {
   const conditions = [
     isNotNull(user.tosAcceptedAt),
     ne(user.id, session!.user.id),
+    eq(user.status, 'active'),
     city ? ilike(user.city, `%${city}%`) : undefined,
     role ? eq(user.role, role) : undefined,
     level ? eq(user.level, level) : undefined,
