@@ -18,7 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Jam Board + Messaging** - 1:1 DMs via polling, jam session posting with RSVP/waitlist (completed 2026-04-01)
 - [x] **Phase 5: Quiz Funnels** - 30-day challenge quiz (10+ steps) and workshop inquiry quiz with conditional branching (completed 2026-04-01)
 - [x] **Phase 6: Payments + Invoicing** - Green Invoice checkout for challenge, workshop inquiry, and Hebrew invoice generation (completed 2026-04-02)
-- [ ] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences
+- [x] **Phase 7: Notifications + Automations** - Push (VAPID), email (Resend), WhatsApp drip, and email nurture sequences (completed 2026-04-01)
 - [ ] **Phase 8: Admin Panel** - Member management, jam host approval, challenge signups, workshop bookings
 - [ ] **Phase 9: SEO + Social Surface** - Hebrew city landing pages, structured data, IG embed, share buttons
 - [ ] **Phase 10: Brutalist Design Polish + Performance** - Full interactive design system, cursor effects, Lighthouse audit
@@ -134,11 +134,11 @@ Plans:
   5. Lead who did not convert receives an email nurture follow-up sequence
 **Plans**: 5 plans
 Plans:
-- [ ] 07-01-PLAN.md — DB schema (push/drip/preferences tables) + notification libs (push, WhatsApp, email) + SW push handlers + Vercel crons
-- [ ] 07-02-PLAN.md — Push notification system (subscribe API, batch cron, event triggers in messages/jams/reviews, permission hook)
-- [ ] 07-03-PLAN.md — WhatsApp drip engine (drip cron, jam reminders cron, quiz lead enrollment, payment webhook drip switching)
-- [ ] 07-04-PLAN.md — Email sequences (React Email templates, email drip cron, nurture engine, unsubscribe endpoint)
-- [ ] 07-05-PLAN.md — Notification preferences UI in Settings + integration verification checkpoint
+- [x] 07-01-PLAN.md — DB schema (push/drip/preferences tables) + notification libs (push, WhatsApp, email) + SW push handlers + Vercel crons (completed 2026-04-01)
+- [x] 07-02-PLAN.md — Push notification system (subscribe API, batch cron, event triggers in messages/jams/reviews, permission hook) (completed 2026-04-01)
+- [x] 07-03-PLAN.md — WhatsApp drip engine (drip cron, jam reminders cron, quiz lead enrollment, payment webhook drip switching) (completed 2026-04-03)
+- [x] 07-04-PLAN.md — Email sequences (React Email templates, email drip cron, nurture engine, unsubscribe endpoint) (completed 2026-04-01)
+- [x] 07-05-PLAN.md — Notification preferences UI in Settings + integration verification checkpoint (completed 2026-04-01)
 
 ### Phase 8: Admin Panel
 **Goal**: The site owner has full operational control — approving members, managing jam hosts, viewing challenge signups and workshop bookings — without needing to touch the database directly

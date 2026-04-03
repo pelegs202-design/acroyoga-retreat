@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 
 ## Current Position
 
-Phase: 7 of 10 (Notifications/Automations) — IN PROGRESS
-Plan: 5 of 5 in current phase — 07-03 COMPLETE
-Status: WhatsApp automation engine complete — drip cron, jam reminder cron, quiz lead enrollment hooks, payment drip transition
-Last activity: 2026-04-03 — Plan 07-03 complete: WhatsApp drip cron, jam reminder cron, drip enrollment in quiz leads + payment webhook
+Phase: 7 of 10 (Notifications/Automations) — COMPLETE
+Plan: 5 of 5 in current phase — 07-05 COMPLETE
+Status: Phase 7 complete — all 3 notification channels (push, email, WhatsApp) operational with user preference controls
+Last activity: 2026-04-01 — Plan 07-05 complete: notification preferences UI + Phase 7 integration verification checkpoint approved
 
-Progress: [███████░░░] 68%
+Progress: [████████░░] 75%
 
 ## Performance Metrics
 
@@ -49,6 +49,7 @@ Progress: [███████░░░] 68%
 | Phase 07-notifications-automations P02 | 4 | 2 tasks | 10 files |
 | Phase 07-notifications-automations P04 | 7 | 2 tasks | 7 files |
 | Phase 07-notifications-automations P03 | 3 | 2 tasks | 4 files |
+| Phase 07-notifications-automations P05 | 12 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -156,6 +157,10 @@ Recent decisions affecting current work:
 - [Phase 07-04]: 07-04: Unsub upserts notificationPreferences with emailMarketing=false — handles users with no prefs row
 - [Phase 07-03]: WA drip cron tracks consecutive failures in enrollment metadata; cancels after 3 strikes with reason 'error'
 - [Phase 07-03]: cancel-first then enroll-new on payment; sequential awaits prevent race with drip cron
+- [Phase 07-05]: 07-05: Settings page created fresh at /[locale]/(app)/settings/page.tsx — no prior settings page existed
+- [Phase 07-05]: 07-05: i18n keys in messages/ (not src/i18n/locales/) — project uses top-level messages/ convention from Phase 1
+- [Phase 07-05]: 07-05: Per-field PATCH on change (no submit button) — immediate feedback UX, each toggle saves independently
+- [Phase 07-05]: 07-05: WhatsApp opt-out cancels dripEnrollments with reason 'opted_out' via bulk UPDATE — all active WA sequences stopped atomically
 
 ### Pending Todos
 
@@ -169,5 +174,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 07-04-PLAN.md — email notification system: React Email templates, email-drip cron, unsubscribe endpoint
-Resume file: .planning/phases/07-notifications-automations/07-04-SUMMARY.md
+Stopped at: Completed 07-05-PLAN.md — notification preferences UI + Phase 7 integration verification (all 3 channels confirmed)
+Resume file: .planning/phases/07-notifications-automations/07-05-SUMMARY.md
