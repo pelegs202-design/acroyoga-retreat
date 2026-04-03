@@ -8,6 +8,8 @@ import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import InstallPrompt from "@/components/pwa/InstallPrompt";
 import IosBanner from "@/components/pwa/IosBanner";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { buildOrganizationSchema } from "@/lib/seo/schemas";
 import "../globals.css";
 
 const heebo = Heebo({
@@ -90,6 +92,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             alt=""
           />
         </noscript>
+        <JsonLd data={buildOrganizationSchema()} />
         <NextIntlClientProvider messages={messages}>
           <Header />
           {children}

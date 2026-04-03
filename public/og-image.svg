@@ -1,0 +1,40 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>
+  <rect width='1200' height='630' fill='#0A0A0A'/>
+  <!-- Pink accent border top -->
+  <rect x='0' y='0' width='1200' height='6' fill='#F472B6'/>
+  <!-- Brand name AcroHavura English -->
+  <text x='600' y='260' 
+    font-family='Helvetica Neue, Arial, sans-serif'
+    font-size='96' 
+    font-weight='900'
+    fill='#F472B6' 
+    text-anchor='middle'
+    dominant-baseline='middle'
+    letter-spacing='-2'>AcroHavura</text>
+  <!-- Hebrew brand name -->
+  <text x='600' y='360' 
+    font-family='Helvetica Neue, Arial, sans-serif'
+    font-size='56' 
+    font-weight='700'
+    fill='#FFFFFF' 
+    text-anchor='middle'
+    dominant-baseline='middle'
+    letter-spacing='0'>אקרוחבורה</text>
+  <!-- Tagline -->
+  <text x='600' y='440' 
+    font-family='Helvetica Neue, Arial, sans-serif'
+    font-size='28' 
+    font-weight='400'
+    fill='#737373' 
+    text-anchor='middle'
+    dominant-baseline='middle'
+    letter-spacing='2'>FIND YOUR ACRO PARTNER</text>
+  <!-- URL -->
+  <text x='600' y='560' 
+    font-family='Helvetica Neue, Arial, sans-serif'
+    font-size='22' 
+    font-weight='400'
+    fill='#525252' 
+    text-anchor='middle'
+    dominant-baseline='middle'>acroretreat.co.il</text>
+</svg>
