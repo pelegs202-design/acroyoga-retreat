@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 7 of 10 (Notifications/Automations) — IN PROGRESS
-Plan: 1 of 5 in current phase — 07-01 COMPLETE
-Status: Notification foundation complete — 4 new DB tables, push/WA/drip libs, service worker push handlers, Vercel cron config
-Last activity: 2026-04-01 — Plan 07-01 complete: VAPID push + WhatsApp Meta API + drip enrollment engine
+Plan: 2 of 5 in current phase — 07-02 COMPLETE
+Status: Push notification pipeline complete — subscribe API, batch cron, triggers in messages/rsvp/reviews/profile-update, partner-match with daily rate limit, permission hook wired into JamCard and ChatThread
+Last activity: 2026-04-03 — Plan 07-02 complete: push subscribe endpoint, batch cron dispatcher, event triggers, partner-match matching, usePushPermission hook
 
 Progress: [██████░░░░] 62%
 
@@ -46,6 +46,7 @@ Progress: [██████░░░░] 62%
 | Phase 06-payments-invoicing P01 | 13 | 2 tasks | 5 files |
 | Phase 06-payments-invoicing P02 | 12 | 2 tasks | 6 files |
 | Phase 07-notifications-automations P01 | 5 | 2 tasks | 8 files |
+| Phase 07-notifications-automations P02 | 4 | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -142,6 +143,9 @@ Recent decisions affecting current work:
 - [Phase 07-01]: 07-01: email_nurture step 12 wraps to step 6 for rotating evergreen content (cycle continues)
 - [Phase 07-01]: 07-01: push/notificationclick listeners placed BEFORE serwist.addEventListeners() — Serwist takes event loop ownership after that call
 - [Phase 07-01]: 07-01: vercel.json crons all in UTC: push-batch every 5min, WA+email drip 16:00 UTC=19:00 IL, jam-reminders 05:00+15:00 UTC
+- [Phase 07-02]: POST /api/push/subscribe uses onConflictDoUpdate on endpoint unique constraint — handles subscription refresh without duplicate rows
+- [Phase 07-02]: Partner-match IIFE is fire-and-forget — profile update response returns before potentially slow matching query
+- [Phase 07-02]: promptForPush called with void operator in UI — fire-and-forget, never blocks RSVP or send flow
 
 ### Pending Todos
 
@@ -154,6 +158,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-01
-Stopped at: Completed 07-01-PLAN.md — notification foundation: 4 DB tables, push/WA/drip libs, service worker push handlers, Vercel cron config
-Resume file: .planning/phases/07-notifications-automations/07-01-SUMMARY.md
+Last session: 2026-04-03
+Stopped at: Completed 07-02-PLAN.md — push notification end-to-end: subscribe API, batch cron, triggers in all APIs, partner-match with daily rate limit, permission hook wired into JamCard and ChatThread
+Resume file: .planning/phases/07-notifications-automations/07-02-SUMMARY.md
