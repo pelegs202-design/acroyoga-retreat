@@ -116,7 +116,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. User can complete payment for the 30-day challenge (under 500 NIS) via Green Invoice checkout
   2. User can submit a workshop inquiry after the quiz and receive a confirmation that a quote is coming
-  3. A valid Hebrew tax invoice (חשבונית) is automatically generated and delivered after every successful payment
+  3. A valid Hebrew tax invoice is automatically generated and delivered after every successful payment
 **Plans**: 2 plans
 Plans:
 - [ ] 06-01-PLAN.md — GI client, DB schema (challenge_enrollments), checkout API, webhook handler
@@ -161,10 +161,14 @@ Plans:
 **Requirements**: SEO-01, SEO-02, SEO-03, SEO-04
 **Success Criteria** (what must be TRUE):
   1. Every page has correct Hebrew meta tags, hreflang attributes, and Open Graph data
-  2. City landing pages exist for Tel Aviv and Kfar Saba targeting local אקרויוגה search terms, with structured data
+  2. City landing pages exist for Tel Aviv and Kfar Saba targeting local search terms, with structured data
   3. The Instagram feed is embedded on at least one public-facing page
   4. User can share a jam session or profile to WhatsApp or other platforms with a single tap
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 09-01-PLAN.md — SEO infrastructure (metadata helper, JSON-LD schemas, sitemap, robots, OG image)
+- [ ] 09-02-PLAN.md — City landing pages (Tel Aviv + Kfar Saba) with structured data and AEO FAQ
+- [ ] 09-03-PLAN.md — Instagram feed embed + social share buttons (WhatsApp, native, copy, Facebook)
 
 ### Phase 10: Brutalist Design Polish + Performance
 **Goal**: The platform looks and feels unmistakably different from generic yoga/wellness sites — cursor effects, draggable elements, unconventional scroll — while remaining accessible and fast on mobile
@@ -195,5 +199,5 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 6. Payments + Invoicing | 2/2 | Complete    | 2026-04-02 |
 | 7. Notifications + Automations | 6/6 | Complete   | 2026-04-03 |
 | 8. Admin Panel | 2/2 | Complete   | 2026-04-03 |
-| 9. SEO + Social Surface | 0/TBD | Not started | - |
+| 9. SEO + Social Surface | 0/3 | Not started | - |
 | 10. Brutalist Design Polish + Performance | 0/TBD | Not started | - |
