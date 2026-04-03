@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 7 of 10 (Notifications/Automations) — COMPLETE
-Plan: 5 of 5 in current phase — 07-05 COMPLETE
-Status: Phase 7 complete — all 3 notification channels (push, email, WhatsApp) operational with user preference controls
-Last activity: 2026-04-01 — Plan 07-05 complete: notification preferences UI + Phase 7 integration verification checkpoint approved
+Plan: 6 of 6 in current phase — 07-06 COMPLETE
+Status: Phase 7 complete — NOTIF-03 gap closed: WhatsApp session reminders now resolve phone from challengeEnrollments/quizLeads
+Last activity: 2026-04-01 — Plan 07-06 complete: fixed dead WhatsApp phone lookup in jam-reminders cron (gap closure)
 
 Progress: [████████░░] 75%
 
@@ -50,6 +50,7 @@ Progress: [████████░░] 75%
 | Phase 07-notifications-automations P04 | 7 | 2 tasks | 7 files |
 | Phase 07-notifications-automations P03 | 3 | 2 tasks | 4 files |
 | Phase 07-notifications-automations P05 | 12 | 2 tasks | 5 files |
+| Phase 07-notifications-automations P06 | 5 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -161,6 +162,8 @@ Recent decisions affecting current work:
 - [Phase 07-05]: 07-05: i18n keys in messages/ (not src/i18n/locales/) — project uses top-level messages/ convention from Phase 1
 - [Phase 07-05]: 07-05: Per-field PATCH on change (no submit button) — immediate feedback UX, each toggle saves independently
 - [Phase 07-05]: 07-05: WhatsApp opt-out cancels dripEnrollments with reason 'opted_out' via bulk UPDATE — all active WA sequences stopped atomically
+- [Phase 07-06]: 07-06: Phone lookup queries challengeEnrollments (confirmed, ordered by paidAt desc) first, falls back to quizLeads (ordered by createdAt desc) — no schema migration required
+- [Phase 07-06]: 07-06: Both DB lookups use .catch(() => []) — phone lookup failure is non-fatal; cron falls through to email-only for that attendee
 
 ### Pending Todos
 
@@ -174,5 +177,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-01
-Stopped at: Completed 07-05-PLAN.md — notification preferences UI + Phase 7 integration verification (all 3 channels confirmed)
-Resume file: .planning/phases/07-notifications-automations/07-05-SUMMARY.md
+Stopped at: Completed 07-06-PLAN.md — NOTIF-03 gap closed: WhatsApp phone lookup via challengeEnrollments/quizLeads
+Resume file: .planning/phases/07-notifications-automations/07-06-SUMMARY.md
