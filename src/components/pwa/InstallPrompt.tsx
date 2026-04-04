@@ -28,6 +28,9 @@ export default function InstallPrompt() {
     const dismissed = localStorage.getItem(DISMISSED_KEY) === "true";
     if (dismissed) return;
 
+    // Hide for ad traffic — users from IG/FB don't want PWA install
+    if (window.location.search.includes("utm_") || window.location.search.includes("fbclid")) return;
+
     const handler = (e: Event) => {
       // Prevent the browser's default mini-infobar from appearing
       e.preventDefault();

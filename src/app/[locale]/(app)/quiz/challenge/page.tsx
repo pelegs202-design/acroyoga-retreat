@@ -129,47 +129,49 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   return (
     <div className="w-full">
       {/* ── 1. HERO ──────────────────────────────────────────────────── */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden border-b-2 border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
-                <span className="text-brand font-black text-sm uppercase tracking-widest">
+      <section className="relative flex items-center overflow-hidden border-b-2 border-neutral-800">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-20 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Text + CTA — always first on mobile so it's above the fold */}
+            <div>
+              <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
+                <span className="text-brand font-black text-xs uppercase tracking-widest">
                   {he ? "IL — מבצע מיוחד לזמן מלחמה" : "IL — Special Wartime Offer"}
                 </span>
               </div>
 
-              <h1 className="text-5xl lg:text-7xl font-black leading-[0.95] mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-4">
                 {he ? "30 יום." : "30 Days."} <br />
                 {he ? "מאפס." : "Zero."} <br />
                 <span className="text-brand">{he ? "לטיסה ראשונה." : "To First Flight."}</span>
               </h1>
 
-              <p className="text-xl text-gray-400 max-w-lg mb-8 leading-relaxed">
+              <p className="text-base md:text-xl text-gray-400 max-w-lg mb-5 leading-relaxed">
                 {he
                   ? "תכנית מובנית עם 2-3 ג׳אמים שבועיים, קבוצת וואטסאפ פעילה, ומדריך שמלווה אותך אישית. 527 בוגרים כבר עפו."
                   : "Structured program with 2-3 weekly jams, active WhatsApp group, and a personal instructor. 527 graduates already flew."}
               </p>
 
-              <div className="flex items-end gap-4 mb-8">
-                <span className="text-gray-500 line-through text-2xl font-bold">₪299</span>
-                <span className="text-6xl font-black text-brand">₪1</span>
-                <span className="text-sm text-gray-400 pb-1">{he ? "מחיר מלחמה" : "Wartime price"}</span>
+              <div className="flex items-end gap-3 mb-5">
+                <span className="text-gray-500 line-through text-xl font-bold">₪299</span>
+                <span className="text-5xl font-black text-brand">₪1</span>
+                <span className="text-xs text-gray-400 pb-1">{he ? "מחיר מלחמה" : "Wartime price"}</span>
               </div>
 
               <button
                 onClick={() => handleCTA("hero")}
-                className="btn-press bg-brand text-black px-12 py-5 text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+                className="btn-press w-full md:w-auto bg-brand text-black px-10 py-4 md:px-12 md:py-5 text-lg md:text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
               >
                 {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
               </button>
 
-              <p className="mt-4 text-sm text-gray-500">
+              <p className="mt-3 text-sm text-gray-500">
                 {he ? "שאלון אישיות קצר — לא מתאים לכל אחד" : "Short personality quiz — not for everyone"}
               </p>
             </div>
 
-            <div className="order-1 lg:order-2 flex justify-center relative">
+            {/* "30" frame — hidden on mobile, shown on desktop */}
+            <div className="hidden lg:flex justify-center relative">
               <div className="relative z-10 border-[3px] border-neutral-800 p-4 bg-[#0a0a0a] w-full max-w-md">
                 <div className="aspect-square bg-neutral-900 flex flex-col items-center justify-center gap-4 overflow-hidden">
                   <p className="text-[120px] font-black text-brand/20 leading-none select-none">30</p>
