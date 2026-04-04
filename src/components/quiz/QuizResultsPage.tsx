@@ -13,25 +13,25 @@ const TESTIMONIALS = [
     he: "הגעתי בלי שום ניסיון, חשבתי שלא אצליח. אחרי השיעור הראשון עם שי הבנתי שזה בדיוק בשבילי. היום אני יכולה לעוף.",
     en: "I came with zero experience, thought I'd never manage. After my first class with Shai I knew this was for me. Today I can fly.",
     author: { he: "מיטל, תל אביב", en: "Mital, Tel Aviv" },
-    emoji: "✈️",
+    marker: "—",
   },
   {
     he: "חיפשתי ספורט שהוא גם חברתי. מצאתי קהילה שלמה. שי יצר מרחב שבו כולם מרגישים שייכים.",
     en: "I was looking for a sport that's also social. Found a whole community. Shai created a space where everyone feels they belong.",
     author: { he: "דניאל, כפר סבא", en: "Daniel, Kfar Saba" },
-    emoji: "🤝",
+    marker: "—",
   },
   {
     he: "תוך חודש ראיתי שינוי בכוח וביציבה שלי. לא ידעתי שיש ספורט כזה — מאתגר, כייפי, וחברתי.",
     en: "Within a month I saw changes in my strength and posture. Didn't know a sport like this existed — challenging, fun, and social.",
     author: { he: "אלה, תל אביב", en: "Ella, Tel Aviv" },
-    emoji: "💪",
+    marker: "—",
   },
   {
     he: "תרגלתי יוגה שנים, אבל אקרויוגה פתח לי עולם חדש של אמון ושיתוף פעולה. שי מלמד בסבלנות ובדיוק.",
     en: "I practiced yoga for years, but acroyoga opened a new world of trust and collaboration. Shai teaches with patience and precision.",
     author: { he: "יואב, תל אביב", en: "Yoav, Tel Aviv" },
-    emoji: "🧘",
+    marker: "—",
   },
 ];
 
@@ -225,7 +225,7 @@ export default function QuizResultsPage({
                   key={i}
                   className="card-hover flex items-start gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
                 >
-                  <span className="text-lg mt-0.5">✅</span>
+                  <span className="text-brand font-black text-lg mt-0.5">+</span>
                   <p className="text-neutral-300 text-sm leading-relaxed">
                     {isHe ? fear.he : fear.en}
                   </p>
@@ -254,7 +254,7 @@ export default function QuizResultsPage({
                   &ldquo;{isHe ? t.he : t.en}&rdquo;
                 </p>
                 <p className="text-neutral-500 text-xs font-medium">
-                  {t.emoji} {isHe ? t.author.he : t.author.en}
+                  {t.marker} {isHe ? t.author.he : t.author.en}
                 </p>
               </div>
             ))}
@@ -271,17 +271,17 @@ export default function QuizResultsPage({
           {/* Pink accent bar */}
           <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
           <p className="text-neutral-500 text-xs mb-5">
-            {isHe ? "מחיר Early Bird" : "Early Bird Price"}
+            {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
           </p>
 
-          {/* Price */}
+          {/* Price — ₪1 wartime special */}
           <div className="flex items-baseline justify-center gap-4 mb-2">
-            <span className="text-5xl font-black text-brand">299</span>
+            <span className="text-5xl font-black text-brand">1</span>
             <span className="text-2xl font-bold text-brand">₪</span>
-            <span className="text-xl text-neutral-600 line-through">499 ₪</span>
+            <span className="text-xl text-neutral-600 line-through">299 ₪</span>
           </div>
           <p className="text-neutral-500 text-xs mb-5">
-            {isHe ? "מחיר רגיל: 499 ₪" : "Regular price: 499 ₪"}
+            {isHe ? "תנועה מרפאת. ביחד חזקים." : "Movement heals. Together strong."}
           </p>
 
           {/* Urgency */}

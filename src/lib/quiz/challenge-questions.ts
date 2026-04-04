@@ -1,10 +1,14 @@
 /**
- * Challenge quiz question definitions.
+ * Challenge quiz question definitions — Redesigned for conversion.
  *
- * These types are intentionally declared here so this file can be used
- * independently from QuizEngine.tsx (plans 05-01 and 05-02 execute in
- * parallel). The shapes are identical to those in QuizEngine — once that
- * plan lands, the UI can import from either file or re-export from here.
+ * Psychological arc:
+ * 1. Positive/Identity (Q1-Q2): Fun warm-up, yes-ladder
+ * 2. Neutral/Behavioral (Q3-Q6): Experience, location, commitment + fear capture
+ * 3. Negative/Problem-Aware (Q7-Q8): Fear ownership, body type
+ * 4. Pressure-Release (Q9-Q11): Desired outcome, fitness, schedule → solution
+ *
+ * No emojis — classy text-only cards.
+ * Disqualifying options marked in comments.
  */
 
 export type QuestionOption = {
@@ -12,7 +16,6 @@ export type QuestionOption = {
   label: { en: string; he: string };
   icon?: string;
   image?: string;
-  /** When set, overrides the parent question's defaultNextId for this option. */
   nextQuestionId?: string;
 };
 
@@ -22,388 +25,269 @@ export type Question = {
   subtitle?: { en: string; he: string };
   type: 'single-choice' | 'city-select' | 'contact' | 'text-inputs';
   options?: QuestionOption[];
-  /** Default next question when no option-level override is present. */
   defaultNextId?: string;
 };
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Challenge quiz — 13 entries (11 logical steps, Q3 has 3 branching variants)
-// ─────────────────────────────────────────────────────────────────────────────
-
 export const challengeQuestions: Question[] = [
-  // ── Q1: City Selection ───────────────────────────────────────────────────
+  // ── Q1: Superpower (Identity warm-up — instant engagement) ──────────────
   {
-    id: 'city',
-    type: 'city-select',
+    id: 'superpower',
+    type: 'single-choice',
     text: {
-      en: 'Where would you like to practice?',
-      he: '?איפה היית רוצה להתאמן',
+      en: 'If you could have one superpower — what would it be?',
+      he: 'אם היית יכול/ה לבחור כוח-על אחד — מה זה היה?',
+    },
+    subtitle: {
+      en: "No wrong answers — we just want to get to know you",
+      he: 'אין תשובה לא נכונה — רוצים להכיר אתכם',
     },
     options: [
-      {
-        id: 'tel-aviv',
-        label: { en: 'Tel Aviv', he: 'תל אביב' },
-        icon: '🌊',
-      },
-      {
-        id: 'kfar-saba',
-        label: { en: 'Kfar Saba', he: 'כפר סבא' },
-        icon: '🌳',
-      },
+      { id: 'fly', label: { en: 'Flying', he: 'לעוף' } },
+      { id: 'strength', label: { en: 'Super strength', he: 'כוח-על' } },
+      { id: 'balance', label: { en: 'Perfect balance', he: 'איזון מושלם' } },
+      { id: 'read-people', label: { en: 'Reading people', he: 'לקרוא אנשים' } },
+    ],
+    defaultNextId: 'movie-role',
+  },
+
+  // ── Q2: Movie Role (Scenario — continues playful vibe) ──────────────────
+  {
+    id: 'movie-role',
+    type: 'single-choice',
+    text: {
+      en: 'In an action movie — you are...',
+      he: 'בסרט פעולה — את/ה...',
+    },
+    subtitle: {
+      en: 'In acroyoga there are roles too — let\'s find yours',
+      he: 'גם באקרויוגה יש תפקידים — בואו נגלה את שלכם',
+    },
+    options: [
+      { id: 'action', label: { en: 'First to jump into action', he: 'קופצים ראשונים לפעולה' } },
+      { id: 'planner', label: { en: 'Calm everyone down and plan', he: 'מרגיעים את כולם ומתכננים' } },
+      { id: 'stunts', label: { en: 'Doing the stunts', he: 'עושים את הפעלולים' } },
+      { id: 'caretaker', label: { en: 'Making sure everyone is OK', he: 'דואגים שכולם בסדר' } },
     ],
     defaultNextId: 'experience',
   },
 
-  // ── Q2: Experience Level (branches to 3 different Q3 variants) ────────────
+  // ── Q3: Experience (Segmentation + DQ for instructors) ──────────────────
   {
     id: 'experience',
     type: 'single-choice',
     text: {
-      en: "What's your experience with acroyoga?",
-      he: '?מה הניסיון שלך באקרויוגה',
+      en: "What's your acroyoga experience?",
+      he: 'מה הניסיון שלכם באקרויוגה?',
+    },
+    subtitle: {
+      en: "Most of our participants start from zero — you're in good company",
+      he: 'רוב המשתתפים שלנו מתחילים מאפס — אתם בחברה טובה',
     },
     options: [
       {
         id: 'never',
-        label: { en: 'Never tried', he: 'מעולם לא ניסיתי' },
-        icon: '🌱',
-        nextQuestionId: 'beginner-barrier',
+        label: { en: 'Zero, starting from scratch', he: 'אפס, מתחילים מאפס' },
+        nextQuestionId: 'first-thought',
       },
+      { id: 'few-times', label: { en: 'Tried once or twice', he: 'ניסיתי פעם-פעמיים' } },
+      { id: 'sometimes', label: { en: 'Practice here and there', he: 'מתרגל/ת פה ושם' } },
+      // DISQUALIFY: instructors are over-qualified
       {
-        id: 'few-times',
-        label: { en: 'Tried a few times', he: 'ניסיתי כמה פעמים' },
-        icon: '🌿',
-        nextQuestionId: 'intermediate-goal',
-      },
-      {
-        id: 'regular',
-        label: { en: 'Regular practitioner', he: 'מתרגל/ת באופן קבוע' },
-        icon: '🌳',
-        nextQuestionId: 'advanced-goal',
+        id: 'instructor',
+        label: { en: 'Certified instructor', he: 'מדריך/ה מוסמך/ת' },
+        nextQuestionId: 'contact', // skip to contact for lead capture, DQ on results
       },
     ],
-    defaultNextId: 'beginner-barrier',
+    defaultNextId: 'city',
   },
 
-  // ── Q3a: Beginner Barrier (for experience=never) ─────────────────────────
+  // ── Q4: First Thought (Beginner fear capture — disguised as curiosity) ──
   {
-    id: 'beginner-barrier',
+    id: 'first-thought',
     type: 'single-choice',
     text: {
-      en: 'What holds you back from trying?',
-      he: '?מה מעכב אותך מלנסות',
+      en: 'What\'s the first thing that comes to mind when you think of acroyoga?',
+      he: 'מה הדבר הראשון שעולה לכם כשחושבים על אקרויוגה?',
+    },
+    subtitle: {
+      en: 'First impression — see how it changes after 30 days',
+      he: 'הרגשה ראשונה — תראו איך משתנה אחרי 30 יום',
     },
     options: [
-      {
-        id: 'fear-heights',
-        label: { en: 'Fear of heights/falling', he: 'פחד מגובה/נפילה' },
-        icon: '😰',
-      },
-      {
-        id: 'not-flexible',
-        label: { en: 'Not flexible enough', he: 'לא מספיק גמיש/ה' },
-        icon: '🤸',
-      },
-      {
-        id: 'need-partner',
-        label: { en: 'Need a partner', he: 'צריך/ה פרטנר' },
-        icon: '👥',
-      },
-      {
-        id: 'no-time',
-        label: { en: 'Not enough time', he: 'אין מספיק זמן' },
-        icon: '⏰',
-      },
+      { id: 'scary-cool', label: { en: 'Scary but cool', he: 'נראה מפחיד אבל מגניב' } },
+      { id: 'not-flexible', label: { en: "I'm not flexible enough", he: 'אני לא מספיק גמיש/ה' } },
+      { id: 'need-partner', label: { en: 'How do I find a partner?', he: 'איך מוצאים פרטנר?' } },
+      { id: 'fun', label: { en: 'Looks like insane fun', he: 'נראה כמו כיף מטורף' } },
+      // SOFT DQ: self-selector
+      { id: 'not-for-me', label: { en: 'Not for me, just looking', he: 'זה לא בשבילי, רק באתי לראות' } },
+    ],
+    defaultNextId: 'city',
+  },
+
+  // ── Q5: City (Geographic qualifier) ─────────────────────────────────────
+  {
+    id: 'city',
+    type: 'single-choice',
+    text: {
+      en: 'Where are you located?',
+      he: 'איפה אתם נמצאים?',
+    },
+    subtitle: {
+      en: 'We operate in Tel Aviv and Kfar Saba — more cities coming soon',
+      he: 'אנחנו פעילים בתל אביב וכפר סבא — עוד ערים בקרוב',
+    },
+    options: [
+      { id: 'tel-aviv', label: { en: 'Tel Aviv area', he: 'אזור תל אביב' } },
+      { id: 'kfar-saba', label: { en: 'Kfar Saba area', he: 'אזור כפר סבא' } },
+      // SOFT DQ: outside service area
+      { id: 'other', label: { en: 'Somewhere else', he: 'מקום אחר' } },
+    ],
+    defaultNextId: 'commitment',
+  },
+
+  // ── Q6: Commitment (Key qualifier) ──────────────────────────────────────
+  {
+    id: 'commitment',
+    type: 'single-choice',
+    text: {
+      en: 'How many times per week are you willing to invest?',
+      he: 'כמה פעמים בשבוע אתם מוכנים להשקיע?',
+    },
+    subtitle: {
+      en: 'The challenge includes 2-3 weekly sessions + 15 daily minutes at home',
+      he: 'האתגר כולל 2-3 מפגשים שבועיים + 15 דקות יומיות בבית',
+    },
+    options: [
+      { id: '3-plus', label: { en: '3+ times, I\'m all in', he: '3+ פעמים, אני אולאין' } },
+      { id: '2', label: { en: '2 times, realistic', he: '2 פעמים, ריאלי' } },
+      // SOFT DQ: undercommitted
+      { id: '1', label: { en: 'Once a week, more is hard', he: 'פעם בשבוע, יותר קשה לי' } },
+      // SOFT DQ: just browsing
+      { id: 'just-browsing', label: { en: 'Just exploring for now', he: 'אני רק מתעניין/ת כרגע' } },
+    ],
+    defaultNextId: 'dream-outcome',
+  },
+
+  // ── Q7: Dream Outcome (Aspirational — pressure release begins) ──────────
+  {
+    id: 'dream-outcome',
+    type: 'single-choice',
+    text: {
+      en: 'What would you most want to happen after 30 days?',
+      he: 'מה הייתם הכי רוצים שיקרה אחרי 30 יום?',
+    },
+    subtitle: {
+      en: "We'll measure this together",
+      he: 'אנחנו נמדוד את זה ביחד',
+    },
+    options: [
+      { id: 'skill', label: { en: 'Nail Bird and Throne poses', he: 'לעשות Bird ו-Throne בקלות' } },
+      { id: 'strong', label: { en: 'Feel strong and confident', he: 'להרגיש חזק/ה ובטוח/ה בגוף' } },
+      { id: 'friends', label: { en: 'Find regular practice partners', he: "למצוא חבר׳ה קבועים לתרגול" } },
+      // WARNING: low intent signal (not DQ, but reduces fit score)
+      { id: 'no-expectations', label: { en: 'No specific expectations', he: 'אין לי ציפיות ספציפיות' } },
+    ],
+    defaultNextId: 'biggest-fear',
+  },
+
+  // ── Q8: Biggest Fear (Direct fear capture — for ALL users) ──────────────
+  {
+    id: 'biggest-fear',
+    type: 'single-choice',
+    text: {
+      en: "Let's be honest — what scares you most about joining?",
+      he: 'בואו נהיה כנים — מה הכי מפחיד אתכם בלהצטרף?',
+    },
+    subtitle: {
+      en: 'Your fears are exactly what we specialize in solving',
+      he: 'נקודות הפחד שלכם הן בדיוק מה שאנחנו מתמחים בלפתור',
+    },
+    options: [
+      { id: 'not-good-enough', label: { en: "I won't be good enough", he: 'שלא אהיה מספיק טוב/ה' } },
+      { id: 'socially-awkward', label: { en: "It'll be socially awkward", he: 'שיהיה לי מביך עם אנשים זרים' } },
+      { id: 'injury', label: { en: "I'll get hurt", he: 'שאפגע' } },
+      { id: 'wont-commit', label: { en: "I won't stick with it", he: 'שלא אתמיד' } },
+      { id: 'ready', label: { en: "Nothing — let's go!", he: 'כלום — אני מוכן/ה, יאללה' } },
+    ],
+    defaultNextId: 'body-type',
+  },
+
+  // ── Q9: Body Type (Safety/suitability qualification) ────────────────────
+  {
+    id: 'body-type',
+    type: 'single-choice',
+    text: {
+      en: 'How would you describe your build?',
+      he: 'איך היית מתאר/ת את המבנה הגופני שלך?',
+    },
+    subtitle: {
+      en: 'Acroyoga involves partner work — we want to match the program to you',
+      he: 'אקרויוגה דורשת עבודה בזוגות — חשוב לנו להתאים את התכנית',
+    },
+    options: [
+      { id: 'slim-avg', label: { en: 'Slim / average', he: 'רזה / ממוצע' } },
+      { id: 'athletic', label: { en: 'Athletic / muscular', he: 'ספורטיבי / שרירי' } },
+      { id: 'slightly-over', label: { en: 'A bit above average', he: 'קצת מעל המשקל' } },
+      // SOFT DQ: safety concern
+      { id: 'significantly-over', label: { en: 'Significantly overweight', he: 'משקל עודף משמעותי' } },
     ],
     defaultNextId: 'fitness',
   },
 
-  // ── Q3b: Intermediate Goal (for experience=few-times) ────────────────────
-  {
-    id: 'intermediate-goal',
-    type: 'single-choice',
-    text: {
-      en: 'What do you want to develop most?',
-      he: '?מה הכי חשוב לך לפתח',
-    },
-    options: [
-      {
-        id: 'flying',
-        label: { en: 'Flying technique', he: 'טכניקת פלייר' },
-        icon: '🦅',
-      },
-      {
-        id: 'basing',
-        label: { en: 'Basing strength', he: 'כוח בייסינג' },
-        icon: '💪',
-      },
-      {
-        id: 'trust',
-        label: { en: 'Trust skills', he: 'מיומנויות אמון' },
-        icon: '🤝',
-      },
-      {
-        id: 'balance',
-        label: { en: 'Balance & transitions', he: 'איזון ומעברים' },
-        icon: '⚖️',
-      },
-    ],
-    defaultNextId: 'fitness',
-  },
-
-  // ── Q3c: Advanced Goal (for experience=regular) ──────────────────────────
-  {
-    id: 'advanced-goal',
-    type: 'single-choice',
-    text: {
-      en: "What's your main goal?",
-      he: '?מה המטרה העיקרית שלך',
-    },
-    options: [
-      {
-        id: 'level-up',
-        label: { en: 'Level up skills', he: 'לשדרג רמה' },
-        icon: '🚀',
-      },
-      {
-        id: 'find-partners',
-        label: { en: 'Find regular partners', he: 'למצוא פרטנרים קבועים' },
-        icon: '👥',
-      },
-      {
-        id: 'community',
-        label: { en: 'Join a community', he: 'להצטרף לקהילה' },
-        icon: '❤️',
-      },
-      {
-        id: 'teach',
-        label: { en: 'Learn to teach', he: 'ללמוד ללמד' },
-        icon: '🎓',
-      },
-    ],
-    defaultNextId: 'fitness',
-  },
-
-  // ── Q4: Fitness Background ────────────────────────────────────────────────
+  // ── Q10: Fitness Background (Archetype scoring) ─────────────────────────
   {
     id: 'fitness',
     type: 'single-choice',
     text: {
       en: "What's your fitness background?",
-      he: '?מה הרקע הספורטיבי שלך',
+      he: 'מה הרקע הספורטיבי שלכם?',
+    },
+    subtitle: {
+      en: 'Every background works — we adapt the intensity',
+      he: 'כל רקע מתאים — אנחנו מתאימים את העוצמה',
     },
     options: [
-      {
-        id: 'gym',
-        label: { en: 'Gym regular', he: 'חדר כושר קבוע' },
-        icon: '🏋️',
-      },
-      {
-        id: 'yoga',
-        label: { en: 'Yoga practitioner', he: 'מתרגל/ת יוגה' },
-        icon: '🧘',
-      },
-      {
-        id: 'none',
-        label: { en: 'No regular exercise', he: 'בלי פעילות קבועה' },
-        icon: '🛋️',
-      },
-      {
-        id: 'team-sports',
-        label: { en: 'Team sports', he: 'ספורט קבוצתי' },
-        icon: '⚽',
-      },
+      { id: 'gym', label: { en: 'Gym / CrossFit', he: 'חדר כושר / קרוספיט' } },
+      { id: 'yoga', label: { en: 'Yoga / Pilates', he: 'יוגה / פילאטיס' } },
+      { id: 'cardio', label: { en: 'Running / swimming / cycling', he: 'ריצה / שחייה / אופניים' } },
+      { id: 'team-sports', label: { en: 'Team sports', he: 'ספורט קבוצתי' } },
+      { id: 'none', label: { en: 'Nothing regular', he: 'בלי שום דבר קבוע' } },
     ],
-    defaultNextId: 'motivation',
+    defaultNextId: 'schedule',
   },
 
-  // ── Q5: Motivation ────────────────────────────────────────────────────────
+  // ── Q11: Schedule (Easy closer — ends on positive note) ─────────────────
   {
-    id: 'motivation',
+    id: 'schedule',
     type: 'single-choice',
     text: {
-      en: 'What motivates you most?',
-      he: '?מה הכי מניע אותך',
+      en: "When's best for you?",
+      he: 'מתי הכי נוח לכם?',
+    },
+    subtitle: {
+      en: "We have groups at all times — we'll find your perfect fit",
+      he: 'יש לנו קבוצות בכל הזמנים — נמצא לכם את המושלמת',
     },
     options: [
-      {
-        id: 'physical',
-        label: { en: 'Physical fitness', he: 'כושר גופני' },
-        icon: '💪',
-      },
-      {
-        id: 'social',
-        label: { en: 'Social connection', he: 'חיבור חברתי' },
-        icon: '🤗',
-      },
-      {
-        id: 'learning',
-        label: { en: 'Learning something new', he: 'ללמוד משהו חדש' },
-        icon: '🧠',
-      },
-      {
-        id: 'stress-relief',
-        label: { en: 'Stress relief', he: 'הפגת מתח' },
-        icon: '🌊',
-      },
-    ],
-    defaultNextId: 'training-time',
-  },
-
-  // ── Q6: Training Time ─────────────────────────────────────────────────────
-  {
-    id: 'training-time',
-    type: 'single-choice',
-    text: {
-      en: 'When do you prefer to train?',
-      he: '?מתי את/ה מעדיף/ה להתאמן',
-    },
-    options: [
-      {
-        id: 'morning',
-        label: { en: 'Morning', he: 'בוקר' },
-        icon: '🌅',
-      },
-      {
-        id: 'evening',
-        label: { en: 'Evening weekday', he: 'ערב באמצע השבוע' },
-        icon: '🌙',
-      },
-      {
-        id: 'weekend',
-        label: { en: 'Weekend', he: 'סוף שבוע' },
-        icon: '☀️',
-      },
-    ],
-    defaultNextId: 'partner',
-  },
-
-  // ── Q7: Partner ───────────────────────────────────────────────────────────
-  {
-    id: 'partner',
-    type: 'single-choice',
-    text: {
-      en: 'Do you have a training partner?',
-      he: '?יש לך פרטנר/ית לתרגול',
-    },
-    options: [
-      {
-        id: 'yes',
-        label: { en: 'Yes', he: 'כן' },
-        icon: '👫',
-      },
-      {
-        id: 'no',
-        label: { en: "No, I'll come alone", he: 'לא, אגיע לבד' },
-        icon: '🙋',
-      },
-    ],
-    defaultNextId: 'body-mind',
-  },
-
-  // ── Q8: Body-Mind Focus ───────────────────────────────────────────────────
-  {
-    id: 'body-mind',
-    type: 'single-choice',
-    text: {
-      en: "What's your body-mind focus?",
-      he: '?מה המיקוד שלך',
-    },
-    options: [
-      {
-        id: 'physical',
-        label: { en: 'Mostly physical', he: 'בעיקר פיזי' },
-        icon: '💪',
-      },
-      {
-        id: 'mental',
-        label: { en: 'Mostly mental/social', he: 'בעיקר מנטלי/חברתי' },
-        icon: '🧠',
-      },
-      {
-        id: 'balanced',
-        label: { en: 'Equal balance', he: 'איזון שווה' },
-        icon: '☯️',
-      },
-    ],
-    defaultNextId: 'challenge-style',
-  },
-
-  // ── Q9: Challenge Style ───────────────────────────────────────────────────
-  {
-    id: 'challenge-style',
-    type: 'single-choice',
-    text: {
-      en: 'How do you handle challenges?',
-      he: '?איך את/ה מתמודד/ת עם אתגרים',
-    },
-    options: [
-      {
-        id: 'push-through',
-        label: { en: 'Push through alone', he: 'דוחף/ת לבד' },
-        icon: '🔥',
-      },
-      {
-        id: 'encouragement',
-        label: { en: 'Need encouragement', he: 'צריך/ה עידוד' },
-        icon: '📣',
-      },
-      {
-        id: 'group-energy',
-        label: { en: 'Prefer group energy', he: 'מעדיף/ה אנרגיה קבוצתית' },
-        icon: '👥',
-      },
-      {
-        id: 'slow',
-        label: { en: 'Take it slow', he: 'לוקח/ת את זה לאט' },
-        icon: '🐢',
-      },
-    ],
-    defaultNextId: 'desired-result',
-  },
-
-  // ── Q10: Desired Result ───────────────────────────────────────────────────
-  {
-    id: 'desired-result',
-    type: 'single-choice',
-    text: {
-      en: 'What result matters most after 30 days?',
-      he: '?מה התוצאה הכי חשובה אחרי 30 יום',
-    },
-    options: [
-      {
-        id: 'strength',
-        label: { en: 'Visible strength gain', he: 'עלייה בכוח' },
-        icon: '💪',
-      },
-      {
-        id: 'skill',
-        label: { en: 'Acro skill milestone', he: 'אבן דרך באקרו' },
-        icon: '🏆',
-      },
-      {
-        id: 'friends',
-        label: { en: 'New friendships', he: 'חברויות חדשות' },
-        icon: '❤️',
-      },
-      {
-        id: 'wellbeing',
-        label: { en: 'Overall wellbeing', he: 'רווחה כללית' },
-        icon: '✨',
-      },
+      { id: 'morning', label: { en: 'Morning', he: 'בוקר' } },
+      { id: 'evening', label: { en: 'Weekday evening', he: 'ערב אמצע שבוע' } },
+      { id: 'weekend', label: { en: 'Weekend', he: 'סוף שבוע' } },
+      { id: 'flexible', label: { en: 'Flexible', he: 'גמיש/ה' } },
     ],
     defaultNextId: 'contact',
   },
 
-  // ── Q11: Contact Info (final step) ───────────────────────────────────────
+  // ── Q12: Contact Info (Pre-result gate) ─────────────────────────────────
   {
     id: 'contact',
     type: 'contact',
     text: {
-      en: 'Almost there! Enter your details to see your results',
-      he: '!כמעט שם! הכניסו פרטים כדי לראות את התוצאות',
+      en: 'Your acro profile is ready — just one more second',
+      he: 'הפרופיל האקרו שלכם מוכן — רק עוד שנייה',
     },
-    // No options — rendered by QuizContactStep component
-    // No defaultNextId — this is the terminal step
+    subtitle: {
+      en: "Enter your details to discover your type. We won't spam you.",
+      he: 'השאירו פרטים כדי לגלות את הסוג שלכם. לא נשלח ספאם.',
+    },
   },
 ];

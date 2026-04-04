@@ -1,9 +1,10 @@
 /**
- * Quiz result calculator.
+ * Quiz result calculator — redesigned for new gamified quiz flow.
  *
- * Maps a set of quiz answers to one of 4 acroyoga community archetypes and
- * returns the full result payload including radar chart data, personalized
- * fear-addressing, and strength highlights.
+ * Maps quiz answers to:
+ * 1. One of 4 archetypes (explorer/athlete/connector/artist)
+ * 2. A fit score (0-100) for qualification/disqualification
+ * 3. Personalized fear disarms based on captured fears
  */
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -53,11 +54,11 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
     name: { en: 'The Explorer', he: 'החוקר' },
     tagline: {
       en: 'Curiosity is your superpower',
-      he: 'הסקרנות היא על-כוח שלך',
+      he: 'הסקרנות היא הכוח-על שלך',
     },
     description: {
-      en: "You approach acroyoga with fresh eyes and an open mind. Your willingness to try new things means you'll progress faster than you think — and inspire everyone around you.",
-      he: 'את/ה ניגש/ת לאקרויוגה עם עיניים טריות ומוח פתוח. הנכונות שלך לנסות דברים חדשים אומרת שתתקדם/י מהר יותר ממה שאת/ה חושב/ת — ותהיה/י מקור השראה לכולם.',
+      en: "You approach acroyoga with fresh eyes and an open mind. Your willingness to try new things is your greatest asset — and in acroyoga, that's everything. You'll progress faster than you think.",
+      he: 'את/ה ניגש/ת לאקרויוגה עם עיניים פקוחות ומוח פתוח. הנכונות שלך לנסות דברים חדשים היא הנכס הגדול שלך — ובאקרויוגה, זה הכל. תתקדמו מהר יותר ממה שאתם חושבים.',
     },
     radarData: buildRadar(
       [25, 30, 20, 35, 20],
@@ -65,17 +66,13 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
     ),
     fears: [
       {
-        en: "You don't need any experience — 80% start as complete beginners",
-        he: 'לא צריך ניסיון — 80% מתחילים כמתחילים מוחלטים',
-      },
-      {
-        en: "We pair everyone up — no partner needed",
-        he: 'אנחנו מזווגים את כולם — לא צריך פרטנר',
+        en: "You don't need any experience — 80% of participants start as complete beginners",
+        he: 'לא צריך שום ניסיון — 80% מהמשתתפים מתחילים מאפס מוחלט',
       },
     ],
     strengths: [
       { en: 'Curiosity and openness', he: 'סקרנות ופתיחות' },
-      { en: 'Fresh perspective', he: 'פרספקטיבה רעננה' },
+      { en: 'Fresh perspective', he: 'נקודת מבט טרייה' },
     ],
   },
 
@@ -87,8 +84,8 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
       he: 'הגוף שלך מוכן — המוח יבוא אחריו',
     },
     description: {
-      en: "Your physical foundation gives you a head start that most people spend months building. Acroyoga will challenge your body in completely new ways — and your competitive edge will shine.",
-      he: 'הבסיס הפיזי שלך נותן לך יתרון שרוב האנשים מבלים חודשים לבנות. אקרויוגה תאתגר את הגוף שלך בדרכים חדשות לחלוטין — והיתרון התחרותי שלך יזהיר.',
+      en: "Your physical foundation gives you a head start in acroyoga. You'll discover completely new ways to use your strength — and your competitive edge will shine in ways you never expected.",
+      he: 'הבסיס הגופני שלך נותן לך יתרון מוקדם באקרויוגה. תגלו דרכים חדשות לגמרי להשתמש בכוח שלכם — והיתרון התחרותי שלכם יזרח בדרכים שלא ציפיתם.',
     },
     radarData: buildRadar(
       [65, 40, 25, 30, 45],
@@ -96,12 +93,12 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
     ),
     fears: [
       {
-        en: "Acroyoga builds functional strength no gym can match",
+        en: 'Acroyoga builds functional strength no gym can match',
         he: 'אקרויוגה בונה כוח פונקציונלי שאף חדר כושר לא יכול להתחרות בו',
       },
     ],
     strengths: [
-      { en: 'Physical foundation', he: 'בסיס פיזי' },
+      { en: 'Physical foundation', he: 'בסיס גופני' },
       { en: 'Mental toughness', he: 'חוסן מנטלי' },
     ],
   },
@@ -114,8 +111,8 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
       he: 'לאן שאת/ה הולך/ת, קהילה עוקבת',
     },
     description: {
-      en: "Acroyoga is fundamentally a partner practice — and your natural ability to build trust and connection is your greatest asset. You'll find your tribe faster than anyone.",
-      he: 'אקרויוגה היא בסופו של דבר תרגול עם פרטנר — ויכולת הטבעית שלך לבנות אמון וחיבור היא הנכס הגדול ביותר שלך. תמצא/י את השבט שלך מהר יותר מכולם.',
+      en: "Your natural ability to build trust and connection is your greatest asset in acroyoga. You'll find your tribe faster than anyone — and become the person everyone wants to practice with.",
+      he: 'היכולת הטבעית שלך לבנות אמון וחיבור היא הנכס הגדול שלך באקרויוגה. תמצאו את השבט שלכם מהר יותר מכולם — ותהפכו לאנשים שכולם רוצים להתאמן איתם.',
     },
     radarData: buildRadar(
       [30, 35, 55, 40, 30],
@@ -124,7 +121,7 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
     fears: [
       {
         en: "Our community is the warmest — no ego, no judgment",
-        he: 'הקהילה שלנו היא הכי חמה — בלי אגו, בלי שיפוטיות',
+        he: 'הקהילה שלנו היא החמה ביותר — בלי אגו, בלי שיפוטיות',
       },
     ],
     strengths: [
@@ -150,7 +147,7 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
     ),
     fears: [
       {
-        en: "Your movement background gives you a massive head start",
+        en: 'Your movement background gives you a massive head start',
         he: 'הרקע התנועתי שלך נותן לך יתרון עצום',
       },
     ],
@@ -163,7 +160,7 @@ const ARCHETYPES: Record<ResultArchetype['id'], ResultArchetype> = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Scoring
+// Archetype Scoring (adapted for new gamified question IDs)
 // ─────────────────────────────────────────────────────────────────────────────
 
 type ArchetypeId = ResultArchetype['id'];
@@ -176,33 +173,37 @@ function score(answers: Record<string, string>): Record<ArchetypeId, number> {
     artist: 0,
   };
 
-  // ── Explorer (החוקר) ──────────────────────────────────────────────────────
-  if (answers['experience'] === 'never') s.explorer += 3;
-  if (answers['motivation'] === 'learning') s.explorer += 2;
-  if (answers['challenge-style'] === 'slow') s.explorer += 1;
-  if (answers['desired-result'] === 'wellbeing') s.explorer += 1;
-  if (answers['body-mind'] === 'balanced') s.explorer += 1;
+  // ── Q1: Superpower ──
+  if (answers['superpower'] === 'fly') s.explorer += 3;
+  if (answers['superpower'] === 'strength') s.athlete += 3;
+  if (answers['superpower'] === 'balance') s.artist += 3;
+  if (answers['superpower'] === 'read-people') s.connector += 3;
 
-  // ── Athlete (הספורטאי) ────────────────────────────────────────────────────
-  if (answers['fitness'] === 'gym' || answers['fitness'] === 'team-sports') s.athlete += 3;
-  if (answers['motivation'] === 'physical') s.athlete += 2;
-  if (answers['body-mind'] === 'physical') s.athlete += 1;
-  if (answers['desired-result'] === 'strength') s.athlete += 1;
-  if (answers['challenge-style'] === 'push-through') s.athlete += 1;
+  // ── Q2: Movie Role ──
+  if (answers['movie-role'] === 'action') s.athlete += 2;
+  if (answers['movie-role'] === 'planner') s.explorer += 2;
+  if (answers['movie-role'] === 'stunts') s.artist += 2;
+  if (answers['movie-role'] === 'caretaker') s.connector += 2;
 
-  // ── Connector (המחבר) ─────────────────────────────────────────────────────
-  if (answers['motivation'] === 'social') s.connector += 3;
-  if (answers['desired-result'] === 'friends') s.connector += 2;
-  if (answers['challenge-style'] === 'group-energy') s.connector += 1;
-  if (answers['advanced-goal'] === 'community') s.connector += 1;
-  if (answers['partner'] === 'no') s.connector += 1;
+  // ── Q3: Experience ──
+  if (answers['experience'] === 'never') s.explorer += 2;
+  if (answers['experience'] === 'sometimes') s.artist += 1;
 
-  // ── Artist (האמן) ─────────────────────────────────────────────────────────
-  if (answers['fitness'] === 'yoga') s.artist += 3;
-  if (answers['experience'] === 'regular') s.artist += 2;
-  if (answers['body-mind'] === 'mental') s.artist += 1;
-  if (answers['intermediate-goal'] === 'balance') s.artist += 1;
-  if (answers['desired-result'] === 'skill') s.artist += 1;
+  // ── Q10: Fitness ──
+  if (answers['fitness'] === 'gym') s.athlete += 2;
+  if (answers['fitness'] === 'yoga') s.artist += 2;
+  if (answers['fitness'] === 'team-sports') s.connector += 1;
+  if (answers['fitness'] === 'none') s.explorer += 1;
+  if (answers['fitness'] === 'cardio') s.athlete += 1;
+
+  // ── Q7: Dream Outcome ──
+  if (answers['dream-outcome'] === 'skill') s.artist += 1;
+  if (answers['dream-outcome'] === 'strong') s.athlete += 1;
+  if (answers['dream-outcome'] === 'friends') s.connector += 2;
+  if (answers['dream-outcome'] === 'no-expectations') s.explorer += 1;
+
+  // ── Q8: Biggest Fear (confidence boost) ──
+  if (answers['biggest-fear'] === 'ready') s.athlete += 1;
 
   return s;
 }
@@ -228,13 +229,48 @@ function pickWinner(scores: Record<ArchetypeId, number>): ArchetypeId {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Fit Score (qualification/disqualification)
+// ─────────────────────────────────────────────────────────────────────────────
+
+export function calculateFitScore(answers: Record<string, string>): number {
+  let fit = 0;
+
+  // Commitment (most important signal)
+  if (answers['commitment'] === '3-plus') fit += 40;
+  else if (answers['commitment'] === '2') fit += 30;
+  else if (answers['commitment'] === '1') fit += 10;
+  else if (answers['commitment'] === 'just-browsing') fit += 0;
+
+  // Geographic (must be in service area)
+  if (answers['city'] === 'tel-aviv' || answers['city'] === 'kfar-saba') fit += 30;
+
+  // Experience (all levels welcome, but instructors = hard DQ handled elsewhere)
+  if (answers['experience'] && answers['experience'] !== 'instructor') fit += 15;
+
+  // Dream outcome (clear goal = higher intent)
+  if (answers['dream-outcome'] && answers['dream-outcome'] !== 'no-expectations') fit += 15;
+  else if (answers['dream-outcome'] === 'no-expectations') fit -= 10;
+
+  // Fear engagement (answering = invested)
+  if (answers['biggest-fear'] === 'ready') fit += 10;
+  else if (answers['biggest-fear']) fit += 5;
+
+  // Body type
+  if (answers['body-type'] === 'slim-avg' || answers['body-type'] === 'athletic') fit += 10;
+  else if (answers['body-type'] === 'slightly-over') fit += 5;
+  // significantly-over = 0 (soft DQ)
+
+  // Beginner first thought
+  if (answers['first-thought'] === 'not-for-me') fit -= 20;
+  else if (answers['first-thought']) fit += 5;
+
+  return Math.max(0, Math.min(100, fit));
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Public API
 // ─────────────────────────────────────────────────────────────────────────────
 
-/**
- * Calculate the result archetype for a given set of quiz answers.
- * Returns the full ResultArchetype object ready for the results page.
- */
 export function calculateResult(answers: Record<string, string>): ResultArchetype {
   const scores = score(answers);
   const winnerId = pickWinner(scores);
@@ -242,39 +278,77 @@ export function calculateResult(answers: Record<string, string>): ResultArchetyp
 }
 
 /**
- * Return additional fear-addressing messages personalised to specific answer
- * combinations — supplemental to the archetype's base fears array.
+ * Personalized fear disarms based on captured fears from Q4 and Q8.
+ * Each disarm includes concrete numbers and proof.
  */
 export function getPersonalizedFears(
   answers: Record<string, string>,
 ): Array<{ en: string; he: string }> {
   const extras: Array<{ en: string; he: string }> = [];
 
-  if (answers['partner'] === 'no') {
+  // ── From Q4: first-thought (beginners) ──
+  if (answers['first-thought'] === 'scary-cool') {
     extras.push({
-      en: "No partner needed — we pair everyone up",
-      he: 'לא צריך פרטנר — אנחנו מזווגים את כולם',
+      en: "We start 10cm off the ground. You go higher only when YOU feel ready. Zero injuries in 527 graduates.",
+      he: 'מתחילים 10 ס״מ מהרצפה. עולים רק כשאתם מרגישים מוכנים. 0 פציעות ב-527 בוגרים.',
     });
   }
 
-  if (answers['beginner-barrier'] === 'fear-heights') {
+  if (answers['first-thought'] === 'not-flexible') {
     extras.push({
-      en: "We start low to the ground — you'll feel safe from the first moment",
-      he: 'מתחילים נמוך — תרגישו בטוחים מהרגע הראשון',
+      en: "80% of our participants couldn't touch their toes on day 1. By day 30 — full Bird pose.",
+      he: '80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא.',
     });
   }
 
-  if (answers['beginner-barrier'] === 'not-flexible') {
+  if (answers['first-thought'] === 'need-partner') {
     extras.push({
-      en: "Flexibility comes with practice — our students gain it naturally",
-      he: 'גמישות מגיעה עם תרגול — התלמידים שלנו מפתחים אותה בטבעיות',
+      en: "60% come alone. In every session you rotate and work with everyone. You'll find partners on day 1.",
+      he: '60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום הראשון.',
     });
   }
 
+  // ── From Q8: biggest-fear (everyone) ──
+  if (answers['biggest-fear'] === 'not-good-enough') {
+    extras.push({
+      en: 'There is no "good enough." There\'s "beginner" and "progressing" — and both have room to grow.',
+      he: 'אין ״מספיק טוב״. יש ״מתחיל״ ו״מתקדם״ — ובשניהם יש מקום לצמוח.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'socially-awkward') {
+    extras.push({
+      en: "The warmest community in Israel. People arrive shy and leave with friends. We've seen it 527 times.",
+      he: 'הקהילה הכי חמה בישראל. אנשים מגיעים ביישנות ויוצאים עם חברים. ראינו את זה 527 פעמים.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'injury') {
+    extras.push({
+      en: "Zero injuries in 527 graduates. Professional spotters at every exercise. Instructor by your side.",
+      he: '0 פציעות ב-527 בוגרים. ספוטרים מקצועיים בכל תרגיל. מדריך צמוד.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'wont-commit') {
+    extras.push({
+      en: "96% completion rate. Built-in flexibility — you can make up days. The group keeps you going.",
+      he: '96% שיעור סיום. גמישות מובנית — אפשר להשלים ימים. הקבוצה שומרת עליכם.',
+    });
+  }
+
+  // ── General extras based on other answers ──
   if (answers['city'] === 'kfar-saba') {
     extras.push({
-      en: "Yes, we have classes in Kfar Saba too!",
-      he: '!כן, יש לנו שיעורים גם בכפר סבא',
+      en: 'Yes, we have classes in Kfar Saba too!',
+      he: 'כן, יש לנו שיעורים גם בכפר סבא!',
+    });
+  }
+
+  if (answers['body-type'] === 'slightly-over') {
+    extras.push({
+      en: "The challenge fits all body types. We may adapt some exercises — and you'll be surprised how fast the body adjusts.",
+      he: 'האתגר מתאים לכל מבנה גוף. ייתכן שנתאים חלק מהתרגילים — ותופתעו כמה הגוף מסתגל.',
     });
   }
 
