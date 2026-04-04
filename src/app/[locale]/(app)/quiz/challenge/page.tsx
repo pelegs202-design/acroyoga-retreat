@@ -8,18 +8,13 @@ import type { QuizState } from "@/components/quiz/QuizEngine";
 import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
+import { formatNextMonday } from "@/lib/date-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
 // ─────────────────────────────────────────────────────────────────────────────
 
-function getNextMonday(): string {
-  const d = new Date();
-  const day = d.getDay();
-  const diff = day === 0 ? 1 : 8 - day;
-  d.setDate(d.getDate() + diff);
-  return d.toLocaleDateString("he-IL", { day: "numeric", month: "long" });
-}
+// nextMondayStr logic in @/lib/date-utils
 
 const BENEFITS = [
   {
@@ -89,7 +84,7 @@ const FAQ = [
 
 function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: string }) {
   const he = locale === "he";
-  const nextMonday = getNextMonday();
+  const nextMondayStr = formatNextMonday(locale);
   const mountTime = useRef(Date.now());
   const scrollMilestones = useRef(new Set<number>());
 
@@ -97,14 +92,20 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   useEffect(() => {
     trackLandingView();
 
+    let ticking = false;
     const handleScroll = () => {
-      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
-      for (const milestone of [25, 50, 75, 100]) {
-        if (pct >= milestone && !scrollMilestones.current.has(milestone)) {
-          scrollMilestones.current.add(milestone);
-          trackScrollDepth(milestone);
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+        for (const milestone of [25, 50, 75, 100]) {
+          if (pct >= milestone && !scrollMilestones.current.has(milestone)) {
+            scrollMilestones.current.add(milestone);
+            trackScrollDepth(milestone);
+          }
         }
-      }
+        ticking = false;
+      });
     };
 
     const handleUnload = () => {
@@ -193,7 +194,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             { value: "527", label: he ? "בוגרים" : "Graduates" },
             { value: "96%", label: he ? "שיעור סיום" : "Completion" },
             { value: "4.9", label: he ? "דירוג" : "Rating" },
-            { value: nextMonday, label: he ? "קבוצה הבאה" : "Next Cohort" },
+            { value: nextMondayStr, label: he ? "קבוצה הבאה" : "Next Cohort" },
           ].map((stat, i) => (
             <div key={i} className={`py-6 md:py-0 ${i > 0 ? "border-s-2 border-neutral-800" : ""}`}>
               <div className="text-4xl md:text-5xl font-black text-brand mb-2">{stat.value}</div>
@@ -479,7 +480,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-start">
             <p className="text-white font-black text-lg">
-              {he ? `הקבוצה הבאה מתחילה ${nextMonday}` : `Next cohort starts ${nextMonday}`}
+              {he ? `הקבוצה הבאה מתחילה ${nextMondayStr}` : `Next cohort starts ${nextMondayStr}`}
             </p>
             <p className="text-brand font-bold text-sm">
               {he ? "8 מקומות נותרו" : "8 spots remaining"}

@@ -214,16 +214,19 @@ export default function QuizEngine({
     }
   }, [state, storageKey]);
 
-  // Track quiz abandonment on page unload
+  // Track quiz abandonment on page unload (ref avoids listener churn per question)
+  const stateRef = useRef(state);
+  stateRef.current = state;
   useEffect(() => {
     const handleUnload = () => {
-      if (state.sessionId && state.currentQuestionId !== "contact") {
-        trackQuizAbandoned(quizType, state.currentQuestionId, state.sessionId);
+      const { sessionId, currentQuestionId } = stateRef.current;
+      if (sessionId && currentQuestionId !== "contact") {
+        trackQuizAbandoned(quizType, currentQuestionId, sessionId);
       }
     };
     window.addEventListener("beforeunload", handleUnload);
     return () => window.removeEventListener("beforeunload", handleUnload);
-  }, [state.sessionId, state.currentQuestionId, quizType]);
+  }, [quizType]);
 
   const currentQuestion = questions.find((q) => q.id === state.currentQuestionId);
 

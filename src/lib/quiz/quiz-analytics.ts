@@ -86,10 +86,25 @@ export function trackCheckoutAbandoned(sessionId: string, timeSpentSeconds: numb
   f("CheckoutAbandoned", { session_id: sessionId, time_spent: timeSpentSeconds });
 }
 
+// ─── Purchase ─────────────────────────────────────────────────────────────────
+
+export function trackPurchase(sessionId: string): void {
+  if (typeof window === "undefined") return;
+  const key = `purchase_tracked_${sessionId}`;
+  if (sessionStorage.getItem(key)) return;
+  sessionStorage.setItem(key, "1");
+  g("purchase", { value: 1, currency: "ILS", transaction_id: sessionId });
+  f("Purchase", { value: 1, currency: "ILS" }, true);
+}
+
 // ─── Time Tracking ────────────────────────────────────────────────────────────
 
 export function trackTimeOnPage(page: string, seconds: number): void {
-  if (seconds < 2) return; // ignore bounces
+  if (seconds < 2) return;
   g("time_on_page", { page, seconds });
   f("TimeOnPage", { page, seconds });
 }
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+export const SOFT_DQ_THRESHOLD = 40;

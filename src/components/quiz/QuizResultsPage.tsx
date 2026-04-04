@@ -6,7 +6,8 @@ import QuizRadarChart from "./QuizRadarChart";
 import { useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
-import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
+import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
+import { nextMonday } from "@/lib/date-utils";
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -140,7 +141,7 @@ export default function QuizResultsPage({
   // Track results view + soft DQ + time on page
   useEffect(() => {
     trackResultsView(result.id, fitScore);
-    if (fitScore < 40) trackSoftDQ("low_fit_score", fitScore);
+    if (fitScore < SOFT_DQ_THRESHOLD) trackSoftDQ("low_fit_score", fitScore);
 
     const handleUnload = () => {
       trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
@@ -149,15 +150,7 @@ export default function QuizResultsPage({
     return () => window.removeEventListener("beforeunload", handleUnload);
   }, [result.id, fitScore]);
 
-  // Calculate next Monday for cohort start date
-  const nextMondayDate = (() => {
-    const d = new Date();
-    const day = d.getDay();
-    const daysUntilMonday = day === 1 ? 7 : (8 - day) % 7 || 7;
-    d.setDate(d.getDate() + daysUntilMonday);
-    return d;
-  })();
-
+  const nextMondayDate = nextMonday();
   const formattedStartDate = isHe
     ? nextMondayDate.toLocaleDateString("he-IL", { day: "numeric", month: "long", year: "numeric" })
     : nextMondayDate.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
@@ -281,7 +274,7 @@ export default function QuizResultsPage({
 
       {/* 6. Price CTA or Soft Disqualification */}
       <ScrollReveal delay={0.1}>
-        {fitScore < 40 ? (
+        {fitScore < SOFT_DQ_THRESHOLD ? (
           /* ── Soft DQ: not a good fit ── */
           <section className="rounded-2xl border border-neutral-700 bg-neutral-900 p-6 text-center">
             <h2 className="text-2xl font-black text-white mb-2">

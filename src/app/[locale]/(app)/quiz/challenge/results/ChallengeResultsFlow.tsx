@@ -59,7 +59,7 @@ export default function ChallengeResultsFlow({
           lead: data.lead,
           result: data.result,
           personalizedFears: data.personalizedFears,
-          fitScore: (data as ResultPayload & { fitScore?: number }).fitScore,
+          fitScore: data.fitScore,
         };
         setPayload(resultPayload);
         // Cache for future visits
