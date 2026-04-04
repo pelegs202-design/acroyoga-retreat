@@ -1,0 +1,575 @@
+<!--
+  AcroHavura Homepage — Brutalist Design Reference
+  Generated: 2026-04-04 (Stitch MCP unavailable — design spec created manually per /frontend-design skill)
+
+  RTL NOTE: This file uses LTR HTML structure. All executors MUST adapt to RTL:
+  - Flip flex directions: flex-row → flex-row-reverse where content flows right-to-left
+  - Text alignment: text-left → text-right for Hebrew content
+  - Use logical CSS properties: padding-inline-start/end instead of left/right
+  - dir="rtl" is set on the root <html> element in Next.js layout
+
+  Brand tokens:
+  - Background: #0a0a0a
+  - Hot pink: #F472B6
+  - Pink muted: #DB2777
+  - Foreground: #ededed
+  - Font: Heebo 900 (bold weight for headings), 400/500 for body
+  - Brutalist aesthetic: raw edges, thick borders, asymmetric layouts, bold type
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcroHavura — Homepage Design Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0a;
+      color: #ededed;
+      font-family: 'Heebo', sans-serif;
+      direction: rtl;
+    }
+
+    /* =========================================
+       SECTION 1: HERO
+       Full-height hero. Dark background with pink diagonal accent line.
+       Parallax background layer: abstract acro silhouette at 40% speed.
+       Bold headline text — asymmetric positioning (60/40 split).
+    ========================================= */
+    .hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 0 8vw;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0a0a0a 55%, #1a0a14 100%);
+      z-index: 0;
+    }
+    /* Brutalist accent: diagonal pink line */
+    .hero-accent {
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: #F472B6;
+      transform: rotate(4deg) translateX(120px);
+      transform-origin: top;
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+    }
+    .hero-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #F472B6;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #F472B6;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+    .hero-h1 {
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: #ededed;
+      margin-bottom: 28px;
+    }
+    .hero-h1 span {
+      color: #F472B6;
+      display: block;
+    }
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 400;
+      color: rgba(237, 237, 237, 0.7);
+      max-width: 480px;
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .btn-primary {
+      background: #F472B6;
+      color: #0a0a0a;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 16px 40px;
+      border: 2px solid #F472B6;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      /* NO border-radius — brutalist */
+      transition: transform 100ms ease-in, background 150ms ease;
+    }
+    .btn-primary:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.05); }
+    .btn-primary:active { transform: scale(0.95); }
+    .btn-secondary {
+      background: transparent;
+      color: #ededed;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 32px;
+      border: 2px solid #ededed;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: border-color 150ms ease, color 150ms ease, transform 100ms ease-in;
+    }
+    .btn-secondary:hover { border-color: #F472B6; color: #F472B6; transform: scale(1.05); }
+    .btn-secondary:active { transform: scale(0.95); }
+    /* Scroll indicator */
+    .hero-scroll {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-scroll span {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,0.4);
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, #F472B6, transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+
+    /* =========================================
+       SECTION 2: SOCIAL PROOF / STATS
+       3 brutalist stat blocks. Raw numbers, bold.
+       Thick left border accent per stat.
+    ========================================= */
+    .stats-section {
+      padding: 80px 8vw;
+      border-top: 1px solid rgba(244,114,182,0.2);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(244,114,182,0.08);
+    }
+    .stat-block {
+      padding: 48px 32px;
+      background: #0a0a0a;
+      border-left: 3px solid #F472B6;
+    }
+    .stat-number {
+      font-size: clamp(48px, 6vw, 72px);
+      font-weight: 900;
+      color: #F472B6;
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(237,237,237,0.6);
+      margin-top: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    /* =========================================
+       SECTION 3: HORIZONTAL SCROLL STRIP
+       (Desktop only — mobile shows vertical stack)
+       5 cards scrolling horizontally via sticky container.
+       Each card: 80vw wide, heavy border, brutalist type.
+    ========================================= */
+    .horizontal-scroll-label {
+      padding: 64px 8vw 24px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,0.4);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .horizontal-scroll-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(237,237,237,0.1);
+    }
+    /* Horizontal scroll outer (static mockup) */
+    .horizontal-scroll-outer {
+      padding: 0 8vw 80px;
+      overflow-x: auto;
+    }
+    .horizontal-scroll-track {
+      display: flex;
+      gap: 24px;
+      width: max-content;
+    }
+    .h-card {
+      width: 60vw;
+      min-width: 320px;
+      max-width: 600px;
+      min-height: 400px;
+      border: 2px solid rgba(244,114,182,0.3);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .h-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 0 1px #F472B6, 0 20px 40px rgba(244,114,182,0.2);
+    }
+    .h-card-number {
+      font-size: 120px;
+      font-weight: 900;
+      color: rgba(244,114,182,0.08);
+      position: absolute;
+      top: -20px;
+      right: 24px;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .h-card-title {
+      font-size: 36px;
+      font-weight: 900;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+    .h-card-desc {
+      font-size: 16px;
+      color: rgba(237,237,237,0.6);
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    .h-card-arrow {
+      font-size: 24px;
+      color: #F472B6;
+      align-self: flex-end;
+    }
+
+    /* =========================================
+       SECTION 4: FEATURES / HOW IT WORKS
+       Reveal-on-scroll alternating layout.
+       Thick asymmetric borders, numbered steps.
+    ========================================= */
+    .features-section {
+      padding: 80px 8vw;
+    }
+    .features-heading {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      margin-bottom: 64px;
+      line-height: 1;
+    }
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(237,237,237,0.08);
+    }
+    .feature-number {
+      font-size: 72px;
+      font-weight: 900;
+      color: rgba(244,114,182,0.15);
+      line-height: 1;
+    }
+    .feature-content { padding-top: 16px; }
+    .feature-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: #ededed;
+      margin-bottom: 12px;
+    }
+    .feature-desc {
+      font-size: 16px;
+      color: rgba(237,237,237,0.6);
+      line-height: 1.6;
+    }
+
+    /* =========================================
+       SECTION 5: CITY CTA BLOCKS
+       City cards with local count, bold border, hover glow.
+    ========================================= */
+    .cities-section {
+      padding: 80px 8vw;
+      background: rgba(244,114,182,0.03);
+      border-top: 1px solid rgba(244,114,182,0.15);
+    }
+    .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .city-card {
+      padding: 64px 48px;
+      border: 1px solid rgba(244,114,182,0.2);
+      cursor: pointer;
+      transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+    }
+    .city-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 0 1px #F472B6, 0 20px 40px rgba(244,114,182,0.2);
+      background: rgba(244,114,182,0.05);
+    }
+    .city-name {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 12px;
+    }
+    .city-meta {
+      font-size: 14px;
+      color: #F472B6;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+
+    /* =========================================
+       SECTION 6: TESTIMONIALS / SOCIAL PROOF
+       Dark quote blocks. Staggered layout. Pink left border.
+    ========================================= */
+    .testimonials-section {
+      padding: 80px 8vw;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .testimonial {
+      padding: 40px;
+      border: 1px solid rgba(237,237,237,0.08);
+      border-left: 3px solid #F472B6;
+    }
+    .testimonial-quote {
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(237,237,237,0.85);
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial-author {
+      font-size: 13px;
+      font-weight: 700;
+      color: #F472B6;
+      letter-spacing: 0.1em;
+    }
+
+    /* =========================================
+       SECTION 7: FINAL CTA
+       Full-width dark block. Pink headline + CTA row.
+    ========================================= */
+    .final-cta {
+      padding: 120px 8vw;
+      text-align: center;
+      border-top: 1px solid rgba(244,114,182,0.2);
+    }
+    .final-cta-h2 {
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 900;
+      margin-bottom: 32px;
+      line-height: 1;
+    }
+    .final-cta-h2 span { color: #F472B6; }
+    .final-cta-sub {
+      font-size: 18px;
+      color: rgba(237,237,237,0.6);
+      margin-bottom: 48px;
+    }
+
+    /* LAYOUT NOTES FOR EXECUTORS:
+       - Hero h1 is 2 lines in Hebrew: line 1 = "מצא שותף" line 2 = "לאקרויוגה"
+       - Stats section numbers: 500+ (partners), 12 (cities), 4.8 (avg rating)
+       - Horizontal scroll cards content: Community, Flyers, Trust, Cities, Sessions
+       - Features 3 steps: 1=Create Profile, 2=Find Partner, 3=Show Up
+       - City cards: Tel Aviv, Kfar Saba (expandable to more)
+       - All transitions: transform 200ms ease, box-shadow 200ms ease (card-hover class)
+       - Button press: scale(0.95) on active, scale(1.05) on hover (btn-press class)
+       - Custom scrollbar: 6px wide, track #1a1a1a, thumb #F472B6, hover #DB2777
+    */
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-accent"></div>
+    <div class="hero-content">
+      <span class="hero-label">AcroHavura · אקרו-חברה</span>
+      <h1 class="hero-h1">
+        מצא שותף
+        <span>לאקרויוגה</span>
+      </h1>
+      <p class="hero-subtitle">
+        חבר עם שותפים לפי רמה, תפקיד ומיקום. בוא לאימון.
+      </p>
+      <div class="hero-cta-row">
+        <a href="#" class="btn-primary">הצטרף עכשיו</a>
+        <a href="#" class="btn-secondary">גלה ג׳אמים</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>גלול</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- STATS SECTION -->
+  <section class="stats-section">
+    <div class="stat-block">
+      <span class="stat-number">500+</span>
+      <span class="stat-label">שותפים פעילים</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-number">12</span>
+      <span class="stat-label">ערים ברחבי ישראל</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-number">4.8★</span>
+      <span class="stat-label">דירוג ממוצע</span>
+    </div>
+  </section>
+
+  <!-- HORIZONTAL SCROLL LABEL -->
+  <div class="horizontal-scroll-label">מה תמצאו כאן</div>
+
+  <!-- HORIZONTAL SCROLL TRACK (desktop = sticky; mobile = vertical stack) -->
+  <div class="horizontal-scroll-outer">
+    <div class="horizontal-scroll-track">
+      <div class="h-card">
+        <span class="h-card-number">01</span>
+        <h3 class="h-card-title">קהילה אמיתית</h3>
+        <p class="h-card-desc">מאות מתרגלים. ערים ברחבי ישראל. קהילה שמחכה לך.</p>
+        <span class="h-card-arrow">←</span>
+      </div>
+      <div class="h-card">
+        <span class="h-card-number">02</span>
+        <h3 class="h-card-title">בייסים ופלאיירים</h3>
+        <p class="h-card-desc">סנן לפי תפקיד ורמה. מצא בדיוק את מה שאתה מחפש.</p>
+        <span class="h-card-arrow">←</span>
+      </div>
+      <div class="h-card">
+        <span class="h-card-number">03</span>
+        <h3 class="h-card-title">אמון ובטיחות</h3>
+        <p class="h-card-desc">פרופילים מאומתים. ביקורות אמיתיות. תרגלו בביטחון.</p>
+        <span class="h-card-arrow">←</span>
+      </div>
+      <div class="h-card">
+        <span class="h-card-number">04</span>
+        <h3 class="h-card-title">ג׳אמים מקומיים</h3>
+        <p class="h-card-desc">לוח אירועים עם ג׳אמים בעירך. בוא לאימון.</p>
+        <span class="h-card-arrow">←</span>
+      </div>
+      <div class="h-card">
+        <span class="h-card-number">05</span>
+        <h3 class="h-card-title">בוא כפי שאתה</h3>
+        <p class="h-card-desc">מתחיל עד מתקדם. כולם מתחילים מאיפשהו.</p>
+        <span class="h-card-arrow">←</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES SECTION -->
+  <section class="features-section">
+    <h2 class="features-heading">איך זה עובד</h2>
+    <div class="feature-row">
+      <div class="feature-number">01</div>
+      <div class="feature-content">
+        <h3 class="feature-title">צור פרופיל</h3>
+        <p class="feature-desc">הוסף רמה, תפקיד, עיר ותמונה. תן לשותפים לדעת מי אתה.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-number">02</div>
+      <div class="feature-content">
+        <h3 class="feature-title">מצא שותף</h3>
+        <p class="feature-desc">סנן לפי עיר, רמה ותפקיד. בוא לאימון.</p>
+      </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-number">03</div>
+      <div class="feature-content">
+        <h3 class="feature-title">תרגל ביחד</h3>
+        <p class="feature-desc">השתתף בג׳אמים, שלח הודעה, תרגל.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITIES SECTION -->
+  <section class="cities-section">
+    <h2 class="features-heading">בחר עיר</h2>
+    <div class="cities-grid">
+      <div class="city-card">
+        <div class="city-name">תל אביב</div>
+        <div class="city-meta">120+ שותפים · 8 ג׳אמים בחודש</div>
+      </div>
+      <div class="city-card">
+        <div class="city-name">כפר סבא</div>
+        <div class="city-meta">60+ שותפים · 4 ג׳אמים בחודש</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <h2 class="features-heading">מה אומרים</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <p class="testimonial-quote">"מצאתי שותף מושלם תוך יומיים. AcroHavura שינתה לי את האימון."</p>
+        <span class="testimonial-author">MAYA B. · TEL AVIV</span>
+      </div>
+      <div class="testimonial">
+        <p class="testimonial-quote">"הקהילה פה מדהימה. תמיד יש מי להתאמן איתו."</p>
+        <span class="testimonial-author">RON K. · KFAR SABA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <h2 class="final-cta-h2">מוכן<span> לשחק?</span></h2>
+    <p class="final-cta-sub">הצטרף לקהילה. מצא שותף. תרגל.</p>
+    <div class="hero-cta-row" style="justify-content:center">
+      <a href="#" class="btn-primary">הצטרף חינם</a>
+      <a href="#" class="btn-secondary">למד עוד</a>
+    </div>
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!--
+  AcroHavura Auth Sign-In — Brutalist Design Reference
+  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
+
+  RTL NOTE: This is LTR HTML. Executors MUST adapt to RTL:
+  - dir="rtl" on html element
+  - Form labels align right
+  - Error messages align right
+  - Logo and heading in RTL flow
+
+  Brand tokens:
+  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
+  - Foreground: #ededed  | Font: Heebo 900 (headings), 500/400 (labels/inputs)
+
+  Pages covered:
+  1. Sign-in (email + password)
+  2. Sign-up (email + password + name)
+  3. Error state
+  4. Loading state
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcroHavura — Auth Design Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; min-height: 100vh; }
+
+    /* =========================================
+       AUTH SHELL
+       Full-screen split: left = brand panel, right = form
+       Mobile: stacked (brand hidden or small, form full-width)
+    ========================================= */
+    .auth-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) { .auth-shell { grid-template-columns: 1fr; } }
+
+    /* =========================================
+       LEFT PANEL (brand)
+       Dark with diagonal pink accent line.
+       Bold brand name + tagline.
+    ========================================= */
+    .auth-brand-panel {
+      background: #0f0a0f;
+      padding: 80px 8%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      border-left: 2px solid rgba(244,114,182,0.2);
+    }
+    @media (max-width: 768px) { .auth-brand-panel { display: none; } }
+    /* Diagonal pink accent line */
+    .auth-brand-panel::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: 40%;
+      width: 2px;
+      height: 200%;
+      background: linear-gradient(to bottom, transparent, rgba(244,114,182,0.3), transparent);
+      transform: rotate(20deg);
+    }
+    /* Large ghosted text */
+    .auth-brand-bg-text {
+      position: absolute;
+      bottom: -60px;
+      right: -40px;
+      font-size: 18vw;
+      font-weight: 900;
+      color: rgba(244,114,182,0.04);
+      line-height: 1;
+      pointer-events: none;
+    }
+    .auth-logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .auth-logo span { color: #F472B6; }
+    .auth-brand-headline {
+      font-size: clamp(32px, 4vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      position: relative;
+      z-index: 1;
+    }
+    .auth-brand-headline em {
+      color: #F472B6;
+      font-style: normal;
+      display: block;
+    }
+    .auth-brand-tagline {
+      font-size: 15px;
+      color: rgba(237,237,237,0.5);
+      line-height: 1.6;
+      max-width: 280px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* =========================================
+       RIGHT PANEL (form)
+       Centered form. Brutalist borders.
+    ========================================= */
+    .auth-form-panel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 8%;
+    }
+    .auth-form-container {
+      width: 100%;
+      max-width: 400px;
+    }
+
+    /* Mobile logo (hidden on desktop) */
+    .auth-mobile-logo {
+      display: none;
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 32px;
+    }
+    .auth-mobile-logo span { color: #F472B6; }
+    @media (max-width: 768px) { .auth-mobile-logo { display: block; } }
+
+    .auth-heading {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .auth-subheading {
+      font-size: 15px;
+      color: rgba(237,237,237,0.5);
+      margin-bottom: 40px;
+    }
+    .auth-subheading a { color: #F472B6; font-weight: 700; text-decoration: none; }
+
+    /* Form field */
+    .form-group { margin-bottom: 20px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      color: rgba(237,237,237,0.7);
+    }
+    .form-input {
+      width: 100%;
+      background: rgba(237,237,237,0.04);
+      border: 2px solid rgba(237,237,237,0.1);
+      color: #ededed;
+      font-family: 'Heebo', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 16px 18px;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #F472B6;
+      box-shadow: 0 0 0 2px #F472B6, 0 0 12px rgba(244,114,182,0.3);
+    }
+    .form-input::placeholder { color: rgba(237,237,237,0.25); }
+    .form-input.error { border-color: rgba(239,68,68,0.7); }
+    .form-error {
+      font-size: 12px;
+      color: #F87171;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    /* Forgot password link */
+    .forgot-link {
+      display: block;
+      text-align: left; /* adjust to right for RTL */
+      font-size: 13px;
+      color: rgba(237,237,237,0.4);
+      text-decoration: none;
+      margin-top: 8px;
+      transition: color 150ms ease;
+    }
+    .forgot-link:hover { color: #F472B6; }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      background: #F472B6;
+      color: #0a0a0a;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      padding: 18px;
+      border: 2px solid #F472B6;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform 100ms ease-in, background 150ms ease;
+    }
+    .btn-submit:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.02); }
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled {
+      background: rgba(244,114,182,0.2);
+      border-color: transparent;
+      color: rgba(10,10,10,0.5);
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loading state */
+    .btn-submit.loading {
+      position: relative;
+      color: transparent;
+    }
+    .btn-submit.loading::after {
+      content: '';
+      position: absolute;
+      inset: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px;
+      border: 2px solid rgba(10,10,10,0.3);
+      border-top-color: #0a0a0a;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Divider */
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 32px 0;
+      color: rgba(237,237,237,0.2);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+    .auth-divider::before, .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(237,237,237,0.1);
+    }
+
+    /* =========================================
+       TERMS NOTICE
+       Small legal text at bottom.
+    ========================================= */
+    .auth-terms {
+      font-size: 12px;
+      color: rgba(237,237,237,0.3);
+      text-align: center;
+      margin-top: 28px;
+      line-height: 1.5;
+    }
+    .auth-terms a { color: rgba(244,114,182,0.6); text-decoration: none; }
+
+    /* Demo separator */
+    .demo-sep {
+      padding: 40px 8vw;
+      border-top: 1px solid rgba(237,237,237,0.05);
+      color: rgba(237,237,237,0.2);
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    /* LAYOUT NOTES FOR EXECUTORS:
+       - Sign-in: email + password fields + forgot link + submit
+       - Sign-up: name + email + password + tos checkbox + submit
+       - Error state: red border on field + error message below
+       - Loading: spinner replaces button text (CSS ::after approach)
+       - Split layout desktop, single column mobile
+       - Left brand panel hidden on mobile
+       - Form inputs: 2px border → pink glow on focus (form-focus class from globals.css)
+       - Submit button: scale(0.98) on active, scale(1.02) on hover (smaller than card — subtle)
+       - ToS checkbox: custom styled with pink accent color
+    */
+  </style>
+</head>
+<body>
+
+  <!-- SIGN IN STATE -->
+  <div class="auth-shell">
+
+    <!-- BRAND PANEL (desktop only) -->
+    <div class="auth-brand-panel">
+      <div class="auth-brand-bg-text">AC</div>
+      <div class="auth-logo">Acro<span>Havura</span></div>
+      <div>
+        <h2 class="auth-brand-headline">
+          תרגל אקרויוגה
+          <em>עם שותף מושלם</em>
+        </h2>
+      </div>
+      <p class="auth-brand-tagline">
+        מצא שותפים לפי רמה, תפקיד ומיקום. בוא לאימון.
+      </p>
+    </div>
+
+    <!-- FORM PANEL -->
+    <div class="auth-form-panel">
+      <div class="auth-form-container">
+
+        <!-- Mobile logo -->
+        <div class="auth-mobile-logo">Acro<span>Havura</span></div>
+
+        <h1 class="auth-heading">כניסה לחשבון</h1>
+        <p class="auth-subheading">
+          אין לך חשבון? <a href="#">הירשם חינם</a>
+        </p>
+
+        <form>
+          <div class="form-group">
+            <label class="form-label">אימייל</label>
+            <input class="form-input" type="email" placeholder="you@example.com" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">סיסמה</label>
+            <input class="form-input" type="password" placeholder="••••••••" />
+            <a href="#" class="forgot-link">שכחתי סיסמה</a>
+          </div>
+          <button class="btn-submit" type="submit">כניסה</button>
+        </form>
+
+        <p class="auth-terms">
+          בכניסה אתה מסכים ל<a href="#">תנאי שימוש</a> ול<a href="#">מדיניות פרטיות</a>
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DEMO SEPARATOR -->
+  <div class="demo-sep">— Error State + Sign Up —</div>
+
+  <!-- ERROR STATE -->
+  <div class="auth-shell" style="min-height: auto;">
+    <div class="auth-brand-panel" style="min-height: 400px;"></div>
+    <div class="auth-form-panel">
+      <div class="auth-form-container">
+        <h1 class="auth-heading">כניסה לחשבון</h1>
+        <p class="auth-subheading">אין לך חשבון? <a href="#">הירשם חינם</a></p>
+        <form>
+          <div class="form-group">
+            <label class="form-label">אימייל</label>
+            <input class="form-input error" type="email" value="wrong@example.com" />
+            <span class="form-error">האימייל או הסיסמה שגויים</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">סיסמה</label>
+            <input class="form-input error" type="password" value="wrongpassword" />
+          </div>
+          <button class="btn-submit" type="submit">כניסה</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEMO SEPARATOR -->
+  <div class="demo-sep">— Loading State —</div>
+
+  <!-- LOADING STATE -->
+  <div class="auth-shell" style="min-height: auto;">
+    <div class="auth-brand-panel" style="min-height: 300px;"></div>
+    <div class="auth-form-panel" style="min-height: 300px;">
+      <div class="auth-form-container">
+        <h1 class="auth-heading">כניסה לחשבון</h1>
+        <p class="auth-subheading" style="margin-bottom: 24px;">טוען...</p>
+        <button class="btn-submit loading" disabled>כניסה</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

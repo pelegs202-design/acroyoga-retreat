@@ -1,0 +1,498 @@
+<!--
+  AcroHavura Header + Footer — Brutalist Design Reference
+  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
+
+  RTL NOTE: This is LTR HTML. Executors MUST adapt to RTL:
+  - dir="rtl" on html element
+  - Logo appears on RIGHT side in RTL (not left)
+  - Nav links flow right-to-left
+  - Hamburger menu icon on LEFT for RTL (opposite of LTR)
+  - Footer columns order reversed for RTL reading flow
+
+  Brand tokens:
+  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
+  - Foreground: #ededed  | Font: Heebo 900 (logo/bold), 700 (nav), 400 (footer body)
+
+  Header variants:
+  1. Default (logged out) — logo + nav links + CTA
+  2. Logged in — logo + nav + user avatar
+  3. Mobile hamburger (collapsed state)
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcroHavura — Header + Footer Design Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; }
+
+    /* =========================================
+       HEADER — DEFAULT (logged out)
+       Fixed/sticky top bar.
+       Brutalist: thick bottom border, bold logo.
+    ========================================= */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(244,114,182,0.15);
+      height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 0 8vw;
+    }
+    .header-inner {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    /* Logo */
+    .logo {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-decoration: none;
+      color: #ededed;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+    .logo-acro { color: #ededed; }
+    .logo-havura { color: #F472B6; }
+    /* Brutalist logo mark: small square accent */
+    .logo::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #F472B6;
+      display: inline-block;
+      margin-left: 8px; /* adjust for RTL: margin-right */
+      flex-shrink: 0;
+    }
+
+    /* Nav links (desktop) */
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      justify-content: center;
+    }
+    @media (max-width: 768px) { .header-nav { display: none; } }
+    .nav-link {
+      font-size: 15px;
+      font-weight: 700;
+      color: rgba(237,237,237,0.6);
+      text-decoration: none;
+      padding: 8px 16px;
+      transition: color 150ms ease;
+      position: relative;
+    }
+    .nav-link:hover { color: #ededed; }
+    .nav-link.active { color: #F472B6; }
+    /* Active indicator — brutalist: bottom border fragment */
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: #F472B6;
+    }
+
+    /* Header CTAs */
+    .header-cta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 768px) { .header-cta .btn-secondary-sm { display: none; } }
+    .btn-secondary-sm {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(237,237,237,0.7);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 1px solid rgba(237,237,237,0.2);
+      transition: border-color 150ms ease, color 150ms ease, transform 100ms ease-in;
+    }
+    .btn-secondary-sm:hover { border-color: #F472B6; color: #F472B6; transform: scale(1.05); }
+    .btn-secondary-sm:active { transform: scale(0.95); }
+    .btn-primary-sm {
+      font-size: 14px;
+      font-weight: 900;
+      color: #0a0a0a;
+      background: #F472B6;
+      text-decoration: none;
+      padding: 10px 22px;
+      border: 2px solid #F472B6;
+      transition: background 150ms ease, transform 100ms ease-in;
+    }
+    .btn-primary-sm:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.05); }
+    .btn-primary-sm:active { transform: scale(0.95); }
+
+    /* Hamburger (mobile) */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+    }
+    @media (max-width: 768px) { .hamburger { display: flex; } }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #ededed;
+      transition: transform 200ms ease, opacity 200ms ease;
+    }
+
+    /* User avatar (logged in state) */
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(244,114,182,0.2);
+      border: 2px solid rgba(244,114,182,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 14px;
+      color: #F472B6;
+      cursor: pointer;
+      transition: border-color 150ms ease;
+    }
+    .user-avatar:hover { border-color: #F472B6; }
+
+    /* =========================================
+       MOBILE MENU (open state)
+       Full-screen overlay. Dark.
+    ========================================= */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: #0a0a0a;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 8vw;
+    }
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      border-bottom: 1px solid rgba(244,114,182,0.15);
+    }
+    .mobile-close {
+      font-size: 28px;
+      font-weight: 900;
+      cursor: pointer;
+      color: rgba(237,237,237,0.6);
+      line-height: 1;
+    }
+    .mobile-nav-links {
+      padding: 48px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mobile-nav-link {
+      font-size: 40px;
+      font-weight: 900;
+      color: rgba(237,237,237,0.15);
+      text-decoration: none;
+      padding: 8px 0;
+      transition: color 150ms ease;
+      letter-spacing: -0.03em;
+    }
+    .mobile-nav-link:hover { color: #ededed; }
+    .mobile-nav-link.active { color: #F472B6; }
+    .mobile-cta { margin-top: auto; padding-bottom: 48px; }
+
+    /* =========================================
+       FOOTER
+       Full-width brutalist footer.
+       4-column grid, pink brand section.
+    ========================================= */
+    .footer {
+      background: #0a0a0a;
+      border-top: 1px solid rgba(244,114,182,0.2);
+      padding: 80px 8vw 40px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 64px;
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Brand column */
+    .footer-brand-col {}
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .footer-logo::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: #F472B6;
+      display: inline-block;
+    }
+    .footer-logo span { color: #F472B6; }
+    .footer-tagline {
+      font-size: 15px;
+      color: rgba(237,237,237,0.5);
+      line-height: 1.6;
+      max-width: 260px;
+      margin-bottom: 28px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-social-link {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(237,237,237,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-decoration: none;
+      color: rgba(237,237,237,0.5);
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+    .footer-social-link:hover { border-color: #F472B6; color: #F472B6; }
+
+    /* Link columns */
+    .footer-col-heading {
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,0.3);
+      margin-bottom: 20px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: 15px;
+      color: rgba(237,237,237,0.55);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 150ms ease;
+    }
+    .footer-links a:hover { color: #F472B6; }
+
+    /* Footer bottom bar */
+    .footer-bottom {
+      padding-top: 32px;
+      border-top: 1px solid rgba(237,237,237,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-copyright {
+      font-size: 13px;
+      color: rgba(237,237,237,0.25);
+    }
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+    }
+    .footer-legal a {
+      font-size: 13px;
+      color: rgba(237,237,237,0.25);
+      text-decoration: none;
+      transition: color 150ms ease;
+    }
+    .footer-legal a:hover { color: rgba(237,237,237,0.6); }
+
+    /* DEMO: page separator */
+    .demo-sep { padding: 48px 8vw 24px; border-top: 1px solid rgba(237,237,237,0.04); }
+    .demo-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,237,237,0.2); margin-bottom: 0; }
+
+    /* Mockup page content */
+    .mock-page { background: #111; height: 120px; margin: 0; display: flex; align-items: center; justify-content: center; color: rgba(237,237,237,0.15); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    /* LAYOUT NOTES FOR EXECUTORS:
+       - Logo: square pink dot + "Acro" (white) + "Havura" (pink) — no space between
+       - Header height: 72px fixed
+       - Active nav link: pink bottom border 2px
+       - Mobile menu: full-screen overlay, giant nav links (40px), bottom CTA row
+       - Footer: 4-col desktop, 2-col tablet, 1-col mobile
+       - Footer social links: WhatsApp, Instagram (primary channels for Israeli market)
+       - Footer legal: Terms, Privacy, Accessibility (required for Israeli sites)
+       - MagneticWrapper: wrap logo and header CTAs on desktop
+       - Header backdrop-filter: blur(8px) — semi-transparent scroll effect
+    */
+  </style>
+</head>
+<body>
+
+  <!-- HEADER STATE 1: Logged Out -->
+  <div class="demo-sep"><div class="demo-label">Header — Logged Out</div></div>
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-acro">Acro</span>
+        <span class="logo-havura">Havura</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/" class="nav-link active">בית</a>
+        <a href="/members" class="nav-link">שותפים</a>
+        <a href="/jams" class="nav-link">ג׳אמים</a>
+        <a href="/cities/tel-aviv" class="nav-link">ערים</a>
+        <a href="/quiz" class="nav-link">חידון</a>
+      </nav>
+      <div class="header-cta">
+        <a href="/auth/signin" class="btn-secondary-sm">כניסה</a>
+        <a href="/auth/signup" class="btn-primary-sm">הצטרף</a>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="mock-page">[ page content ]</div>
+
+  <!-- HEADER STATE 2: Logged In -->
+  <div class="demo-sep"><div class="demo-label">Header — Logged In</div></div>
+  <header class="header" style="position:static;">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <span class="logo-acro">Acro</span>
+        <span class="logo-havura">Havura</span>
+      </a>
+      <nav class="header-nav">
+        <a href="/" class="nav-link active">בית</a>
+        <a href="/members" class="nav-link">שותפים</a>
+        <a href="/jams" class="nav-link">ג׳אמים</a>
+        <a href="/cities/tel-aviv" class="nav-link">ערים</a>
+        <a href="/quiz" class="nav-link">חידון</a>
+      </nav>
+      <div class="header-cta">
+        <a href="/messages" class="btn-secondary-sm">הודעות</a>
+        <div class="user-avatar">מ</div>
+        <div class="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="mock-page">[ page content ]</div>
+
+  <!-- MOBILE MENU (open state) -->
+  <div class="demo-sep"><div class="demo-label">Mobile Menu — Open State</div></div>
+  <div class="mobile-menu" style="position:relative; height:auto; min-height:500px;">
+    <div class="mobile-menu-header">
+      <a href="/" class="logo">
+        <span class="logo-acro">Acro</span>
+        <span class="logo-havura">Havura</span>
+      </a>
+      <span class="mobile-close">×</span>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="/" class="mobile-nav-link active">בית</a>
+      <a href="/members" class="mobile-nav-link">שותפים</a>
+      <a href="/jams" class="mobile-nav-link">ג׳אמים</a>
+      <a href="/cities" class="mobile-nav-link">ערים</a>
+      <a href="/quiz" class="mobile-nav-link">חידון</a>
+    </nav>
+    <div class="mobile-cta">
+      <a href="/auth/signup" style="display:block;background:#F472B6;color:#0a0a0a;font-weight:900;font-size:18px;text-align:center;padding:18px;text-decoration:none;border:2px solid #F472B6;">הצטרף חינם</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="demo-sep"><div class="demo-label">Footer</div></div>
+  <footer class="footer">
+    <div class="footer-grid">
+
+      <!-- Brand column -->
+      <div class="footer-brand-col">
+        <div class="footer-logo">Acro<span>Havura</span></div>
+        <p class="footer-tagline">
+          מצא שותפים לאקרויוגה. ג׳אמים, קהילה, חיבור אמיתי.
+        </p>
+        <div class="footer-social">
+          <a href="#" class="footer-social-link">📱</a>
+          <a href="#" class="footer-social-link">📸</a>
+        </div>
+      </div>
+
+      <!-- Platform links -->
+      <div>
+        <p class="footer-col-heading">פלטפורמה</p>
+        <ul class="footer-links">
+          <li><a href="/members">שותפים</a></li>
+          <li><a href="/jams">ג׳אמים</a></li>
+          <li><a href="/cities">ערים</a></li>
+          <li><a href="/quiz">חידון אקרו</a></li>
+        </ul>
+      </div>
+
+      <!-- Community links -->
+      <div>
+        <p class="footer-col-heading">קהילה</p>
+        <ul class="footer-links">
+          <li><a href="/cities/tel-aviv">תל אביב</a></li>
+          <li><a href="/cities/kfar-saba">כפר סבא</a></li>
+          <li><a href="/about">אודות</a></li>
+        </ul>
+      </div>
+
+      <!-- Legal links -->
+      <div>
+        <p class="footer-col-heading">משפטי</p>
+        <ul class="footer-links">
+          <li><a href="/terms">תנאי שימוש</a></li>
+          <li><a href="/privacy">פרטיות</a></li>
+          <li><a href="/accessibility">נגישות</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="footer-bottom">
+      <span class="footer-copyright">© 2026 AcroHavura. כל הזכויות שמורות.</span>
+      <div class="footer-legal">
+        <a href="/terms">תנאים</a>
+        <a href="/privacy">פרטיות</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

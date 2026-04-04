@@ -1,0 +1,374 @@
+<!--
+  AcroHavura City Landing Page — Brutalist Design Reference
+  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
+
+  RTL NOTE: This is LTR HTML. Executors MUST adapt:
+  - dir="rtl" on html element
+  - Logical CSS properties for padding/margin
+  - flex-row directions inverted for Hebrew content flow
+  - Text alignment: text-right for Hebrew
+
+  Covers: Tel Aviv + Kfar Saba templates (same structure, different city content)
+
+  Brand tokens:
+  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
+  - Foreground: #ededed  | Font: Heebo 900 (headings), 400/500 (body)
+-->
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AcroHavura — City Page Design Reference</title>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; }
+
+    /* =========================================
+       SECTION 1: CITY HERO
+       Full-width city name in massive type.
+       Asymmetric — city name bleeds to left edge.
+       Pink underline accent on city name.
+    ========================================= */
+    .city-hero {
+      min-height: 70vh;
+      padding: 120px 8vw 80px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .city-hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0f0a0f 0%, #0a0a0a 60%);
+    }
+    /* Huge city name in background as texture */
+    .city-hero-bg-text {
+      position: absolute;
+      bottom: -40px;
+      right: -20px;
+      font-size: 30vw;
+      font-weight: 900;
+      color: rgba(244,114,182,0.04);
+      line-height: 1;
+      pointer-events: none;
+      z-index: 0;
+      white-space: nowrap;
+    }
+    .city-hero-content { position: relative; z-index: 1; }
+    .city-breadcrumb {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,0.4);
+      margin-bottom: 24px;
+    }
+    .city-breadcrumb a { color: #F472B6; text-decoration: none; }
+    .city-hero-h1 {
+      font-size: clamp(64px, 12vw, 160px);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 32px;
+    }
+    .city-hero-h1::after {
+      content: '';
+      position: absolute;
+      bottom: -12px;
+      right: 0;
+      left: 0;
+      height: 4px;
+      background: #F472B6;
+    }
+    .city-hero-meta {
+      display: flex;
+      gap: 40px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(237,237,237,0.1);
+    }
+    .city-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .city-meta-value { font-size: 32px; font-weight: 900; color: #F472B6; }
+    .city-meta-label { font-size: 13px; color: rgba(237,237,237,0.5); letter-spacing: 0.05em; }
+
+    /* =========================================
+       SECTION 2: JAM LIST
+       Upcoming jams in a brutalist table.
+       Bold date column, pink indicator dot.
+    ========================================= */
+    .jams-section { padding: 80px 8vw; }
+    .section-heading {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+    }
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(237,237,237,0.1);
+    }
+    .jam-list { display: flex; flex-direction: column; gap: 2px; }
+    .jam-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 24px;
+      align-items: center;
+      padding: 24px 32px;
+      border: 1px solid rgba(237,237,237,0.06);
+      transition: background 150ms ease, border-color 150ms ease;
+      cursor: pointer;
+    }
+    .jam-row:hover { background: rgba(244,114,182,0.05); border-color: rgba(244,114,182,0.3); }
+    .jam-date {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #F472B6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .jam-date strong { font-size: 32px; font-weight: 900; color: #ededed; }
+    .jam-title { font-size: 20px; font-weight: 700; }
+    .jam-host { font-size: 13px; color: rgba(237,237,237,0.5); margin-top: 4px; }
+    .jam-status {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border: 1px solid #F472B6;
+      color: #F472B6;
+      letter-spacing: 0.05em;
+    }
+
+    /* =========================================
+       SECTION 3: MEMBERS GRID
+       Member cards with brutalist punch.
+       Pink border on hover.
+    ========================================= */
+    .members-section { padding: 80px 8vw; background: rgba(244,114,182,0.02); }
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2px;
+      margin-top: 40px;
+    }
+    .member-card {
+      padding: 32px 24px;
+      border: 1px solid rgba(237,237,237,0.06);
+      text-align: center;
+      cursor: pointer;
+      transition: transform 200ms ease, box-shadow 200ms ease;
+    }
+    .member-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 0 1px #F472B6, 0 20px 40px rgba(244,114,182,0.2);
+    }
+    .member-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(244,114,182,0.15);
+      margin: 0 auto 16px;
+      border: 2px solid rgba(244,114,182,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .member-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+    .member-role { font-size: 12px; color: #F472B6; font-weight: 700; letter-spacing: 0.05em; }
+    .member-level { font-size: 11px; color: rgba(237,237,237,0.4); margin-top: 4px; }
+
+    /* =========================================
+       SECTION 4: CITY FAQ
+       details/summary accordion. Brutalist styling.
+       Pink indicator on open.
+    ========================================= */
+    .faq-section { padding: 80px 8vw; }
+    .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 2px; }
+    details {
+      border: 1px solid rgba(237,237,237,0.08);
+      padding: 0;
+    }
+    details[open] { border-color: rgba(244,114,182,0.3); }
+    summary {
+      font-size: 18px;
+      font-weight: 700;
+      padding: 28px 32px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 150ms ease;
+    }
+    details[open] summary { color: #F472B6; }
+    summary::after { content: '+'; font-size: 24px; font-weight: 900; color: #F472B6; }
+    details[open] summary::after { content: '−'; }
+    .faq-answer {
+      padding: 0 32px 28px;
+      font-size: 16px;
+      color: rgba(237,237,237,0.7);
+      line-height: 1.7;
+      border-top: 1px solid rgba(244,114,182,0.15);
+      padding-top: 20px;
+    }
+
+    /* =========================================
+       SECTION 5: CITY CTA
+       Join community for this city.
+    ========================================= */
+    .city-cta {
+      padding: 80px 8vw;
+      border-top: 1px solid rgba(244,114,182,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .city-cta-text h2 { font-size: clamp(32px, 5vw, 64px); font-weight: 900; line-height: 1; }
+    .city-cta-text h2 span { color: #F472B6; }
+    .btn-primary {
+      background: #F472B6;
+      color: #0a0a0a;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 900;
+      font-size: 16px;
+      padding: 20px 48px;
+      border: 2px solid #F472B6;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      flex-shrink: 0;
+      transition: transform 100ms ease-in, background 150ms ease;
+    }
+    .btn-primary:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.05); }
+    .btn-primary:active { transform: scale(0.95); }
+
+    /* LAYOUT NOTES FOR EXECUTORS:
+       - Tel Aviv page: h1 = "תל אביב", stats = "120+ / 8 ג׳אמים"
+       - Kfar Saba page: h1 = "כפר סבא", stats = "60+ / 4 ג׳אמים"
+       - Jam table: date | title + host | RSVP button
+       - Member grid: 4-6 members visible, link to /members?city=tel-aviv
+       - FAQ: 4-6 city-specific questions (prices, levels, how to start)
+       - Use details/summary HTML for FAQ accordion (no JS, semantic for AEO)
+       - JSON-LD FAQPage schema at page level (Phase 09-02 pattern)
+    */
+  </style>
+</head>
+<body>
+
+  <!-- CITY HERO -->
+  <section class="city-hero">
+    <div class="city-hero-bg">
+      <div class="city-hero-bg-text">ת"א</div>
+    </div>
+    <div class="city-hero-content">
+      <p class="city-breadcrumb"><a href="/">AcroHavura</a> / ערים / <strong>תל אביב</strong></p>
+      <h1 class="city-hero-h1">תל אביב</h1>
+      <div class="city-hero-meta">
+        <div class="city-meta-item">
+          <span class="city-meta-value">120+</span>
+          <span class="city-meta-label">שותפים בעיר</span>
+        </div>
+        <div class="city-meta-item">
+          <span class="city-meta-value">8</span>
+          <span class="city-meta-label">ג׳אמים בחודש</span>
+        </div>
+        <div class="city-meta-item">
+          <span class="city-meta-value">4.9★</span>
+          <span class="city-meta-label">דירוג קהילה</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JAMS SECTION -->
+  <section class="jams-section">
+    <h2 class="section-heading">ג׳אמים קרובים</h2>
+    <div class="jam-list">
+      <div class="jam-row">
+        <div class="jam-date"><strong>12</strong>אפר</div>
+        <div>
+          <div class="jam-title">ג׳אם אחר הצהריים — הים</div>
+          <div class="jam-host">מארגן: מיכאל כ.</div>
+        </div>
+        <span class="jam-status">הצטרף</span>
+      </div>
+      <div class="jam-row">
+        <div class="jam-date"><strong>19</strong>אפר</div>
+        <div>
+          <div class="jam-title">ג׳אם פסח — פארק הירקון</div>
+          <div class="jam-host">מארגן: מאיה ב.</div>
+        </div>
+        <span class="jam-status">הצטרף</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERS SECTION -->
+  <section class="members-section">
+    <h2 class="section-heading">שותפים בתל אביב</h2>
+    <div class="members-grid">
+      <div class="member-card">
+        <div class="member-avatar">🤸</div>
+        <div class="member-name">מאיה ב.</div>
+        <div class="member-role">FLYER</div>
+        <div class="member-level">מתקדם</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">🧗</div>
+        <div class="member-name">רון כ.</div>
+        <div class="member-role">BASE</div>
+        <div class="member-level">בינוני</div>
+      </div>
+      <div class="member-card">
+        <div class="member-avatar">🌟</div>
+        <div class="member-name">לירון מ.</div>
+        <div class="member-role">BOTH</div>
+        <div class="member-level">מתחיל</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="faq-section">
+    <h2 class="section-heading">שאלות נפוצות</h2>
+    <div class="faq-list">
+      <details>
+        <summary>האם אני צריך ניסיון קודם?</summary>
+        <div class="faq-answer">לא! AcroHavura מתאים לכל הרמות. יש לנו מתחילים, בינוניים ומתקדמים.</div>
+      </details>
+      <details>
+        <summary>כמה עולה להשתתף בג׳אם?</summary>
+        <div class="faq-answer">רוב הג׳אמים חינמיים. חלק עולים 20-30 ש"ח לכיסוי עלויות מקום.</div>
+      </details>
+      <details>
+        <summary>מה ההבדל בין Base לFLyer?</summary>
+        <div class="faq-answer">BASE = מי שמרים. FLYER = מי שמורם. רוב האנשים לומדים את שניהם.</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- CITY CTA -->
+  <section class="city-cta">
+    <div class="city-cta-text">
+      <h2>מוכן<span> לתרגל</span><br>בתל אביב?</h2>
+    </div>
+    <a href="#" class="btn-primary">הצטרף לקהילה</a>
+  </section>
+
+</body>
+</html>
