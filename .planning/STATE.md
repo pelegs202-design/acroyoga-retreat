@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 10 of 10 (Brutalist Design Polish + Performance) — IN PROGRESS
-Plan: 3 of 5 in current phase — 10-03 COMPLETE
-Status: Brutalist header (magnetic nav, hamburger) + Radix Dialog mobile menu (DSGN-04 WCAG AA) + 4-col footer on all pages + auth pages in 2px pink-bordered brutalist card with bold headings
-Last activity: 2026-04-04 — Plan 10-03 complete: Header/footer/mobile-menu redesign + auth page polish
+Plan: 4 of 5 in current phase — 10-04 COMPLETE
+Status: City pages (Tel Aviv + Kfar Saba) + quiz flow + results page all have brutalist polish: scroll-reveal sections, card-hover effects, btn-press CTAs, magnetic checkout CTA, pink accent bars
+Last activity: 2026-04-01 — Plan 10-04 complete: City landing pages + quiz flow brutalist polish
 
 Progress: [██████████] 97%
 
@@ -204,6 +204,10 @@ Recent decisions affecting current work:
 - [Phase 10-03]: 10-03: MobileMenu uses Radix Dialog (not custom dropdown) — provides WCAG AA focus trap, escape-to-close, aria-modal, scroll lock for free per DSGN-04
 - [Phase 10-03]: 10-03: Auth layout card is in layout.tsx (not in form components) — form components render headless into the card; avoids double-wrapping
 - [Phase 10-03]: 10-03: MobileMenu slide animation uses Radix data-[state] + Tailwind animate-in/out — no Framer Motion needed for this simple slide transition
+- [Phase 10-04]: 10-04: CityHero and CityFAQ wrap themselves in ScrollReveal — avoids double-wrapping from page.tsx; scroll-reveal responsibility delegated to the components
+- [Phase 10-04]: 10-04: QuizCard selected prop is backward-compatible optional — QuizEngine auto-advances on selection so persistent selected state is not needed; added for future multi-select support
+- [Phase 10-04]: 10-04: QuizProgressBar already had bg-brand fill + Framer Motion spring — no changes needed
+- [Phase 10-04]: 10-04: MagneticWrapper added only to main checkout CTA in quiz results — high-value on primary conversion button only
 
 ### Pending Todos
 
@@ -216,6 +220,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-04
-Stopped at: Completed 10-03-PLAN.md — Brutalist header/footer/mobile-menu (Radix Dialog) + auth page polish
-Resume file: .planning/phases/10-brutalist-design-polish-performance/10-03-SUMMARY.md
+Last session: 2026-04-01
+Stopped at: Completed 10-04-PLAN.md — City landing pages + quiz flow brutalist polish (scroll-reveal, card-hover, magnetic CTA)
+Resume file: .planning/phases/10-brutalist-design-polish-performance/10-04-SUMMARY.md

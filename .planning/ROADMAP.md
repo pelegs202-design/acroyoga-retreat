@@ -185,7 +185,7 @@ Plans:
 - [x] 10-01-PLAN.md — Stitch design prototypes + reusable effects library (magnetic, scroll-reveal, parallax, horizontal scroll) + global CSS foundation
 - [x] 10-02-PLAN.md — Homepage full brutalist treatment (parallax hero, scroll-reveal features, horizontal showcase, magnetic CTAs, scroll progress)
 - [x] 10-03-PLAN.md — Header/footer brutalist redesign + mobile menu + auth pages polish
-- [ ] 10-04-PLAN.md — City landing pages + quiz flow brutalist polish
+- [x] 10-04-PLAN.md — City landing pages + quiz flow brutalist polish
 - [ ] 10-05-PLAN.md — WCAG AA accessibility tests (Playwright + axe-core) + Lighthouse 90+ performance audit + human verification
 
 ## Progress
