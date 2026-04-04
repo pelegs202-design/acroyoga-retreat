@@ -7,6 +7,7 @@ import QuizEngine from "@/components/quiz/QuizEngine";
 import type { QuizState } from "@/components/quiz/QuizEngine";
 import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
+import { trackQuizComplete } from "@/lib/quiz/quiz-analytics";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
@@ -459,6 +460,7 @@ function ChallengeQuizFlow() {
     if (!state.contactInfo) return;
     const resultType = calculateResult(state.answers).id;
     const city = state.answers["city"] ?? "";
+    trackQuizComplete("challenge", resultType);
 
     try {
       await fetch("/api/quiz/leads", {

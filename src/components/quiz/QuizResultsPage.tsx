@@ -43,6 +43,7 @@ interface QuizResultsPageProps {
   leadName: string;
   locale: string;
   sessionId: string;
+  fitScore?: number;
 }
 
 // ─── FAQ Accordion ────────────────────────────────────────────────────────────
@@ -127,6 +128,7 @@ export default function QuizResultsPage({
   leadName,
   locale,
   sessionId,
+  fitScore = 100,
 }: QuizResultsPageProps) {
   const [copied, setCopied] = useState(false);
 
@@ -262,49 +264,67 @@ export default function QuizResultsPage({
         </section>
       </ScrollReveal>
 
-      {/* 6. Price CTA */}
+      {/* 6. Price CTA or Soft Disqualification */}
       <ScrollReveal delay={0.1}>
-        <section className="card-hover rounded-2xl border border-brand/30 bg-neutral-900 p-6 text-center">
-          <h2 className="text-3xl font-black text-white mb-1">
-            {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
-          </h2>
-          {/* Pink accent bar */}
-          <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
-          <p className="text-neutral-500 text-xs mb-5">
-            {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
-          </p>
-
-          {/* Price — ₪1 wartime special */}
-          <div className="flex items-baseline justify-center gap-4 mb-2">
-            <span className="text-5xl font-black text-brand">1</span>
-            <span className="text-2xl font-bold text-brand">₪</span>
-            <span className="text-xl text-neutral-600 line-through">299 ₪</span>
-          </div>
-          <p className="text-neutral-500 text-xs mb-5">
-            {isHe ? "תנועה מרפאת. ביחד חזקים." : "Movement heals. Together strong."}
-          </p>
-
-          {/* Urgency */}
-          <p className="text-amber-400 text-sm font-semibold mb-1">
-            {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
-          </p>
-          <p className="text-neutral-500 text-xs mb-6">
-            {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
-          </p>
-
-          {/* CTA Button — MagneticWrapper on desktop, btn-press on all */}
-          <MagneticWrapper>
-            <button
-              type="button"
-              onClick={() => {
-                window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
-              }}
-              className="btn-press block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
+        {fitScore < 40 ? (
+          /* ── Soft DQ: not a good fit ── */
+          <section className="rounded-2xl border border-neutral-700 bg-neutral-900 p-6 text-center">
+            <h2 className="text-2xl font-black text-white mb-2">
+              {isHe ? "האתגר אולי לא מתאים כרגע" : "The Challenge May Not Be Right for Now"}
+            </h2>
+            <div className="mx-auto mb-4 h-1 w-16 bg-neutral-700" />
+            <p className="text-neutral-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">
+              {isHe
+                ? "אתגר 30 יום דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אם זה לא מתאים כרגע — אפשר להתחיל עם ג׳אם פתוח ולהצטרף לאתגר הבא."
+                : "The 30-day challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. If that doesn't work right now — try a drop-in jam and join the next cohort."}
+            </p>
+            <a
+              href={`/${locale}/jams`}
+              className="btn-press inline-block bg-neutral-700 text-white px-8 py-3 font-black hover:bg-neutral-600 transition-colors"
             >
-              {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
-            </button>
-          </MagneticWrapper>
-        </section>
+              {isHe ? "ג׳אמים פתוחים" : "Open Jams"}
+            </a>
+          </section>
+        ) : (
+          /* ── Qualified: show ₪1 pricing ── */
+          <section className="card-hover rounded-2xl border border-brand/30 bg-neutral-900 p-6 text-center">
+            <h2 className="text-3xl font-black text-white mb-1">
+              {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
+            </h2>
+            <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
+            <p className="text-neutral-500 text-xs mb-5">
+              {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
+            </p>
+
+            <div className="flex items-baseline justify-center gap-4 mb-2">
+              <span className="text-5xl font-black text-brand">1</span>
+              <span className="text-2xl font-bold text-brand">₪</span>
+              <span className="text-xl text-neutral-600 line-through">299 ₪</span>
+            </div>
+            <p className="text-neutral-500 text-xs mb-5">
+              {isHe ? "תנועה מרפאת. ביחד חזקים." : "Movement heals. Together strong."}
+            </p>
+
+            <p className="text-amber-400 text-sm font-semibold mb-1">
+              {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
+            </p>
+            <p className="text-neutral-500 text-xs mb-6">
+              {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
+            </p>
+
+            <MagneticWrapper>
+              <button
+                type="button"
+                onClick={() => {
+                  window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
+                }}
+                className="btn-press block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
+              >
+                {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
+              </button>
+            </MagneticWrapper>
+          </section>
+        )}
       </ScrollReveal>
 
       {/* 7. FAQ */}

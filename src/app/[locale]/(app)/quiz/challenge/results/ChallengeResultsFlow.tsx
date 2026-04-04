@@ -10,6 +10,7 @@ interface ResultPayload {
   lead: { name: string; city: string | null; quizType: string };
   result: ResultArchetype;
   personalizedFears: Array<{ en: string; he: string }>;
+  fitScore?: number;
 }
 
 interface ChallengeResultsFlowProps {
@@ -58,6 +59,7 @@ export default function ChallengeResultsFlow({
           lead: data.lead,
           result: data.result,
           personalizedFears: data.personalizedFears,
+          fitScore: (data as ResultPayload & { fitScore?: number }).fitScore,
         };
         setPayload(resultPayload);
         // Cache for future visits
@@ -114,6 +116,7 @@ export default function ChallengeResultsFlow({
           leadName={payload.lead.name}
           locale={locale}
           sessionId={sessionId}
+          fitScore={payload.fitScore ?? 100}
         />
       )}
     </>

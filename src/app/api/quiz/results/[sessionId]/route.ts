@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { quizLeads } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
-import { calculateResult, getPersonalizedFears } from "@/lib/quiz/result-calculator";
+import { calculateResult, getPersonalizedFears, calculateFitScore } from "@/lib/quiz/result-calculator";
 
 export async function GET(
   _req: NextRequest,
@@ -35,6 +35,7 @@ export async function GET(
 
   const result = calculateResult(answers);
   const personalizedFears = getPersonalizedFears(answers);
+  const fitScore = calculateFitScore(answers);
 
   return NextResponse.json({
     ok: true,
@@ -45,5 +46,6 @@ export async function GET(
     },
     result,
     personalizedFears,
+    fitScore,
   });
 }
