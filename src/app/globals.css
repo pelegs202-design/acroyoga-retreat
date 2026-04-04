@@ -26,3 +26,88 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* =============================================================
+   BRUTALIST DESIGN SYSTEM — Phase 10
+   Custom scrollbar, card hover, button press, form focus glow
+   ============================================================= */
+
+/* ---------------------------------------------------------------
+   1. Custom pink scrollbar (desktop only)
+   WebKit: Chrome, Edge, Safari
+   Firefox: scrollbar-color + scrollbar-width
+--------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #F472B6;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #DB2777;
+}
+
+/* Firefox scrollbar (global) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #F472B6 #1a1a1a;
+}
+
+/* Hide custom scrollbar on mobile — native scroll UX is better */
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    scrollbar-width: none;
+  }
+}
+
+/* ---------------------------------------------------------------
+   2. Card hover — scale up + pink glow border + shadow lift
+   Apply class="card-hover" to any interactive card element.
+   Pure CSS transition — no JS overhead.
+--------------------------------------------------------------- */
+.card-hover {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.card-hover:hover {
+  transform: scale(1.03);
+  box-shadow:
+    0 0 0 1px #F472B6,
+    0 20px 40px rgba(244, 114, 182, 0.2);
+}
+
+/* ---------------------------------------------------------------
+   3. Button press animation — scale down on press, bounce back
+   Apply class="btn-press" to any button or link element.
+   Pure CSS active/hover — no JS, compositor-safe (transform only).
+--------------------------------------------------------------- */
+.btn-press {
+  transition: transform 100ms ease-in;
+}
+.btn-press:hover {
+  transform: scale(1.05);
+}
+.btn-press:active {
+  transform: scale(0.95);
+}
+
+/* ---------------------------------------------------------------
+   4. Form focus pink glow — consistent branded input focus
+   Applied globally to all inputs. Removes default outline.
+   box-shadow only — compositor-safe, no layout triggers.
+--------------------------------------------------------------- */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #F472B6,
+    0 0 12px rgba(244, 114, 182, 0.3);
+  transition: box-shadow 200ms ease;
+}
