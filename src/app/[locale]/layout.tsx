@@ -12,6 +12,8 @@ import InstallPrompt from "@/components/pwa/InstallPrompt";
 import IosBanner from "@/components/pwa/IosBanner";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { buildOrganizationSchema } from "@/lib/seo/schemas";
+import PostHogProvider from "@/components/layout/PostHogProvider";
+import { Suspense } from "react";
 import "../globals.css";
 
 const heebo = Heebo({
@@ -96,15 +98,19 @@ export default async function LocaleLayout({ children, params }: Props) {
         </noscript>
         <JsonLd data={buildOrganizationSchema()} />
         <NextIntlClientProvider messages={messages}>
-          <MotionProvider>
-            <Header />
-            <div className="pt-20">
-              {children}
-            </div>
-            <Footer />
-            <InstallPrompt />
-            <IosBanner />
-          </MotionProvider>
+          <Suspense fallback={null}>
+            <PostHogProvider>
+              <MotionProvider>
+                <Header />
+                <div className="pt-20">
+                  {children}
+                </div>
+                <Footer />
+                <InstallPrompt />
+                <IosBanner />
+              </MotionProvider>
+            </PostHogProvider>
+          </Suspense>
         </NextIntlClientProvider>
       </body>
     </html>
