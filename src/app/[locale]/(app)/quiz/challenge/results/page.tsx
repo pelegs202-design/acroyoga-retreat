@@ -1,13 +1,10 @@
 import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
-import { db } from "@/lib/db";
-import { quizLeads } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { calculateResult } from "@/lib/quiz/result-calculator";
+import { getSessionResult } from "@/lib/quiz/get-session-result";
 import ChallengeResultsFlow from "./ChallengeResultsFlow";
 
-const BASE_URL = "https://acroyoga-academy.vercel.app";
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://acroyoga-academy.vercel.app";
 
 interface Props {
   params: Promise<{ locale: string }>;
@@ -23,25 +20,17 @@ export async function generateMetadata({ params, searchParams }: Props): Promise
     return { title: "AcroHavura" };
   }
 
-  // Fetch archetype for this session
   let archetypeName = isHe ? "הטיפוס שלך" : "Your Acro Type";
   let tagline = isHe ? "גלו את הטיפוס האקרו שלכם" : "Discover your acro type";
 
   try {
-    const rows = await db
-      .select({ answers: quizLeads.answers })
-      .from(quizLeads)
-      .where(eq(quizLeads.sessionId, session))
-      .limit(1);
-
-    if (rows.length > 0) {
-      const answers = JSON.parse(rows[0].answers) as Record<string, string>;
-      const result = calculateResult(answers);
-      archetypeName = isHe ? result.name.he : result.name.en;
-      tagline = isHe ? result.tagline.he : result.tagline.en;
+    const data = await getSessionResult(session);
+    if (data) {
+      archetypeName = isHe ? data.result.name.he : data.result.name.en;
+      tagline = isHe ? data.result.tagline.he : data.result.tagline.en;
     }
-  } catch {
-    // Fallback to defaults
+  } catch (e) {
+    console.error("generateMetadata: failed to fetch session", e);
   }
 
   const title = isHe

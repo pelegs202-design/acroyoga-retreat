@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/lib/db";
-import { quizLeads } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { calculateResult, getPersonalizedFears, calculateFitScore } from "@/lib/quiz/result-calculator";
+import { getSessionResult } from "@/lib/quiz/get-session-result";
 
 export async function GET(
   _req: NextRequest,
@@ -14,38 +11,20 @@ export async function GET(
     return NextResponse.json({ error: "Missing session ID" }, { status: 400 });
   }
 
-  const rows = await db
-    .select()
-    .from(quizLeads)
-    .where(eq(quizLeads.sessionId, sessionId))
-    .limit(1);
-
-  if (rows.length === 0) {
+  const data = await getSessionResult(sessionId);
+  if (!data) {
     return NextResponse.json({ error: "Session not found" }, { status: 404 });
   }
-
-  const lead = rows[0];
-
-  let answers: Record<string, string> = {};
-  try {
-    answers = JSON.parse(lead.answers) as Record<string, string>;
-  } catch {
-    return NextResponse.json({ error: "Invalid answer data" }, { status: 500 });
-  }
-
-  const result = calculateResult(answers);
-  const personalizedFears = getPersonalizedFears(answers);
-  const fitScore = calculateFitScore(answers);
 
   return NextResponse.json({
     ok: true,
     lead: {
-      name: lead.name,
-      city: lead.city,
-      quizType: lead.quizType,
+      name: data.lead.name,
+      city: data.lead.city,
+      quizType: data.lead.quizType,
     },
-    result,
-    personalizedFears,
-    fitScore,
+    result: data.result,
+    personalizedFears: data.personalizedFears,
+    fitScore: data.fitScore,
   });
 }
