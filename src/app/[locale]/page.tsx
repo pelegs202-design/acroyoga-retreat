@@ -1,7 +1,12 @@
-import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 import { InstagramGrid } from "@/components/social/InstagramGrid";
+import { ScrollProgressBar } from "@/components/home/ScrollProgressBar";
+import { HeroSection } from "@/components/home/HeroSection";
+import { FeaturesShowcase } from "@/components/home/FeaturesShowcase";
+import { HorizontalShowcase } from "@/components/home/HorizontalShowcase";
+import { CTASection } from "@/components/home/CTASection";
+import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -12,32 +17,50 @@ export async function generateMetadata({ params }: Props) {
   return buildPageMetadata({ locale, namespace: "seo.home", path: "" });
 }
 
+/**
+ * HomePage — Server component that composes the brutalist homepage.
+ *
+ * All animation and interactivity delegated to "use client" children:
+ * ScrollProgressBar, HeroSection, FeaturesShowcase, HorizontalShowcase,
+ * CTASection. This page itself contains NO Framer Motion code.
+ *
+ * Page flow:
+ * 1. ScrollProgressBar — fixed thin pink bar tracking scroll depth
+ * 2. HeroSection — full-viewport parallax hero with magnetic CTAs
+ * 3. FeaturesShowcase — staggered scroll-reveal feature sections
+ * 4. HorizontalShowcase — horizontal scroll with draggable cards (desktop)
+ * 5. CTASection — conversion section with magnetic buttons
+ * 6. InstagramGrid — social proof grid (RSC, zero client JS)
+ *
+ * @see 10-02-PLAN.md Task 2
+ */
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
 
-  // Enable static rendering
+  // Enable static rendering for this locale segment
   setRequestLocale(locale);
 
   return (
-    <>
-      <HomeContent />
-      <InstagramGrid />
-    </>
-  );
-}
+    <main>
+      {/* Fixed scroll progress indicator — sits above header (z-[60]) */}
+      <ScrollProgressBar />
 
-// Client-side translations component
-function HomeContent() {
-  const t = useTranslations("home");
+      {/* Full-viewport parallax hero */}
+      <HeroSection />
 
-  return (
-    <main className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-4 py-16">
-      <div className="w-full max-w-2xl text-center">
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-neutral-100 sm:text-5xl">
-          {t("title")}
-        </h1>
-        <p className="text-lg text-neutral-400">{t("subtitle")}</p>
-      </div>
+      {/* Staggered scroll-reveal feature sections */}
+      <FeaturesShowcase />
+
+      {/* Horizontal scroll showcase with draggable cards (DSGN-01) */}
+      <HorizontalShowcase />
+
+      {/* Bottom CTA conversion section */}
+      <CTASection />
+
+      {/* Instagram social proof grid — server component, zero client JS */}
+      <ScrollReveal>
+        <InstagramGrid />
+      </ScrollReveal>
     </main>
   );
 }
