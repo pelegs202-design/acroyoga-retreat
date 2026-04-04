@@ -3,7 +3,8 @@
     "appName": "AcroHavura",
     "switchLanguage": "Switch language",
     "menu": "Menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "challenge": "30-Day Challenge"
   },
   "footer": {
     "tagline": "Find acro partners. Jams, community, real connection.",
@@ -100,6 +101,7 @@
   },
   "auth": {
     "signIn": "Sign In",
+    "signInSubtitle": "Sign in to manage your community activity",
     "signUp": "Sign Up",
     "email": "Email",
     "password": "Password",

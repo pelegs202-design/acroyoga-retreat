@@ -1,8 +1,8 @@
 {
   "crons": [
-    { "path": "/api/cron/push-batch", "schedule": "*/5 * * * *" },
+    { "path": "/api/cron/push-batch", "schedule": "0 8 * * *" },
     { "path": "/api/cron/whatsapp-drip", "schedule": "0 16 * * *" },
     { "path": "/api/cron/email-drip", "schedule": "0 16 * * *" },
-    { "path": "/api/cron/jam-reminders", "schedule": "0 5,15 * * *" }
+    { "path": "/api/cron/jam-reminders", "schedule": "0 15 * * *" }
   ]
 }
