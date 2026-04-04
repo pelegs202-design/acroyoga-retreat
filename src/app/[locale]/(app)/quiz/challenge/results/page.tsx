@@ -1,17 +1,75 @@
 import { redirect } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
+import { db } from "@/lib/db";
+import { quizLeads } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { calculateResult } from "@/lib/quiz/result-calculator";
 import ChallengeResultsFlow from "./ChallengeResultsFlow";
-import { ShareButton } from "@/components/social/ShareButton";
 
-export const metadata: Metadata = {
-  title: "Your Acro Profile | AcroHavura",
-  description: "See your personalized acroyoga archetype and join the 30-day challenge.",
-};
+const BASE_URL = "https://acroyoga-academy.vercel.app";
 
 interface Props {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ session?: string }>;
+}
+
+export async function generateMetadata({ params, searchParams }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const { session } = await searchParams;
+  const isHe = locale === "he";
+
+  if (!session) {
+    return { title: "AcroHavura" };
+  }
+
+  // Fetch archetype for this session
+  let archetypeName = isHe ? "הטיפוס שלך" : "Your Acro Type";
+  let tagline = isHe ? "גלו את הטיפוס האקרו שלכם" : "Discover your acro type";
+
+  try {
+    const rows = await db
+      .select({ answers: quizLeads.answers })
+      .from(quizLeads)
+      .where(eq(quizLeads.sessionId, session))
+      .limit(1);
+
+    if (rows.length > 0) {
+      const answers = JSON.parse(rows[0].answers) as Record<string, string>;
+      const result = calculateResult(answers);
+      archetypeName = isHe ? result.name.he : result.name.en;
+      tagline = isHe ? result.tagline.he : result.tagline.en;
+    }
+  } catch {
+    // Fallback to defaults
+  }
+
+  const title = isHe
+    ? `אני ${archetypeName}! גלו את הטיפוס שלכם | אקרוחבורה`
+    : `I'm ${archetypeName}! Discover yours | AcroHavura`;
+
+  return {
+    title,
+    description: tagline,
+    openGraph: {
+      title,
+      description: tagline,
+      images: [
+        {
+          url: `${BASE_URL}/api/og/results/${session}`,
+          width: 1200,
+          height: 630,
+          alt: archetypeName,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: tagline,
+      images: [`${BASE_URL}/api/og/results/${session}`],
+    },
+  };
 }
 
 export default async function ChallengeResultsPage({ params, searchParams }: Props) {
@@ -24,16 +82,9 @@ export default async function ChallengeResultsPage({ params, searchParams }: Pro
     redirect(`/${locale}/quiz`);
   }
 
-  const resultsUrl = `https://acroretreat.co.il/${locale}/quiz/challenge/results?session=${session}`;
-  const resultsTitle =
-    locale === "he"
-      ? "תוצאות אתגר האקרויוגה שלי | אקרוחבורה"
-      : "My AcroYoga Challenge Results | AcroHavura";
-
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
       <ChallengeResultsFlow sessionId={session} locale={locale} />
-      <ShareButton url={resultsUrl} title={resultsTitle} />
     </main>
   );
 }

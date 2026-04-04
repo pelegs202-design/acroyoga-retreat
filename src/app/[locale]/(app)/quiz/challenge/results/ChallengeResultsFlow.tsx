@@ -29,6 +29,7 @@ export default function ChallengeResultsFlow({
   const [error, setError] = useState<string | null>(null);
   const [loaderDone, setLoaderDone] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isSharedView, setIsSharedView] = useState(false);
 
   useEffect(() => {
     // 1. Try localStorage first (original quiz taker)
@@ -62,7 +63,7 @@ export default function ChallengeResultsFlow({
           fitScore: data.fitScore,
         };
         setPayload(resultPayload);
-        // Cache for future visits
+        setIsSharedView(true); // Data came from API, not localStorage = shared link
         try {
           localStorage.setItem(storageKey, JSON.stringify(resultPayload));
         } catch {
@@ -117,6 +118,7 @@ export default function ChallengeResultsFlow({
           locale={locale}
           sessionId={sessionId}
           fitScore={payload.fitScore ?? 100}
+          isSharedView={isSharedView}
         />
       )}
     </>

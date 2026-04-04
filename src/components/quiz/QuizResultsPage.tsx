@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
-import { useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
+import { ShareButton } from "@/components/social/ShareButton";
 import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
 import { nextMonday } from "@/lib/date-utils";
 
@@ -47,6 +48,7 @@ interface QuizResultsPageProps {
   locale: string;
   sessionId: string;
   fitScore?: number;
+  isSharedView?: boolean;
 }
 
 // ─── FAQ Accordion ────────────────────────────────────────────────────────────
@@ -132,8 +134,8 @@ export default function QuizResultsPage({
   locale,
   sessionId,
   fitScore = 100,
+  isSharedView = false,
 }: QuizResultsPageProps) {
-  const [copied, setCopied] = useState(false);
   const mountTime = useRef(Date.now());
 
   const isHe = locale === "he";
@@ -161,38 +163,48 @@ export default function QuizResultsPage({
 
   const allFears = [...result.fears, ...personalizedFears];
 
-  function handleShare() {
-    if (typeof navigator !== "undefined" && navigator.clipboard) {
-      navigator.clipboard
-        .writeText(window.location.href)
-        .then(() => {
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        })
-        .catch(() => {});
-    }
-  }
+
+  const resultsUrl = typeof window !== "undefined" ? window.location.href : "";
+  const shareTitle = isHe
+    ? `אני ${name}! גלו את הטיפוס האקרו שלכם`
+    : `I'm ${name}! Discover your acro type`;
 
   return (
-    <div className="w-full max-w-lg mx-auto flex flex-col gap-10 pb-20 px-4">
-      {/* 1. Archetype Header */}
+    <div className="w-full max-w-2xl mx-auto flex flex-col gap-12 pb-20 px-4">
+      {/* Shared view: recipient CTA at top */}
+      {isSharedView && (
+        <div className="bg-brand/10 border-2 border-brand p-6 text-center mt-8">
+          <p className="text-brand font-black text-lg mb-3">
+            {isHe ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+          </p>
+          <Link
+            href={`/${locale}/quiz/challenge`}
+            className="btn-press inline-block bg-brand text-black px-8 py-3 font-black hover:bg-white transition-colors"
+          >
+            {isHe ? "התחילו את השאלון" : "Take the Quiz"}
+          </Link>
+        </div>
+      )}
+
+      {/* 1. Archetype Header — large brutalist frame */}
       <ScrollReveal>
         <section className="text-center pt-8">
-          <p className="text-neutral-400 text-sm mb-1">
+          <p className="text-neutral-500 text-sm mb-2 uppercase tracking-widest">
             {leadName ? `${leadName}, ` : ""}
             {isHe ? "אתם" : "You are"}
           </p>
-          <h1 className="text-4xl font-black text-brand mb-2">{name}</h1>
-          {/* Pink accent bar */}
-          <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
-          <p className="text-neutral-300 italic text-base mb-4">{tagline}</p>
-          <p className="text-neutral-400 text-sm leading-relaxed">{description}</p>
+          <div className="inline-block border-2 border-brand p-6 shadow-[8px_8px_0px_0px_rgba(244,114,182,0.15)] mb-6">
+            <h1 className="text-5xl md:text-7xl font-black text-brand leading-none">{name}</h1>
+          </div>
+          <div className="mx-auto mb-4 h-1 w-20 bg-brand" />
+          <p className="text-neutral-300 italic text-lg mb-4">{tagline}</p>
+          <p className="text-neutral-400 text-base leading-relaxed max-w-lg mx-auto">{description}</p>
         </section>
       </ScrollReveal>
 
-      {/* 2. Radar Chart */}
+      {/* 2. Radar Chart — brutalist border */}
       <ScrollReveal delay={0.05}>
-        <section className="rounded-xl border border-neutral-800 bg-neutral-900 p-5">
+        <section className="border-2 border-neutral-700 bg-neutral-900 p-6">
           <h2 className="text-xl font-black text-white mb-2 text-center">
             {isHe ? "איפה אתם → איפה אתם יכולים להיות" : "Where You Are → Where You Could Be"}
           </h2>
@@ -201,42 +213,37 @@ export default function QuizResultsPage({
         </section>
       </ScrollReveal>
 
-      {/* 3. Strengths */}
+      {/* 3. Strengths — bordered cards with SVG checks */}
       <ScrollReveal delay={0.1}>
         <section>
           <h2 className="text-3xl font-black text-white mb-2">
             {isHe ? "החוזקות שלכם" : "Your Strengths"}
           </h2>
-          {/* Pink accent bar */}
-          <div className="mb-4 h-1 w-16 bg-brand" />
-          <ul className="flex flex-col gap-2">
+          <div className="mb-6 h-1 w-16 bg-brand" />
+          <div className="flex flex-col gap-3">
             {result.strengths.map((s, i) => (
-              <li key={i} className="flex items-center gap-2 text-green-400 font-medium">
-                <span className="text-green-400">✓</span>
-                <span>{isHe ? s.he : s.en}</span>
-              </li>
+              <div key={i} className="flex items-center gap-3 border-2 border-neutral-700 bg-neutral-900 px-5 py-4">
+                <svg className="w-5 h-5 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                <span className="text-white font-bold">{isHe ? s.he : s.en}</span>
+              </div>
             ))}
-          </ul>
+          </div>
         </section>
       </ScrollReveal>
 
-      {/* 4. Fear Addressing */}
+      {/* 4. Fear Addressing — each fear as a bold card */}
       {allFears.length > 0 && (
         <ScrollReveal delay={0.1}>
           <section>
             <h2 className="text-3xl font-black text-white mb-2">
               {isHe ? "אנחנו כאן בשבילכם" : "We've Got You"}
             </h2>
-            {/* Pink accent bar */}
-            <div className="mb-4 h-1 w-16 bg-brand" />
-            <div className="flex flex-col gap-3">
+            <div className="mb-6 h-1 w-16 bg-brand" />
+            <div className="flex flex-col gap-4">
               {allFears.map((fear, i) => (
-                <div
-                  key={i}
-                  className="card-hover flex items-start gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
-                >
-                  <span className="text-brand font-black text-lg mt-0.5">+</span>
-                  <p className="text-neutral-300 text-sm leading-relaxed">
+                <div key={i} className="border-2 border-neutral-700 bg-neutral-900 p-6 hover:border-brand transition-colors">
+                  <span className="text-brand font-black text-xl">+</span>
+                  <p className="text-white text-base leading-relaxed mt-2">
                     {isHe ? fear.he : fear.en}
                   </p>
                 </div>
@@ -246,25 +253,22 @@ export default function QuizResultsPage({
         </ScrollReveal>
       )}
 
-      {/* 5. Testimonials */}
+      {/* 5. Testimonials — brutalist cards with pink quote */}
       <ScrollReveal delay={0.1}>
         <section>
           <h2 className="text-3xl font-black text-white mb-2">
             {isHe ? "מה התלמידים שלנו אומרים" : "What Our Students Say"}
           </h2>
-          {/* Pink accent bar */}
-          <div className="mb-4 h-1 w-16 bg-brand" />
+          <div className="mb-6 h-1 w-16 bg-brand" />
           <div className="flex flex-col gap-4">
             {TESTIMONIALS.map((t, i) => (
-              <div
-                key={i}
-                className="card-hover rounded-xl border border-neutral-800 bg-neutral-900 p-4"
-              >
-                <p className="text-neutral-300 text-sm leading-relaxed mb-3">
-                  &ldquo;{isHe ? t.he : t.en}&rdquo;
+              <div key={i} className="border-2 border-neutral-700 bg-neutral-900 p-6">
+                <div className="text-brand text-3xl font-black mb-3">&ldquo;</div>
+                <p className="text-white text-base leading-relaxed mb-4">
+                  {isHe ? t.he : t.en}
                 </p>
-                <p className="text-neutral-500 text-xs font-medium">
-                  {t.marker} {isHe ? t.author.he : t.author.en}
+                <p className="text-brand text-sm font-bold">
+                  {isHe ? t.author.he : t.author.en}
                 </p>
               </div>
             ))}
@@ -275,64 +279,54 @@ export default function QuizResultsPage({
       {/* 6. Price CTA or Soft Disqualification */}
       <ScrollReveal delay={0.1}>
         {fitScore < SOFT_DQ_THRESHOLD ? (
-          /* ── Soft DQ: not a good fit ── */
-          <section className="rounded-2xl border border-neutral-700 bg-neutral-900 p-6 text-center">
+          <section className="border-2 border-neutral-700 bg-neutral-900 p-8 text-center">
             <h2 className="text-2xl font-black text-white mb-2">
               {isHe ? "האתגר אולי לא מתאים כרגע" : "The Challenge May Not Be Right for Now"}
             </h2>
             <div className="mx-auto mb-4 h-1 w-16 bg-neutral-700" />
             <p className="text-neutral-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">
               {isHe
-                ? "אתגר 30 יום דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אם זה לא מתאים כרגע — אפשר להתחיל עם ג׳אם פתוח ולהצטרף לאתגר הבא."
-                : "The 30-day challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. If that doesn't work right now — try a drop-in jam and join the next cohort."}
+                ? "אתגר 30 יום דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אפשר להתחיל עם ג׳אם פתוח."
+                : "The 30-day challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. Try a drop-in jam first."}
             </p>
-            <a
-              href={`/${locale}/jams`}
-              className="btn-press inline-block bg-neutral-700 text-white px-8 py-3 font-black hover:bg-neutral-600 transition-colors"
-            >
+            <a href={`/${locale}/jams`} className="btn-press inline-block bg-neutral-700 text-white px-8 py-3 font-black hover:bg-neutral-600 transition-colors">
               {isHe ? "ג׳אמים פתוחים" : "Open Jams"}
             </a>
           </section>
         ) : (
-          /* ── Qualified: show ₪1 pricing ── */
-          <section className="card-hover rounded-2xl border border-brand/30 bg-neutral-900 p-6 text-center">
-            <h2 className="text-3xl font-black text-white mb-1">
-              {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
-            </h2>
-            <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
-            <p className="text-neutral-500 text-xs mb-5">
-              {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
-            </p>
+          <section className="bg-brand py-16 -mx-4 px-4">
+            <div className="max-w-lg mx-auto text-center">
+              <h2 className="text-4xl font-black text-black mb-2">
+                {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
+              </h2>
+              <p className="text-black/60 text-sm mb-6">
+                {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
+              </p>
 
-            <div className="flex items-baseline justify-center gap-4 mb-2">
-              <span className="text-5xl font-black text-brand">1</span>
-              <span className="text-2xl font-bold text-brand">₪</span>
-              <span className="text-xl text-neutral-600 line-through">299 ₪</span>
+              <div className="flex items-baseline justify-center gap-4 mb-2">
+                <span className="text-6xl font-black text-black">₪1</span>
+                <span className="text-2xl text-black/40 line-through">₪299</span>
+              </div>
+
+              <p className="text-black/60 text-sm mb-6">
+                {isHe ? "נותרו 4 מקומות · מתחילים " : "4 spots left · Starting "}
+                {formattedStartDate}
+              </p>
+
+              <MagneticWrapper>
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackCTAClick("results_checkout");
+                    trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
+                    window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
+                  }}
+                  className="btn-press bg-black text-white px-12 py-5 text-xl font-black hover:translate-y-1 transition-transform border-4 border-black"
+                >
+                  {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
+                </button>
+              </MagneticWrapper>
             </div>
-            <p className="text-neutral-500 text-xs mb-5">
-              {isHe ? "תנועה מרפאת. ביחד חזקים." : "Movement heals. Together strong."}
-            </p>
-
-            <p className="text-amber-400 text-sm font-semibold mb-1">
-              {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
-            </p>
-            <p className="text-neutral-500 text-xs mb-6">
-              {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
-            </p>
-
-            <MagneticWrapper>
-              <button
-                type="button"
-                onClick={() => {
-                  trackCTAClick("results_checkout");
-                  trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
-                  window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
-                }}
-                className="btn-press block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
-              >
-                {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
-              </button>
-            </MagneticWrapper>
           </section>
         )}
       </ScrollReveal>
@@ -342,24 +336,8 @@ export default function QuizResultsPage({
         <FaqAccordion locale={locale} />
       </ScrollReveal>
 
-      {/* 8. Share Button */}
-      <ScrollReveal delay={0.1}>
-        <div className="flex flex-col items-center gap-2 pb-4">
-          <button
-            type="button"
-            onClick={handleShare}
-            className="btn-press rounded-xl border border-neutral-700 bg-neutral-900 px-6 py-3 text-sm text-neutral-300 hover:border-brand hover:text-white transition-colors"
-          >
-            {copied
-              ? isHe
-                ? "הועתק! ✓"
-                : "Copied! ✓"
-              : isHe
-              ? "שתפו את התוצאות שלכם"
-              : "Share Your Results"}
-          </button>
-        </div>
-      </ScrollReveal>
+      {/* 8. Share — using existing ShareButton + ShareBottomSheet */}
+      <ShareButton url={resultsUrl} title={shareTitle} />
     </div>
   );
 }
