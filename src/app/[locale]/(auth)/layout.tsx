@@ -34,8 +34,8 @@ export default async function AuthLayout({ children, params }: Props) {
         </div>
       </div>
 
-      {/* Brutalist bordered card */}
-      <div className="relative z-10 w-full max-w-md border-2 border-brand bg-neutral-900 p-8 shadow-[0_0_0_1px_rgba(0,0,0,0.5)] sm:p-12">
+      {/* Brutalist bordered card — Stitch: shadow-[12px_12px_0px_0px_rgba(244,114,182,0.1)] */}
+      <div className="relative z-10 w-full max-w-md border-2 border-brand bg-neutral-900 p-8 shadow-[12px_12px_0px_0px_rgba(244,114,182,0.1)] sm:p-12">
         {children}
       </div>
     </div>

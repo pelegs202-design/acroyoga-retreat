@@ -7,8 +7,13 @@ import { Link } from "@/i18n/navigation";
 import { authClient, useSession } from "@/lib/auth-client";
 import LanguageToggle from "./LanguageToggle";
 import MobileMenu from "./MobileMenu";
-import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 
+/**
+ * Header — Brutalist fixed nav bar matching Stitch-generated design.
+ *
+ * @see stitch-screens/header-footer.html
+ * @see stitch-screens/header-footer.png
+ */
 export default function Header() {
   const t = useTranslations("common");
   const tAuth = useTranslations("auth");
@@ -20,10 +25,8 @@ export default function Header() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Poll for unread message count every 10 seconds
   useEffect(() => {
     if (!session) return;
-
     const fetchUnread = async () => {
       try {
         const res = await fetch("/api/messages/unread");
@@ -32,11 +35,10 @@ export default function Header() {
           setUnreadCount(data.unreadCount);
         }
       } catch {
-        // Silently fail — badge is non-critical
+        // Silent
       }
     };
-
-    fetchUnread(); // Initial fetch
+    fetchUnread();
     const interval = setInterval(fetchUnread, 10000);
     return () => clearInterval(interval);
   }, [session]);
@@ -48,115 +50,92 @@ export default function Header() {
 
   return (
     <>
-      {/* ============================================================
-          HEADER — Brutalist sticky bar
-          Per stitch-screens/header-footer.html:
-          - 72px height, semi-transparent bg with backdrop blur
-          - Pink bottom border accent
-          - Bold logo: pink dot + "Acro" (white) + "Havura" (pink)
-          - Uppercase bold nav links with magnetic hover
-          - Hamburger on mobile
-      ============================================================ */}
-      <header className="sticky top-0 z-50 flex h-[72px] w-full items-center border-b border-brand/15 bg-[#0a0a0a]/95 px-4 backdrop-blur-[8px] sm:px-8 lg:px-[8vw]">
-        <div className="flex w-full items-center justify-between gap-6">
-
-          {/* Brand wordmark — dominant visual anchor */}
+      <header className="fixed top-0 left-0 right-0 z-50 flex h-20 items-center bg-[#0a0a0a]/90 backdrop-blur-md border-b-2 border-neutral-800 px-6 lg:px-12">
+        <div className="container mx-auto flex items-center justify-between">
+          {/* Wordmark */}
           <Link
             href="/"
-            className="flex shrink-0 items-center gap-2 font-black tracking-tighter"
+            className="text-2xl font-black tracking-tighter uppercase"
             aria-label={t("appName")}
           >
-            {/* Brutalist pink square dot accent */}
-            <span className="h-[6px] w-[6px] shrink-0 bg-brand" aria-hidden="true" />
-            <span className="text-2xl text-neutral-100">Acro</span>
-            <span className="text-2xl text-brand">Havura</span>
+            <span className="text-brand">Acro</span>
+            <span className="text-white">Havura</span>
           </Link>
 
-          {/* Desktop nav links — centered, magnetic hover, uppercase bold */}
-          <nav className="hidden flex-1 items-center justify-center gap-1 sm:flex" aria-label="Main navigation">
+          {/* Center nav — desktop */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-bold tracking-widest">
             {!isPending && session && (
               <>
-                <MagneticWrapper strength={0.25}>
-                  <Link
-                    href="/members"
-                    className="group relative px-4 py-2 text-sm font-bold uppercase tracking-wide text-neutral-200/60 transition-colors duration-150 hover:text-neutral-100"
-                  >
-                    {tAuth("dashboard")}
-                    {/* Brutalist underline: scales from 0 to full on hover */}
-                    <span className="absolute inset-x-4 bottom-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-200 group-hover:scale-x-100" aria-hidden="true" />
-                  </Link>
-                </MagneticWrapper>
-
-                <MagneticWrapper strength={0.25}>
-                  <Link
-                    href="/jams"
-                    className="group relative px-4 py-2 text-sm font-bold uppercase tracking-wide text-neutral-200/60 transition-colors duration-150 hover:text-neutral-100"
-                  >
-                    {tJams("title")}
-                    <span className="absolute inset-x-4 bottom-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-200 group-hover:scale-x-100" aria-hidden="true" />
-                  </Link>
-                </MagneticWrapper>
-
-                <MagneticWrapper strength={0.25}>
-                  <Link
-                    href="/messages"
-                    className="group relative px-4 py-2 text-sm font-bold uppercase tracking-wide text-neutral-200/60 transition-colors duration-150 hover:text-neutral-100"
-                  >
-                    {tMessages("title")}
-                    {unreadCount > 0 && (
-                      <span className="absolute -top-1.5 -end-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-brand px-1 text-[10px] font-bold text-black leading-none">
-                        {unreadCount > 99 ? "99+" : unreadCount}
-                      </span>
-                    )}
-                    <span className="absolute inset-x-4 bottom-0 h-[2px] origin-left scale-x-0 bg-brand transition-transform duration-200 group-hover:scale-x-100" aria-hidden="true" />
-                  </Link>
-                </MagneticWrapper>
+                <Link
+                  href="/jams"
+                  className="text-white/70 hover:text-brand transition-colors"
+                >
+                  {tJams("title")}
+                </Link>
+                <Link
+                  href="/members"
+                  className="text-white/70 hover:text-brand transition-colors"
+                >
+                  {tAuth("dashboard")}
+                </Link>
+                <Link
+                  href="/messages"
+                  className="relative text-white/70 hover:text-brand transition-colors"
+                >
+                  {tMessages("title")}
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-2 -end-3 flex h-4 min-w-4 items-center justify-center bg-brand px-1 text-[10px] font-bold text-black leading-none">
+                      {unreadCount > 99 ? "99+" : unreadCount}
+                    </span>
+                  )}
+                </Link>
+              </>
+            )}
+            {!isPending && !session && (
+              <>
+                <Link href="/jams" className="text-white/70 hover:text-brand transition-colors">
+                  {tJams("title")}
+                </Link>
+                <Link href="/members" className="text-white/70 hover:text-brand transition-colors">
+                  {tAuth("dashboard")}
+                </Link>
+                <Link href="/quiz/challenge" className="text-white/70 hover:text-brand transition-colors">
+                  {t("challenge") ?? "אתגר 30 יום"}
+                </Link>
               </>
             )}
           </nav>
 
-          {/* Trailing controls: auth + language + hamburger */}
-          <div className="flex shrink-0 items-center gap-3">
+          {/* Right actions */}
+          <div className="flex items-center gap-6">
+            <LanguageToggle />
 
-            {/* Auth state — desktop only (hidden while loading to avoid flicker) */}
             {!isPending && (
               <>
                 {session ? (
-                  <div className="hidden items-center gap-3 sm:flex">
-                    {/* User name */}
-                    <span className="hidden truncate text-sm text-neutral-400 sm:block max-w-[120px]">
+                  <div className="hidden sm:flex items-center gap-4">
+                    <span className="hidden lg:block truncate text-sm text-gray-400 max-w-[120px]">
                       {session.user.name || session.user.email}
                     </span>
                     <button
                       onClick={handleSignOut}
-                      className="btn-press border border-neutral-700 px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-neutral-300 transition-colors hover:border-brand hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                      className="btn-press border-2 border-neutral-700 px-4 py-1.5 text-sm font-bold uppercase text-neutral-300 hover:border-brand hover:text-brand transition-colors"
                     >
                       {tAuth("signOut")}
                     </button>
                   </div>
                 ) : (
-                  <div className="hidden items-center gap-2 sm:flex">
-                    <Link
-                      href="/sign-in"
-                      className="btn-press px-4 py-1.5 text-sm font-bold uppercase tracking-wide text-neutral-300 transition-colors hover:text-brand focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                    >
-                      {tAuth("signIn")}
-                    </Link>
-                    <Link
-                      href="/sign-up"
-                      className="btn-press bg-brand px-4 py-1.5 text-sm font-black uppercase tracking-wide text-black transition-colors hover:bg-brand-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                    >
-                      {tAuth("signUp")}
-                    </Link>
-                  </div>
+                  <Link
+                    href="/sign-in"
+                    className="hidden sm:block btn-press bg-brand text-[#0a0a0a] px-6 py-2 font-black text-sm uppercase border-2 border-brand hover:bg-transparent hover:text-brand transition-all duration-300"
+                  >
+                    {tAuth("signIn")}
+                  </Link>
                 )}
               </>
             )}
 
-            {/* Language toggle — always visible */}
-            <LanguageToggle />
-
-            {/* Hamburger button — mobile only, triggers Radix Dialog MobileMenu */}
+            {/* Hamburger — mobile */}
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -165,20 +144,15 @@ export default function Header() {
               aria-controls="mobile-menu"
               className="flex flex-col gap-[5px] p-2 sm:hidden focus:outline-none focus-visible:ring-2 focus-visible:ring-brand"
             >
-              <span className="block h-[2px] w-6 bg-neutral-100 transition-transform duration-200" aria-hidden="true" />
-              <span className="block h-[2px] w-6 bg-neutral-100 transition-transform duration-200" aria-hidden="true" />
-              <span className="block h-[2px] w-6 bg-neutral-100 transition-transform duration-200" aria-hidden="true" />
+              <span className="block h-[2px] w-6 bg-brand" aria-hidden="true" />
+              <span className="block h-[2px] w-6 bg-brand" aria-hidden="true" />
+              <span className="block h-[2px] w-6 bg-brand" aria-hidden="true" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile menu — Radix Dialog Sheet pattern (DSGN-04: focus trap, escape-to-close, aria-modal, scroll lock) */}
-      <MobileMenu
-        isOpen={menuOpen}
-        onOpenChange={setMenuOpen}
-        unreadCount={unreadCount}
-      />
+      <MobileMenu isOpen={menuOpen} onOpenChange={setMenuOpen} unreadCount={unreadCount} />
     </>
   );
 }

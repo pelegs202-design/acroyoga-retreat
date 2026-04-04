@@ -16,15 +16,19 @@ const CITY_NAMES: Record<CitySlug, { he: string; en: string }> = {
 };
 
 /**
- * CityStats — server component.
- * Displays member count and upcoming jam count for a city.
+ * CityStats — Brutalist stats row matching Stitch city-page.html.
+ *
+ * Full-width bordered section with stat boxes separated by border dividers.
+ * Numbers in pink, labels in white. Matching the Stitch Stats Row section.
+ *
+ * @see stitch-screens/city-page.html (Stats Row)
+ * @see stitch-screens/city-page.png
  */
 export default async function CityStats({ city, locale = "he" }: Props) {
   const t = await getTranslations({ locale, namespace: "city.stats" });
   const cityName = CITY_NAMES[city];
   const now = new Date();
 
-  // Count members with matching city (ILIKE for loose match on user.city text field)
   const [memberResult] = await db
     .select({ count: count() })
     .from(user)
@@ -35,7 +39,6 @@ export default async function CityStats({ city, locale = "he" }: Props) {
       )
     );
 
-  // Count upcoming jams for this city
   const [jamResult] = await db
     .select({ count: count() })
     .from(jamSessions)
@@ -59,38 +62,22 @@ export default async function CityStats({ city, locale = "he" }: Props) {
   const jamCount = jamResult?.count ?? 0;
 
   const stats = [
-    {
-      value: memberCount,
-      label: t("members", { count: memberCount }),
-      raw: memberCount,
-    },
-    {
-      value: jamCount,
-      label: t("jams", { count: jamCount }),
-      raw: jamCount,
-    },
+    { value: `${jamCount}`, label: t("jams", { count: jamCount }) },
+    { value: `${memberCount}+`, label: t("members", { count: memberCount }) },
+    { value: "4", label: locale === "he" ? "מיקומים" : "Locations" },
   ];
 
   return (
-    <section>
-      <h2 className="mb-6 text-3xl font-black uppercase tracking-tight text-neutral-100">
-        {t("title")}
-      </h2>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        {stats.map((stat, i) => (
-          <div
-            key={i}
-            className="card-hover border-4 border-neutral-100 bg-neutral-900 p-8 text-center"
-          >
-            <p className="mb-2 text-6xl font-black tabular-nums text-brand sm:text-7xl">
-              {stat.raw}
-            </p>
-            <p className="text-lg font-bold uppercase tracking-widest text-neutral-300">
-              {stat.label}
-            </p>
-          </div>
-        ))}
+    <section className="border-y-2 border-white/20 bg-[#0a0a0a] py-16">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center p-6 border-x border-white/10">
+              <div className="text-5xl font-black text-brand mb-2">{stat.value}</div>
+              <div className="text-lg font-bold text-white">{stat.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

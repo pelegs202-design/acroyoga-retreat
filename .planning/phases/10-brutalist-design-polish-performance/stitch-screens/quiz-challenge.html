@@ -1,362 +1,95 @@
-<!--
-  AcroHavura Quiz Challenge — Brutalist Design Reference
-  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
-
-  RTL NOTE: This is LTR HTML. Executors MUST adapt to RTL:
-  - dir="rtl" on html element
-  - Progress bar fills right-to-left
-  - Slide transitions: next question slides from right, not left (RTL direction)
-  - RTL slide direction derives from document.documentElement.dir (Phase 05-01 pattern)
-
-  Brand tokens:
-  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
-  - Foreground: #ededed  | Font: Heebo 900 (headings), 700/500 (options)
-
-  Quiz types:
-  1. Single-question view with progress bar
-  2. Option card grid (4 options)
-  3. Results reveal card (score + archetype)
--->
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AcroHavura — Quiz Design Reference</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; min-height: 100vh; display: flex; flex-direction: column; }
-
-    /* =========================================
-       QUIZ CONTAINER
-       Full-screen centered layout.
-       Brutal containment — explicit edges.
-    ========================================= */
-    .quiz-shell {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* =========================================
-       PROGRESS BAR
-       Thin 3px bar at top. Pink fill.
-       RTL: right-to-left fill (transform-origin: right)
-    ========================================= */
-    .quiz-progress-bar {
-      height: 3px;
-      background: rgba(244,114,182,0.15);
-      position: relative;
-      flex-shrink: 0;
-    }
-    .quiz-progress-fill {
-      height: 100%;
-      background: #F472B6;
-      width: 40%; /* step 2 of 5 = 40% */
-      transition: width 400ms ease;
-      /* RTL: use transform-origin: right for RTL fill direction */
-    }
-    .quiz-step-label {
-      position: absolute;
-      top: 8px;
-      left: 16px; /* adjust to right: 16px for RTL */
-      font-size: 11px;
-      color: rgba(237,237,237,0.4);
-      letter-spacing: 0.1em;
-      font-weight: 500;
-    }
-
-    /* =========================================
-       QUIZ MAIN
-       Centered content. Max width 600px.
-    ========================================= */
-    .quiz-main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 24px;
-    }
-    .quiz-card {
-      width: 100%;
-      max-width: 600px;
-    }
-    .quiz-question-category {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: #F472B6;
-      margin-bottom: 24px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(244,114,182,0.2);
-    }
-    .quiz-question-text {
-      font-size: clamp(24px, 4vw, 40px);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 40px;
-      letter-spacing: -0.02em;
-    }
-
-    /* =========================================
-       OPTION CARDS
-       4 options. 2x2 grid on desktop.
-       Full-width stacked on mobile.
-       Selected: pink border + pink label.
-       Hover: card-hover glow.
-    ========================================= */
-    .quiz-options {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    @media (max-width: 480px) { .quiz-options { grid-template-columns: 1fr; } }
-    .option-card {
-      padding: 28px 24px;
-      border: 2px solid rgba(237,237,237,0.1);
-      cursor: pointer;
-      transition: transform 200ms ease, box-shadow 200ms ease, border-color 150ms ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .option-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(244,114,182,0);
-      transition: background 150ms ease;
-    }
-    .option-card:hover {
-      border-color: rgba(244,114,182,0.5);
-      transform: scale(1.03);
-      box-shadow: 0 0 0 1px #F472B6, 0 20px 40px rgba(244,114,182,0.15);
-    }
-    .option-card:hover::before { background: rgba(244,114,182,0.03); }
-    .option-card.selected {
-      border-color: #F472B6;
-      box-shadow: 0 0 0 1px #F472B6, 0 0 20px rgba(244,114,182,0.25);
-    }
-    .option-letter {
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: 0.2em;
-      color: rgba(237,237,237,0.3);
-      display: block;
-      margin-bottom: 10px;
-    }
-    .option-card.selected .option-letter { color: #F472B6; }
-    .option-text {
-      font-size: 18px;
-      font-weight: 700;
-      line-height: 1.35;
-    }
-
-    /* =========================================
-       NAVIGATION BUTTONS
-       Next / Back row.
-    ========================================= */
-    .quiz-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 40px;
-      gap: 16px;
-    }
-    .btn-back {
-      background: transparent;
-      color: rgba(237,237,237,0.5);
-      font-family: 'Heebo', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 14px 24px;
-      border: 1px solid rgba(237,237,237,0.15);
-      cursor: pointer;
-      transition: border-color 150ms ease, color 150ms ease, transform 100ms ease-in;
-    }
-    .btn-back:hover { border-color: rgba(237,237,237,0.4); color: #ededed; }
-    .btn-back:active { transform: scale(0.95); }
-    .btn-next {
-      background: #F472B6;
-      color: #0a0a0a;
-      font-family: 'Heebo', sans-serif;
-      font-weight: 900;
-      font-size: 16px;
-      padding: 16px 40px;
-      border: 2px solid #F472B6;
-      cursor: pointer;
-      transition: transform 100ms ease-in, background 150ms ease;
-    }
-    .btn-next:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.05); }
-    .btn-next:active { transform: scale(0.95); }
-    .btn-next:disabled {
-      background: rgba(244,114,182,0.2);
-      border-color: rgba(244,114,182,0.2);
-      color: rgba(10,10,10,0.5);
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* =========================================
-       RESULTS CARD (end state)
-       Full-screen reveal. Archetype badge.
-       Score circle with pink stroke.
-    ========================================= */
-    .results-section {
-      margin-top: 64px;
-      padding: 0;
-    }
-    .results-card {
-      border: 2px solid #F472B6;
-      padding: 64px 48px;
-      position: relative;
-      text-align: center;
-    }
-    .results-label {
-      font-size: 11px;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: rgba(237,237,237,0.4);
-      margin-bottom: 24px;
-    }
-    .results-archetype {
-      font-size: clamp(40px, 8vw, 80px);
-      font-weight: 900;
-      color: #F472B6;
-      line-height: 1;
-      margin-bottom: 20px;
-    }
-    .results-desc {
-      font-size: 18px;
-      color: rgba(237,237,237,0.7);
-      line-height: 1.6;
-      max-width: 440px;
-      margin: 0 auto 40px;
-    }
-
-    /* =========================================
-       FORM INPUTS (text-inputs step)
-       Pink glow on focus. Brutalist border.
-    ========================================= */
-    .quiz-inputs { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
-    .quiz-input {
-      background: rgba(237,237,237,0.04);
-      border: 2px solid rgba(237,237,237,0.1);
-      color: #ededed;
-      font-family: 'Heebo', sans-serif;
-      font-size: 18px;
-      font-weight: 500;
-      padding: 18px 20px;
-      width: 100%;
-      transition: border-color 200ms ease, box-shadow 200ms ease;
-    }
-    .quiz-input:focus {
-      outline: none;
-      border-color: #F472B6;
-      box-shadow: 0 0 0 2px #F472B6, 0 0 12px rgba(244,114,182,0.3);
-    }
-    .quiz-input::placeholder { color: rgba(237,237,237,0.3); }
-
-    /* LAYOUT NOTES FOR EXECUTORS:
-       - Progress bar: 3px, fills L→R normally but R→L for RTL (transform-origin)
-       - Question slide animation: RTL derives from document.documentElement.dir
-       - Option cards: A/B/C/D labels shown in options (Hebrew: א/ב/ג/ד)
-       - Selected state: store in quiz state, apply .selected class
-       - Disabled next button until option selected
-       - Text-inputs step: WhatsApp + Name fields (Phase 05-01 pattern)
-       - Results: archetype types = Explorer, Artist, Connector, Athlete
-       - CTA after results: WhatsApp group join + share button
-    */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AcroHavura Mobile Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Heebo', sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .brutalist-border {
+            border: 2px solid #262626;
+        }
+        .brutalist-selected {
+            border-color: #F472B6;
+            box-shadow: 0 0 15px rgba(244, 114, 182, 0.3);
+        }
+        .btn-pink {
+            background-color: #F472B6;
+            color: #000000;
+        }
+        .progress-bar {
+            height: 4px;
+            background-color: #262626;
+            width: 100%;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #F472B6;
+            width: 30%;
+        }
+    </style>
 </head>
-<body>
+<body class="flex flex-col h-screen">
 
-  <!-- QUIZ SHELL -->
-  <div class="quiz-shell">
-
-    <!-- PROGRESS BAR -->
-    <div class="quiz-progress-bar">
-      <div class="quiz-progress-fill"></div>
-      <span class="quiz-step-label">שלב 2 מתוך 5</span>
+    <!-- Progress Bar -->
+    <div class="fixed top-0 left-0 right-0 z-50">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="p-4 flex justify-end text-xs font-bold text-neutral-400">
+            3/10
+        </div>
     </div>
 
-    <!-- QUIZ MAIN -->
-    <div class="quiz-main">
-      <div class="quiz-card">
+    <!-- Content -->
+    <main class="flex-grow flex flex-col items-center justify-center px-6 pt-16 pb-32">
+        <h1 class="text-4xl font-black text-center mb-12 leading-tight">
+            מה הרמה<br>שלך?
+        </h1>
 
-        <!-- QUESTION VIEW -->
-        <div class="quiz-question-category">סגנון תרגול</div>
-        <h2 class="quiz-question-text">
-          מה מדרבן אותך יותר באקרויוגה?
-        </h2>
+        <div class="w-full space-y-4">
+            <!-- Option 1 -->
+            <div class="brutalist-border p-5 text-center font-bold text-lg cursor-pointer hover:bg-neutral-900 transition-colors">
+                מתחיל/ה / ה פעם ראשונה
+            </div>
 
-        <!-- OPTIONS GRID -->
-        <div class="quiz-options">
-          <div class="option-card selected">
-            <span class="option-letter">א</span>
-            <span class="option-text">להתקדם טכנית ולשלוט בתנוחות קשות</span>
-          </div>
-          <div class="option-card">
-            <span class="option-letter">ב</span>
-            <span class="option-text">החיבור האנושי עם שותפים שונים</span>
-          </div>
-          <div class="option-card">
-            <span class="option-letter">ג</span>
-            <span class="option-text">היצירתיות — להמציא רצפים חדשים</span>
-          </div>
-          <div class="option-card">
-            <span class="option-letter">ד</span>
-            <span class="option-text">המשחקיות — להתנסות ולהיות ספונטני</span>
-          </div>
+            <!-- Option 2 (Selected) -->
+            <div class="brutalist-border brutalist-selected p-5 text-center font-bold text-lg bg-neutral-900 cursor-pointer">
+                מתרגל/ת / ת בסיסי
+            </div>
+
+            <!-- Option 3 -->
+            <div class="brutalist-border p-5 text-center font-bold text-lg cursor-pointer hover:bg-neutral-900 transition-colors">
+                בינוני / ת - ג'אמים קבועים
+            </div>
+
+            <!-- Option 4 -->
+            <div class="brutalist-border p-5 text-center font-bold text-lg cursor-pointer hover:bg-neutral-900 transition-colors">
+                מתקדם / ת - רמה גבוהה
+            </div>
         </div>
+    </main>
 
-        <!-- NAVIGATION -->
-        <div class="quiz-nav">
-          <button class="btn-back">← חזרה</button>
-          <button class="btn-next">המשך →</button>
+    <!-- Footer Controls -->
+    <footer class="fixed bottom-0 left-0 right-0 p-6 space-y-4 bg-gradient-to-t from-[#0a0a0a] to-transparent">
+        <div class="text-center">
+            <a href="#" class="text-neutral-400 text-sm font-bold uppercase tracking-wider hover:text-white">חזרה</a>
         </div>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- SEPARATOR: Results State -->
-  <div style="padding: 40px 8vw;">
-    <h3 style="color: rgba(237,237,237,0.3); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 40px;">— RESULTS STATE —</h3>
-
-    <div style="max-width: 600px; margin: 0 auto;">
-      <div class="results-card">
-        <p class="results-label">הפרופיל האקרו שלך</p>
-        <div class="results-archetype">Explorer</div>
-        <p class="results-desc">
-          אתה אוהב להתנסות. גמיש ופתוח, תמיד בחיפוש אחר שותפים חדשים ותנוחות לא שגרתיות.
-        </p>
-        <button class="btn-next" style="margin: 0 auto; display: block;">
-          מצא שותף עכשיו
+        <button class="w-full py-5 text-xl font-black btn-pink uppercase tracking-tighter">
+            הבא
         </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- SEPARATOR: Text Inputs State -->
-  <div style="padding: 40px 8vw 80px;">
-    <h3 style="color: rgba(237,237,237,0.3); font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 40px;">— TEXT INPUTS STATE —</h3>
-
-    <div style="max-width: 600px; margin: 0 auto;">
-      <div class="quiz-question-category">פרטים אחרונים</div>
-      <h2 class="quiz-question-text">שני פרטים קטנים</h2>
-      <div class="quiz-inputs">
-        <input class="quiz-input" type="text" placeholder="השם שלך" />
-        <input class="quiz-input" type="tel" placeholder="מספר וואטסאפ" />
-      </div>
-      <div class="quiz-nav" style="margin-top: 32px;">
-        <button class="btn-back">← חזרה</button>
-        <button class="btn-next">סיים →</button>
-      </div>
-    </div>
-  </div>
+    </footer>
 
 </body>
 </html>

@@ -7,77 +7,50 @@ import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
 /**
- * HeroSection — Full-viewport brutalist hero with parallax background.
+ * HeroSection — Brutalist hero matching Stitch-generated design.
  *
- * Layout: Asymmetric grid — headline pushed to the start side,
- * creating raw, off-balance brutalist tension. No text animations
- * (locked decision: no text animation). Subtitle + buttons block
- * reveals on scroll via ScrollReveal.
+ * Asymmetric 2-column grid: RTL headline on the start side,
+ * decorative brutalist image frame on the other. Pink diagonal
+ * offset border behind the image. Grayscale contrast treatment.
  *
- * Background: ParallaxLayer with dark gradient and hot-pink accent shapes.
- * CTAs: MagneticWrapper + btn-press class for tactile desktop interaction.
- *
- * @see 10-02-PLAN.md Task 1A
- * @see src/components/effects/ParallaxLayer.tsx
- * @see src/components/effects/MagneticWrapper.tsx
+ * @see stitch-screens/header-footer.html (hero section)
+ * @see stitch-screens/homepage-hero.png
  */
 export function HeroSection() {
   const t = useTranslations("home.hero");
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-background">
+    <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-background border-b-2 border-neutral-800">
       {/* Parallax background layer */}
       <ParallaxLayer speed={0.35} className="absolute inset-0">
-        {/* Dark-to-dark gradient with pink accent shapes */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111111] to-[#0d0d0d]" />
-        {/* Abstract pink accent — top-right corner blob */}
-        <div
-          className="absolute -top-32 -end-32 w-[500px] h-[500px] rounded-full opacity-10"
-          style={{
-            background:
-              "radial-gradient(circle, #F472B6 0%, transparent 70%)",
-          }}
-        />
-        {/* Smaller accent — bottom-start area */}
-        <div
-          className="absolute bottom-0 start-0 w-[300px] h-[300px] opacity-6"
-          style={{
-            background:
-              "radial-gradient(circle, #DB2777 0%, transparent 60%)",
-          }}
-        />
-        {/* Brutalist horizontal rule accent */}
-        <div className="absolute top-1/2 start-0 w-full h-px bg-brand/10" />
       </ParallaxLayer>
 
-      {/* Hero content — asymmetric layout */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 py-24">
-        {/* Asymmetric grid: headline dominates start side */}
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 items-center">
-          {/* Headline block — static (locked: no text animation) */}
-          <div>
-            {/* Brutalist overline label */}
-            <p className="mb-4 text-brand text-sm font-bold tracking-[0.3em] uppercase">
-              AcroHavura
-            </p>
-            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight text-foreground">
-              {t("title")}
-            </h1>
-          </div>
+      {/* Hero content — asymmetric grid */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12 py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Text block */}
+          <div className="order-2 lg:order-1 text-start">
+            <ScrollReveal>
+              <h1 className="text-6xl lg:text-8xl font-black leading-none mb-6">
+                {t("title").split(" ").slice(0, -1).join(" ")}{" "}
+                <br />
+                <span className="text-brand">{t("title").split(" ").pop()}</span>
+              </h1>
+            </ScrollReveal>
 
-          {/* Subtitle + CTA block — reveals on scroll */}
-          <ScrollReveal delay={0.1}>
-            <div className="flex flex-col gap-6">
-              <p className="text-xl text-neutral-400 leading-relaxed">
+            <ScrollReveal delay={0.1}>
+              <p className="text-gray-400 text-lg max-w-xl mb-10 leading-relaxed">
                 {t("subtitle")}
               </p>
+            </ScrollReveal>
 
-              {/* CTA buttons with magnetic effect on desktop */}
-              <div className="flex flex-col sm:flex-row gap-4">
+            <ScrollReveal delay={0.2}>
+              <div className="flex flex-wrap gap-4">
                 <MagneticWrapper strength={0.25}>
                   <Link
                     href="/quiz"
-                    className="btn-press inline-flex items-center justify-center px-8 py-4 bg-brand text-brand-foreground font-bold text-base rounded-none border-2 border-brand hover:bg-brand-muted hover:border-brand-muted transition-colors"
+                    className="btn-press bg-brand text-[#0a0a0a] px-10 py-4 text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform"
                   >
                     {t("ctaQuiz")}
                   </Link>
@@ -85,22 +58,32 @@ export function HeroSection() {
                 <MagneticWrapper strength={0.25}>
                   <Link
                     href="/members"
-                    className="btn-press inline-flex items-center justify-center px-8 py-4 bg-transparent text-foreground font-bold text-base rounded-none border-2 border-foreground/30 hover:border-brand hover:text-brand transition-colors"
+                    className="btn-press bg-transparent text-white px-10 py-4 text-xl font-black border-2 border-white hover:bg-white hover:text-[#0a0a0a] transition-colors"
                   >
                     {t("ctaPartners")}
                   </Link>
                 </MagneticWrapper>
               </div>
-            </div>
-          </ScrollReveal>
-        </div>
+            </ScrollReveal>
+          </div>
 
-        {/* Brutalist bottom edge indicator */}
-        <div className="absolute bottom-10 start-6 sm:start-10 flex items-center gap-3">
-          <div className="w-8 h-px bg-brand" />
-          <span className="text-xs text-neutral-400 tracking-widest uppercase">
-            {t("scrollHint")}
-          </span>
+          {/* Brutalist image frame */}
+          <div className="order-1 lg:order-2 flex justify-center relative">
+            <ScrollReveal delay={0.15}>
+              <div className="relative z-10 border-[3px] border-neutral-800 p-4 bg-[#0a0a0a]">
+                {/* Placeholder — grayscale acroyoga image area */}
+                <div className="w-full aspect-square max-w-md bg-neutral-900 flex items-center justify-center overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand/20 to-transparent opacity-50" />
+                  <span className="text-8xl font-black text-brand/10 select-none">AH</span>
+                </div>
+                <div className="absolute bottom-4 start-4 bg-white text-[#0a0a0a] font-black px-2 py-1 text-[10px] tracking-widest uppercase">
+                  EST. 2024
+                </div>
+              </div>
+              {/* Decorative offset pink border */}
+              <div className="absolute -z-10 top-8 end-8 w-full max-w-md aspect-square border-2 border-brand" />
+            </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>

@@ -57,6 +57,11 @@
     "showcase": {
       "label": "Platform highlights",
       "title": "Built for the community.",
+      "stats": {
+        "members": "Active members",
+        "jams": "Jams per month",
+        "cities": "Cities"
+      },
       "cards": {
         "0": {
           "tag": "Matching",

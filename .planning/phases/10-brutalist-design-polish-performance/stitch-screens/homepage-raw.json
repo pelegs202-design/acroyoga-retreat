@@ -1,0 +1,18 @@
+{
+  "outputComponents": [
+    {
+      "text": "I apologize, but I've encountered a persistent technical issue while trying to generate the full layout for the AcroHavura brutalist homepage. \n\nDespite several attempts with different prompt configurations, the generation tool is currently failing to render the complete layout. \n\nMy planned design for the homepage included:\n*   **A Brutalist Dark Aesthetic:** A deep dark background (#0a0a0a) with a high-contrast Hebrew RTL layout (Heebo font).\n*   **Hero Section:** An asymmetric grid with bold white heading (\"הצטרפו לקהילה\") and a pink highlight on \"אקרו\" (#F472B6).\n*   **Features Grid:** Four dark cards with thick 2px borders, pink icons, and bold white titles.\n*   **Statistics Section:** Large pink numbers (\"500+\", \"200+\", \"15\") with clear white labels.\n*   **Call to Action:** A high-impact pink full-width section with bold black text.\n\nI've already successfully generated several screens for this project (like the Sign In page and the Navigation Shell), which you can see on the canvas. I'm ready to try again once the service is stable, or I can focus on building individual sections one by one if that's more helpful for you right now. \n\nHow would you like to proceed?"
+    },
+    {
+      "suggestion": "Try generating the Hero section only"
+    },
+    {
+      "suggestion": "Generate the Features Grid card as a single component"
+    },
+    {
+      "suggestion": "Try the layout in mobile view instead"
+    }
+  ],
+  "projectId": "18250303018038543652",
+  "sessionId": "3597389137740744232"
+}

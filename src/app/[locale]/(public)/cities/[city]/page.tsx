@@ -9,7 +9,6 @@ import CityJamList from "@/components/city/CityJamList";
 import CityStats from "@/components/city/CityStats";
 import CityFAQ from "@/components/city/CityFAQ";
 import { ShareButton } from "@/components/social/ShareButton";
-import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
 export const revalidate = 3600; // ISR: revalidate every hour for fresh jam data
 
@@ -128,20 +127,37 @@ export default async function CityPage({ params }: Props) {
       <JsonLd data={buildLocalBusinessSchema(citySlug)} />
       <JsonLd data={buildFAQSchema(faqItems)} />
 
-      <div className="space-y-16">
+      <div>
         {/* CityHero wraps itself in ScrollReveal internally */}
         <CityHero city={citySlug} locale={locale} />
 
-        <ScrollReveal delay={0.05}>
-          <CityJamList city={citySlug} locale={locale} />
-        </ScrollReveal>
+        {/* Stats row — full width with borders */}
+        <CityStats city={citySlug} />
 
-        <ScrollReveal delay={0.1}>
-          <CityStats city={citySlug} />
-        </ScrollReveal>
+        {/* Upcoming jams grid */}
+        <CityJamList city={citySlug} locale={locale} />
 
-        {/* CityFAQ wraps itself in ScrollReveal internally */}
+        {/* FAQ accordion — Stitch brutalist bordered cards */}
         <CityFAQ city={citySlug} locale={locale} faqItems={faqItems} />
+
+        {/* Bottom CTA — full pink background matching Stitch */}
+        <section className="bg-brand py-20">
+          <div className="max-w-7xl mx-auto px-4 text-center">
+            <h2 className="text-5xl md:text-7xl font-black text-black mb-10 leading-tight">
+              {locale === "he" ? "מוכנים להתחיל?" : "Ready to start?"}
+              <br />
+              {locale === "he"
+                ? `הצטרפו לקהילה ב${citySlug === "tel-aviv" ? "תל אביב" : "כפר סבא"}`
+                : `Join the community in ${citySlug === "tel-aviv" ? "Tel Aviv" : "Kfar Saba"}`}
+            </h2>
+            <a
+              href={`/${locale}/quiz`}
+              className="inline-block bg-black text-white px-12 py-6 text-2xl font-black hover:translate-y-1 transition-transform border-4 border-black"
+            >
+              {locale === "he" ? "הצטרפו עכשיו" : "Join Now"}
+            </a>
+          </div>
+        </section>
       </div>
 
       <ShareButton url={canonicalUrl} title={cityTitle} />

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AcroHavura | אקרוחבורה - סטטיסטיקה</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Heebo for Hebrew Brutalist style -->
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heebo: ['Heebo', 'sans-serif'],
+          },
+          colors: {
+            brutalBlack: '#0a0a0a',
+            brutalGray: '#262626',
+            brutalPink: '#F472B6',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="typography">
+    body {
+      font-family: 'Heebo', sans-serif;
+      background-color: #0a0a0a;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+<!-- BEGIN: Stats Section -->
+<main class="w-full">
+<section class="border-y-2 border-brutalGray bg-brutalBlack py-20 px-6">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-0 text-center items-center">
+<!-- Stat 1 -->
+<div class="py-12 md:py-0 border-b-2 md:border-b-0 md:border-l-2 border-brutalGray">
+<div class="text-7xl md:text-8xl font-black text-brutalPink mb-4 tracking-tighter leading-none">500+</div>
+<div class="text-xl md:text-2xl font-bold text-white uppercase tracking-widest">חברים פעילים</div>
+</div>
+<!-- Stat 2 -->
+<div class="py-12 md:py-0 border-b-2 md:border-b-0 md:border-l-2 border-brutalGray">
+<div class="text-7xl md:text-8xl font-black text-brutalPink mb-4 tracking-tighter leading-none">200+</div>
+<div class="text-xl md:text-2xl font-bold text-white uppercase tracking-widest">ג'אמים בחודש</div>
+</div>
+<!-- Stat 3 -->
+<div class="py-12 md:py-0">
+<div class="text-7xl md:text-8xl font-black text-brutalPink mb-4 tracking-tighter leading-none">15</div>
+<div class="text-xl md:text-2xl font-bold text-white uppercase tracking-widest">ערים</div>
+</div>
+</div>
+</section>
+</main>
+<!-- END: Stats Section -->
+</body></html>

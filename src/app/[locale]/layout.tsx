@@ -98,7 +98,9 @@ export default async function LocaleLayout({ children, params }: Props) {
         <NextIntlClientProvider messages={messages}>
           <MotionProvider>
             <Header />
-            {children}
+            <div className="pt-20">
+              {children}
+            </div>
             <Footer />
             <InstallPrompt />
             <IosBanner />

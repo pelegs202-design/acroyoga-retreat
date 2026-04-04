@@ -1,0 +1,49 @@
+{
+  "outputComponents": [
+    {
+      "design": {
+        "screens": [
+          {
+            "deviceType": "DESKTOP",
+            "generatedBy": "create_datastore_entry",
+            "height": "2048",
+            "htmlCode": {
+              "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sXzMwYTcwYTZiZGM0ZDRlNTc4NGRjMjczZDBjMmE1ZjhkEgsSBxDFnJDltRIYAZIBJAoKcHJvamVjdF9pZBIWQhQxODI1MDMwMzAxODAzODU0MzY1Mg&filename=&opi=96797242",
+              "mimeType": "text/html",
+              "name": "projects/18250303018038543652/files/56d46a55f5ee4d8bb8e8f4c8dcaf4227"
+            },
+            "id": "7bfa5ddced7c45debeb05c8d70ab088f",
+            "name": "projects/18250303018038543652/screens/7bfa5ddced7c45debeb05c8d70ab088f",
+            "screenMetadata": {
+              "agentType": "PRO_AGENT",
+              "status": "COMPLETE"
+            },
+            "screenType": "DESIGN",
+            "screenshot": {
+              "downloadUrl": "https://lh3.googleusercontent.com/aida/ADBb0ugeJ2AmMqbktH-KFd87l5C8ylyujkGRLuhkHDl3CL8z3Vk-qIRqpCbe2GpIORCmn6BjM8OKUPNmRrtB31y4njuy3VKp5wDUySm8FuDYDcD7eSWW5RkErv9zE-qNnr41JWZ0V3gwoGu-Wiwdo3b9o4VW39uYAsnx1Q0k9Dib6iRU66Kq5m_tYhInpqjrsgJ6OAPb4as-z2KkbG61CSYNzvzdxYQuunYXQMwhHEqVHwyaa7eUVPl5XOjtMzg",
+              "name": "projects/18250303018038543652/files/3eb854fb7c77479a86d94666c2f422a7"
+            },
+            "theme": {},
+            "title": "AcroHavura Mobile Quiz Screen (Hardcoded)",
+            "width": "2560"
+          }
+        ],
+        "theme": {}
+      }
+    },
+    {
+      "text": "I've designed the mobile quiz screen for AcroHavura. It features the brutalist dark theme you requested, with a progress bar at the top, vertical stacked option cards (including a selected state with a pink glow), and a bold, full-width \"Next\" button in pink. The text is all in Hebrew and follows the RTL layout. \n\nYou can find the new screen in the Interactive Updates section of the canvas."
+    },
+    {
+      "suggestion": "Add an explanation for each level on tap"
+    },
+    {
+      "suggestion": "Design the results page for the quiz"
+    },
+    {
+      "suggestion": "Try a lighter background version"
+    }
+  ],
+  "projectId": "18250303018038543652",
+  "sessionId": "797850292263749802"
+}

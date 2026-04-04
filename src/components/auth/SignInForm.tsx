@@ -67,12 +67,17 @@ export default function SignInForm({ locale }: Props) {
 
   return (
     <div>
-      {/* Brutalist bold heading with pink accent bar */}
-      <h1 className="mb-2 text-3xl font-black tracking-tighter text-neutral-100">
-        {t("signIn")}
-      </h1>
-      {/* Pink accent bar under heading */}
-      <div className="mb-6 h-1 w-12 bg-brand" aria-hidden="true" />
+      {/* Wordmark at top of card — Stitch design */}
+      <div className="text-center mb-10">
+        <div className="text-2xl font-black tracking-tighter uppercase mb-4">
+          <span className="text-brand">Acro</span>
+          <span className="text-white">Havura</span>
+        </div>
+        <h1 className="text-4xl font-black mb-2 text-neutral-100">
+          {t("signIn")}
+        </h1>
+        <p className="text-gray-400 text-sm">{t("signInSubtitle") ?? ""}</p>
+      </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
         {/* Email */}
@@ -88,7 +93,7 @@ export default function SignInForm({ locale }: Props) {
             type="email"
             autoComplete="email"
             {...register("email")}
-            className="w-full rounded-none border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+            className="w-full bg-neutral-900 border-2 border-white/20 text-white p-3 outline-none transition-all placeholder:text-gray-600 focus:border-brand focus:shadow-[4px_4px_0px_0px_#F472B6]"
           />
           {errors.email && (
             <p className="mt-1.5 text-sm text-red-400">{errors.email.message}</p>
@@ -108,7 +113,7 @@ export default function SignInForm({ locale }: Props) {
             type="password"
             autoComplete="current-password"
             {...register("password")}
-            className="w-full rounded-none border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-brand focus:ring-1 focus:ring-brand"
+            className="w-full bg-neutral-900 border-2 border-white/20 text-white p-3 outline-none transition-all placeholder:text-gray-600 focus:border-brand focus:shadow-[4px_4px_0px_0px_#F472B6]"
           />
           {errors.password && (
             <p className="mt-1.5 text-sm text-red-400">{errors.password.message}</p>
@@ -136,21 +141,24 @@ export default function SignInForm({ locale }: Props) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="btn-press w-full bg-brand px-4 py-3 text-sm font-black uppercase tracking-wide text-black transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
+          className="btn-press w-full bg-brand text-black font-black py-4 uppercase tracking-widest hover:bg-white transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? "..." : t("signIn")}
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-neutral-400">
-        {t("noAccount")}{" "}
-        <a
-          href={`/${locale}/sign-up`}
-          className="font-bold text-brand transition-colors hover:text-brand-muted"
-        >
-          {t("signUp")}
-        </a>
-      </p>
+      {/* Signup link — Stitch: divider + centered text */}
+      <div className="mt-10 pt-6 border-t border-white/10 text-center">
+        <p className="text-sm text-gray-400">
+          {t("noAccount")}{" "}
+          <a
+            href={`/${locale}/sign-up`}
+            className="text-brand font-bold hover:underline ms-1"
+          >
+            {t("signUp")}
+          </a>
+        </p>
+      </div>
     </div>
   );
 }

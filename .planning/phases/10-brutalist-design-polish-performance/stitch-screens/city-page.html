@@ -1,374 +1,306 @@
-<!--
-  AcroHavura City Landing Page — Brutalist Design Reference
-  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
-
-  RTL NOTE: This is LTR HTML. Executors MUST adapt:
-  - dir="rtl" on html element
-  - Logical CSS properties for padding/margin
-  - flex-row directions inverted for Hebrew content flow
-  - Text alignment: text-right for Hebrew
-
-  Covers: Tel Aviv + Kfar Saba templates (same structure, different city content)
-
-  Brand tokens:
-  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
-  - Foreground: #ededed  | Font: Heebo 900 (headings), 400/500 (body)
--->
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AcroHavura — City Page Design Reference</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; }
 
-    /* =========================================
-       SECTION 1: CITY HERO
-       Full-width city name in massive type.
-       Asymmetric — city name bleeds to left edge.
-       Pink underline accent on city name.
-    ========================================= */
-    .city-hero {
-      min-height: 70vh;
-      padding: 120px 8vw 80px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AcroHavura | אקרויוגה בתל אביב</title>
+<!-- Tailwind CSS v3 with Plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Heebo -->
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              pink: '#F472B6',
+              dark: '#0a0a0a',
+              card: '#171717',
+            }
+          },
+          fontFamily: {
+            heebo: ['Heebo', 'sans-serif'],
+          },
+        }
+      }
     }
-    .city-hero-bg {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, #0f0a0f 0%, #0a0a0a 60%);
-    }
-    /* Huge city name in background as texture */
-    .city-hero-bg-text {
-      position: absolute;
-      bottom: -40px;
-      right: -20px;
-      font-size: 30vw;
-      font-weight: 900;
-      color: rgba(244,114,182,0.04);
-      line-height: 1;
-      pointer-events: none;
-      z-index: 0;
-      white-space: nowrap;
-    }
-    .city-hero-content { position: relative; z-index: 1; }
-    .city-breadcrumb {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: rgba(237,237,237,0.4);
-      margin-bottom: 24px;
-    }
-    .city-breadcrumb a { color: #F472B6; text-decoration: none; }
-    .city-hero-h1 {
-      font-size: clamp(64px, 12vw, 160px);
-      font-weight: 900;
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      position: relative;
-      display: inline-block;
-      margin-bottom: 32px;
-    }
-    .city-hero-h1::after {
-      content: '';
-      position: absolute;
-      bottom: -12px;
-      right: 0;
-      left: 0;
-      height: 4px;
-      background: #F472B6;
-    }
-    .city-hero-meta {
-      display: flex;
-      gap: 40px;
-      margin-top: 40px;
-      padding-top: 32px;
-      border-top: 1px solid rgba(237,237,237,0.1);
-    }
-    .city-meta-item { display: flex; flex-direction: column; gap: 4px; }
-    .city-meta-value { font-size: 32px; font-weight: 900; color: #F472B6; }
-    .city-meta-label { font-size: 13px; color: rgba(237,237,237,0.5); letter-spacing: 0.05em; }
-
-    /* =========================================
-       SECTION 2: JAM LIST
-       Upcoming jams in a brutalist table.
-       Bold date column, pink indicator dot.
-    ========================================= */
-    .jams-section { padding: 80px 8vw; }
-    .section-heading {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 900;
-      margin-bottom: 40px;
-      display: flex;
-      align-items: baseline;
-      gap: 20px;
-    }
-    .section-heading::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(237,237,237,0.1);
-    }
-    .jam-list { display: flex; flex-direction: column; gap: 2px; }
-    .jam-row {
-      display: grid;
-      grid-template-columns: 80px 1fr auto;
-      gap: 24px;
-      align-items: center;
-      padding: 24px 32px;
-      border: 1px solid rgba(237,237,237,0.06);
-      transition: background 150ms ease, border-color 150ms ease;
-      cursor: pointer;
-    }
-    .jam-row:hover { background: rgba(244,114,182,0.05); border-color: rgba(244,114,182,0.3); }
-    .jam-date {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #F472B6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-    .jam-date strong { font-size: 32px; font-weight: 900; color: #ededed; }
-    .jam-title { font-size: 20px; font-weight: 700; }
-    .jam-host { font-size: 13px; color: rgba(237,237,237,0.5); margin-top: 4px; }
-    .jam-status {
-      font-size: 12px;
-      font-weight: 700;
-      padding: 6px 14px;
-      border: 1px solid #F472B6;
-      color: #F472B6;
-      letter-spacing: 0.05em;
-    }
-
-    /* =========================================
-       SECTION 3: MEMBERS GRID
-       Member cards with brutalist punch.
-       Pink border on hover.
-    ========================================= */
-    .members-section { padding: 80px 8vw; background: rgba(244,114,182,0.02); }
-    .members-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2px;
-      margin-top: 40px;
-    }
-    .member-card {
-      padding: 32px 24px;
-      border: 1px solid rgba(237,237,237,0.06);
-      text-align: center;
-      cursor: pointer;
-      transition: transform 200ms ease, box-shadow 200ms ease;
-    }
-    .member-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 0 1px #F472B6, 0 20px 40px rgba(244,114,182,0.2);
-    }
-    .member-avatar {
-      width: 72px;
-      height: 72px;
-      border-radius: 50%;
-      background: rgba(244,114,182,0.15);
-      margin: 0 auto 16px;
-      border: 2px solid rgba(244,114,182,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-    }
-    .member-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-    .member-role { font-size: 12px; color: #F472B6; font-weight: 700; letter-spacing: 0.05em; }
-    .member-level { font-size: 11px; color: rgba(237,237,237,0.4); margin-top: 4px; }
-
-    /* =========================================
-       SECTION 4: CITY FAQ
-       details/summary accordion. Brutalist styling.
-       Pink indicator on open.
-    ========================================= */
-    .faq-section { padding: 80px 8vw; }
-    .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 2px; }
-    details {
-      border: 1px solid rgba(237,237,237,0.08);
-      padding: 0;
-    }
-    details[open] { border-color: rgba(244,114,182,0.3); }
-    summary {
-      font-size: 18px;
-      font-weight: 700;
-      padding: 28px 32px;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: color 150ms ease;
-    }
-    details[open] summary { color: #F472B6; }
-    summary::after { content: '+'; font-size: 24px; font-weight: 900; color: #F472B6; }
-    details[open] summary::after { content: '−'; }
-    .faq-answer {
-      padding: 0 32px 28px;
-      font-size: 16px;
-      color: rgba(237,237,237,0.7);
-      line-height: 1.7;
-      border-top: 1px solid rgba(244,114,182,0.15);
-      padding-top: 20px;
-    }
-
-    /* =========================================
-       SECTION 5: CITY CTA
-       Join community for this city.
-    ========================================= */
-    .city-cta {
-      padding: 80px 8vw;
-      border-top: 1px solid rgba(244,114,182,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 40px;
-    }
-    .city-cta-text h2 { font-size: clamp(32px, 5vw, 64px); font-weight: 900; line-height: 1; }
-    .city-cta-text h2 span { color: #F472B6; }
-    .btn-primary {
-      background: #F472B6;
-      color: #0a0a0a;
+  </script>
+<style data-purpose="custom-brutalist">
+    body {
+      background-color: #0a0a0a;
+      color: #ffffff;
       font-family: 'Heebo', sans-serif;
-      font-weight: 900;
-      font-size: 16px;
-      padding: 20px 48px;
-      border: 2px solid #F472B6;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
-      flex-shrink: 0;
-      transition: transform 100ms ease-in, background 150ms ease;
     }
-    .btn-primary:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.05); }
-    .btn-primary:active { transform: scale(0.95); }
-
-    /* LAYOUT NOTES FOR EXECUTORS:
-       - Tel Aviv page: h1 = "תל אביב", stats = "120+ / 8 ג׳אמים"
-       - Kfar Saba page: h1 = "כפר סבא", stats = "60+ / 4 ג׳אמים"
-       - Jam table: date | title + host | RSVP button
-       - Member grid: 4-6 members visible, link to /members?city=tel-aviv
-       - FAQ: 4-6 city-specific questions (prices, levels, how to start)
-       - Use details/summary HTML for FAQ accordion (no JS, semantic for AEO)
-       - JSON-LD FAQPage schema at page level (Phase 09-02 pattern)
-    */
+    .brutalist-border {
+      border: 2px solid #ffffff;
+    }
+    .pink-border {
+      border: 2px solid #F472B6;
+    }
+    .text-outline {
+      -webkit-text-stroke: 1px #F472B6;
+    }
+    /* Simple accordion animation */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 200px;
+    }
+    .accordion-item.active .icon-plus {
+      transform: rotate(45deg);
+    }
   </style>
 </head>
-<body>
-
-  <!-- CITY HERO -->
-  <section class="city-hero">
-    <div class="city-hero-bg">
-      <div class="city-hero-bg-text">ת"א</div>
-    </div>
-    <div class="city-hero-content">
-      <p class="city-breadcrumb"><a href="/">AcroHavura</a> / ערים / <strong>תל אביב</strong></p>
-      <h1 class="city-hero-h1">תל אביב</h1>
-      <div class="city-hero-meta">
-        <div class="city-meta-item">
-          <span class="city-meta-value">120+</span>
-          <span class="city-meta-label">שותפים בעיר</span>
-        </div>
-        <div class="city-meta-item">
-          <span class="city-meta-value">8</span>
-          <span class="city-meta-label">ג׳אמים בחודש</span>
-        </div>
-        <div class="city-meta-item">
-          <span class="city-meta-value">4.9★</span>
-          <span class="city-meta-label">דירוג קהילה</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- JAMS SECTION -->
-  <section class="jams-section">
-    <h2 class="section-heading">ג׳אמים קרובים</h2>
-    <div class="jam-list">
-      <div class="jam-row">
-        <div class="jam-date"><strong>12</strong>אפר</div>
-        <div>
-          <div class="jam-title">ג׳אם אחר הצהריים — הים</div>
-          <div class="jam-host">מארגן: מיכאל כ.</div>
-        </div>
-        <span class="jam-status">הצטרף</span>
-      </div>
-      <div class="jam-row">
-        <div class="jam-date"><strong>19</strong>אפר</div>
-        <div>
-          <div class="jam-title">ג׳אם פסח — פארק הירקון</div>
-          <div class="jam-host">מארגן: מאיה ב.</div>
-        </div>
-        <span class="jam-status">הצטרף</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- MEMBERS SECTION -->
-  <section class="members-section">
-    <h2 class="section-heading">שותפים בתל אביב</h2>
-    <div class="members-grid">
-      <div class="member-card">
-        <div class="member-avatar">🤸</div>
-        <div class="member-name">מאיה ב.</div>
-        <div class="member-role">FLYER</div>
-        <div class="member-level">מתקדם</div>
-      </div>
-      <div class="member-card">
-        <div class="member-avatar">🧗</div>
-        <div class="member-name">רון כ.</div>
-        <div class="member-role">BASE</div>
-        <div class="member-level">בינוני</div>
-      </div>
-      <div class="member-card">
-        <div class="member-avatar">🌟</div>
-        <div class="member-name">לירון מ.</div>
-        <div class="member-role">BOTH</div>
-        <div class="member-level">מתחיל</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION -->
-  <section class="faq-section">
-    <h2 class="section-heading">שאלות נפוצות</h2>
-    <div class="faq-list">
-      <details>
-        <summary>האם אני צריך ניסיון קודם?</summary>
-        <div class="faq-answer">לא! AcroHavura מתאים לכל הרמות. יש לנו מתחילים, בינוניים ומתקדמים.</div>
-      </details>
-      <details>
-        <summary>כמה עולה להשתתף בג׳אם?</summary>
-        <div class="faq-answer">רוב הג׳אמים חינמיים. חלק עולים 20-30 ש"ח לכיסוי עלויות מקום.</div>
-      </details>
-      <details>
-        <summary>מה ההבדל בין Base לFLyer?</summary>
-        <div class="faq-answer">BASE = מי שמרים. FLYER = מי שמורם. רוב האנשים לומדים את שניהם.</div>
-      </details>
-    </div>
-  </section>
-
-  <!-- CITY CTA -->
-  <section class="city-cta">
-    <div class="city-cta-text">
-      <h2>מוכן<span> לתרגל</span><br>בתל אביב?</h2>
-    </div>
-    <a href="#" class="btn-primary">הצטרף לקהילה</a>
-  </section>
-
-</body>
-</html>
+<body class="antialiased">
+<!-- BEGIN: TopNavBar -->
+<nav class="sticky top-0 z-50 bg-brand-dark/90 border-b-2 border-white/10 backdrop-blur-md" data-purpose="main-navigation">
+<div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+<div class="flex items-center space-x-reverse space-x-8">
+<a class="text-2xl font-black tracking-tighter text-white" href="#">ACRO<span class="text-brand-pink">HAVURA</span></a>
+<div class="hidden md:flex space-x-reverse space-x-6 text-sm font-bold">
+<a class="hover:text-brand-pink transition-colors" href="#">ג'אמים</a>
+<a class="hover:text-brand-pink transition-colors" href="#">חברים</a>
+<a class="hover:text-brand-pink transition-colors" href="#">אתגר 30 יום</a>
+<a class="hover:text-brand-pink transition-colors" href="#">מרכז ידע</a>
+</div>
+</div>
+<div class="flex items-center space-x-reverse space-x-4">
+<span class="text-xs font-bold border-l border-white/20 pl-4">HE | EN</span>
+<button class="brutalist-border px-6 py-2 text-sm font-bold hover:bg-white hover:text-black transition-all">
+          כניסה
+        </button>
+</div>
+</div>
+</nav>
+<!-- END: TopNavBar -->
+<main>
+<!-- BEGIN: Hero Section -->
+<section class="relative pt-20 pb-32 overflow-hidden" data-purpose="hero-section">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div class="z-10">
+<h1 class="text-6xl md:text-8xl font-black leading-tight mb-6">
+            אקרויוגה <br/>
+<span class="relative">
+              בתל אביב
+              <span class="absolute bottom-2 right-0 w-full h-4 bg-brand-pink -z-10 opacity-80"></span>
+</span>
+</h1>
+<p class="text-xl text-gray-400 max-w-lg mb-10 leading-relaxed">
+            מצאו פרטנרים, הצטרפו לג'אמים והכירו את קהילת האקרו הגדולה בישראל. הבית שלכם לתנועה, אמון וקהילה.
+          </p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-brand-pink text-black px-10 py-4 text-xl font-black brutalist-border border-black hover:translate-x-1 hover:-translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]">
+              התחילו עכשיו
+            </button>
+<button class="bg-transparent text-white px-10 py-4 text-xl font-black brutalist-border hover:bg-white/10 transition-colors">
+              גלו עוד
+            </button>
+</div>
+</div>
+<div class="relative">
+<!-- Brutalist Image Frame -->
+<div class="relative z-10 brutalist-border p-4 bg-brand-dark">
+<img alt="AcroHavura Hero" class="w-full grayscale contrast-125" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQldv9QbOYwJyBjD2jxYSbV-O_KrrsXaY-2PsEMlufR48ax1KMNEgp0juNNKu3BuBajrGWo-eELy_p3x9tiysZuVV6BYk1_O0xsIomAJwJjuQxi-ZJYOmm64a1AVohoprBr4rZ0q8KglR2ZBVK9_gVp8O9cO4DOBIFFtO7rlZSmYK9_oo2qr8WkeoOSrg25bSFNK9qkT0-0e79t21bYGOy4nw23zb10IeGeKcVKRuJ4QPpn-aYxkXFg7aFmMYPKuBEaPn-Nmfvnjk2"/>
+<div class="absolute -bottom-4 -left-4 bg-white text-black font-black px-4 py-1 text-sm border-2 border-black">
+              EST. 2024
+            </div>
+</div>
+<!-- Decorative Background Box -->
+<div class="absolute -top-6 -right-6 w-full h-full pink-border -z-10"></div>
+</div>
+</div>
+</section>
+<!-- END: Hero Section -->
+<!-- BEGIN: Stats Row -->
+<section class="border-y-2 border-white/20 bg-brand-dark py-16" data-purpose="stats-overview">
+<div class="max-w-7xl mx-auto px-4">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center p-6 border-x border-white/10">
+<div class="text-5xl font-black text-brand-pink mb-2">15</div>
+<div class="text-lg font-bold text-white">ג'אמים בחודש</div>
+</div>
+<div class="text-center p-6 border-x border-white/10">
+<div class="text-5xl font-black text-brand-pink mb-2">500+</div>
+<div class="text-lg font-bold text-white">חברים רשומים</div>
+</div>
+<div class="text-center p-6 border-x border-white/10">
+<div class="text-5xl font-black text-brand-pink mb-2">4</div>
+<div class="text-lg font-bold text-white">מיקומים</div>
+</div>
+<div class="text-center p-6 border-x border-white/10">
+<div class="text-5xl font-black text-brand-pink mb-2">20+</div>
+<div class="text-lg font-bold text-white">מורים מוסמכים</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Stats Row -->
+<!-- BEGIN: Upcoming Jams -->
+<section class="py-24 bg-brand-dark" data-purpose="upcoming-events">
+<div class="max-w-7xl mx-auto px-4">
+<div class="flex items-end justify-between mb-16">
+<div>
+<h2 class="text-4xl font-black mb-4 underline decoration-brand-pink decoration-8 underline-offset-8">ג'אמים קרובים</h2>
+<p class="text-gray-400">הצטרפו למפגשים הפתוחים השבוע בתל אביב</p>
+</div>
+<a class="text-brand-pink font-bold border-b-2 border-brand-pink hover:text-white hover:border-white transition-all" href="#">לכל האירועים ←</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Jam Card 1 -->
+<div class="bg-brand-card p-8 brutalist-border relative group hover:border-brand-pink transition-colors">
+<div class="absolute top-0 left-0 bg-brand-pink text-black font-black px-4 py-2">
+              יום ג' | 18:00
+            </div>
+<div class="mt-8">
+<h3 class="text-2xl font-black mb-2">ג'אם פארק הירקון</h3>
+<p class="text-gray-400 mb-6">ליד הספורטק, על הדשא המרכזי</p>
+<div class="flex items-center justify-between border-t border-white/10 pt-4">
+<span class="text-sm font-bold">מארח: עידו רותם</span>
+<span class="text-brand-pink font-black">3 מקומות נותרו</span>
+</div>
+</div>
+</div>
+<!-- Jam Card 2 -->
+<div class="bg-brand-card p-8 brutalist-border relative group hover:border-brand-pink transition-colors">
+<div class="absolute top-0 left-0 bg-brand-pink text-black font-black px-4 py-2">
+              יום ה' | 20:00
+            </div>
+<div class="mt-8">
+<h3 class="text-2xl font-black mb-2">אימון לילה בנמל</h3>
+<p class="text-gray-400 mb-6">רחבת הדק הצפונית</p>
+<div class="flex items-center justify-between border-t border-white/10 pt-4">
+<span class="text-sm font-bold">מארחת: מאיה לוי</span>
+<span class="text-brand-pink font-black">5 מקומות נותרו</span>
+</div>
+</div>
+</div>
+<!-- Jam Card 3 -->
+<div class="bg-brand-card p-8 brutalist-border relative group hover:border-brand-pink transition-colors">
+<div class="absolute top-0 left-0 bg-brand-pink text-black font-black px-4 py-2">
+              יום שבת | 10:00
+            </div>
+<div class="mt-8">
+<h3 class="text-2xl font-black mb-2">ג'אם בוקר צ'ארלס קלור</h3>
+<p class="text-gray-400 mb-6">מול הים, דרומית לדולפינריום</p>
+<div class="flex items-center justify-between border-t border-white/10 pt-4">
+<span class="text-sm font-bold">מארח: עומר כהן</span>
+<span class="text-brand-pink font-black">8 מקומות נותרו</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Upcoming Jams -->
+<!-- BEGIN: FAQ Accordion -->
+<section class="py-24 bg-brand-dark/50" data-purpose="faq-section">
+<div class="max-w-3xl mx-auto px-4">
+<h2 class="text-4xl font-black mb-12 text-center">שאלות נפוצות</h2>
+<div class="space-y-4">
+<!-- FAQ 1 -->
+<div class="accordion-item brutalist-border bg-brand-card">
+<button class="w-full p-6 flex items-center justify-between text-right" onclick="this.parentElement.classList.toggle('active')">
+<span class="text-xl font-bold">צריך ניסיון קודם כדי להצטרף?</span>
+<span class="text-brand-pink text-3xl font-black icon-plus">+</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-gray-400 border-t border-white/5">
+                ממש לא! הקהילה שלנו פתוחה לכולם, מהצעד הראשון ועד לרמות המתקדמות ביותר. הג'אמים הם המקום המושלם ללמוד מאחרים באווירה תומכת.
+              </div>
+</div>
+</div>
+<!-- FAQ 2 -->
+<div class="accordion-item brutalist-border bg-brand-card">
+<button class="w-full p-6 flex items-center justify-between text-right" onclick="this.parentElement.classList.toggle('active')">
+<span class="text-xl font-bold">צריך להגיע עם פרטנר?</span>
+<span class="text-brand-pink text-3xl font-black icon-plus">+</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-gray-400 border-t border-white/5">
+                אין צורך להביא פרטנר. אקרויוגה היא פעילות חברתית ובג'אמים תמיד תמצאו אנשים לעבוד איתם.
+              </div>
+</div>
+</div>
+<!-- FAQ 3 -->
+<div class="accordion-item brutalist-border bg-brand-card">
+<button class="w-full p-6 flex items-center justify-between text-right" onclick="this.parentElement.classList.toggle('active')">
+<span class="text-xl font-bold">מה להביא איתי לג'אם?</span>
+<span class="text-brand-pink text-3xl font-black icon-plus">+</span>
+</button>
+<div class="accordion-content">
+<div class="p-6 pt-0 text-gray-400 border-t border-white/5">
+                בגדים נוחים לתנועה, מים, ומזרן יוגה אם יש לכם. והכי חשוב - מצב רוח טוב!
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: FAQ Accordion -->
+<!-- BEGIN: Bottom CTA -->
+<section class="bg-brand-pink py-20" data-purpose="bottom-cta">
+<div class="max-w-7xl mx-auto px-4 text-center">
+<h2 class="text-5xl md:text-7xl font-black text-black mb-10 leading-tight">
+          מוכנים להתחיל?<br/>
+          הצטרפו לקהילה בתל אביב
+        </h2>
+<button class="bg-black text-white px-12 py-6 text-2xl font-black hover:translate-y-1 transition-transform border-4 border-black">
+          הצטרפו עכשיו
+        </button>
+</div>
+</section>
+<!-- END: Bottom CTA -->
+</main>
+<!-- BEGIN: Main Footer -->
+<footer class="bg-brand-dark pt-20 pb-10 border-t-2 border-white/10" data-purpose="main-footer">
+<div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<div class="col-span-1 md:col-span-1">
+<h3 class="text-2xl font-black mb-6">ACRO<span class="text-brand-pink">HAVURA</span></h3>
+<p class="text-sm text-gray-400 leading-relaxed">
+          הבית של קהילת האקרו-יוגה בישראל. <br/>
+          בונים תרבות של אמון, תנועה וכיף ביחד.
+        </p>
+<div class="flex space-x-reverse space-x-4 mt-6">
+<div class="w-10 h-10 brutalist-border flex items-center justify-center hover:bg-brand-pink transition-colors cursor-pointer">f</div>
+<div class="w-10 h-10 brutalist-border flex items-center justify-center hover:bg-brand-pink transition-colors cursor-pointer">ig</div>
+<div class="w-10 h-10 brutalist-border flex items-center justify-center hover:bg-brand-pink transition-colors cursor-pointer">wa</div>
+</div>
+</div>
+<div class="flex flex-col space-y-4">
+<h4 class="font-black text-brand-pink">ניווט מהיר</h4>
+<a class="text-sm hover:text-brand-pink" href="#">דף הבית</a>
+<a class="text-sm hover:text-brand-pink" href="#">הקבוצות שלנו</a>
+<a class="text-sm hover:text-brand-pink" href="#">מורים מוסמכים</a>
+<a class="text-sm hover:text-brand-pink" href="#">חנות</a>
+</div>
+<div class="flex flex-col space-y-4">
+<h4 class="font-black text-brand-pink">צרו קשר</h4>
+<a class="text-sm hover:text-brand-pink" href="mailto:info@acrohavura.co.il">info@acrohavura.co.il</a>
+<span class="text-sm">פייסבוק</span>
+<span class="text-sm">אינסטגרם</span>
+<span class="text-sm">יוטיוב</span>
+</div>
+<div class="flex flex-col space-y-4">
+<div class="brutalist-border p-4 bg-brand-card">
+<h4 class="font-black mb-2">הניוזלטר שלנו</h4>
+<div class="flex">
+<input class="bg-transparent border-white/20 border-l-0 focus:ring-0 w-full text-sm" placeholder="אימייל" type="email"/>
+<button class="bg-white text-black font-bold px-4 py-2 text-xs">הרשמה</button>
+</div>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-4 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500 font-bold">
+<div>© 2024 אקרוחבורה (AcroHavura). כל הזכויות שמורות.</div>
+<div class="flex space-x-reverse space-x-6 mt-4 md:mt-0">
+<a class="hover:text-white" href="#">תקנון</a>
+<a class="hover:text-white" href="#">פרטיות</a>
+</div>
+</div>
+</footer>
+<!-- END: Main Footer -->
+</body></html>

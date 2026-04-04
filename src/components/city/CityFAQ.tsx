@@ -15,45 +15,41 @@ type Props = {
 };
 
 /**
- * CityFAQ — server component.
- * AEO-optimized FAQ: answers are short, direct, conversational — targeting AI search engine citation.
- * Each Q/A is h3 + p for semantic HTML (FAQPage schema injected at page level).
- * FAQ content is passed in from page.tsx (bilingual inline constants, not i18n).
- * Brutalist styling: thick left border (border-s-4 border-brand) per FAQ item,
- * bold summary text, pink accent on open state.
+ * CityFAQ — Brutalist FAQ accordion matching Stitch city-page.html.
+ *
+ * Bordered card per FAQ item with pink + indicator, bold question text.
+ * Uses details/summary HTML for semantic accordion — no JS needed.
+ *
+ * @see stitch-screens/city-page.html (FAQ Accordion section)
  */
 export default async function CityFAQ({ locale, faqItems }: Props) {
   const t = await getTranslations({ locale, namespace: "city.faq" });
 
   return (
     <ScrollReveal delay={0.1}>
-      <section>
-        <h2 className="mb-3 text-3xl font-black uppercase tracking-tight text-neutral-100">
-          {t("title")}
-        </h2>
-        {/* Pink accent bar under heading */}
-        <div className="mb-8 h-1 w-16 bg-brand" />
-
-        <div className="flex flex-col gap-0">
-          {faqItems.map((item, idx) => (
-            <details
-              key={idx}
-              className="group border-s-4 border-brand bg-neutral-950 open:bg-neutral-900 transition-colors"
-            >
-              <summary className="flex cursor-pointer list-none items-center justify-between px-6 py-5 transition-colors hover:bg-neutral-900">
-                <h3 className="text-base font-bold text-neutral-100 group-open:text-brand sm:text-lg transition-colors">
-                  {item.q}
-                </h3>
-                <span className="ms-4 flex-shrink-0 text-2xl font-black text-brand transition-transform group-open:rotate-45">
-                  +
-                </span>
-              </summary>
-
-              <div className="px-6 pb-6 pt-2 border-t border-neutral-800">
-                <p className="leading-relaxed text-neutral-300">{item.a}</p>
-              </div>
-            </details>
-          ))}
+      <section className="py-24 bg-[#0a0a0a]/50">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-4xl font-black mb-12 text-center">
+            {t("title")}
+          </h2>
+          <div className="space-y-4">
+            {faqItems.map((item, idx) => (
+              <details
+                key={idx}
+                className="group border-2 border-white bg-neutral-900"
+              >
+                <summary className="w-full p-6 flex items-center justify-between text-start cursor-pointer list-none">
+                  <span className="text-xl font-bold">{item.q}</span>
+                  <span className="text-brand text-3xl font-black transition-transform group-open:rotate-45 shrink-0 ms-4">
+                    +
+                  </span>
+                </summary>
+                <div className="p-6 pt-0 text-gray-400 border-t border-white/5">
+                  {item.a}
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
     </ScrollReveal>

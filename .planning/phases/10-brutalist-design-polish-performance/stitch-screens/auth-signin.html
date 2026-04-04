@@ -1,389 +1,170 @@
-<!--
-  AcroHavura Auth Sign-In — Brutalist Design Reference
-  Generated: 2026-04-04 (design spec per /frontend-design skill, Stitch MCP unavailable)
-
-  RTL NOTE: This is LTR HTML. Executors MUST adapt to RTL:
-  - dir="rtl" on html element
-  - Form labels align right
-  - Error messages align right
-  - Logo and heading in RTL flow
-
-  Brand tokens:
-  - Background: #0a0a0a  | Pink: #F472B6 | Pink muted: #DB2777
-  - Foreground: #ededed  | Font: Heebo 900 (headings), 500/400 (labels/inputs)
-
-  Pages covered:
-  1. Sign-in (email + password)
-  2. Sign-up (email + password + name)
-  3. Error state
-  4. Loading state
--->
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AcroHavura — Auth Design Reference</title>
-  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap" rel="stylesheet" />
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #ededed; font-family: 'Heebo', sans-serif; direction: rtl; min-height: 100vh; }
 
-    /* =========================================
-       AUTH SHELL
-       Full-screen split: left = brand panel, right = form
-       Mobile: stacked (brand hidden or small, form full-width)
-    ========================================= */
-    .auth-shell {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+<html dir="rtl" lang="he"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AcroHavura - Sign In</title>
+<!-- Tailwind CSS v3 CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Font: Heebo for Hebrew Brutalist style -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700;900&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandPink: '#F472B6',
+            darkBg: '#0a0a0a',
+            cardBg: '#171717',
+          },
+          fontFamily: {
+            heebo: ['Heebo', 'sans-serif'],
+          },
+        },
+      },
     }
-    @media (max-width: 768px) { .auth-shell { grid-template-columns: 1fr; } }
-
-    /* =========================================
-       LEFT PANEL (brand)
-       Dark with diagonal pink accent line.
-       Bold brand name + tagline.
-    ========================================= */
-    .auth-brand-panel {
-      background: #0f0a0f;
-      padding: 80px 8%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-      overflow: hidden;
-      border-left: 2px solid rgba(244,114,182,0.2);
+  </script>
+<style data-purpose="global-styles">
+    body {
+      background-color: #0a0a0a;
+      font-family: 'Heebo', sans-serif;
+      color: #ffffff;
+      overflow-x: hidden;
     }
-    @media (max-width: 768px) { .auth-brand-panel { display: none; } }
-    /* Diagonal pink accent line */
-    .auth-brand-panel::before {
-      content: '';
-      position: absolute;
-      top: -100px;
-      right: 40%;
-      width: 2px;
-      height: 200%;
-      background: linear-gradient(to bottom, transparent, rgba(244,114,182,0.3), transparent);
-      transform: rotate(20deg);
-    }
-    /* Large ghosted text */
-    .auth-brand-bg-text {
-      position: absolute;
-      bottom: -60px;
-      right: -40px;
-      font-size: 18vw;
+    /* Ghosted background text */
+    .bg-ghost-text {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-5deg);
+      font-size: 40vw;
       font-weight: 900;
-      color: rgba(244,114,182,0.04);
-      line-height: 1;
+      color: #ffffff;
+      opacity: 0.04;
       pointer-events: none;
+      z-index: 0;
+      white-space: nowrap;
+      letter-spacing: -0.05em;
     }
-    .auth-logo {
-      font-size: 24px;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      position: relative;
-      z-index: 1;
-    }
-    .auth-logo span { color: #F472B6; }
-    .auth-brand-headline {
-      font-size: clamp(32px, 4vw, 56px);
-      font-weight: 900;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      position: relative;
-      z-index: 1;
-    }
-    .auth-brand-headline em {
-      color: #F472B6;
-      font-style: normal;
-      display: block;
-    }
-    .auth-brand-tagline {
-      font-size: 15px;
-      color: rgba(237,237,237,0.5);
-      line-height: 1.6;
-      max-width: 280px;
-      position: relative;
-      z-index: 1;
-    }
-
-    /* =========================================
-       RIGHT PANEL (form)
-       Centered form. Brutalist borders.
-    ========================================= */
-    .auth-form-panel {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 60px 8%;
-    }
-    .auth-form-container {
-      width: 100%;
-      max-width: 400px;
-    }
-
-    /* Mobile logo (hidden on desktop) */
-    .auth-mobile-logo {
-      display: none;
-      font-size: 22px;
-      font-weight: 900;
-      margin-bottom: 32px;
-    }
-    .auth-mobile-logo span { color: #F472B6; }
-    @media (max-width: 768px) { .auth-mobile-logo { display: block; } }
-
-    .auth-heading {
-      font-size: clamp(28px, 5vw, 40px);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .auth-subheading {
-      font-size: 15px;
-      color: rgba(237,237,237,0.5);
-      margin-bottom: 40px;
-    }
-    .auth-subheading a { color: #F472B6; font-weight: 700; text-decoration: none; }
-
-    /* Form field */
-    .form-group { margin-bottom: 20px; }
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      margin-bottom: 8px;
-      color: rgba(237,237,237,0.7);
-    }
-    .form-input {
-      width: 100%;
-      background: rgba(237,237,237,0.04);
-      border: 2px solid rgba(237,237,237,0.1);
-      color: #ededed;
-      font-family: 'Heebo', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      padding: 16px 18px;
-      transition: border-color 200ms ease, box-shadow 200ms ease;
-    }
-    .form-input:focus {
+    /* Brutalist sharp edges override for focus */
+    .brutalist-input:focus {
       outline: none;
-      border-color: #F472B6;
-      box-shadow: 0 0 0 2px #F472B6, 0 0 12px rgba(244,114,182,0.3);
+      border-color: #F472B6 !important;
+      box-shadow: 4px 4px 0px 0px #F472B6;
     }
-    .form-input::placeholder { color: rgba(237,237,237,0.25); }
-    .form-input.error { border-color: rgba(239,68,68,0.7); }
-    .form-error {
-      font-size: 12px;
-      color: #F87171;
-      margin-top: 6px;
-      font-weight: 500;
-    }
-
-    /* Forgot password link */
-    .forgot-link {
-      display: block;
-      text-align: left; /* adjust to right for RTL */
-      font-size: 13px;
-      color: rgba(237,237,237,0.4);
-      text-decoration: none;
-      margin-top: 8px;
-      transition: color 150ms ease;
-    }
-    .forgot-link:hover { color: #F472B6; }
-
-    /* Submit button */
-    .btn-submit {
-      width: 100%;
-      background: #F472B6;
-      color: #0a0a0a;
-      font-family: 'Heebo', sans-serif;
-      font-weight: 900;
-      font-size: 18px;
-      padding: 18px;
-      border: 2px solid #F472B6;
-      cursor: pointer;
-      margin-top: 8px;
-      transition: transform 100ms ease-in, background 150ms ease;
-    }
-    .btn-submit:hover { background: #DB2777; border-color: #DB2777; transform: scale(1.02); }
-    .btn-submit:active { transform: scale(0.98); }
-    .btn-submit:disabled {
-      background: rgba(244,114,182,0.2);
-      border-color: transparent;
-      color: rgba(10,10,10,0.5);
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* Loading state */
-    .btn-submit.loading {
-      position: relative;
-      color: transparent;
-    }
-    .btn-submit.loading::after {
-      content: '';
-      position: absolute;
-      inset: 50%;
-      width: 20px;
-      height: 20px;
-      margin: -10px;
-      border: 2px solid rgba(10,10,10,0.3);
-      border-top-color: #0a0a0a;
-      border-radius: 50%;
-      animation: spin 0.6s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Divider */
-    .auth-divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin: 32px 0;
-      color: rgba(237,237,237,0.2);
-      font-size: 12px;
-      letter-spacing: 0.1em;
-    }
-    .auth-divider::before, .auth-divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: rgba(237,237,237,0.1);
-    }
-
-    /* =========================================
-       TERMS NOTICE
-       Small legal text at bottom.
-    ========================================= */
-    .auth-terms {
-      font-size: 12px;
-      color: rgba(237,237,237,0.3);
-      text-align: center;
-      margin-top: 28px;
-      line-height: 1.5;
-    }
-    .auth-terms a { color: rgba(244,114,182,0.6); text-decoration: none; }
-
-    /* Demo separator */
-    .demo-sep {
-      padding: 40px 8vw;
-      border-top: 1px solid rgba(237,237,237,0.05);
-      color: rgba(237,237,237,0.2);
-      font-size: 12px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    /* LAYOUT NOTES FOR EXECUTORS:
-       - Sign-in: email + password fields + forgot link + submit
-       - Sign-up: name + email + password + tos checkbox + submit
-       - Error state: red border on field + error message below
-       - Loading: spinner replaces button text (CSS ::after approach)
-       - Split layout desktop, single column mobile
-       - Left brand panel hidden on mobile
-       - Form inputs: 2px border → pink glow on focus (form-focus class from globals.css)
-       - Submit button: scale(0.98) on active, scale(1.02) on hover (smaller than card — subtle)
-       - ToS checkbox: custom styled with pink accent color
-    */
   </style>
 </head>
-<body>
-
-  <!-- SIGN IN STATE -->
-  <div class="auth-shell">
-
-    <!-- BRAND PANEL (desktop only) -->
-    <div class="auth-brand-panel">
-      <div class="auth-brand-bg-text">AC</div>
-      <div class="auth-logo">Acro<span>Havura</span></div>
-      <div>
-        <h2 class="auth-brand-headline">
-          תרגל אקרויוגה
-          <em>עם שותף מושלם</em>
-        </h2>
-      </div>
-      <p class="auth-brand-tagline">
-        מצא שותפים לפי רמה, תפקיד ומיקום. בוא לאימון.
-      </p>
-    </div>
-
-    <!-- FORM PANEL -->
-    <div class="auth-form-panel">
-      <div class="auth-form-container">
-
-        <!-- Mobile logo -->
-        <div class="auth-mobile-logo">Acro<span>Havura</span></div>
-
-        <h1 class="auth-heading">כניסה לחשבון</h1>
-        <p class="auth-subheading">
-          אין לך חשבון? <a href="#">הירשם חינם</a>
+<body class="min-h-screen flex flex-col">
+<!-- Ghosted Background Text -->
+<div aria-hidden="true" class="bg-ghost-text">ACRO</div>
+<!-- BEGIN: MainHeader -->
+<header class="relative z-10 w-full px-8 py-6 flex justify-between items-center bg-black/50 backdrop-blur-sm border-b border-white/5">
+<div class="flex items-center gap-6">
+<!-- Navigation Links (Hidden on small screens for desktop-first focus) -->
+<nav class="hidden md:flex gap-6 text-sm font-bold tracking-tight">
+<a class="hover:text-brandPink transition-colors" href="#">קהילה</a>
+<a class="hover:text-brandPink transition-colors" href="#">אירועים</a>
+<a class="hover:text-brandPink transition-colors" href="#">מורים</a>
+<a class="hover:text-brandPink transition-colors" href="#">מרכז ידע</a>
+</nav>
+<!-- Logo placeholder or text version -->
+<div class="text-2xl font-black uppercase tracking-tighter flex">
+<span class="text-brandPink">Acro</span>
+<span class="text-white">Havura</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="border-2 border-brandPink px-4 py-1 text-sm font-bold text-brandPink hover:bg-brandPink hover:text-black transition-all">
+        הצטרפו
+      </button>
+<div class="w-8 h-8 bg-cardBg border border-white/20 flex items-center justify-center">
+<div class="w-4 h-4 bg-brandPink/20 rounded-full"></div>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: SignInSection -->
+<main class="flex-grow flex items-center justify-center relative z-10 px-4 py-12">
+<section class="w-full max-w-md bg-cardBg border-2 border-brandPink p-8 md:p-12 shadow-[12px_12px_0px_0px_rgba(244,114,182,0.1)]" data-purpose="sign-in-card">
+<div class="text-center mb-10">
+<h1 class="text-4xl font-black mb-2">כניסה</h1>
+<p class="text-gray-400 text-sm">התחברו כדי לנהל את הפעילות שלכם בקהילה</p>
+</div>
+<form action="#" class="space-y-6" method="POST">
+<!-- Email Field -->
+<div class="space-y-2">
+<label class="block text-sm font-bold" for="email">דואר אלקטרוני</label>
+<input class="w-full bg-cardBg border-2 border-white/20 text-white p-3 brutalist-input transition-all placeholder:text-gray-600" id="email" name="email" placeholder="your@email.com" required="" type="email"/>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<div class="flex justify-between items-center">
+<label class="block text-sm font-bold" for="password">סיסמה</label>
+<a class="text-xs text-brandPink hover:underline" href="#">שכחתי סיסמה</a>
+</div>
+<input class="w-full bg-cardBg border-2 border-white/20 text-white p-3 brutalist-input transition-all placeholder:text-gray-600" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+</div>
+<!-- Login Button -->
+<button class="w-full bg-brandPink text-black font-black py-4 uppercase tracking-widest hover:bg-white transition-colors duration-300" type="submit">
+          כניסה
+        </button>
+</form>
+<!-- Signup Link -->
+<div class="mt-10 pt-6 border-t border-white/10 text-center">
+<p class="text-sm text-gray-400">
+          אין חשבון? 
+          <a class="text-brandPink font-bold hover:underline mr-1" href="#">הרשמה</a>
+</p>
+</div>
+</section>
+</main>
+<!-- END: SignInSection -->
+<!-- BEGIN: SiteFooter -->
+<footer class="relative z-10 bg-black border-t border-white/5 pt-12 pb-6 px-8">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-right">
+<!-- Footer Info -->
+<div class="md:col-span-1 flex flex-col items-end">
+<div class="w-12 h-12 bg-white flex items-center justify-center mb-4">
+<!-- Logo icon placeholder -->
+<img alt="AcroHavura Logo" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd4jA3p87JWFlU1x-9OB7Y0rYOuku8LOsM6Qylven7kXI7RxtEPjpdQJu_WagsdGo3SyllwBpZUOnJjLaSr9O6aCzhECPTn1fC8u_RmXHSvTMu0TNbrStn41AmLE2OuTcjME0_rYbELMLIfA5WJWyNYEv3CTqjlGPifY_E42YXz1dDgUaz-eVdp1GqbyPhZ-SPH7Im0sJZdNd6kLNAakZWNHNEqrcTynnT0HuILvL1PiLerX-E22-m41sS4aY4rfcIqj-Obd3PBwq1"/>
+</div>
+<p class="text-xs text-gray-500 leading-relaxed max-w-[200px]">
+          הבית של קהילת האקרויוגה בישראל. בונים תרבות של אמון, תנועה וכיף ביחד.
         </p>
-
-        <form>
-          <div class="form-group">
-            <label class="form-label">אימייל</label>
-            <input class="form-input" type="email" placeholder="you@example.com" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">סיסמה</label>
-            <input class="form-input" type="password" placeholder="••••••••" />
-            <a href="#" class="forgot-link">שכחתי סיסמה</a>
-          </div>
-          <button class="btn-submit" type="submit">כניסה</button>
-        </form>
-
-        <p class="auth-terms">
-          בכניסה אתה מסכים ל<a href="#">תנאי שימוש</a> ול<a href="#">מדיניות פרטיות</a>
-        </p>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- DEMO SEPARATOR -->
-  <div class="demo-sep">— Error State + Sign Up —</div>
-
-  <!-- ERROR STATE -->
-  <div class="auth-shell" style="min-height: auto;">
-    <div class="auth-brand-panel" style="min-height: 400px;"></div>
-    <div class="auth-form-panel">
-      <div class="auth-form-container">
-        <h1 class="auth-heading">כניסה לחשבון</h1>
-        <p class="auth-subheading">אין לך חשבון? <a href="#">הירשם חינם</a></p>
-        <form>
-          <div class="form-group">
-            <label class="form-label">אימייל</label>
-            <input class="form-input error" type="email" value="wrong@example.com" />
-            <span class="form-error">האימייל או הסיסמה שגויים</span>
-          </div>
-          <div class="form-group">
-            <label class="form-label">סיסמה</label>
-            <input class="form-input error" type="password" value="wrongpassword" />
-          </div>
-          <button class="btn-submit" type="submit">כניסה</button>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- DEMO SEPARATOR -->
-  <div class="demo-sep">— Loading State —</div>
-
-  <!-- LOADING STATE -->
-  <div class="auth-shell" style="min-height: auto;">
-    <div class="auth-brand-panel" style="min-height: 300px;"></div>
-    <div class="auth-form-panel" style="min-height: 300px;">
-      <div class="auth-form-container">
-        <h1 class="auth-heading">כניסה לחשבון</h1>
-        <p class="auth-subheading" style="margin-bottom: 24px;">טוען...</p>
-        <button class="btn-submit loading" disabled>כניסה</button>
-      </div>
-    </div>
-  </div>
-
-</body>
-</html>
+</div>
+<!-- Quick Links -->
+<div class="space-y-4">
+<h3 class="text-brandPink font-bold uppercase tracking-wider text-sm">ניווט מהיר</h3>
+<ul class="space-y-2 text-sm text-gray-400">
+<li><a class="hover:text-white" href="#">דף הבית</a></li>
+<li><a class="hover:text-white" href="#">הקבוצות שלנו</a></li>
+<li><a class="hover:text-white" href="#">מורים מוסמכים</a></li>
+<li><a class="hover:text-white" href="#">חנות</a></li>
+</ul>
+</div>
+<!-- Contact Info -->
+<div class="space-y-4">
+<h3 class="text-brandPink font-bold uppercase tracking-wider text-sm">צרו קשר</h3>
+<ul class="space-y-2 text-sm text-gray-400">
+<li>info@acrohavura.co.il</li>
+<li><a class="hover:text-white" href="#">פייסבוק</a></li>
+<li><a class="hover:text-white" href="#">אינסטגרם</a></li>
+<li><a class="hover:text-white" href="#">יוטיוב</a></li>
+</ul>
+</div>
+<!-- Spacer for alignment -->
+<div></div>
+</div>
+<!-- Bottom Footer -->
+<div class="max-w-7xl mx-auto mt-12 pt-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-600 uppercase tracking-widest">
+<p>© 2024 אקרוחבורה (AcroHavura). כל הזכויות שמורות.</p>
+<div class="flex gap-6">
+<a class="hover:text-white" href="#">תקנון</a>
+<a class="hover:text-white" href="#">פרטיות</a>
+</div>
+</div>
+</footer>
+<!-- END: SiteFooter -->
+</body></html>

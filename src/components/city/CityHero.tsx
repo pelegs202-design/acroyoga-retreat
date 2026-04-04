@@ -15,9 +15,13 @@ const CITY_KEY: Record<CitySlug, "telAviv" | "kfarSaba"> = {
 };
 
 /**
- * City hero section — server component (content), client scroll-reveal wrapper.
- * Displays the city name in Hebrew (h1) with a strong CTA.
- * Uses both "אקרויוגה" and "אקרו יוגה" spellings for keyword coverage.
+ * CityHero — Brutalist hero matching Stitch city-page.html design.
+ *
+ * Massive heading with pink underline decoration, gray intro text,
+ * asymmetric layout with brutalist image frame.
+ *
+ * @see stitch-screens/city-page.html (Hero Section)
+ * @see stitch-screens/city-page.png
  */
 export default async function CityHero({ city, locale }: Props) {
   const t = await getTranslations({ locale, namespace: "city" });
@@ -25,46 +29,51 @@ export default async function CityHero({ city, locale }: Props) {
 
   return (
     <ScrollReveal>
-      <section className="relative overflow-hidden rounded-none border-4 border-neutral-100 bg-neutral-950 px-8 py-16 text-center sm:px-12 sm:py-24">
-        {/* Brutalist accent bar */}
-        <div className="absolute inset-x-0 top-0 h-2 bg-brand" />
-
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-4 text-5xl font-black tracking-tight text-neutral-100 sm:text-7xl">
-            {t(`${cityKey}.heroTitle`)}
-          </h1>
-
-          {/* Pink accent bar under heading */}
-          <div className="mx-auto mb-6 h-1 w-20 bg-brand" />
-
-          {/* Keyword-rich subtitle covering both spellings */}
-          <p className="mb-2 text-xl font-medium text-brand sm:text-2xl">
-            {t(`${cityKey}.heroSubtitle`)}
-          </p>
-          <p className="mb-10 text-sm text-neutral-400">
-            {locale === "he"
-              ? "אקרויוגה · אקרו יוגה · ג׳אמים · שותפים · קהילה"
-              : "Acroyoga · Acro Yoga · Jams · Partners · Community"}
-          </p>
-
-          <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-            <Link
-              href={`/${locale}/quiz`}
-              className="btn-press inline-block border-4 border-neutral-100 bg-brand px-8 py-4 text-lg font-black uppercase tracking-widest text-neutral-950 transition-all hover:bg-neutral-100 hover:text-neutral-950"
-            >
-              {t(`${cityKey}.heroCta`)}
-            </Link>
-            <Link
-              href={`/${locale}/jams`}
-              className="btn-press inline-block border-4 border-neutral-100 bg-transparent px-8 py-4 text-lg font-black uppercase tracking-widest text-neutral-100 transition-all hover:bg-neutral-100 hover:text-neutral-950"
-            >
-              {locale === "he" ? "כל הג׳אמים" : "All Jams"}
-            </Link>
+      <section className="relative pt-20 pb-32 overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="z-10">
+            <h1 className="text-6xl md:text-8xl font-black leading-tight mb-6">
+              {t(`${cityKey}.heroTitle`).split(" ").slice(0, -2).join(" ")}{" "}
+              <br />
+              <span className="relative">
+                {t(`${cityKey}.heroTitle`).split(" ").slice(-2).join(" ")}
+                <span className="absolute bottom-2 right-0 w-full h-4 bg-brand -z-10 opacity-80" />
+              </span>
+            </h1>
+            <p className="text-xl text-gray-400 max-w-lg mb-10 leading-relaxed">
+              {t(`${cityKey}.heroSubtitle`)}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href={`/${locale}/quiz`}
+                className="btn-press bg-brand text-black px-10 py-4 text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:-translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+              >
+                {t(`${cityKey}.heroCta`)}
+              </Link>
+              <Link
+                href={`/${locale}/jams`}
+                className="btn-press bg-transparent text-white px-10 py-4 text-xl font-black border-2 border-white hover:bg-white/10 transition-colors"
+              >
+                {locale === "he" ? "גלו עוד" : "Discover More"}
+              </Link>
+            </div>
+          </div>
+          <div className="relative">
+            {/* Brutalist Image Frame — matching Stitch */}
+            <div className="relative z-10 border-2 border-white p-4 bg-[#0a0a0a]">
+              <div className="w-full aspect-square bg-neutral-900 flex items-center justify-center overflow-hidden">
+                <span className="text-7xl font-black text-brand/10 select-none">
+                  {city === "tel-aviv" ? "TLV" : "KFS"}
+                </span>
+              </div>
+              <div className="absolute -bottom-4 -start-4 bg-white text-black font-black px-4 py-1 text-sm border-2 border-black">
+                EST. 2024
+              </div>
+            </div>
+            {/* Decorative pink offset border */}
+            <div className="absolute -top-6 -end-6 w-full h-full border-2 border-brand -z-10" />
           </div>
         </div>
-
-        {/* Bottom accent bar */}
-        <div className="absolute inset-x-0 bottom-0 h-2 bg-brand" />
       </section>
     </ScrollReveal>
   );

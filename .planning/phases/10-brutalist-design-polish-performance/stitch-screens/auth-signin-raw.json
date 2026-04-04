@@ -1,0 +1,50 @@
+{
+  "outputComponents": [
+    {
+      "design": {
+        "screens": [
+          {
+            "deviceType": "DESKTOP",
+            "generatedBy": "HatterAgent",
+            "height": "2070",
+            "htmlCode": {
+              "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ8Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpbCiVodG1sX2Q4ZGFlYmRhNzkyOTRkNzA5OTc5ODk2NGNmOWRmNGQ1EgsSBxDFnJDltRIYAZIBJAoKcHJvamVjdF9pZBIWQhQxODI1MDMwMzAxODAzODU0MzY1Mg&filename=&opi=96797242",
+              "mimeType": "text/html",
+              "name": "projects/18250303018038543652/files/ce502e0331b9477782716dea288cce5e"
+            },
+            "id": "5fcf1a63920e4af8924940beeb44f868",
+            "name": "projects/18250303018038543652/screens/5fcf1a63920e4af8924940beeb44f868",
+            "prompt": "A high-fidelity desktop screen for a brutalist dark sign-in page for AcroHavura. Hebrew RTL.\nLayout: \n- Full-screen #0a0a0a dark background.\n- Large ghosted \"ACRO\" text behind everything at 4% opacity.\n- Centered card (max-width 28rem) with #171717 background and 2px solid #F472B6 pink border. Sharp edges, no rounding.\nHeader:\n- \"AcroHavura\" wordmark: \"Acro\" in pink (#F472B6), \"Havura\" in white. Bold brutalist font.\nForm:\n- \"כניסה\" (Sign In) heading in bold Hebrew.\n- Input fields for Email and Password: dark background (#171717), sharp edges, pink border/glow on focus. Label text in white.\n- Primary Button: Full-width, #F472B6 background, black bold text, sharp edges.\nLinks:\n- \"שכחתי סיסמה\" (Forgot password) in pink.\n- Footer area inside the card: \"אין לך חשבון? הרשם\" (Don't have an account? Sign up) link.\nOverall aesthetic: Clean, bold, brutalist, high-contrast, professional, RTL. Use the font Heebo.",
+            "screenMetadata": {
+              "agentType": "PRO_AGENT",
+              "status": "COMPLETE"
+            },
+            "screenType": "DESIGN",
+            "screenshot": {
+              "downloadUrl": "https://lh3.googleusercontent.com/aida/ADBb0uivnmIHN4cfX-jIAZkfzHC7Qq7FCGoK2JjbwAh984CtlAjjQYCR9nk4enrBJCUehqgcLXn0eQs-Fk77L33hTvFVS9s7kE4SMPezmKg0XRCxxETJmfcCT8mbi1DSyy0Yyka3B3c8aBGxC31Lofby2pAy7P8Nyy3vKqpmLe3nIYWmHrPagvtVKvlYSqgAxAtTb775ZxUEKRBiRKKclC-Yc6pr2YmcgFwQmrBtc_G3eaaa87Xm6Upj5kN8mK9n",
+              "name": "projects/18250303018038543652/files/57bde0833c7f4dc4a92be0e4cb6cdde8"
+            },
+            "theme": {},
+            "title": "AcroHavura Brutalist Sign In",
+            "width": "2560"
+          }
+        ],
+        "theme": {}
+      }
+    },
+    {
+      "text": "I've designed the brutalist dark sign-in page for AcroHavura. \n\nKey design elements include:\n- **Brutalist Dark Aesthetic:** A deep #0a0a0a background with a high-contrast #171717 centered card and bold #F472B6 pink accents.\n- **RTL Support:** The interface is fully optimized for Hebrew right-to-left orientation, using the Heebo font.\n- **Dynamic Background:** A ghosted \"ACRO\" text background at 4% opacity adds a modern, architectural feel.\n- **Functional Form:** Sharp-edged input fields with pink focus states and a prominent full-width submit button.\n\nYou can see the new design on the canvas. Let me know if you'd like any further adjustments!"
+    },
+    {
+      "suggestion": "Make the pink glow more intense on focus"
+    },
+    {
+      "suggestion": "Add a social login section (Google/Facebook)"
+    },
+    {
+      "suggestion": "Create the \"Sign Up\" page with the same style"
+    }
+  ],
+  "projectId": "18250303018038543652",
+  "sessionId": "12640937362064326993"
+}

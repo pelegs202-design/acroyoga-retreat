@@ -18,34 +18,28 @@ const CITY_NAMES: Record<CitySlug, { he: string; en: string }> = {
   "kfar-saba": { he: "כפר סבא", en: "Kfar Saba" },
 };
 
-const LEVEL_LABELS: Record<string, { he: string; en: string }> = {
-  all: { he: "כל הרמות", en: "All Levels" },
-  beginner: { he: "מתחילים", en: "Beginner" },
-  intermediate: { he: "בינוניים", en: "Intermediate" },
-  advanced: { he: "מתקדמים", en: "Advanced" },
-};
-
-function formatDate(date: Date, locale: string): string {
+function formatDateBadge(date: Date, locale: string): string {
   return new Intl.DateTimeFormat(locale === "he" ? "he-IL" : "en-US", {
     weekday: "short",
-    month: "short",
-    day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
   }).format(date);
 }
 
 /**
- * CityJamList — server component.
- * Queries upcoming jams for the given city, with ILIKE fallback on location field
- * for existing jams that don't have city column set yet.
+ * CityJamList — Brutalist jam cards matching Stitch city-page.html.
+ *
+ * Jam cards with pink date badge at top-left corner, location name,
+ * host info, and spots remaining counter. Thick 2px borders with
+ * pink border on hover.
+ *
+ * @see stitch-screens/city-page.html (Upcoming Jams section)
  */
 export default async function CityJamList({ city, locale }: Props) {
   const t = await getTranslations({ locale, namespace: "city" });
   const cityName = CITY_NAMES[city];
   const now = new Date();
 
-  // Query: city column match OR (city IS NULL AND location ILIKE cityName)
   const jams = await db
     .select()
     .from(jamSessions)
@@ -68,60 +62,66 @@ export default async function CityJamList({ city, locale }: Props) {
     .limit(6);
 
   return (
-    <section>
-      <h2 className="mb-6 text-3xl font-black uppercase tracking-tight text-neutral-100">
-        {t("upcomingJams")}
-      </h2>
-
-      {jams.length === 0 ? (
-        <div className="border-4 border-dashed border-neutral-700 p-8 text-center">
-          <p className="text-lg text-neutral-400">
-            {t("noJams", { city: locale === "he" ? cityName.he : cityName.en })}
-          </p>
+    <section className="py-24 bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-end justify-between mb-16">
+          <div>
+            <h2 className="text-4xl font-black mb-4 underline decoration-brand decoration-8 underline-offset-8">
+              {t("upcomingJams")}
+            </h2>
+            <p className="text-gray-400">
+              {t("noJams", { city: locale === "he" ? cityName.he : cityName.en }).replace(/^אין/, locale === "he" ? "הצטרפו למפגשים הפתוחים ב" : "Join open sessions in")}
+            </p>
+          </div>
           <Link
             href={`/${locale}/jams`}
-            className="mt-4 inline-block border-4 border-neutral-100 bg-transparent px-6 py-3 text-sm font-black uppercase tracking-widest text-neutral-100 transition-all hover:bg-neutral-100 hover:text-neutral-950"
+            className="text-brand font-bold border-b-2 border-brand hover:text-white hover:border-white transition-all"
           >
-            {locale === "he" ? "כל הג׳אמים" : "View All Jams"}
+            {locale === "he" ? "לכל האירועים ←" : "All events →"}
           </Link>
         </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {jams.map((jam) => (
-            <div key={jam.id}>
-              <JsonLd
-                data={buildEventSchema({
-                  id: jam.id,
-                  scheduledAt: jam.scheduledAt,
-                  location: jam.location,
-                  level: jam.level,
-                })}
-              />
-              <div className="card-hover border-4 border-neutral-100 bg-neutral-900 p-5 transition-colors hover:bg-neutral-800">
-                <p className="mb-1 text-xs font-bold uppercase tracking-widest text-brand">
-                  {formatDate(jam.scheduledAt, locale)}
-                </p>
-                <p className="mb-2 text-base font-bold text-neutral-100">
-                  {jam.location}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="rounded border-2 border-neutral-600 px-2 py-0.5 text-xs font-semibold text-neutral-400">
-                    {(LEVEL_LABELS[jam.level] ?? LEVEL_LABELS.all)[
-                      locale === "he" ? "he" : "en"
-                    ]}
-                  </span>
-                  <Link
-                    href={`/${locale}/jams`}
-                    className="border-2 border-brand px-3 py-1 text-xs font-black uppercase tracking-widest text-brand transition-all hover:bg-brand hover:text-neutral-950"
-                  >
-                    {t("joinJam")}
-                  </Link>
+
+        {jams.length === 0 ? (
+          <div className="border-2 border-dashed border-neutral-700 p-8 text-center">
+            <p className="text-lg text-neutral-400">
+              {t("noJams", { city: locale === "he" ? cityName.he : cityName.en })}
+            </p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {jams.map((jam) => (
+              <div key={jam.id}>
+                <JsonLd
+                  data={buildEventSchema({
+                    id: jam.id,
+                    scheduledAt: jam.scheduledAt,
+                    location: jam.location,
+                    level: jam.level,
+                  })}
+                />
+                <div className="bg-neutral-900 p-8 border-2 border-white relative group hover:border-brand transition-colors">
+                  {/* Pink date badge — top left */}
+                  <div className="absolute top-0 start-0 bg-brand text-black font-black px-4 py-2">
+                    {formatDateBadge(jam.scheduledAt, locale)}
+                  </div>
+                  <div className="mt-8">
+                    <h3 className="text-2xl font-black mb-2">{jam.location}</h3>
+                    <p className="text-gray-400 mb-6">{jam.notes || ""}</p>
+                    <div className="flex items-center justify-between border-t border-white/10 pt-4">
+                      <span className="text-sm font-bold">
+                        {locale === "he" ? "רמה:" : "Level:"} {jam.level}
+                      </span>
+                      <span className="text-brand font-black">
+                        {jam.capacity} {locale === "he" ? "מקומות" : "spots"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 }
