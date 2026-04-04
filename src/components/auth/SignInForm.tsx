@@ -66,8 +66,13 @@ export default function SignInForm({ locale }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-8 shadow-2xl">
-      <h1 className="mb-6 text-2xl font-bold text-neutral-100">{t("signIn")}</h1>
+    <div>
+      {/* Brutalist bold heading with pink accent bar */}
+      <h1 className="mb-2 text-3xl font-black tracking-tighter text-neutral-100">
+        {t("signIn")}
+      </h1>
+      {/* Pink accent bar under heading */}
+      <div className="mb-6 h-1 w-12 bg-brand" aria-hidden="true" />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
         {/* Email */}
@@ -83,7 +88,7 @@ export default function SignInForm({ locale }: Props) {
             type="email"
             autoComplete="email"
             {...register("email")}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500"
+            className="w-full rounded-none border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-brand focus:ring-1 focus:ring-brand"
           />
           {errors.email && (
             <p className="mt-1.5 text-sm text-red-400">{errors.email.message}</p>
@@ -103,7 +108,7 @@ export default function SignInForm({ locale }: Props) {
             type="password"
             autoComplete="current-password"
             {...register("password")}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-neutral-500 focus:ring-1 focus:ring-neutral-500"
+            className="w-full rounded-none border border-neutral-700 bg-neutral-800 px-3.5 py-2.5 text-neutral-100 placeholder-neutral-500 outline-none focus:border-brand focus:ring-1 focus:ring-brand"
           />
           {errors.password && (
             <p className="mt-1.5 text-sm text-red-400">{errors.password.message}</p>
@@ -114,7 +119,7 @@ export default function SignInForm({ locale }: Props) {
         <div className="text-end">
           <a
             href={`/${locale}/reset-password`}
-            className="text-sm text-neutral-400 hover:text-neutral-200"
+            className="text-sm text-brand transition-colors hover:text-brand-muted"
           >
             {t("forgotPassword")}
           </a>
@@ -122,16 +127,16 @@ export default function SignInForm({ locale }: Props) {
 
         {/* Server error */}
         {serverError && (
-          <div className="rounded-lg border border-red-800 bg-red-950/50 px-4 py-3 text-sm text-red-300">
+          <div className="border border-red-800 bg-red-950/50 px-4 py-3 text-sm text-red-300">
             {serverError}
           </div>
         )}
 
-        {/* Submit */}
+        {/* Submit — brutalist: btn-press + full pink block */}
         <button
           type="submit"
           disabled={isSubmitting}
-          className="w-full rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold text-brand-foreground transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
+          className="btn-press w-full bg-brand px-4 py-3 text-sm font-black uppercase tracking-wide text-black transition-colors hover:bg-brand-muted disabled:cursor-not-allowed disabled:opacity-50"
         >
           {isSubmitting ? "..." : t("signIn")}
         </button>
@@ -141,7 +146,7 @@ export default function SignInForm({ locale }: Props) {
         {t("noAccount")}{" "}
         <a
           href={`/${locale}/sign-up`}
-          className="font-medium text-neutral-100 underline underline-offset-4 hover:text-white"
+          className="font-bold text-brand transition-colors hover:text-brand-muted"
         >
           {t("signUp")}
         </a>
