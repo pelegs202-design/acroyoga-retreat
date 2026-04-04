@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 import { MotionProvider } from "@/components/layout/MotionProvider";
 import InstallPrompt from "@/components/pwa/InstallPrompt";
 import IosBanner from "@/components/pwa/IosBanner";
@@ -98,6 +99,7 @@ export default async function LocaleLayout({ children, params }: Props) {
           <MotionProvider>
             <Header />
             {children}
+            <Footer />
             <InstallPrompt />
             <IosBanner />
           </MotionProvider>
