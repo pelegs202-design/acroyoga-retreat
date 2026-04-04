@@ -1,11 +1,97 @@
 {
   "common": {
     "appName": "AcroHavura",
-    "switchLanguage": "Switch language"
+    "switchLanguage": "Switch language",
+    "menu": "Menu",
+    "closeMenu": "Close menu"
+  },
+  "footer": {
+    "tagline": "Find acro partners. Jams, community, real connection.",
+    "copyright": "© 2026 AcroHavura. All rights reserved.",
+    "nav": {
+      "platform": "Platform",
+      "community": "Community",
+      "legal": "Legal",
+      "quiz": "Acro Quiz",
+      "telAviv": "Tel Aviv",
+      "kfarSaba": "Kfar Saba",
+      "terms": "Terms of Service"
+    }
   },
   "home": {
     "title": "Welcome to AcroHavura",
-    "subtitle": "Find your perfect acro partner"
+    "subtitle": "Find your perfect acro partner",
+    "hero": {
+      "title": "Fly Together.",
+      "subtitle": "AcroHavura is the Israeli acroyoga community — find your partner, join jams, and take flight.",
+      "ctaQuiz": "Take the Quiz",
+      "ctaPartners": "Find Partners",
+      "scrollHint": "Scroll to explore"
+    },
+    "features": {
+      "label": "What we offer",
+      "title": "Everything you need to fly.",
+      "items": {
+        "0": {
+          "title": "Partner Matching",
+          "description": "Smart matching by city, role, and level. Find bases, flyers, and practice partners near you — no awkward DMs required."
+        },
+        "1": {
+          "title": "Jam Sessions",
+          "description": "Browse and RSVP to open acroyoga jams in your city. Hosts manage spots, waitlists, and levels — everything in one place."
+        },
+        "2": {
+          "title": "Know Your Style",
+          "description": "Take the 2-minute acro quiz and discover your archetype: Explorer, Artist, Connector, or Athlete. Then find partners who complement you."
+        },
+        "3": {
+          "title": "WhatsApp Integration",
+          "description": "Get jam reminders, partner match alerts, and community updates directly to WhatsApp — the way Israelis actually communicate."
+        },
+        "4": {
+          "title": "30-Day Challenge",
+          "description": "Join a guided 30-day acroyoga journey with a structured program, cohort accountability, and milestone tracking. First flight guaranteed."
+        }
+      }
+    },
+    "showcase": {
+      "label": "Platform highlights",
+      "title": "Built for the community.",
+      "cards": {
+        "0": {
+          "tag": "Matching",
+          "title": "Find Your Partner",
+          "subtitle": "Filter by role, level, and city. Every profile shows real skills, not just vibes."
+        },
+        "1": {
+          "tag": "Events",
+          "title": "Join Jams",
+          "subtitle": "Open sessions, intimate jams, outdoor flows — RSVPs managed, spots guaranteed."
+        },
+        "2": {
+          "tag": "Growth",
+          "title": "30-Day Challenge",
+          "subtitle": "Guided curriculum. Weekly cohort sessions. You'll be flying by day 7."
+        },
+        "3": {
+          "tag": "Trust",
+          "title": "Community Trust",
+          "subtitle": "Verified profiles, peer reviews, and host accountability. Safe by design."
+        },
+        "4": {
+          "tag": "Local",
+          "title": "Your City",
+          "subtitle": "Tel Aviv, Kfar Saba, Haifa — wherever you are, your community is here."
+        }
+      }
+    },
+    "cta": {
+      "label": "Ready to start",
+      "title": "Ready to fly?",
+      "subtitle": "Two minutes to discover your acro style, find your city partners, and take your first step off the ground.",
+      "ctaPrimary": "Take the Quiz",
+      "ctaSecondary": "Browse Partners"
+    }
   },
   "auth": {
     "signIn": "Sign In",
