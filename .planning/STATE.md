@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 10 of 10 (Brutalist Design Polish + Performance) — IN PROGRESS
-Plan: 4 of 5 in current phase — 10-04 COMPLETE
-Status: City pages (Tel Aviv + Kfar Saba) + quiz flow + results page all have brutalist polish: scroll-reveal sections, card-hover effects, btn-press CTAs, magnetic checkout CTA, pink accent bars
-Last activity: 2026-04-01 — Plan 10-04 complete: City landing pages + quiz flow brutalist polish
+Plan: 5 of 5 in current phase — 10-05 CHECKPOINT (Tasks 1+2 complete, awaiting Task 3 human-verify)
+Status: WCAG AA tests pass (8/8), layout-triggering animations fixed, footer contrast fixed, ParallaxLayer mobile-disabled. Awaiting Lighthouse 90+ mobile confirmation from user.
+Last activity: 2026-04-04 — Plan 10-05 tasks 1+2 complete: Playwright axe-core tests + Lighthouse performance audit
 
 Progress: [██████████] 97%
 
