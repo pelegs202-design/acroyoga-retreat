@@ -4,6 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
+import { ScrollReveal } from "@/components/effects/ScrollReveal";
+import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -69,23 +71,27 @@ function FaqAccordion({ locale }: { locale: string }) {
 
   return (
     <section className="w-full">
-      <h2 className="text-xl font-bold text-white mb-4">{title}</h2>
-      <div className="flex flex-col gap-2">
+      <h2 className="text-3xl font-black text-white mb-2">{title}</h2>
+      {/* Pink accent bar */}
+      <div className="mb-4 h-1 w-16 bg-brand" />
+      <div className="flex flex-col gap-0">
         {items.map((item, i) => {
           const isOpen = openIndex === i;
           return (
             <div
               key={i}
-              className="rounded-lg border border-neutral-800 bg-neutral-900 overflow-hidden"
+              className="border-s-4 border-brand bg-neutral-950 open:bg-neutral-900 overflow-hidden"
             >
               <button
                 type="button"
                 onClick={() => setOpenIndex(isOpen ? null : i)}
-                className="w-full flex items-center justify-between px-4 py-3 text-left text-white font-medium hover:bg-neutral-800 transition-colors"
+                className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-neutral-900 transition-colors"
                 aria-expanded={isOpen}
               >
-                <span>{item.q}</span>
-                <span className="text-brand ml-3 text-lg leading-none">
+                <span className={`font-bold text-base ${isOpen ? "text-brand" : "text-white"} transition-colors`}>
+                  {item.q}
+                </span>
+                <span className="text-brand ms-3 text-lg leading-none">
                   {isOpen ? "−" : "+"}
                 </span>
               </button>
@@ -95,7 +101,7 @@ function FaqAccordion({ locale }: { locale: string }) {
                 transition={{ duration: 0.25, ease: "easeInOut" }}
                 className="overflow-hidden"
               >
-                <p className="px-4 pb-4 text-neutral-400 text-sm leading-relaxed">
+                <p className="px-4 pb-4 text-neutral-400 text-sm leading-relaxed border-t border-neutral-800 pt-2">
                   {item.a}
                 </p>
               </motion.div>
@@ -154,179 +160,170 @@ export default function QuizResultsPage({
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col gap-10 pb-20 px-4">
       {/* 1. Archetype Header */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center pt-8"
-      >
-        <p className="text-neutral-400 text-sm mb-1">
-          {leadName ? `${leadName}, ` : ""}
-          {isHe ? "אתם" : "You are"}
-        </p>
-        <h1 className="text-4xl font-black text-brand mb-2">{name}</h1>
-        <p className="text-neutral-300 italic text-base mb-4">{tagline}</p>
-        <p className="text-neutral-400 text-sm leading-relaxed">{description}</p>
-      </motion.section>
+      <ScrollReveal>
+        <section className="text-center pt-8">
+          <p className="text-neutral-400 text-sm mb-1">
+            {leadName ? `${leadName}, ` : ""}
+            {isHe ? "אתם" : "You are"}
+          </p>
+          <h1 className="text-4xl font-black text-brand mb-2">{name}</h1>
+          {/* Pink accent bar */}
+          <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
+          <p className="text-neutral-300 italic text-base mb-4">{tagline}</p>
+          <p className="text-neutral-400 text-sm leading-relaxed">{description}</p>
+        </section>
+      </ScrollReveal>
 
       {/* 2. Radar Chart */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="rounded-xl border border-neutral-800 bg-neutral-900 p-5"
-      >
-        <h2 className="text-base font-bold text-white mb-4 text-center">
-          {isHe ? "איפה אתם → איפה אתם יכולים להיות" : "Where You Are → Where You Could Be"}
-        </h2>
-        <QuizRadarChart radarData={result.radarData} locale={locale} />
-      </motion.section>
+      <ScrollReveal delay={0.05}>
+        <section className="rounded-xl border border-neutral-800 bg-neutral-900 p-5">
+          <h2 className="text-xl font-black text-white mb-2 text-center">
+            {isHe ? "איפה אתם → איפה אתם יכולים להיות" : "Where You Are → Where You Could Be"}
+          </h2>
+          <div className="mx-auto mb-4 h-1 w-12 bg-brand" />
+          <QuizRadarChart radarData={result.radarData} locale={locale} />
+        </section>
+      </ScrollReveal>
 
       {/* 3. Strengths */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.15 }}
-      >
-        <h2 className="text-xl font-bold text-white mb-3">
-          {isHe ? "החוזקות שלכם" : "Your Strengths"}
-        </h2>
-        <ul className="flex flex-col gap-2">
-          {result.strengths.map((s, i) => (
-            <li key={i} className="flex items-center gap-2 text-green-400 font-medium">
-              <span className="text-green-400">✓</span>
-              <span>{isHe ? s.he : s.en}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.section>
+      <ScrollReveal delay={0.1}>
+        <section>
+          <h2 className="text-3xl font-black text-white mb-2">
+            {isHe ? "החוזקות שלכם" : "Your Strengths"}
+          </h2>
+          {/* Pink accent bar */}
+          <div className="mb-4 h-1 w-16 bg-brand" />
+          <ul className="flex flex-col gap-2">
+            {result.strengths.map((s, i) => (
+              <li key={i} className="flex items-center gap-2 text-green-400 font-medium">
+                <span className="text-green-400">✓</span>
+                <span>{isHe ? s.he : s.en}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </ScrollReveal>
 
       {/* 4. Fear Addressing */}
       {allFears.length > 0 && (
-        <motion.section
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          <h2 className="text-xl font-bold text-white mb-3">
-            {isHe ? "אנחנו כאן בשבילכם" : "We've Got You"}
+        <ScrollReveal delay={0.1}>
+          <section>
+            <h2 className="text-3xl font-black text-white mb-2">
+              {isHe ? "אנחנו כאן בשבילכם" : "We've Got You"}
+            </h2>
+            {/* Pink accent bar */}
+            <div className="mb-4 h-1 w-16 bg-brand" />
+            <div className="flex flex-col gap-3">
+              {allFears.map((fear, i) => (
+                <div
+                  key={i}
+                  className="card-hover flex items-start gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                >
+                  <span className="text-lg mt-0.5">✅</span>
+                  <p className="text-neutral-300 text-sm leading-relaxed">
+                    {isHe ? fear.he : fear.en}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </ScrollReveal>
+      )}
+
+      {/* 5. Testimonials */}
+      <ScrollReveal delay={0.1}>
+        <section>
+          <h2 className="text-3xl font-black text-white mb-2">
+            {isHe ? "מה התלמידים שלנו אומרים" : "What Our Students Say"}
           </h2>
-          <div className="flex flex-col gap-3">
-            {allFears.map((fear, i) => (
+          {/* Pink accent bar */}
+          <div className="mb-4 h-1 w-16 bg-brand" />
+          <div className="flex flex-col gap-4">
+            {TESTIMONIALS.map((t, i) => (
               <div
                 key={i}
-                className="flex items-start gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                className="card-hover rounded-xl border border-neutral-800 bg-neutral-900 p-4"
               >
-                <span className="text-lg mt-0.5">✅</span>
-                <p className="text-neutral-300 text-sm leading-relaxed">
-                  {isHe ? fear.he : fear.en}
+                <p className="text-neutral-300 text-sm leading-relaxed mb-3">
+                  &ldquo;{isHe ? t.he : t.en}&rdquo;
+                </p>
+                <p className="text-neutral-500 text-xs font-medium">
+                  {t.emoji} {isHe ? t.author.he : t.author.en}
                 </p>
               </div>
             ))}
           </div>
-        </motion.section>
-      )}
-
-      {/* 5. Testimonials */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.25 }}
-      >
-        <h2 className="text-xl font-bold text-white mb-4">
-          {isHe ? "מה התלמידים שלנו אומרים" : "What Our Students Say"}
-        </h2>
-        <div className="flex flex-col gap-4">
-          {TESTIMONIALS.map((t, i) => (
-            <div
-              key={i}
-              className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
-            >
-              <p className="text-neutral-300 text-sm leading-relaxed mb-3">
-                &ldquo;{isHe ? t.he : t.en}&rdquo;
-              </p>
-              <p className="text-neutral-500 text-xs font-medium">
-                {t.emoji} {isHe ? t.author.he : t.author.en}
-              </p>
-            </div>
-          ))}
-        </div>
-      </motion.section>
+        </section>
+      </ScrollReveal>
 
       {/* 6. Price CTA */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="rounded-2xl border border-brand/30 bg-neutral-900 p-6 text-center"
-      >
-        <h2 className="text-xl font-black text-white mb-1">
-          {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
-        </h2>
-        <p className="text-neutral-500 text-xs mb-5">
-          {isHe ? "מחיר Early Bird" : "Early Bird Price"}
-        </p>
+      <ScrollReveal delay={0.1}>
+        <section className="card-hover rounded-2xl border border-brand/30 bg-neutral-900 p-6 text-center">
+          <h2 className="text-3xl font-black text-white mb-1">
+            {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
+          </h2>
+          {/* Pink accent bar */}
+          <div className="mx-auto mb-4 h-1 w-16 bg-brand" />
+          <p className="text-neutral-500 text-xs mb-5">
+            {isHe ? "מחיר Early Bird" : "Early Bird Price"}
+          </p>
 
-        {/* Price */}
-        <div className="flex items-baseline justify-center gap-4 mb-2">
-          <span className="text-5xl font-black text-brand">299</span>
-          <span className="text-2xl font-bold text-brand">₪</span>
-          <span className="text-xl text-neutral-600 line-through">499 ₪</span>
-        </div>
-        <p className="text-neutral-500 text-xs mb-5">
-          {isHe ? "מחיר רגיל: 499 ₪" : "Regular price: 499 ₪"}
-        </p>
+          {/* Price */}
+          <div className="flex items-baseline justify-center gap-4 mb-2">
+            <span className="text-5xl font-black text-brand">299</span>
+            <span className="text-2xl font-bold text-brand">₪</span>
+            <span className="text-xl text-neutral-600 line-through">499 ₪</span>
+          </div>
+          <p className="text-neutral-500 text-xs mb-5">
+            {isHe ? "מחיר רגיל: 499 ₪" : "Regular price: 499 ₪"}
+          </p>
 
-        {/* Urgency */}
-        <p className="text-amber-400 text-sm font-semibold mb-1">
-          {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
-        </p>
-        <p className="text-neutral-500 text-xs mb-6">
-          {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
-        </p>
+          {/* Urgency */}
+          <p className="text-amber-400 text-sm font-semibold mb-1">
+            {isHe ? "נותרו רק 4 מקומות בקבוצה הבאה" : "Only 4 spots left in the next group"}
+          </p>
+          <p className="text-neutral-500 text-xs mb-6">
+            {isHe ? `הקבוצה הבאה מתחילה ב-${formattedStartDate}` : `Next group starts ${formattedStartDate}`}
+          </p>
 
-        {/* CTA Button */}
-        <button
-          type="button"
-          onClick={() => {
-            window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
-          }}
-          className="block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
-        >
-          {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
-        </button>
-      </motion.section>
+          {/* CTA Button — MagneticWrapper on desktop, btn-press on all */}
+          <MagneticWrapper>
+            <button
+              type="button"
+              onClick={() => {
+                window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
+              }}
+              className="btn-press block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"
+            >
+              {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
+            </button>
+          </MagneticWrapper>
+        </section>
+      </ScrollReveal>
 
       {/* 7. FAQ */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.35 }}
-      >
+      <ScrollReveal delay={0.1}>
         <FaqAccordion locale={locale} />
-      </motion.div>
+      </ScrollReveal>
 
       {/* 8. Share Button */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="flex flex-col items-center gap-2 pb-4"
-      >
-        <button
-          type="button"
-          onClick={handleShare}
-          className="rounded-xl border border-neutral-700 bg-neutral-900 px-6 py-3 text-sm text-neutral-300 hover:border-brand hover:text-white transition-colors"
-        >
-          {copied
-            ? isHe
-              ? "הועתק! ✓"
-              : "Copied! ✓"
-            : isHe
-            ? "שתפו את התוצאות שלכם"
-            : "Share Your Results"}
-        </button>
-      </motion.div>
+      <ScrollReveal delay={0.1}>
+        <div className="flex flex-col items-center gap-2 pb-4">
+          <button
+            type="button"
+            onClick={handleShare}
+            className="btn-press rounded-xl border border-neutral-700 bg-neutral-900 px-6 py-3 text-sm text-neutral-300 hover:border-brand hover:text-white transition-colors"
+          >
+            {copied
+              ? isHe
+                ? "הועתק! ✓"
+                : "Copied! ✓"
+              : isHe
+              ? "שתפו את התוצאות שלכם"
+              : "Share Your Results"}
+          </button>
+        </div>
+      </ScrollReveal>
     </div>
   );
 }
