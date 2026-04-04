@@ -1,6 +1,5 @@
 import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
-import { getSessionResult } from "@/lib/quiz/get-session-result";
 
 export async function GET(
   _req: NextRequest,
@@ -8,7 +7,6 @@ export async function GET(
 ) {
   const { sessionId } = await params;
 
-  // Validate UUID format
   if (!/^[0-9a-f-]{36}$/i.test(sessionId)) {
     return new Response("Invalid session", { status: 400 });
   }
@@ -17,6 +15,8 @@ export async function GET(
   let leadName = "";
 
   try {
+    // Use shared helper for DB + calculation
+    const { getSessionResult } = await import("@/lib/quiz/get-session-result");
     const data = await getSessionResult(sessionId);
     if (data) {
       archetypeName = data.result.name;
@@ -24,6 +24,7 @@ export async function GET(
     }
   } catch (e) {
     console.error("OG image: failed to fetch session", e);
+    // Continue with fallback values
   }
 
   return new ImageResponse(
