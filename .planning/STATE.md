@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-31)
 
 **Core value:** People can find and connect with the right acroyoga partner near them — by level, role, and skills — and show up to practice together.
-**Current focus:** Phase 9 — SEO + Social Surface
+**Current focus:** Phase 10 — Brutalist Design Polish + Performance
 
 ## Current Position
 
-Phase: 9 of 10 (SEO + Social Surface) — IN PROGRESS
-Plan: 3 of 4 in current phase — 09-03 COMPLETE
-Status: Instagram RSC feed embed on homepage (graceful degradation) + floating WhatsApp-first share sheet on city pages, jams, and quiz results
-Last activity: 2026-04-03 — Plan 09-03 complete: Instagram Grid + ShareButton/ShareBottomSheet integrated on 3 page types
+Phase: 10 of 10 (Brutalist Design Polish + Performance) — IN PROGRESS
+Plan: 1 of 5 in current phase — 10-01 COMPLETE
+Status: Brutalist effects library (5 Framer Motion components), global CSS (scrollbar/card-hover/btn-press/form-focus), MotionConfig reduced-motion at layout level, design references for all 5 target pages
+Last activity: 2026-04-04 — Plan 10-01 complete: Effects library + design references + global CSS foundation
 
-Progress: [█████████░] 92%
+Progress: [██████████] 95%
 
 ## Performance Metrics
 
@@ -53,6 +53,7 @@ Progress: [█████████░] 92%
 | Phase 07-notifications-automations P06 | 5 | 1 tasks | 1 files |
 | Phase 08-admin-panel P01 | 3 | 2 tasks | 13 files |
 | Phase 08-admin-panel P02 | 5 | 2 tasks | 11 files |
+| Phase 10-brutalist-design-polish-performance P01 | 9 | 2 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -189,6 +190,11 @@ Recent decisions affecting current work:
 - [Phase 09-03]: 09-03: ShareButton uses end-4 (Tailwind logical property) not right-4 — correct RTL layout without manual dir checks
 - [Phase 09-03]: 09-03: INSTAGRAM_ACCESS_TOKEN has no NEXT_PUBLIC_ prefix — server-only token, never exposed to client bundle
 - [Phase 09-03]: 09-03: Quiz results ShareButton includes ?session= query param in URL — full shareable URL per Phase 05-04 design
+- [Phase 10-01]: 10-01: MotionProvider extracted as "use client" component — MotionConfig needs React client context; layout.tsx is server component, cannot use MotionConfig inline
+- [Phase 10-01]: 10-01: DraggableCard renders two DOM elements (hidden md:block + md:hidden) — cleanest desktop-only drag pattern without useMediaQuery hook dependency
+- [Phase 10-01]: 10-01: ParallaxLayer uses will-change-transform only on inner motion.div — avoids global GPU layer promotion which causes mobile frame drops
+- [Phase 10-01]: 10-01: Custom scrollbar hidden on mobile via media query — native mobile scroll UX superior; custom scrollbar no value on touch
+- [Phase 10-01]: 10-01: Stitch MCP unavailable — design references created manually per /frontend-design skill with exact brand tokens (#0a0a0a, #F472B6, Heebo 900) and RTL adaptation notes
 
 ### Pending Todos
 
@@ -201,6 +207,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-03
-Stopped at: Completed 09-03-PLAN.md — Instagram RSC feed + ShareButton/ShareBottomSheet on city pages, jams, and quiz results
-Resume file: .planning/phases/09-seo-social-surface/09-02-SUMMARY.md
+Last session: 2026-04-04
+Stopped at: Completed 10-01-PLAN.md — Brutalist effects library + design references + global CSS + MotionConfig
+Resume file: .planning/phases/10-brutalist-design-polish-performance/10-01-SUMMARY.md
