@@ -69,7 +69,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **DSGN-02**: Design is accessible (WCAG AA) despite brutalist aesthetic
 - [ ] **DSGN-03**: High Lighthouse performance scores on mobile despite heavy interactivity
 - [x] **DSGN-04**: All UI built with Tailwind CSS v4 (CSS logical properties for RTL), Framer Motion v12 (animations/interactions), shadcn/ui + Radix UI (accessible primitives), Heebo font (Hebrew)
-- [ ] **DSGN-05**: All pages and components use `/frontend-design` skill to produce distinctive, non-generic interfaces matching brutalist vision
+- [x] **DSGN-05**: All pages and components use `/frontend-design` skill to produce distinctive, non-generic interfaces matching brutalist vision
 - [x] **DSGN-06**: Use Google Stitch (stitch-mcp) for AI-powered UI prototyping and Tailwind/React code generation before implementation
 
 ### SEO & Social
@@ -185,7 +185,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DSGN-02 | Phase 10 — Brutalist Design Polish + Performance | Pending |
 | DSGN-03 | Phase 10 — Brutalist Design Polish + Performance | Pending |
 | DSGN-04 | Phase 10 — Brutalist Design Polish + Performance | Complete |
-| DSGN-05 | Phase 10 — Brutalist Design Polish + Performance | Pending |
+| DSGN-05 | Phase 10 — Brutalist Design Polish + Performance | Complete |
 | DSGN-06 | Phase 10 — Brutalist Design Polish + Performance | Complete |
 
 **Coverage:**

@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-31)
 ## Current Position
 
 Phase: 10 of 10 (Brutalist Design Polish + Performance) — IN PROGRESS
-Plan: 1 of 5 in current phase — 10-01 COMPLETE
-Status: Brutalist effects library (5 Framer Motion components), global CSS (scrollbar/card-hover/btn-press/form-focus), MotionConfig reduced-motion at layout level, design references for all 5 target pages
-Last activity: 2026-04-04 — Plan 10-01 complete: Effects library + design references + global CSS foundation
+Plan: 3 of 5 in current phase — 10-03 COMPLETE
+Status: Brutalist header (magnetic nav, hamburger) + Radix Dialog mobile menu (DSGN-04 WCAG AA) + 4-col footer on all pages + auth pages in 2px pink-bordered brutalist card with bold headings
+Last activity: 2026-04-04 — Plan 10-03 complete: Header/footer/mobile-menu redesign + auth page polish
 
-Progress: [██████████] 95%
+Progress: [██████████] 97%
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Progress: [██████████] 95%
 | Phase 08-admin-panel P01 | 3 | 2 tasks | 13 files |
 | Phase 08-admin-panel P02 | 5 | 2 tasks | 11 files |
 | Phase 10-brutalist-design-polish-performance P01 | 9 | 2 tasks | 13 files |
+| Phase 10-brutalist-design-polish-performance P03 | 15 | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -195,6 +196,14 @@ Recent decisions affecting current work:
 - [Phase 10-01]: 10-01: ParallaxLayer uses will-change-transform only on inner motion.div — avoids global GPU layer promotion which causes mobile frame drops
 - [Phase 10-01]: 10-01: Custom scrollbar hidden on mobile via media query — native mobile scroll UX superior; custom scrollbar no value on touch
 - [Phase 10-01]: 10-01: Stitch MCP unavailable — design references created manually per /frontend-design skill with exact brand tokens (#0a0a0a, #F472B6, Heebo 900) and RTL adaptation notes
+- [Phase 10-02]: 10-02: page.tsx remains server component — all Framer Motion delegated to "use client" children, no hydration risk
+- [Phase 10-02]: 10-02: HorizontalShowcase wraps each card in DraggableCard with dragConstraints +-60px + dragElastic 0.3 — satisfies DSGN-01 without breaking horizontal scroll layout
+- [Phase 10-02]: 10-02: FeaturesShowcase uses indexed i18n keys (items.0.title) not t.raw — simpler, avoids TypeScript casting complexity
+- [Phase 10-02]: 10-02: InstagramGrid wrapped in ScrollReveal in page.tsx — consistent scroll-reveal without modifying the existing RSC component
+- [Phase 10-02]: 10-02: Hero asymmetric layout uses CSS logical grid (3fr/2fr) not absolute positioning — RTL-safe without manual dir checks
+- [Phase 10-03]: 10-03: MobileMenu uses Radix Dialog (not custom dropdown) — provides WCAG AA focus trap, escape-to-close, aria-modal, scroll lock for free per DSGN-04
+- [Phase 10-03]: 10-03: Auth layout card is in layout.tsx (not in form components) — form components render headless into the card; avoids double-wrapping
+- [Phase 10-03]: 10-03: MobileMenu slide animation uses Radix data-[state] + Tailwind animate-in/out — no Framer Motion needed for this simple slide transition
 
 ### Pending Todos
 
@@ -208,5 +217,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-04
-Stopped at: Completed 10-01-PLAN.md — Brutalist effects library + design references + global CSS + MotionConfig
-Resume file: .planning/phases/10-brutalist-design-polish-performance/10-01-SUMMARY.md
+Stopped at: Completed 10-03-PLAN.md — Brutalist header/footer/mobile-menu (Radix Dialog) + auth page polish
+Resume file: .planning/phases/10-brutalist-design-polish-performance/10-03-SUMMARY.md

@@ -182,9 +182,9 @@ Plans:
   5. All pages and components are implemented using the `/frontend-design` skill and Google Stitch prototyping workflow
 **Plans**: 5 plans
 Plans:
-- [ ] 10-01-PLAN.md — Stitch design prototypes + reusable effects library (magnetic, scroll-reveal, parallax, horizontal scroll) + global CSS foundation
-- [ ] 10-02-PLAN.md — Homepage full brutalist treatment (parallax hero, scroll-reveal features, horizontal showcase, magnetic CTAs, scroll progress)
-- [ ] 10-03-PLAN.md — Header/footer brutalist redesign + mobile menu + auth pages polish
+- [x] 10-01-PLAN.md — Stitch design prototypes + reusable effects library (magnetic, scroll-reveal, parallax, horizontal scroll) + global CSS foundation
+- [x] 10-02-PLAN.md — Homepage full brutalist treatment (parallax hero, scroll-reveal features, horizontal showcase, magnetic CTAs, scroll progress)
+- [x] 10-03-PLAN.md — Header/footer brutalist redesign + mobile menu + auth pages polish
 - [ ] 10-04-PLAN.md — City landing pages + quiz flow brutalist polish
 - [ ] 10-05-PLAN.md — WCAG AA accessibility tests (Playwright + axe-core) + Lighthouse 90+ performance audit + human verification
 
@@ -206,4 +206,4 @@ Note: Phase 5 (Quiz Funnels) depends only on Phase 1 (Foundation) — it can beg
 | 7. Notifications + Automations | 6/6 | Complete   | 2026-04-03 |
 | 8. Admin Panel | 2/2 | Complete   | 2026-04-03 |
 | 9. SEO + Social Surface | 3/3 | Complete   | 2026-04-03 |
-| 10. Brutalist Design Polish + Performance | 1/5 | In Progress|  |
+| 10. Brutalist Design Polish + Performance | 3/5 | In Progress|  |
