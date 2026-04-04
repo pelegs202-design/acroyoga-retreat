@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { trackPurchase } from "@/lib/quiz/quiz-analytics";
@@ -20,11 +20,29 @@ interface SuccessContentProps {
 export default function SuccessContent({ sessionId: _sessionId, locale }: SuccessContentProps) {
   const isHe = locale === "he";
 
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [dayConfirmed, setDayConfirmed] = useState(false);
+
   useEffect(() => {
     trackPurchase(_sessionId);
   }, [_sessionId]);
 
   const nextMondayDate = getNextMonday();
+
+  async function handleDaySelect(day: string) {
+    setSelectedDay(day);
+    setDayConfirmed(false);
+    try {
+      const res = await fetch("/api/challenge/first-class", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId: _sessionId, day }),
+      });
+      if (res.ok) setDayConfirmed(true);
+    } catch {
+      // silent — selection is still shown
+    }
+  }
 
   const startDateFormatted = isHe
     ? nextMondayDate.toLocaleDateString("he-IL", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
@@ -40,13 +58,13 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
     ? [
         { marker: "01", title: "מתי מתאמנים", text: `שני 20:00 + רביעי 20:00 — רוקח 40, צפון תל אביב\nשישי 13:30 + שבת 13:30 — חוף צ׳ארלס קלור, מול מלון עם ממ״ד\nהשיעור הראשון: ${startDateFormatted}` },
         { marker: "02", title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
-        { marker: "03", title: "מה להביא", text: "בקבוק מים, מגבת קטנה. מזרנים מסופקים במקום." },
+        { marker: "03", title: "מה להביא", text: "מזרן יוגה, בקבוק מים, מגבת קטנה." },
         { marker: "04", title: "ממ״ד", text: "בכל המיקומים יש ממ״ד בקרבת מקום." },
       ]
     : [
         { marker: "01", title: "When We Train", text: `Mon 20:00 + Wed 20:00 — Rokah 40, North Tel Aviv\nFri 13:30 + Sat 13:30 — Charles Clore Beach, near hotel with shelter\nYour first class: ${startDateFormatted}` },
         { marker: "02", title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
-        { marker: "03", title: "What to Bring", text: "Water bottle, small towel. Mats are provided at the venue." },
+        { marker: "03", title: "What to Bring", text: "Yoga mat, water bottle, small towel." },
         { marker: "04", title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
       ];
 
@@ -132,7 +150,48 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </div>
       </motion.section>
 
-      {/* 4. Add to Calendar */}
+      {/* 4. First Class Day Picker */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.18 }}
+      >
+        <h2 className="text-xl font-bold text-white mb-2">
+          {isHe ? "באיזה יום מגיעים לשיעור הראשון?" : "Which day is your first class?"}
+        </h2>
+        <p className="text-neutral-400 text-sm mb-4">
+          {isHe ? "בחרו יום ונשריין לכם מקום" : "Pick a day and we'll save your spot"}
+        </p>
+        <div className="grid grid-cols-2 gap-3">
+          {([
+            { id: "mon", he: "שני 20:00", en: "Mon 20:00", loc: isHe ? "רוקח 40" : "Rokah 40" },
+            { id: "wed", he: "רביעי 20:00", en: "Wed 20:00", loc: isHe ? "רוקח 40" : "Rokah 40" },
+            { id: "fri", he: "שישי 13:30", en: "Fri 13:30", loc: isHe ? "צ׳ארלס קלור" : "Charles Clore" },
+            { id: "sat", he: "שבת 13:30", en: "Sat 13:30", loc: isHe ? "צ׳ארלס קלור" : "Charles Clore" },
+          ] as const).map((day) => (
+            <button
+              key={day.id}
+              type="button"
+              onClick={() => handleDaySelect(day.id)}
+              className={`p-4 border-2 text-start transition-colors ${
+                selectedDay === day.id
+                  ? "border-brand bg-brand/10"
+                  : "border-neutral-700 bg-neutral-900 hover:border-brand/50"
+              }`}
+            >
+              <p className="font-black text-white text-sm">{isHe ? day.he : day.en}</p>
+              <p className="text-neutral-400 text-xs mt-1">{day.loc}</p>
+            </button>
+          ))}
+        </div>
+        {dayConfirmed && (
+          <p className="text-green-400 text-sm font-bold mt-3 text-center">
+            {isHe ? "נשמר — נתראה שם" : "Saved — see you there"}
+          </p>
+        )}
+      </motion.section>
+
+      {/* 5. Add to Calendar */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

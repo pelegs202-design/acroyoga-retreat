@@ -231,6 +231,7 @@ export const challengeEnrollments = pgTable("challenge_enrollments", {
   customerPhone: text("customer_phone"),
   status: text("status").notNull().default("confirmed"),  // 'confirmed' | 'refunded'
   cohortStartDate: timestamp("cohort_start_date"),
+  firstClassDay: text("first_class_day"),  // 'mon' | 'wed' | 'fri' | 'sat'
   paidAt: timestamp("paid_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 }, (table) => [
