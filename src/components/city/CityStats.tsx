@@ -81,7 +81,7 @@ export default async function CityStats({ city, locale = "he" }: Props) {
         {stats.map((stat, i) => (
           <div
             key={i}
-            className="border-4 border-neutral-100 bg-neutral-900 p-8 text-center"
+            className="card-hover border-4 border-neutral-100 bg-neutral-900 p-8 text-center"
           >
             <p className="mb-2 text-6xl font-black tabular-nums text-brand sm:text-7xl">
               {stat.raw}

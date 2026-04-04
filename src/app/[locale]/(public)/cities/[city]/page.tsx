@@ -9,6 +9,7 @@ import CityJamList from "@/components/city/CityJamList";
 import CityStats from "@/components/city/CityStats";
 import CityFAQ from "@/components/city/CityFAQ";
 import { ShareButton } from "@/components/social/ShareButton";
+import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
 export const revalidate = 3600; // ISR: revalidate every hour for fresh jam data
 
@@ -128,9 +129,18 @@ export default async function CityPage({ params }: Props) {
       <JsonLd data={buildFAQSchema(faqItems)} />
 
       <div className="space-y-16">
+        {/* CityHero wraps itself in ScrollReveal internally */}
         <CityHero city={citySlug} locale={locale} />
-        <CityJamList city={citySlug} locale={locale} />
-        <CityStats city={citySlug} />
+
+        <ScrollReveal delay={0.05}>
+          <CityJamList city={citySlug} locale={locale} />
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.1}>
+          <CityStats city={citySlug} />
+        </ScrollReveal>
+
+        {/* CityFAQ wraps itself in ScrollReveal internally */}
         <CityFAQ city={citySlug} locale={locale} faqItems={faqItems} />
       </div>
 

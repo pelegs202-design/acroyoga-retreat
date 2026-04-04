@@ -97,7 +97,7 @@ export default async function CityJamList({ city, locale }: Props) {
                   level: jam.level,
                 })}
               />
-              <div className="border-4 border-neutral-100 bg-neutral-900 p-5 transition-colors hover:bg-neutral-800">
+              <div className="card-hover border-4 border-neutral-100 bg-neutral-900 p-5 transition-colors hover:bg-neutral-800">
                 <p className="mb-1 text-xs font-bold uppercase tracking-widest text-brand">
                   {formatDate(jam.scheduledAt, locale)}
                 </p>
