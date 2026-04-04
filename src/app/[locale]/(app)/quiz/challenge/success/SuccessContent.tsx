@@ -56,16 +56,16 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
   // Onboarding info items
   const onboardingItems = isHe
     ? [
-        { emoji: "👕", title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
-        { emoji: "🎒", title: "מה להביא", text: "בקבוק מים, מגבת קטנה. מזרנים מסופקים במקום." },
-        { emoji: "📍", title: "איפה", text: "המיקום המדויק ישלח אליכם בהודעת ווטסאפ לפני השיעור הראשון." },
-        { emoji: "⏰", title: "מתי מתחילים", text: `השיעור הראשון שלכם: ${startDateFormatted}` },
+        { marker: "01", title: "מתי מתאמנים", text: `שני 20:00 + רביעי 20:00 — רוקח 40, צפון תל אביב\nשישי 13:30 + שבת 13:30 — חוף צ׳ארלס קלור, מול מלון עם ממ״ד\nהשיעור הראשון: ${startDateFormatted}` },
+        { marker: "02", title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
+        { marker: "03", title: "מה להביא", text: "בקבוק מים, מגבת קטנה. מזרנים מסופקים במקום." },
+        { marker: "04", title: "ממ״ד", text: "בכל המיקומים יש ממ״ד בקרבת מקום." },
       ]
     : [
-        { emoji: "👕", title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
-        { emoji: "🎒", title: "What to Bring", text: "Water bottle, small towel. Mats are provided at the venue." },
-        { emoji: "📍", title: "Where", text: "Exact location will be sent via WhatsApp before your first class." },
-        { emoji: "⏰", title: "When You Start", text: `Your first class: ${startDateFormatted}` },
+        { marker: "01", title: "When We Train", text: `Mon 20:00 + Wed 20:00 — Rokah 40, North Tel Aviv\nFri 13:30 + Sat 13:30 — Charles Clore Beach, near hotel with shelter\nYour first class: ${startDateFormatted}` },
+        { marker: "02", title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
+        { marker: "03", title: "What to Bring", text: "Water bottle, small towel. Mats are provided at the venue." },
+        { marker: "04", title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
       ];
 
   // Fear-addressing reassurances
@@ -92,7 +92,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <div className="text-5xl mb-4">🎉</div>
+        <div className="text-5xl font-black text-brand mb-4">+</div>
         <h1 className="text-3xl font-black text-brand mb-2">
           {isHe ? "!אתם בפנים" : "You're In!"}
         </h1>
@@ -140,11 +140,11 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
               key={i}
               className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
             >
-              <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">{item.emoji}</span>
+              <div className="flex items-center gap-3 mb-1">
+                <span className="text-brand font-black text-xs border border-brand/40 w-7 h-7 flex items-center justify-center shrink-0">{item.marker}</span>
                 <h3 className="font-bold text-white text-sm">{item.title}</h3>
               </div>
-              <p className="text-neutral-400 text-sm leading-relaxed">{item.text}</p>
+              <p className="text-neutral-400 text-sm leading-relaxed whitespace-pre-line">{item.text}</p>
             </div>
           ))}
         </div>
@@ -195,8 +195,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-xl bg-green-600 text-white px-6 py-3 font-bold hover:bg-green-700 transition-colors"
           >
-            <span>💬</span>
-            {isHe ? "כניסה לקבוצה" : "Join Group"}
+            {isHe ? "כניסה לקבוצת וואטסאפ" : "Join WhatsApp Group"}
           </a>
         ) : (
           <p className="text-neutral-500 text-sm italic">

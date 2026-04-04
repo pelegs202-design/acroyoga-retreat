@@ -241,8 +241,49 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 5. TIMELINE ──────────────────────────────────────────────── */}
-      <section className="py-24 px-6">
+      {/* ── 5. SCHEDULE ─────────────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-[#0a0a0a]">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-black mb-16 text-center">
+            {he ? "מתי ואיפה" : "When & Where"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Weekdays */}
+            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
+              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
+                {he ? "אמצע שבוע" : "Weekdays"}
+              </div>
+              <h3 className="text-2xl font-black mb-2">
+                {he ? "שני + רביעי · 20:00" : "Mon + Wed · 20:00"}
+              </h3>
+              <p className="text-gray-400 mb-4">
+                {he ? "רוקח 40, צפון תל אביב" : "Rokah 40, North Tel Aviv"}
+              </p>
+              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
+                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
+              </p>
+            </div>
+            {/* Weekend */}
+            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
+              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
+                {he ? "סוף שבוע" : "Weekend"}
+              </div>
+              <h3 className="text-2xl font-black mb-2">
+                {he ? "שישי + שבת · 13:30" : "Fri + Sat · 13:30"}
+              </h3>
+              <p className="text-gray-400 mb-4">
+                {he ? "חוף צ׳ארלס קלור, מול מלון עם ממ״ד" : "Charles Clore Beach, near hotel with shelter"}
+              </p>
+              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
+                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 6. TIMELINE ──────────────────────────────────────────────── */}
+      <section className="py-24 px-6 border-t-2 border-neutral-800">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-4xl font-black mb-16 text-center">
             {he ? "המסלול שלכם" : "Your Journey"}
