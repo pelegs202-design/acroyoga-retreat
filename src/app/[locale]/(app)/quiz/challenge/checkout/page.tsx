@@ -4,7 +4,8 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { trackCheckoutStarted, trackCheckoutAbandoned, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 
 const MORNING_PAYMENT_URL =
   process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
@@ -29,6 +30,22 @@ function CheckoutContent() {
   const locale = useLocale();
   const sessionId = searchParams.get("session");
   const isHe = locale === "he";
+  const mountTime = useRef(Date.now());
+
+  // Track checkout started + abandonment
+  useEffect(() => {
+    if (sessionId) trackCheckoutStarted(sessionId);
+
+    const handleUnload = () => {
+      if (sessionId) {
+        const seconds = Math.round((Date.now() - mountTime.current) / 1000);
+        trackCheckoutAbandoned(sessionId, seconds);
+        trackTimeOnPage("checkout", seconds);
+      }
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [sessionId]);
 
   const [redirecting, setRedirecting] = useState(false);
   // Record when user opened checkout — only detect payments AFTER this time

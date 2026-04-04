@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import QuizEngine from "@/components/quiz/QuizEngine";
 import type { QuizState } from "@/components/quiz/QuizEngine";
 import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
-import { trackQuizComplete } from "@/lib/quiz/quiz-analytics";
+import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
@@ -90,6 +90,40 @@ const FAQ = [
 function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: string }) {
   const he = locale === "he";
   const nextMonday = getNextMonday();
+  const mountTime = useRef(Date.now());
+  const scrollMilestones = useRef(new Set<number>());
+
+  // Track landing view + scroll depth + time on page
+  useEffect(() => {
+    trackLandingView();
+
+    const handleScroll = () => {
+      const pct = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+      for (const milestone of [25, 50, 75, 100]) {
+        if (pct >= milestone && !scrollMilestones.current.has(milestone)) {
+          scrollMilestones.current.add(milestone);
+          trackScrollDepth(milestone);
+        }
+      }
+    };
+
+    const handleUnload = () => {
+      trackTimeOnPage("challenge_landing", Math.round((Date.now() - mountTime.current) / 1000));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("beforeunload", handleUnload);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
+
+  const handleCTA = useCallback((location: string) => {
+    trackCTAClick(location);
+    trackTimeOnPage("challenge_landing", Math.round((Date.now() - mountTime.current) / 1000));
+    onStart();
+  }, [onStart]);
 
   return (
     <div className="w-full">
@@ -123,7 +157,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </div>
 
               <button
-                onClick={onStart}
+                onClick={() => handleCTA("hero")}
                 className="btn-press bg-brand text-black px-12 py-5 text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
               >
                 {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
@@ -405,7 +439,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               {he ? "שקל אחד. זה הכל. ערבות החזר מלא." : "One shekel. That's it. Full refund guarantee."}
             </p>
             <button
-              onClick={onStart}
+              onClick={() => handleCTA("pricing")}
               className="btn-press w-full bg-brand text-black py-5 text-xl font-black uppercase tracking-widest hover:bg-white transition-colors"
             >
               {he ? "גלו את הטיפוס שלכם ב-₪1" : "Discover Your Type for ₪1"}
@@ -452,7 +486,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             </p>
           </div>
           <button
-            onClick={onStart}
+            onClick={() => handleCTA("urgency")}
             className="btn-press bg-brand text-black px-8 py-3 font-black uppercase tracking-widest hover:bg-white transition-colors"
           >
             {he ? "תפסו מקום" : "Grab Your Spot"}
@@ -470,7 +504,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             {he ? "השאלה היחידה — אם תיתנו לו." : "The only question is whether you'll let it."}
           </p>
           <button
-            onClick={onStart}
+            onClick={() => handleCTA("final")}
             className="btn-press bg-black text-white px-12 py-6 text-2xl font-black hover:translate-y-1 transition-transform border-4 border-black"
           >
             {he ? "בואו נבדוק אם אתם מתאימים" : "Let's See If You Qualify"}

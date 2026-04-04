@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import QuizProgressBar from "./QuizProgressBar";
 import QuizCard from "./QuizCard";
 import QuizContactStep from "./QuizContactStep";
-import { trackQuizStart, trackQuizStep } from "@/lib/quiz/quiz-analytics";
+import { trackQuizStart, trackQuizStep, trackQuizAbandoned } from "@/lib/quiz/quiz-analytics";
 
 // ─── Exported types (consumed by Plan 05-02 and 05-03) ───
 
@@ -213,6 +213,17 @@ export default function QuizEngine({
       // Quota exceeded — ignore
     }
   }, [state, storageKey]);
+
+  // Track quiz abandonment on page unload
+  useEffect(() => {
+    const handleUnload = () => {
+      if (state.sessionId && state.currentQuestionId !== "contact") {
+        trackQuizAbandoned(quizType, state.currentQuestionId, state.sessionId);
+      }
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [state.sessionId, state.currentQuestionId, quizType]);
 
   const currentQuestion = questions.find((q) => q.id === state.currentQuestionId);
 

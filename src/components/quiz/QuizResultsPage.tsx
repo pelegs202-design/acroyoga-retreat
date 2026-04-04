@@ -3,8 +3,10 @@
 import { useState } from "react";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
+import { useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
+import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -131,8 +133,21 @@ export default function QuizResultsPage({
   fitScore = 100,
 }: QuizResultsPageProps) {
   const [copied, setCopied] = useState(false);
+  const mountTime = useRef(Date.now());
 
   const isHe = locale === "he";
+
+  // Track results view + soft DQ + time on page
+  useEffect(() => {
+    trackResultsView(result.id, fitScore);
+    if (fitScore < 40) trackSoftDQ("low_fit_score", fitScore);
+
+    const handleUnload = () => {
+      trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
+    };
+    window.addEventListener("beforeunload", handleUnload);
+    return () => window.removeEventListener("beforeunload", handleUnload);
+  }, [result.id, fitScore]);
 
   // Calculate next Monday for cohort start date
   const nextMondayDate = (() => {
@@ -316,6 +331,8 @@ export default function QuizResultsPage({
               <button
                 type="button"
                 onClick={() => {
+                  trackCTAClick("results_checkout");
+                  trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
                   window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
                 }}
                 className="btn-press block w-full rounded-xl bg-brand text-white text-center py-4 text-base font-black hover:opacity-90 transition-opacity"

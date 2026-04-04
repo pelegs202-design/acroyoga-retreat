@@ -1,10 +1,10 @@
 /**
- * Quiz analytics event helpers.
+ * Funnel analytics event helpers.
  * GA4 measurement ID: G-BCPEPDR543
  * Meta Pixel ID: 1646755465782002
  *
- * Both gtag and fbq are loaded via script tags (added in a later plan).
- * Guards use typeof window to avoid SSR errors.
+ * Covers the full funnel: Landing → Quiz → Results → Checkout → Payment
+ * All events fire to both GA4 (gtag) and Meta Pixel (fbq).
  */
 
 declare global {
@@ -12,66 +12,84 @@ declare global {
   function fbq(command: string, eventName: string, params?: Record<string, unknown>): void;
 }
 
-export function trackQuizStart(quizType: string, sessionId: string): void {
+function g(event: string, params?: Record<string, unknown>) {
   if (typeof window === "undefined") return;
-
-  if (typeof gtag === "function") {
-    gtag("event", "quiz_start", {
-      quiz_type: quizType,
-      session_id: sessionId,
-    });
-  }
-
-  if (typeof fbq === "function") {
-    fbq("trackCustom", "QuizStart", {
-      quiz_type: quizType,
-      session_id: sessionId,
-    });
-  }
+  if (typeof gtag === "function") gtag("event", event, params);
 }
 
-export function trackQuizStep(
-  stepName: string,
-  questionId: string,
-  answer: string,
-): void {
+function f(event: string, params?: Record<string, unknown>, standard = false) {
   if (typeof window === "undefined") return;
+  if (typeof fbq === "function") fbq(standard ? "track" : "trackCustom", event, params);
+}
 
-  if (typeof gtag === "function") {
-    gtag("event", "quiz_step", {
-      step_name: stepName,
-      question_id: questionId,
-      answer,
-    });
-  }
+// ─── Landing Page ─────────────────────────────────────────────────────────────
 
-  if (typeof fbq === "function") {
-    fbq("trackCustom", "QuizStep", {
-      step_name: stepName,
-      question_id: questionId,
-      answer,
-    });
-  }
+export function trackLandingView(): void {
+  g("landing_view", { page: "challenge" });
+  f("LandingView", { page: "challenge" });
+}
+
+export function trackCTAClick(location: string): void {
+  g("cta_click", { location, page: "challenge" });
+  f("CTAClick", { location, page: "challenge" });
+}
+
+export function trackScrollDepth(percent: number): void {
+  g("scroll_depth", { percent, page: "challenge" });
+  f("ScrollDepth", { percent, page: "challenge" });
+}
+
+// ─── Quiz Flow ────────────────────────────────────────────────────────────────
+
+export function trackQuizStart(quizType: string, sessionId: string): void {
+  g("quiz_start", { quiz_type: quizType, session_id: sessionId });
+  f("QuizStart", { quiz_type: quizType, session_id: sessionId });
+}
+
+export function trackQuizStep(stepName: string, questionId: string, answer: string): void {
+  g("quiz_step", { step_name: stepName, question_id: questionId, answer });
+  f("QuizStep", { step_name: stepName, question_id: questionId, answer });
 }
 
 export function trackQuizComplete(quizType: string, resultType: string): void {
-  if (typeof window === "undefined") return;
+  g("quiz_complete", { quiz_type: quizType, result_type: resultType });
+  f("QuizComplete", { quiz_type: quizType, result_type: resultType });
+  f("Lead", { quiz_type: quizType }, true); // Standard Lead event
+}
 
-  if (typeof gtag === "function") {
-    gtag("event", "quiz_complete", {
-      quiz_type: quizType,
-      result_type: resultType,
-    });
-  }
+export function trackQuizAbandoned(quizType: string, lastQuestion: string, sessionId: string): void {
+  g("quiz_abandoned", { quiz_type: quizType, last_question: lastQuestion, session_id: sessionId });
+  f("QuizAbandoned", { quiz_type: quizType, last_question: lastQuestion });
+}
 
-  if (typeof fbq === "function") {
-    fbq("trackCustom", "QuizComplete", {
-      quiz_type: quizType,
-      result_type: resultType,
-    });
-    // Standard Lead event
-    fbq("track", "Lead", {
-      quiz_type: quizType,
-    });
-  }
+// ─── Results Page ─────────────────────────────────────────────────────────────
+
+export function trackResultsView(archetype: string, fitScore: number): void {
+  g("results_view", { archetype, fit_score: fitScore });
+  f("ResultsView", { archetype, fit_score: fitScore });
+}
+
+export function trackSoftDQ(reason: string, fitScore: number): void {
+  g("soft_disqualification", { reason, fit_score: fitScore });
+  f("SoftDQ", { reason, fit_score: fitScore });
+}
+
+// ─── Checkout ─────────────────────────────────────────────────────────────────
+
+export function trackCheckoutStarted(sessionId: string): void {
+  g("begin_checkout", { session_id: sessionId, value: 1, currency: "ILS" });
+  f("InitiateCheckout", { session_id: sessionId, value: 1, currency: "ILS" }, true);
+}
+
+export function trackCheckoutAbandoned(sessionId: string, timeSpentSeconds: number): void {
+  g("checkout_abandoned", { session_id: sessionId, time_spent: timeSpentSeconds });
+  f("CheckoutAbandoned", { session_id: sessionId, time_spent: timeSpentSeconds });
+}
+
+// ─── Time Tracking ────────────────────────────────────────────────────────────
+
+export function trackTimeOnPage(page: string, seconds: number): void {
+  if (seconds < 2) return; // ignore bounces
+  g("time_on_page", { page, seconds });
+  f("TimeOnPage", { page, seconds });
 }
