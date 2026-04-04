@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
@@ -95,16 +94,23 @@ function FaqAccordion({ locale }: { locale: string }) {
                   {isOpen ? "−" : "+"}
                 </span>
               </button>
-              <motion.div
-                initial={false}
-                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="overflow-hidden"
+              {/* CSS grid-rows accordion — no height animation (layout trigger).
+                  grid-template-rows: 0fr/1fr collapses/expands overflow:hidden inner div.
+                  opacity via transform-safe scale is not needed — grid handles clipping. */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateRows: isOpen ? "1fr" : "0fr",
+                  transition: "grid-template-rows 0.25s ease-in-out, opacity 0.25s ease-in-out",
+                  opacity: isOpen ? 1 : 0,
+                }}
               >
-                <p className="px-4 pb-4 text-neutral-400 text-sm leading-relaxed border-t border-neutral-800 pt-2">
-                  {item.a}
-                </p>
-              </motion.div>
+                <div className="overflow-hidden">
+                  <p className="px-4 pb-4 text-neutral-400 text-sm leading-relaxed border-t border-neutral-800 pt-2">
+                    {item.a}
+                  </p>
+                </div>
+              </div>
             </div>
           );
         })}

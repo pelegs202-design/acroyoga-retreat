@@ -15,11 +15,13 @@ export default function QuizProgressBar({ current, total }: QuizProgressBarProps
       <p className="text-xs text-neutral-400 mb-1.5">
         Step {current} of {total}
       </p>
+      {/* Use scaleX (compositor-safe transform) instead of width (layout trigger).
+          transform-origin start = RTL-safe: bar grows from left in LTR, right in RTL. */}
       <div className="w-full h-1.5 rounded-full bg-neutral-800 overflow-hidden">
         <motion.div
-          className="h-full rounded-full bg-[#F472B6]"
-          initial={{ width: 0 }}
-          animate={{ width: `${pct}%` }}
+          className="h-full w-full rounded-full bg-[#F472B6] origin-[0%_50%]"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: pct / 100 }}
           transition={{ type: "spring", stiffness: 200, damping: 30 }}
         />
       </div>
