@@ -98,7 +98,7 @@ export function HeroSection() {
         {/* Brutalist bottom edge indicator */}
         <div className="absolute bottom-10 start-6 sm:start-10 flex items-center gap-3">
           <div className="w-8 h-px bg-brand" />
-          <span className="text-xs text-neutral-500 tracking-widest uppercase">
+          <span className="text-xs text-neutral-400 tracking-widest uppercase">
             {t("scrollHint")}
           </span>
         </div>

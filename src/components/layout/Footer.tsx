@@ -39,7 +39,7 @@ export default function Footer() {
             <span className="text-[28px] text-neutral-100">Acro</span>
             <span className="text-[28px] text-brand">Havura</span>
           </Link>
-          <p className="mb-7 max-w-[260px] text-[15px] leading-relaxed text-neutral-100/50">
+          <p className="mb-7 max-w-[260px] text-[15px] leading-relaxed text-neutral-100/60">
             {t("tagline")}
           </p>
           {/* Social links */}
@@ -49,7 +49,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="flex h-10 w-10 items-center justify-center border border-neutral-100/15 text-neutral-100/50 transition-colors duration-150 hover:border-brand hover:text-brand"
+              className="flex h-10 w-10 items-center justify-center border border-neutral-100/30 text-neutral-100/60 transition-colors duration-150 hover:border-brand hover:text-brand"
             >
               {/* WhatsApp icon (inline SVG) */}
               <svg
@@ -67,7 +67,7 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center border border-neutral-100/15 text-neutral-100/50 transition-colors duration-150 hover:border-brand hover:text-brand"
+              className="flex h-10 w-10 items-center justify-center border border-neutral-100/30 text-neutral-100/60 transition-colors duration-150 hover:border-brand hover:text-brand"
             >
               {/* Instagram icon (inline SVG) */}
               <svg
@@ -85,7 +85,7 @@ export default function Footer() {
 
         {/* Platform links */}
         <div>
-          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/30">
+          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/60">
             {t("nav.platform")}
           </p>
           <ul className="flex flex-col gap-2.5">
@@ -93,7 +93,7 @@ export default function Footer() {
               <MagneticWrapper strength={0.2}>
                 <Link
                   href="/members"
-                  className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                  className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
                 >
                   {tAuth("dashboard")}
                 </Link>
@@ -103,7 +103,7 @@ export default function Footer() {
               <MagneticWrapper strength={0.2}>
                 <Link
                   href="/jams"
-                  className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                  className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
                 >
                   {tJams("title")}
                 </Link>
@@ -113,7 +113,7 @@ export default function Footer() {
               <MagneticWrapper strength={0.2}>
                 <Link
                   href="/quiz"
-                  className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                  className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
                 >
                   {t("nav.quiz")}
                 </Link>
@@ -124,14 +124,14 @@ export default function Footer() {
 
         {/* Community links */}
         <div>
-          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/30">
+          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/60">
             {t("nav.community")}
           </p>
           <ul className="flex flex-col gap-2.5">
             <li>
               <Link
                 href="/cities/tel-aviv"
-                className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
               >
                 {t("nav.telAviv")}
               </Link>
@@ -139,7 +139,7 @@ export default function Footer() {
             <li>
               <Link
                 href="/cities/kfar-saba"
-                className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
               >
                 {t("nav.kfarSaba")}
               </Link>
@@ -149,14 +149,14 @@ export default function Footer() {
 
         {/* Legal links */}
         <div>
-          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/30">
+          <p className="mb-5 text-[11px] font-black uppercase tracking-[0.2em] text-neutral-100/60">
             {t("nav.legal")}
           </p>
           <ul className="flex flex-col gap-2.5">
             <li>
               <Link
                 href="/tos"
-                className="text-[15px] font-medium text-neutral-100/55 transition-colors duration-150 hover:text-brand"
+                className="text-[15px] font-medium text-neutral-100/65 transition-colors duration-150 hover:text-brand"
               >
                 {t("nav.terms")}
               </Link>
@@ -167,13 +167,13 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="flex flex-wrap items-center justify-between gap-4 border-t border-neutral-100/6 pt-8">
-        <span className="text-[13px] text-neutral-100/25">
+        <span className="text-[13px] text-neutral-100/60">
           {t("copyright")}
         </span>
         <div className="flex gap-6">
           <Link
             href="/tos"
-            className="text-[13px] text-neutral-100/25 transition-colors duration-150 hover:text-neutral-100/60"
+            className="text-[13px] text-neutral-100/60 transition-colors duration-150 hover:text-neutral-100/90"
           >
             {t("nav.terms")}
           </Link>
