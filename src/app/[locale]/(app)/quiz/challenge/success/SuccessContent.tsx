@@ -3,6 +3,9 @@
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 
+declare function fbq(command: string, eventName: string, params?: Record<string, unknown>): void;
+declare function gtag(command: string, action: string, params?: Record<string, unknown>): void;
+
 // Dynamic import for add-to-calendar (no SSR — uses browser APIs)
 const AddToCalendarButton = dynamic(
   () => import("add-to-calendar-button-react").then((m) => m.AddToCalendarButton),
@@ -16,6 +19,20 @@ interface SuccessContentProps {
 
 export default function SuccessContent({ sessionId: _sessionId, locale }: SuccessContentProps) {
   const isHe = locale === "he";
+
+  // Fire Purchase event once on mount
+  if (typeof window !== "undefined") {
+    const purchaseKey = `purchase_tracked_${_sessionId}`;
+    if (!sessionStorage.getItem(purchaseKey)) {
+      sessionStorage.setItem(purchaseKey, "1");
+      if (typeof fbq === "function") {
+        fbq("track", "Purchase", { value: 1, currency: "ILS" });
+      }
+      if (typeof gtag === "function") {
+        gtag("event", "purchase", { value: 1, currency: "ILS", transaction_id: _sessionId });
+      }
+    }
+  }
 
   // Calculate next Monday for cohort start
   const nextMondayDate = (() => {
