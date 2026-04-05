@@ -295,33 +295,36 @@ export default function QuizResultsPage({
               <h2 className="text-4xl font-black text-black mb-2">
                 {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
               </h2>
-              <p className="text-black/60 text-sm mb-6">
+              <p className="text-black/60 text-sm mb-4">
                 {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
               </p>
 
               <div className="flex items-baseline justify-center gap-4 mb-2">
-                <span className="text-6xl font-black text-black">₪1</span>
+                <span className="text-7xl font-black text-black">₪1</span>
                 <span className="text-2xl text-black/40 line-through">₪299</span>
               </div>
 
-              <p className="text-black/60 text-sm mb-6">
+              <p className="text-black/70 text-sm font-bold mb-8">
                 {isHe ? "נותרו 4 מקומות · מתחילים " : "4 spots left · Starting "}
                 {formattedStartDate}
               </p>
 
-              <MagneticWrapper>
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackCTAClick("results_checkout");
-                    trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
-                    window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
-                  }}
-                  className="btn-press bg-black text-white px-12 py-5 text-xl font-black hover:translate-y-1 transition-transform border-4 border-black"
-                >
-                  {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
-                </button>
-              </MagneticWrapper>
+              <button
+                type="button"
+                onClick={() => {
+                  trackCTAClick("results_checkout");
+                  trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
+                  window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
+                }}
+                className="btn-press bg-black text-white w-full max-w-sm px-8 py-6 text-2xl font-black border-4 border-black transition-transform hover:translate-y-1 animate-pulse"
+                style={{ animationDuration: "2s" }}
+              >
+                {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
+              </button>
+
+              <p className="text-black/50 text-xs mt-4">
+                {isHe ? "₪1 בלבד · ערבות החזר 30 יום · ביטול בכל עת" : "₪1 only · 30-day money back · Cancel anytime"}
+              </p>
             </div>
           </section>
         )}

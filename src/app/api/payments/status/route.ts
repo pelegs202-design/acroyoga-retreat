@@ -23,6 +23,22 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ paid: true, source: "webhook" });
   }
 
+  // Also check if there's a recent "unknown" enrollment we can link
+  const [unknownEnrollment] = await db
+    .select({ id: challengeEnrollments.id })
+    .from(challengeEnrollments)
+    .where(eq(challengeEnrollments.sessionId, "unknown"))
+    .limit(1);
+
+  if (unknownEnrollment) {
+    // Link this enrollment to the current session
+    await db
+      .update(challengeEnrollments)
+      .set({ sessionId })
+      .where(eq(challengeEnrollments.id, unknownEnrollment.id));
+    return NextResponse.json({ paid: true, source: "webhook-linked" });
+  }
+
   // Check Morning API — was ANY new document created since checkout opened?
   if (!since) {
     return NextResponse.json({ paid: false });
