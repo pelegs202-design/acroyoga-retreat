@@ -19,7 +19,7 @@ function sha256(value: string): string {
 }
 
 interface CAPIEventParams {
-  eventName: "Lead" | "Purchase" | "InitiateCheckout";
+  eventName: "Lead" | "Purchase" | "InitiateCheckout" | "CompleteRegistration";
   email?: string;
   phone?: string;
   fbclid?: string;

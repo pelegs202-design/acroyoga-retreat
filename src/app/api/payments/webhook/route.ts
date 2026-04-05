@@ -100,15 +100,17 @@ export async function POST(req: NextRequest) {
 
     console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${customerEmail}, GI doc=${docId}`);
 
-    // ─── Facebook CAPI: Purchase event (non-blocking) ───
-    sendFacebookEvent({
-      eventName: "Purchase",
+    // ─── Facebook CAPI: Purchase + CompleteRegistration (non-blocking) ───
+    const capiParams = {
       email: customerEmail || undefined,
       phone: customerPhone || undefined,
       value: typeof total === "number" ? total : 1,
       currency: body.currency ?? "ILS",
-      eventId: `purchase_${docId}`,
-    }).catch((err) => console.error("[payments/webhook] FB CAPI Purchase failed:", err));
+    };
+    sendFacebookEvent({ ...capiParams, eventName: "Purchase", eventId: `purchase_${docId}` })
+      .catch((err) => console.error("[payments/webhook] FB CAPI Purchase failed:", err));
+    sendFacebookEvent({ ...capiParams, eventName: "CompleteRegistration", eventId: `converted_${docId}` })
+      .catch((err) => console.error("[payments/webhook] FB CAPI CompleteRegistration failed:", err));
 
     // ─── Drip transition on payment (non-blocking) ───
     // Cancel-first then enroll to prevent race with WA drip cron (Pitfall 9).
