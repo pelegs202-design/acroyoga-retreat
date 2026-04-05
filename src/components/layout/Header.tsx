@@ -31,10 +31,9 @@ export default function Header() {
 
   // Hide header on funnel pages to prevent accidental navigation
   const isInFunnel = FUNNEL_PATHS.some((p) => pathname.startsWith(p));
-  if (isInFunnel) return null;
 
   useEffect(() => {
-    if (!session) return;
+    if (!session || isInFunnel) return;
     const fetchUnread = async () => {
       try {
         const res = await fetch("/api/messages/unread");
@@ -49,7 +48,9 @@ export default function Header() {
     fetchUnread();
     const interval = setInterval(fetchUnread, 10000);
     return () => clearInterval(interval);
-  }, [session]);
+  }, [session, isInFunnel]);
+
+  if (isInFunnel) return null;
 
   async function handleSignOut() {
     await authClient.signOut();

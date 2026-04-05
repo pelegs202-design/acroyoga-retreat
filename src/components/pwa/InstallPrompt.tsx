@@ -20,9 +20,10 @@ export default function InstallPrompt() {
 
   // Hide on entire quiz funnel (landing, quiz, results, checkout, success)
   const isInFunnel = FUNNEL_PATHS.some((p) => pathname.startsWith(p));
-  if (isInFunnel) return null;
 
   useEffect(() => {
+    if (isInFunnel) return;
+
     // Increment visit count on every page load
     const current = parseInt(
       localStorage.getItem(VISIT_COUNT_KEY) ?? "0",
@@ -52,7 +53,7 @@ export default function InstallPrompt() {
 
     window.addEventListener("beforeinstallprompt", handler);
     return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);
+  }, [isInFunnel]);
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
