@@ -572,36 +572,84 @@ function ChallengeQuizFlow() {
 // Page wrapper
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Detect Facebook/Instagram in-app browsers and redirect to system browser
-function useExitInAppBrowser() {
+// Detect Facebook/Instagram in-app browsers
+function useInAppBrowser() {
+  const [isInApp, setIsInApp] = useState(false);
+
   useEffect(() => {
     const ua = navigator.userAgent || "";
-    const isInApp = /FBAN|FBAV|Instagram/i.test(ua);
-    if (!isInApp) return;
+    const detected = /FBAN|FBAV|Instagram/i.test(ua);
+    if (!detected) return;
 
-    // On Android, intent:// opens the system browser
-    // On iOS, window.open with target _system or simply redirecting works
-    const url = window.location.href;
-    const isAndroid = /Android/i.test(ua);
-
-    if (isAndroid) {
+    // Android: intent:// can open the system browser directly
+    if (/Android/i.test(ua)) {
+      const url = window.location.href;
       window.location.href = `intent://${url.replace(/^https?:\/\//, "")}#Intent;scheme=https;end`;
-    } else {
-      // iOS: open in Safari via a brief redirect trick
-      window.location.href = url.replace(/^https?:\/\//, "x-safari-https://");
+      return;
     }
+
+    // iOS: can't programmatically escape, show a banner instead
+    setIsInApp(true);
   }, []);
+
+  return isInApp;
+}
+
+function InAppBrowserBanner({ locale }: { locale: string }) {
+  const isHe = locale === "he";
+  const url = typeof window !== "undefined" ? window.location.href : "";
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        padding: "12px 16px",
+        backgroundColor: "#F472B6",
+        color: "#0a0a0a",
+        textAlign: "center",
+        fontSize: "0.875rem",
+        fontWeight: 700,
+      }}
+    >
+      <p style={{ margin: "0 0 8px" }}>
+        {isHe
+          ? "לחוויה הטובה ביותר, פתחו בדפדפן"
+          : "For the best experience, open in browser"}
+      </p>
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: "inline-block",
+          padding: "8px 20px",
+          backgroundColor: "#0a0a0a",
+          color: "#F472B6",
+          fontWeight: 900,
+          fontSize: "0.8125rem",
+          textDecoration: "none",
+          letterSpacing: "0.05em",
+        }}
+      >
+        {isHe ? "פתחו ב-Safari ←" : "Open in Safari →"}
+      </a>
+    </div>
+  );
 }
 
 export default function ChallengeQuizPage() {
   const [started, setStarted] = useState(false);
   const locale = useLocale();
-
-  useExitInAppBrowser();
+  const isInApp = useInAppBrowser();
 
   if (started) {
     return (
       <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-4 py-16">
+        {isInApp && <InAppBrowserBanner locale={locale} />}
         <ChallengeQuizFlow />
       </main>
     );
@@ -609,6 +657,7 @@ export default function ChallengeQuizPage() {
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
+      {isInApp && <InAppBrowserBanner locale={locale} />}
       <ChallengeLanding onStart={() => setStarted(true)} locale={locale} />
     </main>
   );
