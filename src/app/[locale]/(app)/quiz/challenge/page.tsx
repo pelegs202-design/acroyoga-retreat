@@ -572,9 +572,32 @@ function ChallengeQuizFlow() {
 // Page wrapper
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Detect Facebook/Instagram in-app browsers and redirect to system browser
+function useExitInAppBrowser() {
+  useEffect(() => {
+    const ua = navigator.userAgent || "";
+    const isInApp = /FBAN|FBAV|Instagram/i.test(ua);
+    if (!isInApp) return;
+
+    // On Android, intent:// opens the system browser
+    // On iOS, window.open with target _system or simply redirecting works
+    const url = window.location.href;
+    const isAndroid = /Android/i.test(ua);
+
+    if (isAndroid) {
+      window.location.href = `intent://${url.replace(/^https?:\/\//, "")}#Intent;scheme=https;end`;
+    } else {
+      // iOS: open in Safari via a brief redirect trick
+      window.location.href = url.replace(/^https?:\/\//, "x-safari-https://");
+    }
+  }, []);
+}
+
 export default function ChallengeQuizPage() {
   const [started, setStarted] = useState(false);
   const locale = useLocale();
+
+  useExitInAppBrowser();
 
   if (started) {
     return (

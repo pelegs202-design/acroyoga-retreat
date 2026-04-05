@@ -4,14 +4,26 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
+// Normalize Israeli phone numbers: 054... -> +97254..., 05x-... -> +9725x...
+function normalizePhone(raw: string): string {
+  const digits = raw.replace(/[\s\-().]/g, "");
+  if (/^0[2-9]\d{7,8}$/.test(digits)) return "+972" + digits.slice(1);
+  if (/^\+/.test(digits)) return digits;
+  return raw;
+}
+
 const contactSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters" }),
   email: z.string().email({ message: "Please enter a valid email address" }),
   phone: z
     .string()
-    .regex(/^\+[1-9]\d{7,14}$/, {
-      message: "Include country code, e.g. +972501234567",
-    }),
+    .min(9, { message: "Please enter a valid phone number" })
+    .transform(normalizePhone)
+    .pipe(
+      z.string().regex(/^\+[1-9]\d{7,14}$/, {
+        message: "Please enter a valid phone number",
+      })
+    ),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
@@ -21,14 +33,12 @@ const LABELS = {
     name: "Full name",
     email: "Email address",
     phone: "Phone number",
-    phoneHint: "Include country code, e.g. +972...",
     submit: "Continue",
   },
   he: {
     name: "שם מלא",
     email: "כתובת אימייל",
     phone: "מספר טלפון",
-    phoneHint: "כולל קידומת מדינה, למשל +972...",
     submit: "המשך",
   },
 };
@@ -98,12 +108,11 @@ export default function QuizContactStep({ onSubmit, locale }: QuizContactStepPro
           id="quiz-phone"
           type="tel"
           autoComplete="tel"
-          placeholder="+972..."
+          placeholder="054-1234567"
           {...register("phone")}
           className="rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-2.5 text-white placeholder:text-neutral-500 focus:outline-none focus:border-[#F472B6] transition-colors"
           dir="ltr"
         />
-        <p className="text-xs text-neutral-500">{t.phoneHint}</p>
         {errors.phone && (
           <p className="text-xs text-red-400">{errors.phone.message}</p>
         )}
