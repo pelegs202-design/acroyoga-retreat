@@ -51,8 +51,6 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
   // Format for add-to-calendar (YYYY-MM-DD)
   const calendarDate = nextMondayDate.toISOString().split("T")[0];
 
-  const waGroupUrl = process.env.NEXT_PUBLIC_CHALLENGE_WA_GROUP_URL;
-
   // Onboarding info items
   const onboardingItems = isHe
     ? [
@@ -68,31 +66,38 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         { marker: "04", title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
       ];
 
-  // Fear-addressing reassurances
+  // Fear-addressing reassurances — based on actual quiz fears data
   const reassurances = isHe
     ? [
-        "אל תדאגו אם אין לכם ניסיון — 80% מהתלמידים שלנו מתחילים כמתחילים מוחלטים.",
-        "לא צריך פרטנר — אנחנו מזווגים את כולם בשיעור.",
-        "כל רמת כושר מתאימה — אנחנו מתקדמים בהדרגה.",
-        "שי ילווה אתכם אישית בכל שלב של הדרך.",
+        { q: "אם אין לי ניסיון?", a: "80% מהתלמידים שלנו מתחילים מאפס. השיעור הראשון מותאם למתחילים לגמרי." },
+        { q: "אם אני לא מספיק טוב/ה?", a: "אין דבר כזה. כולם מתחילים מאותו מקום. שי מתאים לכם תרגילים ברמה שלכם." },
+        { q: "אם יהיה מביך עם אנשים זרים?", a: "הקבוצה מאוד מקבלת. כולם חדשים ביום הראשון. תרגישו בבית תוך 5 דקות." },
+        { q: "אם אני לא גמיש/ה?", a: "אקרויוגה לא דורשת גמישות. היא בונה אותה. לא צריך לגעת באצבעות הרגליים." },
+        { q: "אם נפגע?", a: "בטיחות זה הדבר הראשון שלומדים. שי מודרך מקצועית, וכל תרגיל מתורגל קודם על הרצפה." },
+        { q: "צריך פרטנר?", a: "לא! אנחנו מזווגים את כולם בשיעור. תתרגלו עם אנשים שונים בכל פעם." },
+        { q: "אם לא אתמיד?", a: "הקבוצה והמבנה של האתגר שומרים עליכם. תזכורות, תמיכה, ושי עוקב אחרי כל אחד." },
+        { q: "כל רמת כושר מתאימה?", a: "כן. יש לנו תלמידים מגיל 18 עד 40, ומכל רמת כושר. אנחנו מתקדמים בהדרגה." },
       ]
     : [
-        "Don't worry if you have no experience — 80% of our students start as complete beginners.",
-        "No partner needed — we pair everyone up in class.",
-        "Any fitness level works — we progress gradually.",
-        "Shai will guide you personally every step of the way.",
+        { q: "What if I have no experience?", a: "80% of our students start from zero. The first class is fully adapted for beginners." },
+        { q: "What if I'm not good enough?", a: "There's no such thing. Everyone starts at the same place. Shai adapts exercises to your level." },
+        { q: "What if it's awkward with strangers?", a: "The group is very welcoming. Everyone is new on day one. You'll feel at home within 5 minutes." },
+        { q: "What if I'm not flexible?", a: "Acroyoga doesn't require flexibility. It builds it. You don't need to touch your toes." },
+        { q: "What if I get hurt?", a: "Safety is the first thing we teach. Shai is professionally trained, and every move is practiced on the ground first." },
+        { q: "Do I need a partner?", a: "No! We pair everyone up in class. You'll practice with different people each time." },
+        { q: "What if I can't stick with it?", a: "The group and challenge structure keep you on track. Reminders, support, and Shai follows up with everyone." },
+        { q: "Does any fitness level work?", a: "Yes. We have students aged 18-40, from all fitness levels. We progress gradually." },
       ];
 
   // Track completed activation steps
   const [stepsCompleted, setStepsCompleted] = useState({
     day: false,
     calendar: false,
-    whatsapp: false,
     instagram: false,
   });
 
   const completedCount = Object.values(stepsCompleted).filter(Boolean).length;
-  const totalSteps = 4;
+  const totalSteps = 3;
 
   // Mark day as completed when selected
   useEffect(() => {
@@ -208,48 +213,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </div>
       </motion.section>
 
-      {/* Step 3: Join WhatsApp group */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="border-2 border-neutral-800 p-5"
-      >
-        <div className="flex items-center gap-3 mb-3">
-          <div className={`w-8 h-8 flex items-center justify-center border-2 font-black text-sm shrink-0 ${stepsCompleted.whatsapp ? "bg-brand border-brand text-black" : "border-neutral-600 text-neutral-500"}`}>
-            {stepsCompleted.whatsapp ? "✓" : "3"}
-          </div>
-          <h2 className="text-lg font-bold text-white">
-            {isHe ? "הצטרפו לקבוצת הווטסאפ" : "Join the WhatsApp group"}
-          </h2>
-        </div>
-        <p className="text-neutral-400 text-sm mb-3">
-          {isHe
-            ? "כאן נשלח עדכונים, מיקומים, ותזכורות לשיעורים."
-            : "We'll send updates, locations, and class reminders here."}
-        </p>
-        {waGroupUrl ? (
-          <a
-            href={waGroupUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setStepsCompleted((s) => ({ ...s, whatsapp: true }))}
-            className="inline-flex items-center gap-2 bg-green-600 text-white px-6 py-3 font-bold hover:bg-green-700 transition-colors w-full justify-center"
-          >
-            {isHe ? "כניסה לקבוצת וואטסאפ" : "Join WhatsApp Group"}
-          </a>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setStepsCompleted((s) => ({ ...s, whatsapp: true }))}
-            className="text-neutral-500 text-sm underline"
-          >
-            {isHe ? "קישור לקבוצה ישלח בקרוב — לחצו לסימון" : "Group link coming soon — click to mark done"}
-          </button>
-        )}
-      </motion.section>
-
-      {/* Step 4: Follow on Instagram */}
+      {/* Step 3: Follow on Instagram */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -258,7 +222,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
       >
         <div className="flex items-center gap-3 mb-3">
           <div className={`w-8 h-8 flex items-center justify-center border-2 font-black text-sm shrink-0 ${stepsCompleted.instagram ? "bg-brand border-brand text-black" : "border-neutral-600 text-neutral-500"}`}>
-            {stepsCompleted.instagram ? "✓" : "4"}
+            {stepsCompleted.instagram ? "✓" : "3"}
           </div>
           <h2 className="text-lg font-bold text-white">
             {isHe ? "עקבו אחרינו באינסטגרם" : "Follow us on Instagram"}
@@ -319,17 +283,20 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </div>
       </motion.section>
 
-      {/* Reassurances */}
+      {/* Fear Q&A — addressing real fears from quiz data */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.35 }}
       >
+        <h2 className="text-lg font-bold text-white mb-3">
+          {isHe ? "שאלות שכולם שואלים לפני השיעור הראשון" : "Questions Everyone Asks Before Their First Class"}
+        </h2>
         <div className="flex flex-col gap-2">
-          {reassurances.map((text, i) => (
-            <div key={i} className="flex items-start gap-3 px-3 py-2">
-              <span className="text-brand mt-0.5 text-sm">✓</span>
-              <p className="text-neutral-400 text-sm leading-relaxed">{text}</p>
+          {reassurances.map((item, i) => (
+            <div key={i} className="border border-neutral-800 bg-neutral-900 p-4">
+              <p className="text-brand font-bold text-sm mb-1">{item.q}</p>
+              <p className="text-neutral-400 text-sm leading-relaxed">{item.a}</p>
             </div>
           ))}
         </div>
