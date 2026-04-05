@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 
-const FUNNEL_PATHS = ["/quiz/challenge/results", "/quiz/challenge/checkout", "/quiz/challenge/success"];
+const FUNNEL_PATHS = ["/quiz/challenge"];
 
 /**
  * Footer — Brutalist footer matching Stitch-generated design.

@@ -9,7 +9,7 @@ import LanguageToggle from "./LanguageToggle";
 import MobileMenu from "./MobileMenu";
 
 // Quiz funnel paths where we hide the header to reduce distractions
-const FUNNEL_PATHS = ["/quiz/challenge/results", "/quiz/challenge/checkout", "/quiz/challenge/success"];
+const FUNNEL_PATHS = ["/quiz/challenge"];
 
 /**
  * Header — Brutalist fixed nav bar matching Stitch-generated design.
