@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "@/i18n/navigation";
 
 const VISIT_COUNT_KEY = "pwa_visit_count";
 const DISMISSED_KEY = "pwa_install_dismissed";
+const FUNNEL_PATHS = ["/quiz/challenge"];
 
 interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>;
@@ -11,9 +13,14 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 export default function InstallPrompt() {
+  const pathname = usePathname();
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
   const [showPrompt, setShowPrompt] = useState(false);
+
+  // Hide on entire quiz funnel (landing, quiz, results, checkout, success)
+  const isInFunnel = FUNNEL_PATHS.some((p) => pathname.startsWith(p));
+  if (isInFunnel) return null;
 
   useEffect(() => {
     // Increment visit count on every page load

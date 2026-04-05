@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/i18n/navigation";
+import { useRouter, usePathname } from "@/i18n/navigation";
 import { Link } from "@/i18n/navigation";
 import { authClient, useSession } from "@/lib/auth-client";
 import LanguageToggle from "./LanguageToggle";
 import MobileMenu from "./MobileMenu";
+
+// Quiz funnel paths where we hide the header to reduce distractions
+const FUNNEL_PATHS = ["/quiz/challenge/results", "/quiz/challenge/checkout", "/quiz/challenge/success"];
 
 /**
  * Header — Brutalist fixed nav bar matching Stitch-generated design.
@@ -21,9 +24,14 @@ export default function Header() {
   const tMessages = useTranslations("messages");
   const { data: session, isPending } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [unreadCount, setUnreadCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Hide header on funnel pages to prevent accidental navigation
+  const isInFunnel = FUNNEL_PATHS.some((p) => pathname.startsWith(p));
+  if (isInFunnel) return null;
 
   useEffect(() => {
     if (!session) return;

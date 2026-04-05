@@ -1,7 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
+
+const FUNNEL_PATHS = ["/quiz/challenge/results", "/quiz/challenge/checkout", "/quiz/challenge/success"];
 
 /**
  * Footer — Brutalist footer matching Stitch-generated design.
@@ -15,6 +17,9 @@ import { Link } from "@/i18n/navigation";
  */
 export default function Footer() {
   const t = useTranslations("footer");
+  const pathname = usePathname();
+
+  if (FUNNEL_PATHS.some((p) => pathname.startsWith(p))) return null;
 
   return (
     <footer className="bg-[#0a0a0a] border-t-2 border-neutral-800 pt-20 pb-10">
