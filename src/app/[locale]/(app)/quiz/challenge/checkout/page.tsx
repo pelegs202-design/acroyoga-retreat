@@ -89,17 +89,29 @@ function CheckoutContent() {
     return null;
   }
 
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+
   return (
     <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center px-4 py-8">
       <div className="w-full max-w-lg">
         <h1 className="text-2xl font-black text-white text-center mb-2">
           {isHe ? "השלמת תשלום" : "Complete Payment"}
         </h1>
-        <p className="text-neutral-400 text-sm text-center mb-6">
+        <p className="text-neutral-400 text-sm text-center mb-4">
           {isHe
             ? "מלאו את פרטי התשלום למטה — תועברו אוטומטית לאחר התשלום"
             : "Fill in your payment details below — you'll be redirected automatically after payment"}
         </p>
+
+        {/* Trust signals */}
+        <div className="flex items-center justify-center gap-4 mb-4 text-xs text-neutral-500">
+          <span className="flex items-center gap-1">
+            <svg className="w-3.5 h-3.5 text-green-500" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z" /></svg>
+            {isHe ? "תשלום מאובטח" : "Secure payment"}
+          </span>
+          <span>{isHe ? "ערבות החזר 30 יום" : "30-day money back"}</span>
+          <span>{isHe ? "ביטול בכל עת" : "Cancel anytime"}</span>
+        </div>
 
         {/* Redirecting indicator */}
         {redirecting && (
@@ -112,7 +124,13 @@ function CheckoutContent() {
         )}
 
         {/* Morning payment form iframe */}
-        <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white">
+        <div className="rounded-xl overflow-hidden border border-neutral-800 bg-white relative">
+          {!iframeLoaded && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-white z-10 gap-3">
+              <div className="animate-spin h-8 w-8 border-3 border-pink-400 border-t-transparent rounded-full" />
+              <p className="text-neutral-500 text-sm">{isHe ? "טוען טופס תשלום..." : "Loading payment form..."}</p>
+            </div>
+          )}
           <iframe
             src={MORNING_PAYMENT_URL}
             title={isHe ? "טופס תשלום" : "Payment Form"}
@@ -120,8 +138,13 @@ function CheckoutContent() {
             height="600"
             style={{ border: "none", minHeight: "600px" }}
             allow="payment"
+            onLoad={() => setIframeLoaded(true)}
           />
         </div>
+
+        <p className="text-center text-neutral-600 text-xs mt-3">
+          {isHe ? "₪1 בלבד · ללא חיוב חוזר · ללא התחייבות" : "₪1 only · No recurring charges · No commitment"}
+        </p>
 
         <button
           type="button"

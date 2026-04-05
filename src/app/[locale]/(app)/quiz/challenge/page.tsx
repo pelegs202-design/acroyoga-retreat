@@ -572,24 +572,15 @@ function ChallengeQuizFlow() {
 // Page wrapper
 // ─────────────────────────────────────────────────────────────────────────────
 
-// Detect Facebook/Instagram in-app browsers
+// Detect Facebook/Instagram in-app browsers — show banner, never redirect
 function useInAppBrowser() {
   const [isInApp, setIsInApp] = useState(false);
 
   useEffect(() => {
     const ua = navigator.userAgent || "";
-    const detected = /FBAN|FBAV|Instagram/i.test(ua);
-    if (!detected) return;
-
-    // Android: intent:// can open the system browser directly
-    if (/Android/i.test(ua)) {
-      const url = window.location.href;
-      window.location.href = `intent://${url.replace(/^https?:\/\//, "")}#Intent;scheme=https;end`;
-      return;
+    if (/FBAN|FBAV|Instagram/i.test(ua)) {
+      setIsInApp(true);
     }
-
-    // iOS: can't programmatically escape, show a banner instead
-    setIsInApp(true);
   }, []);
 
   return isInApp;
@@ -597,7 +588,17 @@ function useInAppBrowser() {
 
 function InAppBrowserBanner({ locale }: { locale: string }) {
   const isHe = locale === "he";
-  const url = typeof window !== "undefined" ? window.location.href : "";
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch {
+      // Fallback: select a hidden input
+    }
+  }
 
   return (
     <div
@@ -607,36 +608,37 @@ function InAppBrowserBanner({ locale }: { locale: string }) {
         left: 0,
         right: 0,
         zIndex: 9999,
-        padding: "12px 16px",
+        padding: "10px 16px",
         backgroundColor: "#F472B6",
         color: "#0a0a0a",
         textAlign: "center",
-        fontSize: "0.875rem",
+        fontSize: "0.8125rem",
         fontWeight: 700,
       }}
     >
-      <p style={{ margin: "0 0 8px" }}>
+      <p style={{ margin: "0 0 6px" }}>
         {isHe
           ? "לחוויה הטובה ביותר, פתחו בדפדפן"
           : "For the best experience, open in browser"}
       </p>
-      <a
-        href={url}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        onClick={handleCopy}
         style={{
           display: "inline-block",
-          padding: "8px 20px",
+          padding: "6px 16px",
           backgroundColor: "#0a0a0a",
           color: "#F472B6",
           fontWeight: 900,
-          fontSize: "0.8125rem",
-          textDecoration: "none",
+          fontSize: "0.75rem",
+          border: "none",
+          cursor: "pointer",
           letterSpacing: "0.05em",
         }}
       >
-        {isHe ? "פתחו ב-Safari ←" : "Open in Safari →"}
-      </a>
+        {copied
+          ? (isHe ? "הקישור הועתק! הדביקו בדפדפן" : "Link copied! Paste in browser")
+          : (isHe ? "העתיקו קישור ופתחו בדפדפן" : "Copy link & open in browser")}
+      </button>
     </div>
   );
 }

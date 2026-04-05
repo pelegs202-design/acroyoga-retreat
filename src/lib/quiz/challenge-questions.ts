@@ -221,8 +221,8 @@ export const challengeQuestions: Question[] = [
       he: 'איך היית מתאר/ת את המבנה הגופני שלך?',
     },
     subtitle: {
-      en: 'Acroyoga involves partner work — we want to match the program to you',
-      he: 'אקרויוגה דורשת עבודה בזוגות — חשוב לנו להתאים את התכנית',
+      en: 'No wrong answer — just helps us customize your plan',
+      he: 'אין תשובה לא נכונה — רק רוצים להתאים את התכנית',
     },
     options: [
       { id: 'slim-avg', label: { en: 'Slim / average', he: 'רזה / ממוצע' } },
