@@ -109,17 +109,22 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         className="text-center"
       >
         <h1 className="text-3xl font-black text-brand mb-2">
-          {isHe ? "כמעט שם!" : "Almost There!"}
+          {isHe ? "התשלום התקבל!" : "Payment Received!"}
         </h1>
-        <p className="text-neutral-300 text-base mb-4">
-          {isHe
-            ? "התשלום התקבל. השלימו את השלבים הבאים כדי לאשר את מקומכם באתגר."
-            : "Payment received. Complete the steps below to confirm your spot in the challenge."}
-        </p>
+
+        {completedCount < totalSteps && (
+          <div className="border-2 border-yellow-500/60 bg-yellow-500/10 px-4 py-3 mb-4">
+            <p className="text-yellow-400 text-sm font-bold">
+              {isHe
+                ? "ההרשמה שלכם לא תאושר עד שתשלימו את כל השלבים למטה."
+                : "Your booking is NOT confirmed until you complete all steps below."}
+            </p>
+          </div>
+        )}
 
         {/* Progress bar */}
         <div className="flex items-center gap-3 justify-center mb-1">
-          <div className="h-2 flex-1 max-w-48 bg-neutral-800 overflow-hidden">
+          <div className="h-3 flex-1 max-w-52 bg-neutral-800 overflow-hidden">
             <div
               className="h-full bg-brand transition-all duration-500"
               style={{ width: `${(completedCount / totalSteps) * 100}%` }}
@@ -130,7 +135,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         <p className="text-neutral-500 text-xs">
           {completedCount === totalSteps
             ? (isHe ? "מקומכם אושר!" : "Your spot is confirmed!")
-            : (isHe ? "השלימו את כל השלבים כדי לאשר" : "Complete all steps to confirm")}
+            : (isHe ? `נותרו ${totalSteps - completedCount} שלבים לאישור` : `${totalSteps - completedCount} steps remaining`)}
         </p>
       </motion.section>
 
