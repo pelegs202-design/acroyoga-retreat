@@ -55,7 +55,7 @@ export default function MobileMenu({
 
         {/* Slide-in panel from inline-end (right in LTR, left in RTL) */}
         <Dialog.Content
-          className="fixed inset-block-0 inset-inline-end-0 z-[201] flex h-full w-4/5 max-w-sm flex-col bg-[#0a0a0a] border-s-2 border-s-neutral-800 px-8 py-6 shadow-2xl focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right duration-200"
+          className="fixed inset-block-0 end-0 rtl:end-auto rtl:start-0 z-[201] flex h-full w-4/5 max-w-sm flex-col bg-[#0a0a0a] border-s-2 border-s-neutral-800 px-8 py-6 shadow-2xl focus:outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right rtl:data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-right rtl:data-[state=open]:slide-in-from-left duration-200"
           aria-describedby={undefined}
         >
           {/* Screen reader title (visually hidden) */}
