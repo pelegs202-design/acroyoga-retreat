@@ -526,6 +526,12 @@ function ChallengeQuizFlow() {
   const router = useRouter();
   const locale = useLocale();
 
+  // Capture fbclid from URL for Facebook CAPI attribution
+  const [fbclid] = useState(() => {
+    if (typeof window === "undefined") return "";
+    return new URLSearchParams(window.location.search).get("fbclid") || "";
+  });
+
   const handleStepAnswer = (sessionId: string, questionId: string, answerId: string) => {
     fetch("/api/quiz/events", {
       method: "POST",
@@ -548,6 +554,7 @@ function ChallengeQuizFlow() {
           sessionId: state.sessionId, quizType: "challenge",
           name: state.contactInfo.name, email: state.contactInfo.email, phone: state.contactInfo.phone,
           answers: JSON.stringify(state.answers), resultType, city,
+          fbclid,
         }),
       });
     } catch {}

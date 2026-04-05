@@ -5,6 +5,7 @@ import { quizLeads } from "@/lib/db/schema";
 import { enrollInDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 import { nextMonday } from "@/lib/green-invoice/client";
+import { sendFacebookEvent } from "@/lib/facebook-capi";
 
 const bodySchema = z.object({
   sessionId: z.string().min(1),
@@ -15,6 +16,7 @@ const bodySchema = z.object({
   answers: z.string().min(1),
   resultType: z.string().optional(),
   city: z.string().optional(),
+  fbclid: z.string().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { sessionId, quizType, name, email, phone, answers, resultType, city } = parsed.data;
+  const { sessionId, quizType, name, email, phone, answers, resultType, city, fbclid } = parsed.data;
 
   // Ensure answers is a valid JSON string
   const answersStr = typeof answers === "string" ? answers : JSON.stringify(answers);
@@ -60,6 +62,15 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
   }
+
+  // ─── Facebook CAPI: Lead event (non-blocking) ───
+  sendFacebookEvent({
+    eventName: "Lead",
+    email,
+    phone,
+    fbclid: fbclid || undefined,
+    eventId: `lead_${sessionId}`,
+  }).catch((err) => console.error("[quiz/leads] FB CAPI Lead failed:", err));
 
   // ─── Drip enrollment (non-blocking) ───
   // Detect locale from phone country code (+972 = Hebrew, otherwise English)

@@ -5,6 +5,7 @@ import { eq, desc } from "drizzle-orm";
 import { nextMonday } from "@/lib/green-invoice/client";
 import { enrollInDrip, cancelDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
+import { sendFacebookEvent } from "@/lib/facebook-capi";
 
 export async function POST(req: NextRequest) {
   try {
@@ -98,6 +99,16 @@ export async function POST(req: NextRequest) {
     }).onConflictDoNothing();
 
     console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${customerEmail}, GI doc=${docId}`);
+
+    // ─── Facebook CAPI: Purchase event (non-blocking) ───
+    sendFacebookEvent({
+      eventName: "Purchase",
+      email: customerEmail || undefined,
+      phone: customerPhone || undefined,
+      value: typeof total === "number" ? total : 1,
+      currency: body.currency ?? "ILS",
+      eventId: `purchase_${docId}`,
+    }).catch((err) => console.error("[payments/webhook] FB CAPI Purchase failed:", err));
 
     // ─── Drip transition on payment (non-blocking) ───
     // Cancel-first then enroll to prevent race with WA drip cron (Pitfall 9).
