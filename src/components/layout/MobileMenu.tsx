@@ -81,9 +81,9 @@ export default function MobileMenu({
             </Dialog.Close>
           </div>
 
-          {/* Giant brutalist nav links — per stitch-screens/header-footer.html */}
+          {/* Giant brutalist nav links */}
           <nav className="flex flex-1 flex-col gap-0 py-10">
-            {session && (
+            {session ? (
               <>
                 <Link
                   href="/members"
@@ -110,6 +110,30 @@ export default function MobileMenu({
                       {unreadCount > 99 ? "99+" : unreadCount}
                     </span>
                   )}
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/jams"
+                  onClick={close}
+                  className="py-2 text-[40px] font-black tracking-tighter text-neutral-200/20 transition-colors duration-150 hover:text-neutral-100"
+                >
+                  {tJams("title")}
+                </Link>
+                <Link
+                  href="/members"
+                  onClick={close}
+                  className="py-2 text-[40px] font-black tracking-tighter text-neutral-200/20 transition-colors duration-150 hover:text-neutral-100"
+                >
+                  {tAuth("dashboard")}
+                </Link>
+                <Link
+                  href="/quiz/challenge"
+                  onClick={close}
+                  className="py-2 text-[40px] font-black tracking-tighter text-neutral-200/20 transition-colors duration-150 hover:text-neutral-100"
+                >
+                  {t("challenge") ?? "30 Day Challenge"}
                 </Link>
               </>
             )}
