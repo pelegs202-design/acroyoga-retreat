@@ -5,12 +5,19 @@ import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { trackPurchase } from "@/lib/quiz/quiz-analytics";
 import { nextMonday as getNextMonday } from "@/lib/date-utils";
+import { ShareButton } from "@/components/social/ShareButton";
 
 // Dynamic import for add-to-calendar (no SSR — uses browser APIs)
 const AddToCalendarButton = dynamic(
   () => import("add-to-calendar-button-react").then((m) => m.AddToCalendarButton),
   { ssr: false }
 );
+
+// Google Maps links for training locations
+const MAPS = {
+  rokah: "https://maps.google.com/?q=Rokach+40+Tel+Aviv",
+  clore: "https://maps.google.com/?q=Charles+Clore+Beach+Tel+Aviv",
+};
 
 interface SuccessContentProps {
   sessionId: string;
@@ -22,12 +29,37 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
 
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [dayConfirmed, setDayConfirmed] = useState(false);
+  const [archetypeName, setArchetypeName] = useState("");
+  const [enrollmentCount, setEnrollmentCount] = useState(0);
 
   useEffect(() => {
     trackPurchase(_sessionId);
-  }, [_sessionId]);
+
+    // Fetch archetype for personalization
+    fetch(`/api/quiz/results/${_sessionId}`)
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.result?.name) {
+          setArchetypeName(locale === "he" ? data.result.name.he : data.result.name.en);
+        }
+      })
+      .catch(() => {});
+
+    // Fetch enrollment count for social proof
+    fetch("/api/challenge/count")
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data?.count) setEnrollmentCount(data.count);
+      })
+      .catch(() => {});
+  }, [_sessionId, locale]);
 
   const nextMondayDate = getNextMonday();
+
+  // Countdown to first class
+  const now = new Date();
+  const diffMs = nextMondayDate.getTime() - now.getTime();
+  const daysUntil = Math.max(0, Math.ceil(diffMs / (1000 * 60 * 60 * 24)));
 
   async function handleDaySelect(day: string) {
     setSelectedDay(day);
@@ -51,19 +83,19 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
   // Format for add-to-calendar (YYYY-MM-DD)
   const calendarDate = nextMondayDate.toISOString().split("T")[0];
 
-  // Onboarding info items
+  // Onboarding info items with map links
   const onboardingItems = isHe
     ? [
-        { marker: "01", title: "מתי מתאמנים", text: `שני 20:00 + רביעי 20:00 — רוקח 40, צפון תל אביב\nשישי 13:30 + שבת 13:30 — חוף צ׳ארלס קלור, מול מלון עם ממ״ד\nהשיעור הראשון: ${startDateFormatted}` },
-        { marker: "02", title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
-        { marker: "03", title: "מה להביא", text: "מזרן יוגה, בקבוק מים, מגבת קטנה." },
-        { marker: "04", title: "ממ״ד", text: "בכל המיקומים יש ממ״ד בקרבת מקום." },
+        { title: "מתי מתאמנים", text: `שני 20:00 + רביעי 20:00`, link: { href: MAPS.rokah, label: "רוקח 40, צפון תל אביב" }, extra: `שישי 13:30 + שבת 13:30`, link2: { href: MAPS.clore, label: "חוף צ׳ארלס קלור" } },
+        { title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
+        { title: "מה להביא", text: "מזרן יוגה, בקבוק מים, מגבת קטנה." },
+        { title: "ממ״ד", text: "בכל המיקומים יש ממ״ד בקרבת מקום." },
       ]
     : [
-        { marker: "01", title: "When We Train", text: `Mon 20:00 + Wed 20:00 — Rokah 40, North Tel Aviv\nFri 13:30 + Sat 13:30 — Charles Clore Beach, near hotel with shelter\nYour first class: ${startDateFormatted}` },
-        { marker: "02", title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
-        { marker: "03", title: "What to Bring", text: "Yoga mat, water bottle, small towel." },
-        { marker: "04", title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
+        { title: "When We Train", text: `Mon 20:00 + Wed 20:00`, link: { href: MAPS.rokah, label: "Rokah 40, North Tel Aviv" }, extra: `Fri 13:30 + Sat 13:30`, link2: { href: MAPS.clore, label: "Charles Clore Beach" } },
+        { title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
+        { title: "What to Bring", text: "Yoga mat, water bottle, small towel." },
+        { title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
       ];
 
   // Fear-addressing reassurances — based on actual quiz fears data
@@ -106,16 +138,40 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
 
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col gap-6 pb-20 px-4 pt-8">
-      {/* 1. Header — not confirmed until steps done */}
+      {/* 1. Header — personalized with archetype */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
         className="text-center"
       >
-        <h1 className="text-3xl font-black text-brand mb-2">
-          {isHe ? "התשלום התקבל!" : "Payment Received!"}
+        <h1 className="text-3xl font-black text-brand mb-1">
+          {archetypeName
+            ? (isHe ? `${archetypeName}, ברוכים הבאים!` : `Welcome, ${archetypeName}!`)
+            : (isHe ? "התשלום התקבל!" : "Payment Received!")}
         </h1>
+
+        {/* Countdown */}
+        {daysUntil > 0 && (
+          <div className="flex items-center justify-center gap-2 my-3">
+            <div className="border-2 border-brand px-4 py-2 text-center">
+              <span className="text-3xl font-black text-brand">{daysUntil}</span>
+              <p className="text-neutral-400 text-xs">{isHe ? "ימים" : "days"}</p>
+            </div>
+            <p className="text-neutral-300 text-sm font-bold">
+              {isHe ? "עד השיעור הראשון" : "until first class"}
+            </p>
+          </div>
+        )}
+
+        {/* Social proof */}
+        {enrollmentCount > 1 && (
+          <p className="text-neutral-500 text-xs mb-3">
+            {isHe
+              ? `${enrollmentCount} אנשים כבר נרשמו לקבוצה הזו`
+              : `${enrollmentCount} people already signed up for this cohort`}
+          </p>
+        )}
 
         {completedCount < totalSteps && (
           <div className="border-2 border-yellow-500/60 bg-yellow-500/10 px-4 py-3 mb-4">
@@ -264,11 +320,67 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </motion.section>
       )}
 
-      {/* Onboarding info (collapsed) */}
+      {/* Share CTA — bring a friend */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.28 }}
+        className="border-2 border-brand/30 bg-brand/5 p-5 text-center"
+      >
+        <h2 className="text-lg font-bold text-white mb-1">
+          {isHe ? "הביאו חבר/ה — יותר כיף לתרגל ביחד" : "Bring a friend — more fun to train together"}
+        </h2>
+        <p className="text-neutral-400 text-sm mb-3">
+          {isHe ? "שלחו את הקישור לחבר/ה ותתרגלו ביחד" : "Share the link with a friend and train together"}
+        </p>
+      </motion.section>
+
+      {/* What your first class looks like — timeline */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
+      >
+        <h2 className="text-lg font-bold text-white mb-3">
+          {isHe ? "איך נראה השיעור הראשון" : "What Your First Class Looks Like"}
+        </h2>
+        <div className="flex flex-col gap-0">
+          {(isHe
+            ? [
+                { time: "10 דק׳", title: "חימום ביחד", desc: "מגיעים, מתיידעים, מתחממים בקבוצה" },
+                { time: "30 דק׳", title: "לומדים תרגיל חדש", desc: "שי מדגים ומלמד צעד אחר צעד" },
+                { time: "40 דק׳", title: "מתרגלים בזוגות", desc: "מתחלפים, מתרגלים, צוחקים" },
+                { time: "10 דק׳", title: "סיום וצילום קבוצתי", desc: "מתיחות, שיתוף רגעים, תמונה" },
+              ]
+            : [
+                { time: "10 min", title: "Warm up together", desc: "Arrive, meet people, group warm-up" },
+                { time: "30 min", title: "Learn a new move", desc: "Shai demos and teaches step by step" },
+                { time: "40 min", title: "Practice in pairs", desc: "Rotate partners, practice, laugh" },
+                { time: "10 min", title: "Cool down & group photo", desc: "Stretches, share moments, photo" },
+              ]
+          ).map((step, i) => (
+            <div key={i} className="flex gap-3">
+              <div className="flex flex-col items-center">
+                <div className="w-8 h-8 border-2 border-brand flex items-center justify-center text-brand font-black text-xs shrink-0">{i + 1}</div>
+                {i < 3 && <div className="w-0.5 h-full bg-neutral-800 min-h-6" />}
+              </div>
+              <div className="pb-4">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-white text-sm">{step.title}</h3>
+                  <span className="text-neutral-500 text-xs">{step.time}</span>
+                </div>
+                <p className="text-neutral-400 text-xs">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Onboarding info with map links */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.33 }}
       >
         <h2 className="text-lg font-bold text-white mb-3">
           {isHe ? "מה צריך לדעת" : "What to Know"}
@@ -277,7 +389,20 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
           {onboardingItems.map((item, i) => (
             <div key={i} className="border border-neutral-800 bg-neutral-900 p-3">
               <h3 className="font-bold text-white text-sm mb-1">{item.title}</h3>
-              <p className="text-neutral-400 text-xs leading-relaxed whitespace-pre-line">{item.text}</p>
+              <p className="text-neutral-400 text-xs leading-relaxed">
+                {item.text}
+                {item.link && (
+                  <> — <a href={item.link.href} target="_blank" rel="noopener noreferrer" className="text-brand underline">{item.link.label}</a></>
+                )}
+              </p>
+              {item.extra && (
+                <p className="text-neutral-400 text-xs leading-relaxed mt-1">
+                  {item.extra}
+                  {item.link2 && (
+                    <> — <a href={item.link2.href} target="_blank" rel="noopener noreferrer" className="text-brand underline">{item.link2.label}</a></>
+                  )}
+                </p>
+              )}
             </div>
           ))}
         </div>
@@ -301,6 +426,12 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
           ))}
         </div>
       </motion.section>
+
+      {/* Floating share button */}
+      <ShareButton
+        url={typeof window !== "undefined" ? `${window.location.origin}/${locale}/quiz/challenge` : ""}
+        title={isHe ? "הצטרפו לאתגר 30 יום של אקרוחבורה!" : "Join the AcroHavura 30-Day Challenge!"}
+      />
 
       {/* Bottom — WhatsApp Shai */}
       <div className="text-center py-4 border-t border-neutral-800">
