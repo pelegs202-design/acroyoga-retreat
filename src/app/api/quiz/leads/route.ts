@@ -6,6 +6,7 @@ import { enrollInDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 import { nextMonday } from "@/lib/green-invoice/client";
 import { sendFacebookEvent } from "@/lib/facebook-capi";
+import { notifyNewLead } from "@/lib/gmail-notify";
 
 const bodySchema = z.object({
   sessionId: z.string().min(1),
@@ -62,6 +63,16 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
   }
+
+  // ─── Email notification to Shai (non-blocking) ───
+  const answersObj = typeof answers === "string" ? JSON.parse(answers) : {};
+  notifyNewLead({
+    name, email, phone,
+    archetype: resultType || undefined,
+    fear: answersObj["biggest-fear"],
+    commitment: answersObj.commitment,
+    experience: answersObj.experience,
+  }).catch((err) => console.error("[quiz/leads] Gmail notify failed:", err));
 
   // ─── Facebook CAPI: Lead event (non-blocking) ───
   sendFacebookEvent({
