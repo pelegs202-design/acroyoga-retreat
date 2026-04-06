@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { challengeEnrollments } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and, gt } from "drizzle-orm";
 import { checkNewPaymentSince } from "@/lib/green-invoice/client";
 
 export async function GET(req: NextRequest) {
@@ -23,20 +23,26 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ paid: true, source: "webhook" });
   }
 
-  // Also check if there's a recent "unknown" enrollment we can link
-  const [unknownEnrollment] = await db
-    .select({ id: challengeEnrollments.id })
-    .from(challengeEnrollments)
-    .where(eq(challengeEnrollments.sessionId, "unknown"))
-    .limit(1);
+  // Check if there's a recent "unknown" enrollment created AFTER checkout opened
+  // Only link enrollments from the last 10 minutes to avoid matching old ones
+  if (since) {
+    const sinceDate = new Date(since);
+    const [recentUnknown] = await db
+      .select({ id: challengeEnrollments.id })
+      .from(challengeEnrollments)
+      .where(and(
+        eq(challengeEnrollments.sessionId, "unknown"),
+        gt(challengeEnrollments.paidAt, sinceDate),
+      ))
+      .limit(1);
 
-  if (unknownEnrollment) {
-    // Link this enrollment to the current session
-    await db
-      .update(challengeEnrollments)
-      .set({ sessionId })
-      .where(eq(challengeEnrollments.id, unknownEnrollment.id));
-    return NextResponse.json({ paid: true, source: "webhook-linked" });
+    if (recentUnknown) {
+      await db
+        .update(challengeEnrollments)
+        .set({ sessionId })
+        .where(eq(challengeEnrollments.id, recentUnknown.id));
+      return NextResponse.json({ paid: true, source: "webhook-linked" });
+    }
   }
 
   // Check Morning API — was ANY new document created since checkout opened?

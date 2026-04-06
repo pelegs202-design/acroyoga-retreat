@@ -49,3 +49,8 @@ drizzle/
 next-env.d.ts
 
 .vercel
+
+# Gmail API credentials
+scripts/credentials.json
+scripts/token.pickle
+scripts/token_*.pickle
