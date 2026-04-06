@@ -64,24 +64,28 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Failed to save lead" }, { status: 500 });
   }
 
-  // ─── Email notification to Shai (non-blocking) ───
+  // ─── Email notification + Facebook CAPI (awaited to prevent Vercel killing early) ───
   const answersObj = typeof answers === "string" ? JSON.parse(answers) : {};
-  notifyNewLead({
-    name, email, phone,
-    archetype: resultType || undefined,
-    fear: answersObj["biggest-fear"],
-    commitment: answersObj.commitment,
-    experience: answersObj.experience,
-  }).catch((err) => console.error("[quiz/leads] Gmail notify failed:", err));
-
-  // ─── Facebook CAPI: Lead event (non-blocking) ───
-  sendFacebookEvent({
-    eventName: "Lead",
-    email,
-    phone,
-    fbclid: fbclid || undefined,
-    eventId: `lead_${sessionId}`,
-  }).catch((err) => console.error("[quiz/leads] FB CAPI Lead failed:", err));
+  try {
+    await Promise.all([
+      notifyNewLead({
+        name, email, phone,
+        archetype: resultType || undefined,
+        fear: answersObj["biggest-fear"],
+        commitment: answersObj.commitment,
+        experience: answersObj.experience,
+      }),
+      sendFacebookEvent({
+        eventName: "Lead",
+        email,
+        phone,
+        fbclid: fbclid || undefined,
+        eventId: `lead_${sessionId}`,
+      }),
+    ]);
+  } catch (err) {
+    console.error("[quiz/leads] Notify/CAPI failed (non-fatal):", err);
+  }
 
   // ─── Drip enrollment (non-blocking) ───
   // Detect locale from phone country code (+972 = Hebrew, otherwise English)
