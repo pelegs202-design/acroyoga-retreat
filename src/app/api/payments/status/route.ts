@@ -45,7 +45,7 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  // Check Morning API — was ANY new document created since checkout opened?
+  // Check Morning API — was a new document created since checkout opened?
   if (!since) {
     return NextResponse.json({ paid: false });
   }
@@ -53,6 +53,21 @@ export async function GET(req: NextRequest) {
   try {
     const sinceDate = new Date(since);
     const paid = await checkNewPaymentSince(sinceDate);
+    if (paid) {
+      // Record this as an enrollment so we don't match it again for another session
+      try {
+        await db.insert(challengeEnrollments).values({
+          id: crypto.randomUUID(),
+          sessionId,
+          giDocumentId: `morning-poll-${Date.now()}`,
+          amountPaid: 1,
+          currency: "ILS",
+          status: "confirmed",
+          cohortStartDate: new Date(),
+          paidAt: new Date(),
+        }).onConflictDoNothing();
+      } catch { /* ignore duplicate */ }
+    }
     return NextResponse.json({ paid, source: paid ? "morning-api" : null });
   } catch (err) {
     console.error("[payments/status] GI check failed:", err);

@@ -165,6 +165,28 @@ export const challengeQuestions: Question[] = [
       // SOFT DQ: just browsing
       { id: 'just-browsing', label: { en: 'Just exploring for now', he: 'אני רק מתעניין/ת כרגע' } },
     ],
+    defaultNextId: 'availability',
+  },
+
+  // ── Q6b: Availability (Hard DQ — must be available most of the challenge month) ──
+  {
+    id: 'availability',
+    type: 'single-choice',
+    text: {
+      en: 'The challenge starts next week and runs for 30 days. Are you available?',
+      he: 'האתגר מתחיל בשבוע הבא ונמשך 30 יום. אתם זמינים?',
+    },
+    subtitle: {
+      en: "It's okay to miss a few days — but we need you for most of the month",
+      he: 'אפשר לפספס כמה ימים — אבל צריך להיות פנויים לרוב החודש',
+    },
+    options: [
+      { id: 'yes-full', label: { en: "Yes, I'm available the whole month", he: 'כן, אני פנוי/ה כל החודש' } },
+      { id: 'yes-mostly', label: { en: "Mostly — might miss a few days", he: 'ברוב הזמן — אפספס כמה ימים' } },
+      { id: 'half', label: { en: "Only about half the month", he: 'רק כחצי מהחודש' } },
+      // HARD DQ: not available
+      { id: 'no', label: { en: "No, I'll be away most of the month", he: 'לא, אני לא פנוי/ה ברוב החודש' } },
+    ],
     defaultNextId: 'dream-outcome',
   },
 

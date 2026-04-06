@@ -264,6 +264,12 @@ export function calculateFitScore(answers: Record<string, string>): number {
   if (answers['first-thought'] === 'not-for-me') fit -= 20;
   else if (answers['first-thought']) fit += 5;
 
+  // Availability (hard DQ if unavailable most of the month)
+  if (answers['availability'] === 'no') fit -= 100;
+  else if (answers['availability'] === 'half') fit -= 40;
+  else if (answers['availability'] === 'yes-mostly') fit += 5;
+  else if (answers['availability'] === 'yes-full') fit += 10;
+
   return Math.max(0, Math.min(100, fit));
 }
 
