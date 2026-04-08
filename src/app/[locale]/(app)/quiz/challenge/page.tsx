@@ -141,6 +141,12 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 </span>
               </div>
 
+              <p className="text-base md:text-lg text-gray-400 mb-3 leading-relaxed">
+                {he
+                  ? "משעמם לכם בחדר כושר? רוצים חברים חדשים? מפחדים שאתם לא מספיק טובים?"
+                  : "Bored at the gym? Want new friends? Afraid you're not good enough?"}
+              </p>
+
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-4">
                 {he ? "30 יום." : "30 Days."} <br />
                 {he ? "מאפס." : "Zero."} <br />
@@ -149,8 +155,8 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
 
               <p className="text-base md:text-xl text-gray-400 max-w-lg mb-5 leading-relaxed">
                 {he
-                  ? "תכנית מובנית עם 2-3 ג׳אמים שבועיים, קבוצת וואטסאפ פעילה, ומדריך שמלווה אותך אישית. 527 בוגרים כבר עפו."
-                  : "Structured program with 2-3 weekly jams, active WhatsApp group, and a personal instructor. 527 graduates already flew."}
+                  ? "בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע. 527 אנשים שהרגישו בדיוק כמוכם כבר עפו."
+                  : "No experience, no partner, no flexibility needed — just show up. 527 people who felt exactly like you already flew."}
               </p>
 
               <div className="flex items-end gap-3 mb-1">
@@ -331,7 +337,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               <span className="text-7xl font-black text-brand">₪99</span>
             </div>
             <p className="text-gray-400 text-sm mb-4">
-              {he ? "₪99 בלבד. ערבות החזר מלא 30 יום." : "₪99 only. Full 30-day refund guarantee."}
+              {he ? "₪99 בלבד. פחות מ-₪8 למפגש. ערבות החזר מלא 30 יום." : "₪99 only. Less than ₪8 per session. Full 30-day refund guarantee."}
             </p>
             <div className="mb-6">
               <CountdownTimer locale={locale} />
@@ -507,10 +513,10 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
       <section className="bg-brand py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-5xl md:text-7xl font-black text-black mb-4 leading-tight">
-            {he ? "הגוף שלכם מחכה לעוף." : "Your body is waiting to fly."}
+            {he ? "עוד שנה של אותו דבר — או 30 יום שישנו הכל." : "Another year of the same — or 30 days that change everything."}
           </h2>
           <p className="text-black/70 text-xl mb-10">
-            {he ? "השאלה היחידה — אם תיתנו לו." : "The only question is whether you'll let it."}
+            {he ? "527 אנשים כבר בחרו. עכשיו תורכם." : "527 people already chose. Now it's your turn."}
           </p>
           <button
             onClick={() => handleCTA("final")}
