@@ -9,67 +9,7 @@ import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 import { formatNextMonday } from "@/lib/date-utils";
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Countdown timer — expires Sunday April 12, 2026 23:59:59 Israel time
-// ─────────────────────────────────────────────────────────────────────────────
-
-const PROMO_END = new Date("2026-04-12T23:59:59+03:00");
-
-function useCountdown() {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, expired: false });
-
-  useEffect(() => {
-    function calc() {
-      const diff = PROMO_END.getTime() - Date.now();
-      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
-      return {
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-        expired: false,
-      };
-    }
-    setTimeLeft(calc());
-    const id = setInterval(() => setTimeLeft(calc()), 1000);
-    return () => clearInterval(id);
-  }, []);
-
-  return timeLeft;
-}
-
-function CountdownTimer({ locale }: { locale: string }) {
-  const { days, hours, minutes, seconds, expired } = useCountdown();
-  const he = locale === "he";
-
-  if (expired) return null;
-
-  const units = [
-    { value: days, label: he ? "ימים" : "Days" },
-    { value: hours, label: he ? "שעות" : "Hours" },
-    { value: minutes, label: he ? "דקות" : "Min" },
-    { value: seconds, label: he ? "שניות" : "Sec" },
-  ];
-
-  return (
-    <div className="bg-red-950/40 border-2 border-red-500/50 p-4 text-center">
-      <p className="text-red-400 font-black text-sm uppercase tracking-widest mb-3">
-        {he ? "המחיר חוזר ל-₪299 בעוד:" : "Price goes back to ₪299 in:"}
-      </p>
-      <div className="flex justify-center gap-3">
-        {units.map((u, i) => (
-          <div key={i} className="flex flex-col items-center">
-            <span className="text-3xl md:text-4xl font-black text-white tabular-nums">
-              {String(u.value).padStart(2, "0")}
-            </span>
-            <span className="text-[10px] text-red-400/70 uppercase tracking-widest mt-1">{u.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { CountdownTimer } from "@/components/quiz/CountdownTimer";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
@@ -213,11 +153,14 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                   : "Structured program with 2-3 weekly jams, active WhatsApp group, and a personal instructor. 527 graduates already flew."}
               </p>
 
-              <div className="flex items-end gap-3 mb-3">
+              <div className="flex items-end gap-3 mb-1">
                 <span className="text-gray-500 line-through text-xl font-bold">₪299</span>
                 <span className="text-5xl font-black text-brand">₪99</span>
                 <span className="text-xs text-gray-400 pb-1">{he ? "עד 12/4 בלבד" : "Until Apr 12 only"}</span>
               </div>
+              <p className="text-brand/70 text-sm font-bold mb-3">
+                {he ? "פחות מ-₪8 למפגש" : "Less than ₪8 per session"}
+              </p>
               <div className="mb-5">
                 <CountdownTimer locale={locale} />
               </div>
@@ -270,47 +213,24 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 3. DISQUALIFICATION ──────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-[#0a0a0a]">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "האתגר הזה לא לכולם" : "This Challenge Isn't for Everyone"}
+      {/* ── 3. FAQ (moved up — most engaged section per heatmap data) ── */}
+      <section className="py-24 px-6 bg-[#0a0a0a]/50">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl font-black mb-12 text-center">
+            {he ? "שאלות נפוצות" : "FAQ"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* IS for you */}
-            <div className="border-2 border-green-800 bg-green-950/20 p-8">
-              <h3 className="text-xl font-black text-green-400 mb-6 uppercase tracking-widest">
-                {he ? "זה בשבילכם אם..." : "This IS for you if..."}
-              </h3>
-              <ul className="space-y-4">
-                {(he
-                  ? ["מוכנים להתחייב ל-30 יום", "פתוחים להכיר אנשים חדשים", "מוכנים להשקיע 15 דקות ביום", "גרים באזור תל אביב או כפר סבא"]
-                  : ["Ready to commit for 30 days", "Open to meeting new people", "Willing to invest 15 min/day", "Live near Tel Aviv or Kfar Saba"]
-                ).map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            {/* NOT for you */}
-            <div className="border-2 border-red-800 bg-red-950/20 p-8">
-              <h3 className="text-xl font-black text-red-400 mb-6 uppercase tracking-widest">
-                {he ? "זה לא בשבילכם אם..." : "This is NOT for you if..."}
-              </h3>
-              <ul className="space-y-4">
-                {(he
-                  ? ["מחפשים פתרון קסם בלי מאמץ", "לא יכולים להגיע 2-3 פעמים בשבוע", "מצפים להיות מקצועים אחרי חודש", "לא מוכנים לצאת מאזור הנוחות"]
-                  : ["Looking for a magic fix without effort", "Can't attend 2-3 times per week", "Expect to be a pro after one month", "Not willing to leave your comfort zone"]
-                ).map((item, i) => (
-                  <li key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
-                    <span className="text-gray-300">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="space-y-4">
+            {FAQ.map((item, i) => (
+              <details key={i} className="group border-2 border-white bg-neutral-900">
+                <summary className="w-full p-6 flex items-center justify-between text-start cursor-pointer list-none">
+                  <span className="text-xl font-bold">{he ? item.he.q : item.en.q}</span>
+                  <span className="text-brand text-3xl font-black transition-transform group-open:rotate-45 shrink-0 ms-4">+</span>
+                </summary>
+                <div className="p-6 pt-0 text-gray-400 border-t border-white/5">
+                  {he ? item.he.a : item.en.a}
+                </div>
+              </details>
+            ))}
           </div>
         </div>
       </section>
@@ -342,99 +262,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 5. SCHEDULE ─────────────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-[#0a0a0a]">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "מתי ואיפה" : "When & Where"}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Weekdays */}
-            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
-              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
-                {he ? "אמצע שבוע" : "Weekdays"}
-              </div>
-              <h3 className="text-2xl font-black mb-2">
-                {he ? "שני + רביעי · 20:00" : "Mon + Wed · 20:00"}
-              </h3>
-              <p className="text-gray-400 mb-4">
-                {he ? "רוקח 40, צפון תל אביב" : "Rokah 40, North Tel Aviv"}
-              </p>
-              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
-                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
-              </p>
-            </div>
-            {/* Weekend */}
-            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
-              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
-                {he ? "סוף שבוע" : "Weekend"}
-              </div>
-              <h3 className="text-2xl font-black mb-2">
-                {he ? "שישי + שבת · 13:30" : "Fri + Sat · 13:30"}
-              </h3>
-              <p className="text-gray-400 mb-4">
-                {he ? "חוף צ׳ארלס קלור, מול מלון עם ממ״ד" : "Charles Clore Beach, near hotel with shelter"}
-              </p>
-              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
-                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. TIMELINE ──────────────────────────────────────────────── */}
-      <section className="py-24 px-6 border-t-2 border-neutral-800">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "המסלול שלכם" : "Your Journey"}
-          </h2>
-          <div className="space-y-0">
-            {[
-              { week: he ? "שבוע 1" : "Week 1", title: he ? "בסיס ואמון" : "Foundation & Trust", desc: he ? "עמדות בסיסיות, בניית אמון, Bird ראשון. מתחילים 10 ס״מ מהרצפה." : "Basic positions, trust building, first Bird. Starting 10cm off the ground." },
-              { week: he ? "שבוע 2" : "Week 2", title: he ? "כוח ויציבות" : "Strength & Stability", desc: he ? "Throne, Shoulderstand, מעברים ראשונים. מתחילים להרגיש בטוחים למעלה." : "Throne, Shoulderstand, first transitions. Starting to feel confident up high." },
-              { week: he ? "שבוע 3" : "Week 3", title: he ? "זרימה ויצירתיות" : "Flow & Creativity", desc: he ? "רצפים, מעברים חלקים, עבודה עם פרטנרים שונים. מגלים את הסגנון שלכם." : "Sequences, smooth transitions, different partners. Finding your style." },
-              { week: he ? "שבוע 4" : "Week 4", title: he ? "שליטה וחגיגה" : "Mastery & Celebration", desc: he ? "שילוב הכל, ג׳אם חגיגי, תעודת סיום, כניסה לקבוצת הבוגרים." : "Putting it together, celebratory jam, certificate, alumni access." },
-            ].map((step, i) => (
-              <div key={i} className="flex gap-6 pb-12 relative">
-                {i < 3 && <div className="absolute start-5 top-12 bottom-0 w-[2px] bg-neutral-800" />}
-                <div className="shrink-0 w-10 h-10 bg-brand text-black font-black flex items-center justify-center text-sm z-10">
-                  {i + 1}
-                </div>
-                <div>
-                  <p className="text-brand text-xs font-bold uppercase tracking-widest mb-1">{step.week}</p>
-                  <h3 className="text-xl font-black mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 6. OBJECTION HANDLING ────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-[#0a0a0a] border-y-2 border-neutral-800">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "שאלות שכולם שואלים" : "Questions Everyone Asks"}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { q: he ? "אני לא גמיש/ה" : "I'm not flexible", a: he ? "80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא." : "80% couldn't touch their toes on day 1. By day 30 — full Bird." },
-              { q: he ? "אין לי פרטנר" : "I don't have a partner", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום 1." : "60% come alone. Everyone rotates. You'll find partners on day 1." },
-              { q: he ? "אני פוחד/ת מגובה" : "I'm scared of heights", a: he ? "מתחילים 10 ס״מ מהרצפה. עולים רק כשאתם מרגישים מוכנים. 0 פציעות ב-527 בוגרים." : "Start 10cm off the ground. Go higher only when ready. 0 injuries in 527 grads." },
-              { q: he ? "אין לי זמן" : "I don't have time", a: he ? "15 דקות ביום + 2-3 מפגשים של 90 דקות. אנשים עם לוח זמנים מלא מסיימים. 96% שיעור סיום." : "15 min/day + 2-3 sessions of 90 min. Busy people finish. 96% completion." },
-            ].map((item, i) => (
-              <div key={i} className="bg-neutral-900 border-2 border-neutral-700 p-8">
-                <h3 className="text-lg font-black text-brand mb-3">{item.q}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 7. TESTIMONIALS ──────────────────────────────────────────── */}
+      {/* ── 5. TESTIMONIALS (moved up — social proof early) ───────── */}
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-black mb-16 text-center">
@@ -452,7 +280,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 8. PRICING (VALUE STACK) ─────────────────────────────────── */}
+      {/* ── 6. PRICING (VALUE STACK) — moved up from position 8 ───── */}
       <section className="py-24 px-6 border-y-2 border-neutral-800">
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
@@ -522,29 +350,140 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 9. FAQ ────────────────────────────────────────────────────── */}
-      <section className="py-24 px-6 bg-[#0a0a0a]/50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-black mb-12 text-center">
-            {he ? "שאלות נפוצות" : "FAQ"}
+      {/* ── 7. DISQUALIFICATION (moved down — low engagement zone) ── */}
+      <section className="py-24 px-6 bg-[#0a0a0a]">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-black mb-16 text-center">
+            {he ? "האתגר הזה לא לכולם" : "This Challenge Isn't for Everyone"}
           </h2>
-          <div className="space-y-4">
-            {FAQ.map((item, i) => (
-              <details key={i} className="group border-2 border-white bg-neutral-900">
-                <summary className="w-full p-6 flex items-center justify-between text-start cursor-pointer list-none">
-                  <span className="text-xl font-bold">{he ? item.he.q : item.en.q}</span>
-                  <span className="text-brand text-3xl font-black transition-transform group-open:rotate-45 shrink-0 ms-4">+</span>
-                </summary>
-                <div className="p-6 pt-0 text-gray-400 border-t border-white/5">
-                  {he ? item.he.a : item.en.a}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="border-2 border-green-800 bg-green-950/20 p-8">
+              <h3 className="text-xl font-black text-green-400 mb-6 uppercase tracking-widest">
+                {he ? "זה בשבילכם אם..." : "This IS for you if..."}
+              </h3>
+              <ul className="space-y-4">
+                {(he
+                  ? ["מוכנים להתחייב ל-30 יום", "פתוחים להכיר אנשים חדשים", "מוכנים להשקיע 15 דקות ביום", "גרים באזור תל אביב או כפר סבא"]
+                  : ["Ready to commit for 30 days", "Open to meeting new people", "Willing to invest 15 min/day", "Live near Tel Aviv or Kfar Saba"]
+                ).map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+                    <span className="text-gray-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="border-2 border-red-800 bg-red-950/20 p-8">
+              <h3 className="text-xl font-black text-red-400 mb-6 uppercase tracking-widest">
+                {he ? "זה לא בשבילכם אם..." : "This is NOT for you if..."}
+              </h3>
+              <ul className="space-y-4">
+                {(he
+                  ? ["מחפשים פתרון קסם בלי מאמץ", "לא יכולים להגיע 2-3 פעמים בשבוע", "מצפים להיות מקצועים אחרי חודש", "לא מוכנים לצאת מאזור הנוחות"]
+                  : ["Looking for a magic fix without effort", "Can't attend 2-3 times per week", "Expect to be a pro after one month", "Not willing to leave your comfort zone"]
+                ).map((item, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-red-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+                    <span className="text-gray-300">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 8. SCHEDULE (moved down) ─────────────────────────────────── */}
+      <section className="py-24 px-6 bg-[#0a0a0a] border-t-2 border-neutral-800">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-black mb-16 text-center">
+            {he ? "מתי ואיפה" : "When & Where"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
+              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
+                {he ? "אמצע שבוע" : "Weekdays"}
+              </div>
+              <h3 className="text-2xl font-black mb-2">
+                {he ? "שני + רביעי · 20:00" : "Mon + Wed · 20:00"}
+              </h3>
+              <p className="text-gray-400 mb-4">
+                {he ? "רוקח 40, צפון תל אביב" : "Rokah 40, North Tel Aviv"}
+              </p>
+              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
+                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
+              </p>
+            </div>
+            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
+              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
+                {he ? "סוף שבוע" : "Weekend"}
+              </div>
+              <h3 className="text-2xl font-black mb-2">
+                {he ? "שישי + שבת · 13:30" : "Fri + Sat · 13:30"}
+              </h3>
+              <p className="text-gray-400 mb-4">
+                {he ? "חוף צ׳ארלס קלור, מול מלון עם ממ״ד" : "Charles Clore Beach, near hotel with shelter"}
+              </p>
+              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
+                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 9. TIMELINE (moved down) ─────────────────────────────────── */}
+      <section className="py-24 px-6 border-t-2 border-neutral-800">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl font-black mb-16 text-center">
+            {he ? "המסלול שלכם" : "Your Journey"}
+          </h2>
+          <div className="space-y-0">
+            {[
+              { week: he ? "שבוע 1" : "Week 1", title: he ? "בסיס ואמון" : "Foundation & Trust", desc: he ? "עמדות בסיסיות, בניית אמון, Bird ראשון. מתחילים 10 ס״מ מהרצפה." : "Basic positions, trust building, first Bird. Starting 10cm off the ground." },
+              { week: he ? "שבוע 2" : "Week 2", title: he ? "כוח ויציבות" : "Strength & Stability", desc: he ? "Throne, Shoulderstand, מעברים ראשונים. מתחילים להרגיש בטוחים למעלה." : "Throne, Shoulderstand, first transitions. Starting to feel confident up high." },
+              { week: he ? "שבוע 3" : "Week 3", title: he ? "זרימה ויצירתיות" : "Flow & Creativity", desc: he ? "רצפים, מעברים חלקים, עבודה עם פרטנרים שונים. מגלים את הסגנון שלכם." : "Sequences, smooth transitions, different partners. Finding your style." },
+              { week: he ? "שבוע 4" : "Week 4", title: he ? "שליטה וחגיגה" : "Mastery & Celebration", desc: he ? "שילוב הכל, ג׳אם חגיגי, תעודת סיום, כניסה לקבוצת הבוגרים." : "Putting it together, celebratory jam, certificate, alumni access." },
+            ].map((step, i) => (
+              <div key={i} className="flex gap-6 pb-12 relative">
+                {i < 3 && <div className="absolute start-5 top-12 bottom-0 w-[2px] bg-neutral-800" />}
+                <div className="shrink-0 w-10 h-10 bg-brand text-black font-black flex items-center justify-center text-sm z-10">
+                  {i + 1}
                 </div>
-              </details>
+                <div>
+                  <p className="text-brand text-xs font-bold uppercase tracking-widest mb-1">{step.week}</p>
+                  <h3 className="text-xl font-black mb-2">{step.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── 10. URGENCY BAND ─────────────────────────────────────────── */}
+      {/* ── 10. OBJECTION HANDLING ────────────────────────────────────── */}
+      <section className="py-24 px-6 bg-[#0a0a0a] border-y-2 border-neutral-800">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl font-black mb-16 text-center">
+            {he ? "שאלות שכולם שואלים" : "Questions Everyone Asks"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { q: he ? "אני לא גמיש/ה" : "I'm not flexible", a: he ? "80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא." : "80% couldn't touch their toes on day 1. By day 30 — full Bird." },
+              { q: he ? "אין לי פרטנר" : "I don't have a partner", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום 1." : "60% come alone. Everyone rotates. You'll find partners on day 1." },
+              { q: he ? "פוחד/ת שלא אתמיד" : "Afraid I won't stick with it", a: he ? "96% שיעור סיום. הקבוצה שומרת עליכם. גמישות מובנית — אפשר להשלים ימים. אף אחד לא נופל." : "96% completion rate. The group keeps you going. Built-in flexibility — make up days. No one falls behind." },
+              { q: he ? "מביך לי עם אנשים זרים" : "I'll feel awkward with strangers", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם — אין רגע שעומדים לבד. ביום 1 כבר תכירו את כל הקבוצה." : "60% come alone. Everyone rotates partners — no standing alone. By day 1 you'll know the whole group." },
+            ].map((item, i) => (
+              <div key={i} className="bg-neutral-900 border-2 border-neutral-700 p-8">
+                <h3 className="text-lg font-black text-brand mb-3">{item.q}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 11. URGENCY BAND ─────────────────────────────────────────── */}
       <section className="bg-brand/10 border-y-2 border-brand py-8 px-6">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-start">

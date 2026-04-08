@@ -9,6 +9,7 @@ import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 import { ShareButton } from "@/components/social/ShareButton";
 import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
 import { nextMonday } from "@/lib/date-utils";
+import { CountdownTimer } from "@/components/quiz/CountdownTimer";
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -299,12 +300,19 @@ export default function QuizResultsPage({
                 {isHe ? "מבצע מיוחד עד 12/4" : "Special Offer Until Apr 12"}
               </p>
 
-              <div className="flex items-baseline justify-center gap-4 mb-2">
+              <div className="flex items-baseline justify-center gap-4 mb-1">
                 <span className="text-7xl font-black text-black">₪99</span>
                 <span className="text-2xl text-black/40 line-through">₪299</span>
               </div>
+              <p className="text-black/60 text-sm font-bold mb-2">
+                {isHe ? "פחות מ-₪8 למפגש" : "Less than ₪8 per session"}
+              </p>
 
-              <p className="text-black/70 text-sm font-bold mb-8">
+              <div className="mb-4">
+                <CountdownTimer locale={locale} />
+              </div>
+
+              <p className="text-black/70 text-sm font-bold mb-6">
                 {isHe ? "נותרו 4 מקומות · מתחילים " : "4 spots left · Starting "}
                 {formattedStartDate}
               </p>

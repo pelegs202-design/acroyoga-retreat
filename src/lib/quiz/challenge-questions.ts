@@ -87,7 +87,6 @@ export const challengeQuestions: Question[] = [
       {
         id: 'never',
         label: { en: 'Zero, starting from scratch', he: 'אפס, מתחילים מאפס' },
-        nextQuestionId: 'first-thought',
       },
       { id: 'few-times', label: { en: 'Tried once or twice', he: 'ניסיתי פעם-פעמיים' } },
       { id: 'sometimes', label: { en: 'Practice here and there', he: 'מתרגל/ת פה ושם' } },
@@ -97,29 +96,6 @@ export const challengeQuestions: Question[] = [
         label: { en: 'Certified instructor', he: 'מדריך/ה מוסמך/ת' },
         nextQuestionId: 'contact', // skip to contact for lead capture, DQ on results
       },
-    ],
-    defaultNextId: 'city',
-  },
-
-  // ── Q4: First Thought (Beginner fear capture — disguised as curiosity) ──
-  {
-    id: 'first-thought',
-    type: 'single-choice',
-    text: {
-      en: 'What\'s the first thing that comes to mind when you think of acroyoga?',
-      he: 'מה הדבר הראשון שעולה לכם כשחושבים על אקרויוגה?',
-    },
-    subtitle: {
-      en: 'First impression — see how it changes after 30 days',
-      he: 'הרגשה ראשונה — תראו איך משתנה אחרי 30 יום',
-    },
-    options: [
-      { id: 'scary-cool', label: { en: 'Scary but cool', he: 'נראה מפחיד אבל מגניב' } },
-      { id: 'not-flexible', label: { en: "I'm not flexible enough", he: 'אני לא מספיק גמיש/ה' } },
-      { id: 'need-partner', label: { en: 'How do I find a partner?', he: 'איך מוצאים פרטנר?' } },
-      { id: 'fun', label: { en: 'Looks like insane fun', he: 'נראה כמו כיף מטורף' } },
-      // SOFT DQ: self-selector
-      { id: 'not-for-me', label: { en: 'Not for me, just looking', he: 'זה לא בשבילי, רק באתי לראות' } },
     ],
     defaultNextId: 'city',
   },
@@ -212,24 +188,26 @@ export const challengeQuestions: Question[] = [
     defaultNextId: 'biggest-fear',
   },
 
-  // ── Q8: Biggest Fear (Direct fear capture — for ALL users) ──────────────
+  // ── Q8: Biggest Fear (Captures hesitations — softened framing) ──────────
   {
     id: 'biggest-fear',
     type: 'single-choice',
     text: {
-      en: "Let's be honest — what scares you most about joining?",
-      he: 'בואו נהיה כנים — מה הכי מפחיד אתכם בלהצטרף?',
+      en: "Is anything holding you back?",
+      he: 'יש משהו שמהסס אתכם?',
     },
     subtitle: {
-      en: 'Your fears are exactly what we specialize in solving',
-      he: 'נקודות הפחד שלכם הן בדיוק מה שאנחנו מתמחים בלפתור',
+      en: 'Most people feel this way at first — and we have an answer for each one',
+      he: 'רוב האנשים מרגישים ככה בהתחלה — ויש לנו תשובה לכל אחד מהם',
     },
     options: [
+      { id: 'ready', label: { en: "Nothing — let's go!", he: 'כלום — אני מוכן/ה, יאללה' } },
       { id: 'not-good-enough', label: { en: "I won't be good enough", he: 'שלא אהיה מספיק טוב/ה' } },
       { id: 'socially-awkward', label: { en: "It'll be socially awkward", he: 'שיהיה לי מביך עם אנשים זרים' } },
-      { id: 'injury', label: { en: "I'll get hurt", he: 'שאפגע' } },
       { id: 'wont-commit', label: { en: "I won't stick with it", he: 'שלא אתמיד' } },
-      { id: 'ready', label: { en: "Nothing — let's go!", he: 'כלום — אני מוכן/ה, יאללה' } },
+      { id: 'not-flexible', label: { en: "I'm not flexible/strong enough", he: 'אני לא מספיק גמיש/ה או חזק/ה' } },
+      { id: 'need-partner', label: { en: "I don't know anyone there", he: 'אני לא מכיר/ה אף אחד שם' } },
+      { id: 'injury', label: { en: "I'll get hurt", he: 'שאפגע' } },
     ],
     defaultNextId: 'body-type',
   },

@@ -260,10 +260,6 @@ export function calculateFitScore(answers: Record<string, string>): number {
   else if (answers['body-type'] === 'slightly-over') fit += 5;
   // significantly-over = 0 (soft DQ)
 
-  // Beginner first thought
-  if (answers['first-thought'] === 'not-for-me') fit -= 20;
-  else if (answers['first-thought']) fit += 5;
-
   // Availability (hard DQ if unavailable most of the month)
   if (answers['availability'] === 'no') fit -= 100;
   else if (answers['availability'] === 'half') fit -= 40;
@@ -292,54 +288,46 @@ export function getPersonalizedFears(
 ): Array<{ en: string; he: string }> {
   const extras: Array<{ en: string; he: string }> = [];
 
-  // ── From Q4: first-thought (beginners) ──
-  if (answers['first-thought'] === 'scary-cool') {
-    extras.push({
-      en: "We start 10cm off the ground. You go higher only when YOU feel ready. Zero injuries in 527 graduates.",
-      he: 'מתחילים 10 ס״מ מהרצפה. עולים רק כשאתם מרגישים מוכנים. 0 פציעות ב-527 בוגרים.',
-    });
-  }
-
-  if (answers['first-thought'] === 'not-flexible') {
-    extras.push({
-      en: "80% of our participants couldn't touch their toes on day 1. By day 30 — full Bird pose.",
-      he: '80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא.',
-    });
-  }
-
-  if (answers['first-thought'] === 'need-partner') {
-    extras.push({
-      en: "60% come alone. In every session you rotate and work with everyone. You'll find partners on day 1.",
-      he: '60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום הראשון.',
-    });
-  }
-
-  // ── From Q8: biggest-fear (everyone) ──
+  // ── From biggest-fear (captures all hesitations) ──
   if (answers['biggest-fear'] === 'not-good-enough') {
     extras.push({
-      en: 'There is no "good enough." There\'s "beginner" and "progressing" — and both have room to grow.',
-      he: 'אין ״מספיק טוב״. יש ״מתחיל״ ו״מתקדם״ — ובשניהם יש מקום לצמוח.',
+      en: "Think you're not good enough? 80% of our participants couldn't touch their toes on day 1. By day 7 they did Bird. By day 30 — Throne. This journey was designed exactly for you.",
+      he: 'חושבים שאתם לא מספיק טובים? 80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 7 הם עשו Bird. ביום 30 — Throne. המסע הזה תוכנן בדיוק בשבילכם.',
     });
   }
 
   if (answers['biggest-fear'] === 'socially-awkward') {
     extras.push({
-      en: "The warmest community in Israel. People arrive shy and leave with friends. We've seen it 527 times.",
-      he: 'הקהילה הכי חמה בישראל. אנשים מגיעים ביישנות ויוצאים עם חברים. ראינו את זה 527 פעמים.',
-    });
-  }
-
-  if (answers['biggest-fear'] === 'injury') {
-    extras.push({
-      en: "Zero injuries in 527 graduates. Professional spotters at every exercise. Instructor by your side.",
-      he: '0 פציעות ב-527 בוגרים. ספוטרים מקצועיים בכל תרגיל. מדריך צמוד.',
+      en: "Worried about awkwardness? In every session you rotate partners — there's never a moment standing alone on the side. By day 1 you'll know the whole group. 60% come solo.",
+      he: 'מביך עם זרים? בכל מפגש מסתובבים ועובדים עם כולם — אין רגע שאתם עומדים לבד בצד. ביום 1 כבר תכירו את כל הקבוצה. 60% מגיעים לבד.',
     });
   }
 
   if (answers['biggest-fear'] === 'wont-commit') {
     extras.push({
-      en: "96% completion rate. Built-in flexibility — you can make up days. The group keeps you going.",
-      he: '96% שיעור סיום. גמישות מובנית — אפשר להשלים ימים. הקבוצה שומרת עליכם.',
+      en: "Afraid you won't stick with it? That's exactly what the group is for. 96% finish because the group won't let you quit. Miss a day? Make it up another week. Zero pressure.",
+      he: 'פחד לא להתמיד? בדיוק בשביל זה יש קבוצה. 96% מסיימים כי הקבוצה לא נותנת לך לוותר. ואם מפספסים יום — משלימים בשבוע אחר. אפס לחץ.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'not-flexible') {
+    extras.push({
+      en: "80% of our participants couldn't touch their toes on day 1. By day 30 — full Bird pose. Flexibility comes from practice, not the other way around.",
+      he: '80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא. גמישות באה מתרגול, לא הפוך.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'need-partner') {
+    extras.push({
+      en: "60% come alone. In every session you rotate and work with everyone. You'll find partners on day 1 — and leave with 15 new friends on day 30.",
+      he: '60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום הראשון — ותצאו עם 15 חברים חדשים ביום 30.',
+    });
+  }
+
+  if (answers['biggest-fear'] === 'injury') {
+    extras.push({
+      en: "Zero injuries in 527 graduates. We start 10cm off the ground. Professional spotters at every exercise. You go higher only when YOU feel ready.",
+      he: '0 פציעות ב-527 בוגרים. מתחילים 10 ס״מ מהרצפה. ספוטרים מקצועיים בכל תרגיל. עולים רק כשאתם מרגישים מוכנים.',
     });
   }
 
