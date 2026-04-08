@@ -143,7 +143,7 @@ function CheckoutContent() {
         </div>
 
         <p className="text-center text-neutral-600 text-xs mt-3">
-          {isHe ? "₪1 בלבד · ללא חיוב חוזר · ללא התחייבות" : "₪1 only · No recurring charges · No commitment"}
+          {isHe ? "₪99 בלבד · ללא חיוב חוזר · ללא התחייבות" : "₪99 only · No recurring charges · No commitment"}
         </p>
 
         <button

@@ -99,7 +99,7 @@ interface CheckoutParams {
  * Create a Green Invoice payment form URL for the 30-day challenge.
  * Returns the hosted checkout URL where the user completes payment.
  *
- * Per user decision: 299 NIS fixed price, vatType 1 (VAT included),
+ * Per user decision: 99 NIS promo price (until Apr 12 2026), vatType 1 (VAT included),
  * document type 320 (חשבונית מס קבלה).
  */
 export async function createCheckoutUrl(params: CheckoutParams): Promise<string> {
@@ -118,7 +118,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
       catalogNum: 'CHALLENGE-30D',
       description: 'אקרוחבורה — אתגר 30 הימים',
       quantity: 1,
-      price: 299,
+      price: 99,
       currency: 'ILS',
       vatType: 1,
     }],
@@ -129,7 +129,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
     },
     payment: [{
       type: 3,              // Payment type 3 = payment request (hosted checkout)
-      price: 299,
+      price: 99,
       currency: 'ILS',
       date: new Date().toISOString().split('T')[0], // YYYY-MM-DD today
     }],

@@ -296,11 +296,11 @@ export default function QuizResultsPage({
                 {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
               </h2>
               <p className="text-black/60 text-sm mb-4">
-                {isHe ? "מבצע מיוחד לזמן מלחמה" : "Special Wartime Offer"}
+                {isHe ? "מבצע מיוחד עד 12/4" : "Special Offer Until Apr 12"}
               </p>
 
               <div className="flex items-baseline justify-center gap-4 mb-2">
-                <span className="text-7xl font-black text-black">₪1</span>
+                <span className="text-7xl font-black text-black">₪99</span>
                 <span className="text-2xl text-black/40 line-through">₪299</span>
               </div>
 
@@ -323,7 +323,7 @@ export default function QuizResultsPage({
               </button>
 
               <p className="text-black/50 text-xs mt-4">
-                {isHe ? "₪1 בלבד · ערבות החזר 30 יום · ביטול בכל עת" : "₪1 only · 30-day money back · Cancel anytime"}
+                {isHe ? "₪99 בלבד · ערבות החזר 30 יום · ביטול בכל עת" : "₪99 only · 30-day money back · Cancel anytime"}
               </p>
             </div>
           </section>

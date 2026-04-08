@@ -11,6 +11,67 @@ import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, t
 import { formatNextMonday } from "@/lib/date-utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Countdown timer — expires Sunday April 12, 2026 23:59:59 Israel time
+// ─────────────────────────────────────────────────────────────────────────────
+
+const PROMO_END = new Date("2026-04-12T23:59:59+03:00");
+
+function useCountdown() {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0, expired: false });
+
+  useEffect(() => {
+    function calc() {
+      const diff = PROMO_END.getTime() - Date.now();
+      if (diff <= 0) return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+      return {
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+        expired: false,
+      };
+    }
+    setTimeLeft(calc());
+    const id = setInterval(() => setTimeLeft(calc()), 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  return timeLeft;
+}
+
+function CountdownTimer({ locale }: { locale: string }) {
+  const { days, hours, minutes, seconds, expired } = useCountdown();
+  const he = locale === "he";
+
+  if (expired) return null;
+
+  const units = [
+    { value: days, label: he ? "ימים" : "Days" },
+    { value: hours, label: he ? "שעות" : "Hours" },
+    { value: minutes, label: he ? "דקות" : "Min" },
+    { value: seconds, label: he ? "שניות" : "Sec" },
+  ];
+
+  return (
+    <div className="bg-red-950/40 border-2 border-red-500/50 p-4 text-center">
+      <p className="text-red-400 font-black text-sm uppercase tracking-widest mb-3">
+        {he ? "המחיר חוזר ל-₪299 בעוד:" : "Price goes back to ₪299 in:"}
+      </p>
+      <div className="flex justify-center gap-3">
+        {units.map((u, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <span className="text-3xl md:text-4xl font-black text-white tabular-nums">
+              {String(u.value).padStart(2, "0")}
+            </span>
+            <span className="text-[10px] text-red-400/70 uppercase tracking-widest mt-1">{u.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -75,7 +136,7 @@ const FAQ = [
   { he: { q: "כמה זמן כל אימון?", a: "מפגשים מודרכים: 90 דקות. תרגול יומי עצמאי: 15-20 דקות." }, en: { q: "How long is each session?", a: "Guided sessions: 90 minutes. Daily independent practice: 15-20 minutes." } },
   { he: { q: "מה אם אני מפספס/ת יום?", a: "קורה. גמישות מובנית — אפשר להשלים ימים. 96% מסיימים." }, en: { q: "What if I miss a day?", a: "It happens. Built-in flexibility — you can make up days. 96% complete." } },
   { he: { q: "זה בטוח?", a: "0 פציעות ב-527 בוגרים. ספוטרים מקצועיים בכל תרגיל. מתחילים נמוך ועולים רק כשמוכנים." }, en: { q: "Is it safe?", a: "Zero injuries in 527 graduates. Professional spotters at every exercise. Start low, go higher only when ready." } },
-  { he: { q: "למה ₪1?", a: "בזמן מלחמה, אנחנו מאמינים שתנועה וקהילה חשובים יותר מתמיד. מחיר סמלי כדי שכולם יוכלו להשתתף." }, en: { q: "Why ₪1?", a: "During wartime, we believe movement and community matter more than ever. Symbolic price so everyone can participate." } },
+  { he: { q: "למה ₪99?", a: "בזמן מלחמה, אנחנו מאמינים שתנועה וקהילה חשובים יותר מתמיד. מחיר מיוחד כדי שכולם יוכלו להשתתף — חוזר ל-₪299 אחרי 12/4." }, en: { q: "Why ₪99?", a: "During wartime, we believe movement and community matter more than ever. Special price so everyone can participate — goes back to ₪299 after April 12." } },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -136,7 +197,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             <div>
               <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
                 <span className="text-brand font-black text-xs uppercase tracking-widest">
-                  {he ? "IL — מבצע מיוחד לזמן מלחמה" : "IL — Special Wartime Offer"}
+                  {he ? "IL — מבצע מיוחד עד 12/4" : "IL — Special Offer Until Apr 12"}
                 </span>
               </div>
 
@@ -152,10 +213,13 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                   : "Structured program with 2-3 weekly jams, active WhatsApp group, and a personal instructor. 527 graduates already flew."}
               </p>
 
-              <div className="flex items-end gap-3 mb-5">
+              <div className="flex items-end gap-3 mb-3">
                 <span className="text-gray-500 line-through text-xl font-bold">₪299</span>
-                <span className="text-5xl font-black text-brand">₪1</span>
-                <span className="text-xs text-gray-400 pb-1">{he ? "מחיר מלחמה" : "Wartime price"}</span>
+                <span className="text-5xl font-black text-brand">₪99</span>
+                <span className="text-xs text-gray-400 pb-1">{he ? "עד 12/4 בלבד" : "Until Apr 12 only"}</span>
+              </div>
+              <div className="mb-5">
+                <CountdownTimer locale={locale} />
               </div>
 
               <button
@@ -393,7 +457,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
             <span className="text-brand font-black text-sm uppercase tracking-widest">
-              {he ? "IL — תנועה מרפאת. ביחד חזקים." : "IL — Movement Heals. Together Strong."}
+              {he ? "מבצע מוגבל — חוזר ל-₪299 ב-12/4" : "Limited offer — back to ₪299 on Apr 12"}
             </span>
           </div>
 
@@ -436,21 +500,24 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
           <div className="border-2 border-brand bg-neutral-900 p-10 inline-block shadow-[8px_8px_0px_0px_rgba(244,114,182,0.2)]">
             <div className="flex items-center justify-center gap-4 mb-4">
               <span className="text-gray-500 line-through text-3xl">₪299</span>
-              <span className="text-7xl font-black text-brand">₪1</span>
+              <span className="text-7xl font-black text-brand">₪99</span>
             </div>
-            <p className="text-gray-400 text-sm mb-8">
-              {he ? "שקל אחד. זה הכל. ערבות החזר מלא." : "One shekel. That's it. Full refund guarantee."}
+            <p className="text-gray-400 text-sm mb-4">
+              {he ? "₪99 בלבד. ערבות החזר מלא 30 יום." : "₪99 only. Full 30-day refund guarantee."}
             </p>
+            <div className="mb-6">
+              <CountdownTimer locale={locale} />
+            </div>
             <button
               onClick={() => handleCTA("pricing")}
               className="btn-press w-full bg-brand text-black py-5 text-xl font-black uppercase tracking-widest hover:bg-white transition-colors"
             >
-              {he ? "גלו את הטיפוס שלכם ב-₪1" : "Discover Your Type for ₪1"}
+              {he ? "גלו את הטיפוס שלכם ב-₪99" : "Discover Your Type for ₪99"}
             </button>
           </div>
 
           <p className="mt-6 text-sm text-gray-500">
-            {he ? "ללא התחייבות · ביטול בכל עת · שקל חזרה אם לא מתאים" : "No commitment · Cancel anytime · ₪1 back if not a fit"}
+            {he ? "ללא התחייבות · ביטול בכל עת · ערבות החזר 30 יום" : "No commitment · Cancel anytime · 30-day money back"}
           </p>
         </div>
       </section>
