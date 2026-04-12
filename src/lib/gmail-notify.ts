@@ -35,10 +35,10 @@ async function getAccessToken(): Promise<string | null> {
   return data.access_token;
 }
 
-function buildRawEmail(subject: string, htmlBody: string): string {
+function buildRawEmail(subject: string, htmlBody: string, to?: string): string {
   const headers = [
     `From: AcroHavura <${NOTIFY_EMAIL}>`,
-    `To: ${NOTIFY_EMAIL}`,
+    `To: ${to || NOTIFY_EMAIL}`,
     `Subject: =?UTF-8?B?${Buffer.from(subject).toString("base64")}?=`,
     "MIME-Version: 1.0",
     "Content-Type: text/html; charset=UTF-8",
@@ -101,5 +101,59 @@ export async function notifyNewLead(lead: {
     console.error("[gmail-notify] Send failed:", await res.text());
   } else {
     console.log(`[gmail-notify] Lead notification sent for ${lead.name}`);
+  }
+}
+
+/**
+ * Send a payment confirmation email to the customer with their success page link.
+ */
+export async function sendPaymentConfirmation(params: {
+  customerEmail: string;
+  customerName: string;
+  sessionId: string;
+}): Promise<void> {
+  const accessToken = await getAccessToken();
+  if (!accessToken) return;
+
+  const firstName = params.customerName.split(" ")[0];
+  const successUrl = `https://acroyoga-academy.vercel.app/he/quiz/challenge/success?session=${params.sessionId}`;
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 500px; direction: rtl; text-align: right;">
+      <div style="background: #0a0a0a; padding: 32px; border-radius: 12px;">
+        <h1 style="color: #F472B6; margin: 0 0 8px;">!${firstName} ברוכים הבאים</h1>
+        <p style="color: #d4d4d4; font-size: 16px; line-height: 1.6; margin: 0 0 24px;">
+          התשלום התקבל בהצלחה! אתם רשומים לאתגר שבועיים של אקרוחבורה.
+        </p>
+        <a href="${successUrl}" style="display: inline-block; background: #F472B6; color: #0a0a0a; padding: 14px 32px; text-decoration: none; font-weight: 900; font-size: 16px; border-radius: 0;">
+          כניסה לעמוד האישי שלכם
+        </a>
+        <p style="color: #737373; font-size: 13px; margin: 24px 0 0; line-height: 1.5;">
+          בעמוד תוכלו לבחור יום ראשון, להוסיף ליומן, ולראות את כל הפרטים.
+        </p>
+        <hr style="border: none; border-top: 1px solid #333; margin: 24px 0;" />
+        <p style="color: #525252; font-size: 12px; margin: 0;">
+          שאלות? שלחו הודעה לשי — <a href="https://wa.me/972544280347" style="color: #F472B6;">WhatsApp</a>
+        </p>
+      </div>
+    </div>
+  `;
+
+  const subject = "אקרוחבורה — התשלום התקבל! הנה הגישה שלכם";
+  const raw = buildRawEmail(subject, html, params.customerEmail);
+
+  const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ raw }),
+  });
+
+  if (!res.ok) {
+    console.error("[gmail-notify] Payment confirmation send failed:", await res.text());
+  } else {
+    console.log(`[gmail-notify] Payment confirmation sent to ${params.customerEmail}`);
   }
 }

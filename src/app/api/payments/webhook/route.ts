@@ -6,6 +6,7 @@ import { nextMonday } from "@/lib/green-invoice/client";
 import { enrollInDrip, cancelDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 import { sendFacebookEvent } from "@/lib/facebook-capi";
+import { sendPaymentConfirmation } from "@/lib/gmail-notify";
 
 /**
  * Extract customer info from webhook payload.
@@ -161,6 +162,17 @@ export async function POST(req: NextRequest) {
     }).onConflictDoNothing();
 
     console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${email}, docId=${docId}`);
+
+    // ─── Email customer their success page link (non-blocking) ───
+    if (email && name) {
+      sendPaymentConfirmation({
+        customerEmail: email,
+        customerName: name,
+        sessionId,
+      }).catch((err) => {
+        console.error("[payments/webhook] Payment confirmation email failed:", err);
+      });
+    }
 
     // ─── Facebook CAPI: Purchase + CompleteRegistration (non-blocking) ───
     const capiParams = {
