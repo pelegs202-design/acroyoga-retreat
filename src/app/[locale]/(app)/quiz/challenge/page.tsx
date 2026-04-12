@@ -677,6 +677,18 @@ export default function ChallengeQuizPage() {
   const locale = useLocale();
   const isInApp = useInAppBrowser();
 
+  // A/B test: 50/50 redirect to retro variant
+  useEffect(() => {
+    // Skip if already assigned or if user came from challenge-b
+    if (sessionStorage.getItem("ab_challenge")) return;
+    const variant = Math.random() < 0.5 ? "a" : "b";
+    sessionStorage.setItem("ab_challenge", variant);
+    if (variant === "b") {
+      // Preserve query params (fbclid, utm_*)
+      window.location.replace(`/${locale}/quiz/challenge-b${window.location.search}`);
+    }
+  }, [locale]);
+
   if (started) {
     return (
       <main className="min-h-screen bg-[#0a0a0a] flex flex-col items-center justify-center px-4 py-16">
