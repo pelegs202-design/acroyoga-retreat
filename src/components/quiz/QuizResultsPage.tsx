@@ -168,11 +168,11 @@ export default function QuizResultsPage({
 
   return (
     <div className="w-full max-w-2xl mx-auto flex flex-col gap-12 pb-20 px-4">
-      {/* Shared view: recipient CTA at top */}
-      {isSharedView && (
+      {/* Shared view: recipient CTA at top — only if URL was explicitly shared (has no sessionStorage marker) */}
+      {isSharedView && typeof window !== "undefined" && !sessionStorage.getItem(`quiz_completed_${sessionId}`) && (
         <div className="bg-brand/10 border-2 border-brand p-6 text-center mt-8">
           <p className="text-brand font-black text-lg mb-3">
-            {isHe ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+            {isHe ? "רוצה לגלות את הטיפוס שלך?" : "Want to discover your type?"}
           </p>
           <Link
             href={`/${locale}/quiz/challenge`}

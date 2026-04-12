@@ -581,6 +581,7 @@ function ChallengeQuizFlow() {
     } catch {}
 
     try { localStorage.removeItem("quiz_challenge_state"); } catch {}
+    try { sessionStorage.setItem(`quiz_completed_${state.sessionId}`, "1"); } catch {}
     router.push(`/quiz/challenge/results?session=${state.sessionId}`);
   };
 
