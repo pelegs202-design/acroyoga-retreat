@@ -137,7 +137,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   }, [onStart]);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-x-hidden">
       {/* ── 1. HERO ──────────────────────────────────────────────────── */}
       <section className="relative flex items-center overflow-hidden border-b-2 border-neutral-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-20 w-full">
@@ -687,7 +687,7 @@ export default function ChallengeQuizPage() {
   }
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a]">
+    <main className="min-h-screen bg-[#0a0a0a] overflow-x-hidden">
       {isInApp && <InAppBrowserBanner locale={locale} />}
       <ChallengeLanding onStart={() => setStarted(true)} locale={locale} />
     </main>
