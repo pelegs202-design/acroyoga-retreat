@@ -54,16 +54,16 @@ const FAQ_EN = [
   { q: "Do I need experience?", a: "Not at all! 80% of our students start as complete beginners. Our classes are designed to welcome everyone." },
   { q: "Do I need to bring a partner?", a: "No partner needed! We pair everyone up in class. Many students come alone and meet their regular practice partners here." },
   { q: "What should I wear?", a: "Comfortable athletic clothes that you can move in. Avoid zippers and buttons that could scratch your partner." },
-  { q: "How fit do I need to be?", a: "Any fitness level works. AcroYoga builds strength and flexibility progressively — you'll surprise yourself by week 2." },
-  { q: "What if I'm afraid of heights?", a: "We start low to the ground and build up gradually. You'll always feel safe and supported by your base and spotter." },
+  { q: "What if I miss a day?", a: "It happens. Built-in flexibility — you can make up days. 96% complete the challenge." },
+  { q: "How long is each session?", a: "Guided sessions: 90 minutes. Daily independent practice: 15-20 minutes." },
 ];
 
 const FAQ_HE = [
   { q: "צריך ניסיון?", a: "בכלל לא! 80% מהתלמידים שלנו מתחילים כמתחילים מוחלטים. השיעורים מתוכננים לקבל את כולם." },
   { q: "צריך להגיע עם פרטנר?", a: "לא צריך! אנחנו מזווגים את כולם בשיעור. הרבה תלמידים מגיעים לבד ומוצאים פרטנרים קבועים כאן." },
   { q: "מה ללבוש?", a: "בגדי ספורט נוחים שאפשר לזוז בהם. הימנעו מרוכסנים וכפתורים שעלולים לשרוט את הפרטנר." },
-  { q: "כמה צריך להיות בכושר?", a: "כל רמת כושר מתאימה. אקרויוגה בונה כוח וגמישות בהדרגה — תפתיעו את עצמכם כבר בשבוע השני." },
-  { q: "מה אם אני פוחד מגובה?", a: "מתחילים נמוך ומתקדמים בהדרגה. תמיד תרגישו בטוחים ונתמכים על ידי הבייס והספוטר." },
+  { q: "מה אם אני מפספס/ת יום?", a: "קורה. גמישות מובנית — אפשר להשלים ימים. 96% מסיימים את האתגר." },
+  { q: "כמה זמן כל אימון?", a: "מפגשים מודרכים: 90 דקות. תרגול יומי עצמאי: 15-20 דקות." },
 ];
 
 function FaqAccordion({ locale }: { locale: string }) {

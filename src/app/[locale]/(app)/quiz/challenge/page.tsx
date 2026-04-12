@@ -150,34 +150,22 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 </span>
               </div>
 
-              <p className="text-base md:text-lg text-gray-400 mb-3 leading-relaxed">
-                {he
-                  ? "משעמם לכם בחדר כושר? רוצים חברים חדשים? מפחדים שאתם לא מספיק טובים?"
-                  : "Bored at the gym? Want new friends? Afraid you're not good enough?"}
-              </p>
-
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-4">
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-3">
                 {he ? "שבועיים." : "2 Weeks."} <br />
                 {he ? "מאפס." : "Zero."} <br />
                 <span className="text-brand">{he ? "לטיסה ראשונה." : "To First Flight."}</span>
               </h1>
 
-              <p className="text-base md:text-xl text-gray-400 max-w-lg mb-5 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-400 max-w-lg mb-4 leading-relaxed">
                 {he
-                  ? "בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע. 527 אנשים שהרגישו בדיוק כמוכם כבר עפו."
-                  : "No experience, no partner, no flexibility needed — just show up. 527 people who felt exactly like you already flew."}
+                  ? "בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע."
+                  : "No experience, no partner, no flexibility needed — just show up."}
               </p>
 
-              <div className="flex items-end gap-3 mb-1">
-                <span className="text-gray-500 line-through text-xl font-bold">₪299</span>
-                <span className="text-5xl font-black text-brand">₪99</span>
-                <span className="text-xs text-gray-400 pb-1">{he ? "עד 12/4 בלבד" : "Until Apr 12 only"}</span>
-              </div>
-              <p className="text-brand/70 text-sm font-bold mb-3">
-                {he ? "פחות מ-₪8 למפגש" : "Less than ₪8 per session"}
-              </p>
-              <div className="mb-5">
-                <CountdownTimer locale={locale} />
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-gray-500 line-through text-lg">₪299</span>
+                <span className="text-4xl font-black text-brand">₪99</span>
+                <span className="text-brand/70 text-sm font-bold">{he ? "פחות מ-₪8 למפגש" : "< ₪8/session"}</span>
               </div>
 
               <button
@@ -187,7 +175,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
               </button>
 
-              <p className="mt-3 text-sm text-gray-500">
+              <p className="mt-2 text-sm text-gray-500">
                 {he ? "שאלון אישיות קצר — לא מתאים לכל אחד" : "Short personality quiz — not for everyone"}
               </p>
             </div>
