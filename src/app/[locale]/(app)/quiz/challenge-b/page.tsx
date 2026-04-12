@@ -131,13 +131,13 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           UNDER CONSTRUCTION
         </div>
 
-        {/* Stitch-generated acroyoga image */}
+        {/* Retro acroyoga Bird pose - pixel art */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          className="w-full max-w-sm h-48 object-cover grayscale hover:grayscale-0 transition-all"
+          className="w-full max-w-sm object-cover"
           style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}
-          alt="אקרויוגה"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWoTAYm-tywBRjjBY85kIhZV1LGR92dHyWhyRz0iHWTOZvNqygWh7zBywGgBShB9PcPn2znV_De4rnZ3WZl9Vil2qLlHzpUiSiXGRdhv5U0RphbkCkxa_tcE2V4kaLocQuvX2rKzKk21ciFHzQX95f4KjhY-wmmvB6A5Y5P_zd1u_FH78h22gccnIq3q1FyKdUkmAlSWecU0Fv6S5000SDhAa_DoOdqXZn1uqxvLj7d588SRixeP_xHRzgIFnJofUQJAD1P7cU7Xbn"
+          alt="אקרויוגה Bird pose — pixel art"
+          src="/images/retro-acro-bird.png"
         />
       </section>
 
@@ -159,6 +159,18 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           </div>
         ))}
       </section>
+
+      {/* Group acroyoga image */}
+      <div className="px-4 my-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="w-full object-cover"
+          style={{ border: "4px solid #ff1493", borderStyle: "outset" }}
+          alt="קבוצת אקרויוגה"
+          src="/images/retro-acro-group.png"
+        />
+        <p className="text-center text-[#ff1493] text-sm mt-1 animate-[blink_1s_step-end_infinite]">&#9650; זה מהג&apos;אם האחרון שלנו &#9650;</p>
+      </div>
 
       {/* Fire divider */}
       <div className="h-5 my-4" style={{ background: "linear-gradient(90deg, #ff0000, #ff8c00, #ffff00, #ff8c00, #ff0000)" }} />
@@ -211,6 +223,17 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           </div>
         ))}
       </section>
+
+      {/* Throne pose image */}
+      <div className="px-4 my-4">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          className="w-48 h-48 object-cover mx-auto"
+          style={{ border: "4px solid #00ffff", borderStyle: "outset" }}
+          alt="Throne pose — neon art"
+          src="/images/retro-acro-throne.png"
+        />
+      </div>
 
       {/* Fire divider */}
       <div className="h-5 my-4" style={{ background: "linear-gradient(90deg, #ff0000, #ff8c00, #ffff00, #ff8c00, #ff0000)" }} />
@@ -276,11 +299,10 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         <p className="text-zinc-500 text-xs">Best viewed in Netscape Navigator 4.0</p>
 
         {/* Retro badges */}
-        <div className="flex gap-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="h-10" alt="Best of the Web 1996" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjpnRvBbINEy15Qkgmj1am6qp8RaO256-gi19j9j2UdF8yN4H73KTpGTUJ0_KJesOEta4D7CliXPCRdfiA0-h4gBEr8kIoxZYM5q4zQWT4kLFBmx6ZqxEwjWbKub1kf5RAHopVE-tGjL7yg1zghFJQM8hqETcqwuHtUgYSZGihiuv5kfS8CrgNDhYddc3RcLGdTno39dWcYY5LSGLdUW0FcXpxv0fPdl1slYKSOy9PLtrvhugNy5Qze0U84tCeHcf2WFhVkot1b84K" />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="h-10" alt="Made with Notepad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJOcQBeEhccjDMzGklRroWK9vRTj1Gp90GzBzPPgz0YYuj3WWmXBgg_S4Mp2UmQb3zaSH_63_oE6SpTSJprN3FTwzfLkzCYEK6Z_FXtzNHCDWoA_tp4fwrkFHbAd6sYnRzR1GVGT5YvA350wJbTQsvRJl7GTTaPrfOHCBdqFAi_68pwKwkQ8IkqI9hZIqP9wnIYWhLQ2dWuR-wdIpLj4OlKCKqZQ5QEFkjtK8DWkmHEtdGDRosWKc_he6SXE7KULxrSZRNSiUwXzw8" />
+        <div className="flex gap-3 flex-wrap justify-center text-xs">
+          <span className="bg-zinc-800 border-2 border-zinc-600 px-2 py-1 text-[#39ff14]">&#127760; Best of Web &apos;96</span>
+          <span className="bg-zinc-800 border-2 border-zinc-600 px-2 py-1 text-[#ffff00]">&#128221; Made with Notepad</span>
+          <span className="bg-zinc-800 border-2 border-zinc-600 px-2 py-1 text-[#00ffff]">&#128187; IE 6 Optimized</span>
         </div>
 
         <p className="text-zinc-600 text-xs animate-pulse">&#169; 1996 אקרוחבורה — הכי טוב ברשת</p>
