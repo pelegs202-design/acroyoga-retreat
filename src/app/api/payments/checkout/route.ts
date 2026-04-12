@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { quizLeads } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { sendFacebookEvent } from "@/lib/facebook-capi";
 
 // Morning payment form link — created in dashboard, fixed for 30-day challenge
-const MORNING_PAYMENT_URL = process.env.MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
+const MORNING_PAYMENT_URL = process.env.MORNING_PAYMENT_URL || "https://morning-sale.page/acroyoga";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,6 +26,27 @@ export async function POST(req: NextRequest) {
     if (!lead) {
       return NextResponse.json({ error: "Session not found" }, { status: 404 });
     }
+
+    // Send InitiateCheckout via CAPI (non-blocking)
+    const clientIp =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+      req.headers.get("x-real-ip") ||
+      undefined;
+    const clientUserAgent = req.headers.get("user-agent") || undefined;
+
+    sendFacebookEvent({
+      eventName: "InitiateCheckout",
+      email: lead.email,
+      phone: lead.phone,
+      value: 99,
+      currency: "ILS",
+      eventId: `checkout_${sessionId}`,
+      sourceUrl: `https://acroyoga-academy.vercel.app/he/quiz/challenge/checkout?session=${sessionId}`,
+      clientIp,
+      clientUserAgent,
+    }).catch((err) => {
+      console.error("[payments/checkout] CAPI InitiateCheckout error:", err);
+    });
 
     // Return the Morning payment form URL
     // The webhook handles enrollment after payment confirmation

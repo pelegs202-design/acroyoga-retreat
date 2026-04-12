@@ -32,7 +32,7 @@ export default function QuizRadarChart({
   }));
 
   const currentLabel = locale === "he" ? "נוכחי" : "Current";
-  const potentialLabel = locale === "he" ? "אחרי 30 יום" : "After 30 Days";
+  const potentialLabel = locale === "he" ? "אחרי שבועיים" : "After 2 Weeks";
 
   return (
     <ResponsiveContainer width="100%" height={300}>

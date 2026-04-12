@@ -283,8 +283,8 @@ export default function QuizResultsPage({
             <div className="mx-auto mb-4 h-1 w-16 bg-neutral-700" />
             <p className="text-neutral-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">
               {isHe
-                ? "אתגר 30 יום דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אפשר להתחיל עם ג׳אם פתוח."
-                : "The 30-day challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. Try a drop-in jam first."}
+                ? "האתגר דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אפשר להתחיל עם ג׳אם פתוח."
+                : "The challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. Try a drop-in jam first."}
             </p>
             <a href={`/${locale}/jams`} className="btn-press inline-block bg-neutral-700 text-white px-8 py-3 font-black hover:bg-neutral-600 transition-colors">
               {isHe ? "ג׳אמים פתוחים" : "Open Jams"}
@@ -294,7 +294,7 @@ export default function QuizResultsPage({
           <section className="bg-brand py-16 -mx-4 px-4">
             <div className="max-w-lg mx-auto text-center">
               <h2 className="text-4xl font-black text-black mb-2">
-                {isHe ? "הצטרפו לאתגר 30 יום" : "Join the 30-Day Challenge"}
+                {isHe ? "הצטרפו לאתגר שבועיים" : "Join the 2-Week Challenge"}
               </h2>
               <p className="text-black/60 text-sm mb-4">
                 {isHe ? "מבצע מיוחד עד 12/4" : "Special Offer Until Apr 12"}

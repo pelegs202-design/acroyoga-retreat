@@ -149,8 +149,8 @@ export const challengeQuestions: Question[] = [
     id: 'availability',
     type: 'single-choice',
     text: {
-      en: 'The challenge starts next week and runs for 30 days. Are you available?',
-      he: 'האתגר מתחיל בשבוע הבא ונמשך 30 יום. אתם זמינים?',
+      en: 'The challenge starts next week and runs for 2 weeks. Are you available?',
+      he: 'האתגר מתחיל בשבוע הבא ונמשך שבועיים. אתם זמינים?',
     },
     subtitle: {
       en: "It's okay to miss a few days — but we need you for most of the month",
@@ -171,8 +171,8 @@ export const challengeQuestions: Question[] = [
     id: 'dream-outcome',
     type: 'single-choice',
     text: {
-      en: 'What would you most want to happen after 30 days?',
-      he: 'מה הייתם הכי רוצים שיקרה אחרי 30 יום?',
+      en: 'What would you most want to happen after 2 weeks?',
+      he: 'מה הייתם הכי רוצים שיקרה אחרי שבועיים?',
     },
     subtitle: {
       en: "We'll measure this together",

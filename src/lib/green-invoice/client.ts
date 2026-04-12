@@ -116,7 +116,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
     vatType: 1,           // VAT included in price — GI calculates split automatically
     income: [{
       catalogNum: 'CHALLENGE-30D',
-      description: 'אקרוחבורה — אתגר 30 הימים',
+      description: 'אקרוחבורה — אתגר שבועיים',
       quantity: 1,
       price: 99,
       currency: 'ILS',

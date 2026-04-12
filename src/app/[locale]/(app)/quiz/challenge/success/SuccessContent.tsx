@@ -256,7 +256,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </div>
         <div className="flex items-center justify-center" onClick={() => setStepsCompleted((s) => ({ ...s, calendar: true }))}>
           <AddToCalendarButton
-            name={isHe ? "אקרוחבורה — אתגר 30 הימים מתחיל!" : "AcroHavura — 30-Day Challenge Starts!"}
+            name={isHe ? "אקרוחבורה — האתגר מתחיל!" : "AcroHavura — Challenge Starts!"}
             startDate={calendarDate}
             startTime="10:00"
             endTime="12:00"
@@ -430,7 +430,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
       {/* Floating share button */}
       <ShareButton
         url={typeof window !== "undefined" ? `${window.location.origin}/${locale}/quiz/challenge` : ""}
-        title={isHe ? "הצטרפו לאתגר 30 יום של אקרוחבורה!" : "Join the AcroHavura 30-Day Challenge!"}
+        title={isHe ? "הצטרפו לאתגר של אקרוחבורה!" : "Join the AcroHavura Challenge!"}
       />
 
       {/* Bottom — WhatsApp Shai */}

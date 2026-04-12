@@ -19,8 +19,8 @@ import { CountdownTimer } from "@/components/quiz/CountdownTimer";
 
 const BENEFITS = [
   {
-    he: { title: "תכנית מובנית ל-30 יום", desc: "כל יום מתוכנן מראש — לא צריך לחשוב, רק לעשות. מתחילים מהבסיס ומתקדמים בהדרגה." },
-    en: { title: "Structured 30-Day Plan", desc: "Every day is planned — just show up and do. Start from basics and progress gradually." },
+    he: { title: "תכנית מובנית לשבועיים", desc: "כל יום מתוכנן מראש — לא צריך לחשוב, רק לעשות. מתחילים מהבסיס ומתקדמים בהדרגה." },
+    en: { title: "Structured 2-Week Plan", desc: "Every day is planned — just show up and do. Start from basics and progress gradually." },
     icon: (
       <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V19.5a2.25 2.25 0 0 0 2.25 2.25h.75" /></svg>
     ),
@@ -40,8 +40,8 @@ const BENEFITS = [
     ),
   },
   {
-    he: { title: "תעודת סיום", desc: "מי שמשלים 30 יום מקבל תעודה דיגיטלית + כניסה לקבוצת הבוגרים." },
-    en: { title: "Completion Certificate", desc: "Complete 30 days and get a digital certificate + alumni group access." },
+    he: { title: "תעודת סיום", desc: "מי שמשלים את האתגר מקבל תעודה דיגיטלית + כניסה לקבוצת הבוגרים." },
+    en: { title: "Completion Certificate", desc: "Complete the challenge and get a digital certificate + alumni group access." },
     icon: (
       <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.996.078-1.927.228-2.25.375v2.139A2.625 2.625 0 0 0 5.25 9.375h.006M18.75 4.236c.996.078 1.927.228 2.25.375v2.139A2.625 2.625 0 0 1 18.75 9.375h-.006" /></svg>
     ),
@@ -92,6 +92,15 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   // Track landing view + scroll depth + time on page
   useEffect(() => {
     trackLandingView();
+
+    // Server-side PageView for Facebook CAPI (better attribution for Safari/iOS)
+    const fbclid = new URLSearchParams(window.location.search).get("fbclid") || undefined;
+    const fbp = document.cookie.match(/_fbp=([^;]+)/)?.[1] || undefined;
+    fetch("/api/tracking/pageview", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: window.location.href, fbclid, fbp }),
+    }).catch(() => {});
 
     let ticking = false;
     const handleScroll = () => {
@@ -148,7 +157,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </p>
 
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-4">
-                {he ? "30 יום." : "30 Days."} <br />
+                {he ? "שבועיים." : "2 Weeks."} <br />
                 {he ? "מאפס." : "Zero."} <br />
                 <span className="text-brand">{he ? "לטיסה ראשונה." : "To First Flight."}</span>
               </h1>
@@ -187,7 +196,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             <div className="hidden lg:flex justify-center relative">
               <div className="relative z-10 border-[3px] border-neutral-800 p-4 bg-[#0a0a0a] w-full max-w-md">
                 <div className="aspect-square bg-neutral-900 flex flex-col items-center justify-center gap-4 overflow-hidden">
-                  <p className="text-[120px] font-black text-brand/20 leading-none select-none">30</p>
+                  <p className="text-[120px] font-black text-brand/20 leading-none select-none">14</p>
                   <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.3em]">
                     {he ? "ימים לטיסה" : "Days to Flight"}
                   </p>
@@ -248,7 +257,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             {he ? "מה כולל האתגר?" : "What's Included?"}
           </h2>
           <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-            {he ? "30 ימים של תכנית מובנית שלוקחת אתכם מאפס לטיסה ראשונה." : "30 days taking you from zero to first flight."}
+            {he ? "שבועיים של תכנית מובנית שלוקחת אתכם מאפס לטיסה ראשונה." : "2 weeks taking you from zero to first flight."}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {BENEFITS.map((b, i) => (
@@ -303,7 +312,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
           <div className="text-start mb-10 space-y-3 max-w-md mx-auto">
             {(he
               ? [
-                  ["תכנית 30 יום מובנית", "₪299"],
+                  ["תכנית שבועיים מובנית", "₪299"],
                   ["2-3 ג׳אמים מודרכים בשבוע", "₪600+"],
                   ["קבוצת וואטסאפ תומכת", "₪—"],
                   ["ספריית סרטוני הדרכה", "₪150"],
@@ -311,7 +320,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                   ["תעודת סיום + קבוצת בוגרים", "₪—"],
                 ]
               : [
-                  ["30-day structured program", "₪299"],
+                  ["2-week structured program", "₪299"],
                   ["2-3 guided jams per week", "₪600+"],
                   ["Supportive WhatsApp group", "₪—"],
                   ["Tutorial video library", "₪150"],
@@ -369,8 +378,8 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </h3>
               <ul className="space-y-4">
                 {(he
-                  ? ["מוכנים להתחייב ל-30 יום", "פתוחים להכיר אנשים חדשים", "מוכנים להשקיע 15 דקות ביום", "גרים באזור תל אביב או כפר סבא"]
-                  : ["Ready to commit for 30 days", "Open to meeting new people", "Willing to invest 15 min/day", "Live near Tel Aviv or Kfar Saba"]
+                  ? ["מוכנים להתחייב לשבועיים", "פתוחים להכיר אנשים חדשים", "מוכנים להשקיע 15 דקות ביום", "גרים באזור תל אביב או כפר סבא"]
+                  : ["Ready to commit for 2 weeks", "Open to meeting new people", "Willing to invest 15 min/day", "Live near Tel Aviv or Kfar Saba"]
                 ).map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <svg className="w-5 h-5 text-green-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
@@ -513,7 +522,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
       <section className="bg-brand py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-5xl md:text-7xl font-black text-black mb-4 leading-tight">
-            {he ? "עוד שנה של אותו דבר — או 30 יום שישנו הכל." : "Another year of the same — or 30 days that change everything."}
+            {he ? "עוד שנה של אותו דבר — או שבועיים שישנו הכל." : "Another year of the same — or 2 weeks that change everything."}
           </h2>
           <p className="text-black/70 text-xl mb-10">
             {he ? "527 אנשים כבר בחרו. עכשיו תורכם." : "527 people already chose. Now it's your turn."}

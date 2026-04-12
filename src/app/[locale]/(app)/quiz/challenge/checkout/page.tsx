@@ -8,7 +8,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { trackCheckoutStarted, trackCheckoutAbandoned, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 
 const MORNING_PAYMENT_URL =
-  process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://mrng.to/c1Syv3Bh2l";
+  process.env.NEXT_PUBLIC_MORNING_PAYMENT_URL || "https://morning-sale.page/acroyoga";
 
 export default function CheckoutPage() {
   return (

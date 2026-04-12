@@ -19,7 +19,7 @@ function sha256(value: string): string {
 }
 
 interface CAPIEventParams {
-  eventName: "Lead" | "Purchase" | "InitiateCheckout" | "CompleteRegistration";
+  eventName: "Lead" | "Purchase" | "InitiateCheckout" | "CompleteRegistration" | "PageView" | "ViewContent";
   email?: string;
   phone?: string;
   fbclid?: string;
@@ -28,6 +28,8 @@ interface CAPIEventParams {
   currency?: string;
   sourceUrl?: string;
   eventId?: string;
+  clientIp?: string;
+  clientUserAgent?: string;
 }
 
 export async function sendFacebookEvent(params: CAPIEventParams): Promise<void> {
@@ -44,6 +46,8 @@ export async function sendFacebookEvent(params: CAPIEventParams): Promise<void> 
   }
   if (params.fbclid) userData.fbc = `fb.1.${Date.now()}.${params.fbclid}`;
   if (params.fbp) userData.fbp = params.fbp;
+  if (params.clientIp) userData.client_ip_address = params.clientIp;
+  if (params.clientUserAgent) userData.client_user_agent = params.clientUserAgent;
 
   const eventData: Record<string, unknown> = {
     event_name: params.eventName,

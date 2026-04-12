@@ -67,7 +67,7 @@ export async function notifyNewLead(lead: {
 
   const phone = lead.phone.replace("+", "").replace(/[-\s]/g, "");
   const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(
-    `היי ${lead.name.split(" ")[0]}! ראיתי שמילאת את השאלון של אקרוחבורה. רציתי לשאול אם את/ה מעוניין/ת להצטרף לאתגר 30 הימים? אני שי, המדריך - אשמח לענות על כל שאלה!`
+    `היי ${lead.name.split(" ")[0]}! ראיתי שמילאת את השאלון של אקרוחבורה. רציתי לשאול אם את/ה מעוניין/ת להצטרף לאתגר? אני שי, המדריך - אשמח לענות על כל שאלה!`
   )}`;
 
   const html = `
