@@ -109,7 +109,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         {/* Price */}
         <div className="flex flex-col items-center">
           <span className="text-gray-500 line-through text-xl">₪299</span>
-          <span className="text-red-500 text-7xl font-black animate-[blink_1s_step-end_infinite] [text-shadow:0_0_15px_rgba(255,0,0,0.8)]" style={{ fontFamily: "Impact, sans-serif" }}>
+          <span className="text-red-500 text-7xl font-black [text-shadow:0_0_15px_rgba(255,0,0,0.8)]" style={{ fontFamily: "Impact, sans-serif" }}>
             ₪99
           </span>
           <span className="text-[#ffff00] font-bold text-sm">פחות מ-₪8 למפגש!</span>
@@ -121,13 +121,13 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
 
         <button
           onClick={() => handleCTA("hero")}
-          className="text-black font-bold text-2xl px-8 py-4 [text-shadow:0_0_10px_#ff1493,0_0_20px_#ff1493] active:scale-95 transition-all cursor-pointer animate-pulse w-full max-w-sm"
+          className="text-black font-bold text-2xl px-8 py-4 [text-shadow:0_0_10px_#ff1493,0_0_20px_#ff1493] active:scale-95 transition-all cursor-pointer w-full max-w-sm"
           style={{ backgroundColor: "#ff1493", border: "4px solid", borderColor: "#ff69b4 #8b0057 #8b0057 #ff69b4" }}
         >
           אני רוצה לעוף &larr;
         </button>
 
-        <div className="flex items-center gap-2 bg-yellow-400 text-black px-4 py-2 font-bold animate-pulse text-sm" style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}>
+        <div className="flex items-center gap-2 bg-yellow-400 text-black px-4 py-2 font-bold text-sm" style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}>
           UNDER CONSTRUCTION
         </div>
 
@@ -169,7 +169,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           alt="קבוצת אקרויוגה"
           src="/images/retro-acro-group.png"
         />
-        <p className="text-center text-[#ff1493] text-sm mt-1 animate-[blink_1s_step-end_infinite]">&#9650; זה מהג&apos;אם האחרון שלנו &#9650;</p>
+        <p className="text-center text-[#ff1493] text-sm mt-1">&#9650; זה מהג&apos;אם האחרון שלנו &#9650;</p>
       </div>
 
       {/* Fire divider */}
@@ -199,7 +199,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
             </tbody>
           </table>
         </div>
-        <p className="text-red-500 text-center mt-4 text-xl animate-bounce font-black" style={{ fontFamily: "Impact, sans-serif" }}>
+        <p className="text-red-500 text-center mt-4 text-xl font-black" style={{ fontFamily: "Impact, sans-serif" }}>
           !!! זהירות: מלאי המקומות אוזל במהירות !!!
         </p>
       </section>
@@ -280,7 +280,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
 
         <button
           onClick={() => handleCTA("final")}
-          className="w-full text-black font-bold text-3xl py-6 [text-shadow:0_0_10px_#ff1493,0_0_20px_#ff1493] animate-pulse cursor-pointer"
+          className="w-full text-black font-bold text-3xl py-6 [text-shadow:0_0_10px_#ff1493,0_0_20px_#ff1493] cursor-pointer"
           style={{ backgroundColor: "#ff1493", border: "4px solid", borderColor: "#ff69b4 #8b0057 #8b0057 #ff69b4" }}
         >
           בואו נבדוק אם אתם מתאימים &larr;
@@ -305,7 +305,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           <span className="bg-zinc-800 border-2 border-zinc-600 px-2 py-1 text-[#00ffff]">&#128187; IE 6 Optimized</span>
         </div>
 
-        <p className="text-zinc-600 text-xs animate-pulse">&#169; 1996 אקרוחבורה — הכי טוב ברשת</p>
+        <p className="text-zinc-600 text-xs">&#169; 1996 אקרוחבורה — הכי טוב ברשת</p>
       </section>
     </div>
   );
