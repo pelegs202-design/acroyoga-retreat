@@ -7,105 +7,167 @@ import { enrollInDrip, cancelDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 import { sendFacebookEvent } from "@/lib/facebook-capi";
 
+/**
+ * Extract customer info from webhook payload.
+ * Handles both Morning sale-pages format and legacy Green Invoice format.
+ */
+function extractCustomerInfo(body: Record<string, unknown>) {
+  // Try Morning sale-pages/order-paid format first
+  // Common fields: customer, client, buyer, contact — try all
+  const customer = (body.customer ?? body.client ?? body.buyer ?? body.contact ?? {}) as Record<string, unknown>;
+  const order = (body.order ?? body) as Record<string, unknown>;
+  const document = (body.document ?? body) as Record<string, unknown>;
+
+  // Email — try multiple paths
+  const email =
+    (customer.email as string) ??
+    (customer.emails as string[])?.[0] ??
+    (body.email as string) ??
+    (body.customerEmail as string) ??
+    (order.email as string) ??
+    null;
+
+  // Name — try multiple paths
+  const name =
+    (customer.name as string) ??
+    (body.customerName as string) ??
+    (body.name as string) ??
+    (order.customerName as string) ??
+    null;
+
+  // Phone — try multiple paths
+  const phone =
+    (customer.phone as string) ??
+    (customer.mobile as string) ??
+    (body.customerPhone as string) ??
+    (body.phone as string) ??
+    (order.phone as string) ??
+    null;
+
+  // Amount — try multiple paths
+  const amount =
+    (body.total as number) ??
+    (body.amount as number) ??
+    (order.total as number) ??
+    (order.amount as number) ??
+    (body.price as number) ??
+    (document.total as number) ??
+    null;
+
+  // Document/Order ID — try multiple paths
+  const docId =
+    (body.id as string) ??
+    (body.orderId as string) ??
+    (body.orderNumber as string) ??
+    (order.id as string) ??
+    (document.id as string) ??
+    crypto.randomUUID();
+
+  const docNumber =
+    (body.number as number)?.toString() ??
+    (body.orderNumber as string) ??
+    (document.number as number)?.toString() ??
+    null;
+
+  const currency =
+    (body.currency as string) ??
+    (order.currency as string) ??
+    "ILS";
+
+  const createdAt =
+    (body.createdAt as string) ??
+    (body.created_at as string) ??
+    (body.paidAt as string) ??
+    (order.createdAt as string) ??
+    null;
+
+  return { email, name, phone, amount, docId, docNumber, currency, createdAt };
+}
+
 export async function POST(req: NextRequest) {
   try {
-    // Log all headers and query params for debugging Morning webhook format
+    // Log everything for debugging
     const headers: Record<string, string> = {};
     req.headers.forEach((v, k) => { headers[k] = v; });
     console.log("[payments/webhook] Headers:", JSON.stringify(headers));
-    console.log("[payments/webhook] URL:", req.url);
 
-    const body = await req.json();
+    const rawBody = await req.text();
+    console.log("[payments/webhook] Raw body:", rawBody.substring(0, 2000));
+
+    let body: Record<string, unknown>;
+    try {
+      body = JSON.parse(rawBody);
+    } catch {
+      console.error("[payments/webhook] Failed to parse JSON body");
+      return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    }
+
     console.log("[payments/webhook] Body keys:", Object.keys(body));
-    console.log("[payments/webhook] Body preview:", JSON.stringify(body).substring(0, 500));
+    console.log("[payments/webhook] Event type:", body.event ?? body.type ?? body.action ?? "unknown");
 
-    // Validate webhook secret — check header, query param, and body field
-    const secret = req.headers.get("x-webhook-secret")
-      ?? req.headers.get("x-gi-secret")
-      ?? req.nextUrl.searchParams.get("secret")
-      ?? body?.secret;
-    const expectedSecret = process.env.GI_WEBHOOK_SECRET;
-    if (expectedSecret && secret !== expectedSecret) {
-      console.error("[payments/webhook] Secret mismatch. Got:", secret, "Expected:", expectedSecret?.substring(0, 8) + "...");
-      // DON'T reject — log and continue for now to debug
-      // return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // Extract customer info (works for both GI and Morning formats)
+    const { email, name, phone, amount, docId, docNumber, currency, createdAt } = extractCustomerInfo(body);
+
+    console.log(`[payments/webhook] Extracted: email=${email}, name=${name}, phone=${phone}, amount=${amount}, docId=${docId}`);
+
+    if (!email && !phone && !name) {
+      console.warn("[payments/webhook] No customer info found — logging full payload for debugging");
+      console.log("[payments/webhook] FULL BODY:", JSON.stringify(body, null, 2));
+      // Still return 200 to acknowledge receipt
+      return NextResponse.json({ ok: true, warning: "no customer info extracted" });
     }
 
-    if (!body || typeof body !== "object") {
-      console.error("[payments/webhook] Invalid body");
-      return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
-    }
-
-    const docType = body.type;
-    const total = body.total ?? body.amount;
-    const docId = body.id;
-
-    console.log(`[payments/webhook] docType=${docType}, total=${total}, docId=${docId}`);
-    // Accept any document type for now — Morning payment forms may use different types
-    // TODO: restrict to type 320 after confirming what Morning sends
-
-    if (typeof total === "number" && total !== 299) {
-      console.warn(`[payments/webhook] Unexpected total: ${total}`);
-    }
-
-    // Extract client info from webhook payload
-    const customerEmail = body.client?.emails?.[0] ?? null;
-    const customerName = body.client?.name ?? null;
-    const customerPhone = body.client?.phone ?? null;
-    const giDocumentNumber = body.number?.toString() ?? null;
-
-    // Match payment to quiz lead by email — find the most recent lead with this email
+    // Match payment to quiz lead by email
     let sessionId = "unknown";
     let leadId: string | null = null;
     let leadPreferredLocale = "he";
-    if (customerEmail) {
+    if (email) {
       const [lead] = await db
         .select({ sessionId: quizLeads.sessionId, id: quizLeads.id, phone: quizLeads.phone })
         .from(quizLeads)
-        .where(eq(quizLeads.email, customerEmail))
+        .where(eq(quizLeads.email, email))
         .orderBy(desc(quizLeads.createdAt))
         .limit(1);
 
       if (lead) {
         sessionId = lead.sessionId;
         leadId = lead.id;
-        // Detect locale from quiz lead's phone (Israeli +972 → Hebrew)
         const leadPhone = lead.phone ?? "";
         leadPreferredLocale =
           leadPhone.startsWith("+972") || leadPhone.startsWith("972") ? "he" : "en";
-        console.log(`[payments/webhook] Matched email ${customerEmail} to session ${sessionId}`);
+        console.log(`[payments/webhook] Matched email ${email} to session ${sessionId}`);
       } else {
-        console.warn(`[payments/webhook] No quiz lead found for email ${customerEmail}`);
+        console.warn(`[payments/webhook] No quiz lead found for email ${email}`);
       }
     }
 
     // Calculate cohort start date (next Monday from now)
     const cohortStart = nextMonday(new Date());
 
-    // Write enrollment — use giDocumentId unique constraint to prevent duplicates
+    // Write enrollment — use docId unique constraint to prevent duplicates
     await db.insert(challengeEnrollments).values({
       id: crypto.randomUUID(),
       sessionId,
       giDocumentId: String(docId),
-      giDocumentNumber,
-      amountPaid: typeof total === "number" ? total : 299,
-      currency: body.currency ?? "ILS",
-      customerEmail,
-      customerName,
-      customerPhone,
+      giDocumentNumber: docNumber,
+      amountPaid: typeof amount === "number" ? amount : 99,
+      currency,
+      customerEmail: email,
+      customerName: name,
+      customerPhone: phone,
       status: "confirmed",
       cohortStartDate: cohortStart,
-      paidAt: body.createdAt ? new Date(body.createdAt) : new Date(),
+      paidAt: createdAt ? new Date(createdAt) : new Date(),
     }).onConflictDoNothing();
 
-    console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${customerEmail}, GI doc=${docId}`);
+    console.log(`[payments/webhook] Enrollment recorded: session=${sessionId}, email=${email}, docId=${docId}`);
 
     // ─── Facebook CAPI: Purchase + CompleteRegistration (non-blocking) ───
     const capiParams = {
-      email: customerEmail || undefined,
-      phone: customerPhone || undefined,
-      value: typeof total === "number" ? total : 1,
-      currency: body.currency ?? "ILS",
+      email: email || undefined,
+      phone: phone || undefined,
+      value: typeof amount === "number" ? amount : 99,
+      currency,
     };
     sendFacebookEvent({ ...capiParams, eventName: "Purchase", eventId: `purchase_${docId}` })
       .catch((err) => console.error("[payments/webhook] FB CAPI Purchase failed:", err));
@@ -113,22 +175,17 @@ export async function POST(req: NextRequest) {
       .catch((err) => console.error("[payments/webhook] FB CAPI CompleteRegistration failed:", err));
 
     // ─── Drip transition on payment (non-blocking) ───
-    // Cancel-first then enroll to prevent race with WA drip cron (Pitfall 9).
     if (leadId) {
       try {
-        const effectiveName = customerName?.split(" ")[0] ?? "friend";
-        const effectivePhone = customerPhone
-          ? normalizeIsraeliPhone(customerPhone)
+        const effectiveName = name?.split(" ")[0] ?? "friend";
+        const effectivePhone = phone
+          ? normalizeIsraeliPhone(phone)
           : null;
         const cohortDateStr = cohortStart.toISOString();
 
-        // 1. Cancel pre-payment WhatsApp drip
         await cancelDrip(leadId, "wa_challenge_prepay", "paid");
-
-        // 2. Cancel email nurture (lead converted — stop marketing drip)
         await cancelDrip(leadId, "email_nurture", "paid");
 
-        // 3. Start post-payment WhatsApp drip (only if we have a phone)
         if (effectivePhone) {
           await enrollInDrip({
             leadId,
@@ -141,13 +198,12 @@ export async function POST(req: NextRequest) {
           });
         }
 
-        // 4. Start email challenge reminders (always — email available)
-        if (customerEmail) {
+        if (email) {
           await enrollInDrip({
             leadId,
             sequenceType: "email_challenge_reminders",
             channel: "email",
-            recipientEmail: customerEmail,
+            recipientEmail: email,
             recipientName: effectiveName,
             preferredLocale: leadPreferredLocale,
             metadata: { cohortStartDate: cohortDateStr },
@@ -156,7 +212,6 @@ export async function POST(req: NextRequest) {
 
         console.log(`[payments/webhook] Drip transition complete for lead ${leadId}`);
       } catch (dripErr) {
-        // Non-blocking — enrollment is already recorded; log and continue
         console.error("[payments/webhook] Drip transition failed (non-blocking):", dripErr);
       }
     }
@@ -164,6 +219,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     console.error("[payments/webhook] Error:", err);
+    // Always return 200 to prevent Morning from retrying
     return NextResponse.json({ ok: true });
   }
 }
