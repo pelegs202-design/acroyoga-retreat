@@ -8,7 +8,7 @@ import type { QuizState } from "@/components/quiz/QuizEngine";
 import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
-import { CountdownTimer } from "@/components/quiz/CountdownTimer";
+// CountdownTimer removed — funnel is now free trial
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Retro GeoCities Landing Page — A/B variant B
@@ -77,7 +77,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       {/* 1. Marquee */}
       <div className="bg-red-600 border-y-4 border-black py-1 overflow-hidden whitespace-nowrap">
         <div className="inline-block animate-[marquee_12s_linear_infinite]">
-          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! ₪99 בלבד !!!! שבועיים !!!! אקרויוגה !!!! ₪99 בלבד !!!! שבועיים !!!! אקרויוגה !!!! ₪99 בלבד !!!!</span>
+          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! שיעור ניסיון חינם !!!! שבועיים !!!! אקרויוגה !!!! שיעור ניסיון חינם !!!! שבועיים !!!! אקרויוגה !!!! חינם !!!!</span>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
             אקרוחבורה
           </h1>
           <div className="absolute -top-3 -right-3 bg-yellow-400 text-black font-bold px-2 py-1 rotate-12 text-sm" style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}>
-            מבצע מוגבל
+            שיעור ניסיון חינם!
           </div>
         </div>
 
@@ -106,17 +106,12 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע.
         </p>
 
-        {/* Price */}
+        {/* Free Trial */}
         <div className="flex flex-col items-center">
-          <span className="text-gray-500 line-through text-xl">₪299</span>
-          <span className="text-red-500 text-7xl font-black [text-shadow:0_0_15px_rgba(255,0,0,0.8)]" style={{ fontFamily: "Impact, sans-serif" }}>
-            ₪99
+          <span className="text-[#39ff14] text-7xl font-black [text-shadow:0_0_15px_rgba(57,255,20,0.8)]" style={{ fontFamily: "Impact, sans-serif" }}>
+            חינם!!!
           </span>
-          <span className="text-[#ffff00] font-bold text-sm">פחות מ-₪8 למפגש!</span>
-        </div>
-
-        <div className="w-full max-w-sm">
-          <CountdownTimer locale="he" />
+          <span className="text-[#ffff00] font-bold text-sm">שיעור ניסיון ראשון · בלי התחייבות · רק להגיע</span>
         </div>
 
         <button
@@ -256,9 +251,9 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
                 <td className="p-2 font-bold text-[#ffff00]">מתי?</td>
                 <td className="p-2">שני+רביעי 20:00 | שישי+שבת 13:30</td>
               </tr>
-              <tr className="bg-red-600 text-white">
+              <tr className="bg-[#39ff14] text-black">
                 <td className="p-2 font-bold">כמה?</td>
-                <td className="p-2 font-bold">₪99 בלבד! (במקום ₪299)</td>
+                <td className="p-2 font-bold">חינם!!! שיעור ניסיון ראשון בלי תשלום!</td>
               </tr>
               <tr>
                 <td className="p-2 font-bold text-[#ffff00]">צריך?</td>
