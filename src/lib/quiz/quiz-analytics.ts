@@ -112,6 +112,28 @@ export function trackTimeOnPage(page: string, seconds: number): void {
   f("TimeOnPage", { page, seconds });
 }
 
+// ─── Success Page ────────────────────────────────────────────────────────────
+
+export function trackSuccessPageView(sessionId: string): void {
+  g("success_page_view", { session_id: sessionId });
+  f("SuccessPageView", { session_id: sessionId });
+}
+
+export function trackCalendarAdded(sessionId: string): void {
+  g("calendar_added", { session_id: sessionId });
+  f("CalendarAdded", { session_id: sessionId });
+}
+
+export function trackInstagramFollowed(sessionId: string): void {
+  g("instagram_followed", { session_id: sessionId });
+  f("InstagramFollowed", { session_id: sessionId });
+}
+
+export function trackShareClicked(sessionId: string, method: string): void {
+  g("share_clicked", { session_id: sessionId, method });
+  f("ShareClicked", { session_id: sessionId, method });
+}
+
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 export const SOFT_DQ_THRESHOLD = 40;
