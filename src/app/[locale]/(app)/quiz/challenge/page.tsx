@@ -298,7 +298,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 7. FREE TRIAL CTA ────────────────────────────────────── */}
+      {/* ── 6. FREE TRIAL CTA ────────────────────────────────────── */}
       <section className="py-24 px-6 border-y-2 border-neutral-800">
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
@@ -353,7 +353,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 7. DISQUALIFICATION (Brunson: exclusion creates desire) ─── */}
+      {/* ── 7. DISQUALIFICATION ─────────────────────────────────────── */}
       <section className="py-24 px-6 bg-[#0a0a0a]">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl font-black mb-16 text-center">
@@ -398,7 +398,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
 
       {/* Schedule + Timeline removed — they belong on success page (Suby: shorter page for free offer) */}
 
-      {/* ── 8. FAQ (Brunson: answer remaining questions before final CTA) */}
+      {/* ── 8. FAQ ─────────────────────────────────────────────────── */}
       <section className="py-24 px-6 bg-[#0a0a0a] border-y-2 border-neutral-800">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-4xl font-black mb-12 text-center">
@@ -420,7 +420,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 11. URGENCY BAND ─────────────────────────────────────────── */}
+      {/* ── 9. URGENCY BAND ──────────────────────────────────────────── */}
       <section className="bg-brand/10 border-y-2 border-brand py-8 px-6">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-start">
@@ -440,7 +440,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 12. FINAL CTA (Halbert: specificity + Brunson: epiphany close) */}
+      {/* ── 10. FINAL CTA ───────────────────────────────────────────── */}
       <section className="bg-brand py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-4xl md:text-6xl font-black text-black mb-4 leading-tight">

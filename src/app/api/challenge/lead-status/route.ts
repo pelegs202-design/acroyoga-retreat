@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 const VALID_STATUSES = ["new", "booked", "attended", "converted", "no-show", "lost"];
 
 /**
- * PATCH /api/challenge/lead-status
+ * GET /api/challenge/lead-status
  * Update a quiz lead's status. Used from notification emails to mark leads.
  *
  * Query params: ?session={sessionId}&status={newStatus}

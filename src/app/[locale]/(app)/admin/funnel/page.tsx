@@ -52,14 +52,12 @@ const Q_LABELS: Record<string, string> = {
   superpower: "Q1 Superpower",
   "movie-role": "Q2 Movie Role",
   experience: "Q3 Experience",
-  "first-thought": "Q4 First Thought",
-  city: "Q5 City",
-  commitment: "Q6 Commitment",
+  city: "Q4 City",
+  commitment: "Q5 Commitment",
+  availability: "Q6 Availability",
   "dream-outcome": "Q7 Dream Outcome",
   "biggest-fear": "Q8 Biggest Fear",
-  "body-type": "Q9 Body Type",
-  fitness: "Q10 Fitness",
-  schedule: "Q11 Schedule",
+  fitness: "Q9 Fitness",
 };
 
 export default function FunnelAnalyticsPage() {

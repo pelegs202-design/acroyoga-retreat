@@ -81,29 +81,6 @@ export function trackCompleteRegistration(sessionId: string, day: string): void 
   f("CompleteRegistration", { session_id: sessionId, day }, true);
 }
 
-// ─── Checkout (legacy — kept for future online payments) ─────────────────────
-
-export function trackCheckoutStarted(sessionId: string): void {
-  g("begin_checkout", { session_id: sessionId, value: 1, currency: "ILS" });
-  f("InitiateCheckout", { session_id: sessionId, value: 1, currency: "ILS" }, true);
-}
-
-export function trackCheckoutAbandoned(sessionId: string, timeSpentSeconds: number): void {
-  g("checkout_abandoned", { session_id: sessionId, time_spent: timeSpentSeconds });
-  f("CheckoutAbandoned", { session_id: sessionId, time_spent: timeSpentSeconds });
-}
-
-// ─── Purchase ─────────────────────────────────────────────────────────────────
-
-export function trackPurchase(sessionId: string): void {
-  if (typeof window === "undefined") return;
-  const key = `purchase_tracked_${sessionId}`;
-  if (sessionStorage.getItem(key)) return;
-  sessionStorage.setItem(key, "1");
-  g("purchase", { value: 1, currency: "ILS", transaction_id: sessionId });
-  f("Purchase", { value: 1, currency: "ILS" }, true);
-}
-
 // ─── Time Tracking ────────────────────────────────────────────────────────────
 
 export function trackTimeOnPage(page: string, seconds: number): void {
@@ -127,11 +104,6 @@ export function trackCalendarAdded(sessionId: string): void {
 export function trackInstagramFollowed(sessionId: string): void {
   g("instagram_followed", { session_id: sessionId });
   f("InstagramFollowed", { session_id: sessionId });
-}
-
-export function trackShareClicked(sessionId: string, method: string): void {
-  g("share_clicked", { session_id: sessionId, method });
-  f("ShareClicked", { session_id: sessionId, method });
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────

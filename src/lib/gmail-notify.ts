@@ -24,8 +24,6 @@ export async function notifyNewLead(lead: {
   experience?: string;
   city?: string;
   dreamOutcome?: string;
-  bodyType?: string;
-  schedule?: string;
   availability?: string;
 }): Promise<void> {
   if (!resend) {
@@ -63,7 +61,6 @@ export async function notifyNewLead(lead: {
     "wont-commit": "פחד לא להתמיד", "injury": "פחד מפציעה", "not-flexible": "לא גמיש", "need-partner": "אין פרטנר",
     "tel-aviv": "תל אביב", "kfar-saba": "כפר סבא", "other": "מחוץ לאזור",
     "skill": "לשלוט בתנוחות", "strong": "להרגיש חזק", "friends": "למצוא חברים", "no-expectations": "ללא ציפיות",
-    "slim-avg": "רזה/ממוצע", "athletic": "ספורטיבי", "slightly-over": "קצת מעל", "significantly-over": "משקל עודף",
     "morning": "בוקר", "evening": "ערב", "weekend": "סופ\"ש", "flexible": "גמיש",
     "yes-full": "פנוי כל החודש", "yes-mostly": "ברוב הזמן", "half": "חצי חודש", "no": "לא זמין",
   };
@@ -84,8 +81,6 @@ export async function notifyNewLead(lead: {
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 12px 6px 0; color: #999;">Fear</td><td style="padding: 6px 0;">${label(lead.fear)}</td></tr>
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 12px 6px 0; color: #999;">Dream</td><td style="padding: 6px 0;">${label(lead.dreamOutcome)}</td></tr>
         <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 12px 6px 0; color: #999;">Experience</td><td style="padding: 6px 0;">${label(lead.experience)}</td></tr>
-        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 12px 6px 0; color: #999;">Body</td><td style="padding: 6px 0;">${label(lead.bodyType)}</td></tr>
-        <tr style="border-bottom: 1px solid #eee;"><td style="padding: 6px 12px 6px 0; color: #999;">Schedule</td><td style="padding: 6px 0;">${label(lead.schedule)}</td></tr>
         <tr><td style="padding: 6px 12px 6px 0; color: #999;">Available</td><td style="padding: 6px 0;">${label(lead.availability)}</td></tr>
       </table>
       <p style="margin-top: 16px;"><a href="${waLink}" style="display: inline-block; background: #25D366; color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 8px; font-size: 16px;">WhatsApp ${lead.name.split(" ")[0]} &rarr;</a></p>

@@ -44,9 +44,9 @@ export async function GET() {
 
   // Build question order for funnel
   const questionOrder = [
-    "superpower", "movie-role", "experience", "first-thought",
-    "city", "commitment", "dream-outcome", "biggest-fear",
-    "body-type", "fitness", "schedule",
+    "superpower", "movie-role", "experience",
+    "city", "commitment", "availability", "dream-outcome",
+    "biggest-fear", "fitness",
   ];
 
   const questionCountMap: Record<string, number> = {};

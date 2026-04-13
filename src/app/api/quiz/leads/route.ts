@@ -76,8 +76,7 @@ export async function POST(req: NextRequest) {
         experience: answersObj.experience,
         city: answersObj.city,
         dreamOutcome: answersObj["dream-outcome"],
-        bodyType: answersObj["body-type"],
-        schedule: answersObj.schedule,
+        // body-type and schedule questions removed — fields omitted
         availability: answersObj.availability,
       }),
       sendFacebookEvent({
