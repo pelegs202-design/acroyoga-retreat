@@ -317,10 +317,10 @@ export default function QuizResultsPage({
           <section className="bg-brand py-16 -mx-4 px-4">
             <div className="max-w-lg mx-auto text-center">
               <h2 className="text-4xl font-black text-black mb-2">
-                {isHe ? "בחרו את השיעור הראשון" : "Pick Your Free Trial Class"}
+                {isHe ? "בחרו את השיעור הראשון" : "Pick Your Trial Class"}
               </h2>
               <p className="text-black/60 text-sm mb-6">
-                {isHe ? "שיעור ניסיון חינם · בלי התחייבות · מתחילים " : "Free trial class · No commitment · Starting "}
+                {isHe ? "שיעור ניסיון במתנה · בלי התחייבות · מתחילים " : "Free trial class · No commitment · Starting "}
                 {formattedStartDate}
               </p>
 
@@ -377,7 +377,7 @@ export default function QuizResultsPage({
               </button>
 
               <p className="text-black/50 text-xs mt-4">
-                {isHe ? "חינם לגמרי · בלי התחייבות · ביטול בכל עת" : "Completely free · No commitment · Cancel anytime"}
+                {isHe ? "במתנה · בלי התחייבות · ביטול בכל עת" : "On us · No commitment · Cancel anytime"}
               </p>
             </div>
           </section>

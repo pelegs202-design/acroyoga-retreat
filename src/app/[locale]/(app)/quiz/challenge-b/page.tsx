@@ -77,7 +77,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       {/* 1. Marquee */}
       <div className="bg-red-600 border-y-4 border-black py-1 overflow-hidden whitespace-nowrap">
         <div className="inline-block animate-[marquee_12s_linear_infinite]">
-          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! שיעור ניסיון חינם !!!! שבועיים !!!! אקרויוגה !!!! שיעור ניסיון חינם !!!! שבועיים !!!! אקרויוגה !!!! חינם !!!!</span>
+          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! שבועיים !!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! שבועיים !!!! אקרויוגה !!!! במתנה !!!!</span>
         </div>
       </div>
 
@@ -94,7 +94,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
             אקרוחבורה
           </h1>
           <div className="absolute -top-3 -right-3 bg-yellow-400 text-black font-bold px-2 py-1 rotate-12 text-sm" style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}>
-            שיעור ניסיון חינם!
+            שיעור ניסיון במתנה!
           </div>
         </div>
 
@@ -109,9 +109,9 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         {/* Free Trial */}
         <div className="flex flex-col items-center">
           <span className="text-[#39ff14] text-7xl font-black [text-shadow:0_0_15px_rgba(57,255,20,0.8)]" style={{ fontFamily: "Impact, sans-serif" }}>
-            חינם!!!
+            במתנה!!!
           </span>
-          <span className="text-[#ffff00] font-bold text-sm">שיעור ניסיון ראשון · בלי התחייבות · רק להגיע</span>
+          <span className="text-[#ffff00] font-bold text-sm">שיעור ניסיון ראשון במתנה · בלי התחייבות · רק להגיע</span>
         </div>
 
         <button
@@ -253,7 +253,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
               </tr>
               <tr className="bg-[#39ff14] text-black">
                 <td className="p-2 font-bold">כמה?</td>
-                <td className="p-2 font-bold">חינם!!! שיעור ניסיון ראשון בלי תשלום!</td>
+                <td className="p-2 font-bold">במתנה!!! שיעור ניסיון ראשון עלינו!</td>
               </tr>
               <tr>
                 <td className="p-2 font-bold text-[#ffff00]">צריך?</td>

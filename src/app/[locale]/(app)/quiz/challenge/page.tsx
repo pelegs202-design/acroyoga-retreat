@@ -75,7 +75,7 @@ const FAQ = [
   { he: { q: "כמה זמן כל אימון?", a: "מפגשים מודרכים: 90 דקות. תרגול יומי עצמאי: 15-20 דקות." }, en: { q: "How long is each session?", a: "Guided sessions: 90 minutes. Daily independent practice: 15-20 minutes." } },
   { he: { q: "מה אם אני מפספס/ת יום?", a: "קורה. גמישות מובנית — אפשר להשלים ימים. 96% מסיימים." }, en: { q: "What if I miss a day?", a: "It happens. Built-in flexibility — you can make up days. 96% complete." } },
   { he: { q: "זה בטוח?", a: "0 פציעות ב-527 בוגרים. ספוטרים מקצועיים בכל תרגיל. מתחילים נמוך ועולים רק כשמוכנים." }, en: { q: "Is it safe?", a: "Zero injuries in 527 graduates. Professional spotters at every exercise. Start low, go higher only when ready." } },
-  { he: { q: "כמה זה עולה?", a: "השיעור הראשון חינם לגמרי, בלי התחייבות. מגיעים, מתנסים, ואז מחליטים. אם מתאים — ממשיכים." }, en: { q: "How much does it cost?", a: "Your first class is completely free, no commitment. Come, try it, then decide. If it fits — continue." } },
+  { he: { q: "כמה זה עולה?", a: "השיעור הראשון במתנה, בלי התחייבות. מגיעים, מתנסים, ואז מחליטים. אם מתאים — ממשיכים." }, en: { q: "How much does it cost?", a: "Your first class is on us, no commitment. Come, try it, then decide. If it fits — continue." } },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -145,7 +145,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             <div>
               <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
                 <span className="text-brand font-black text-xs uppercase tracking-widest">
-                  {he ? "IL — שיעור ניסיון חינם" : "IL — Free Trial Class"}
+                  {he ? "IL — שיעור ניסיון במתנה" : "IL — Free Trial Class"}
                 </span>
               </div>
 
@@ -162,8 +162,8 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </p>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-4xl font-black text-brand">{he ? "חינם" : "FREE"}</span>
-                <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון · בלי התחייבות" : "First trial class · No commitment"}</span>
+                <span className="text-4xl font-black text-brand">{he ? "במתנה" : "FREE"}</span>
+                <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון במתנה · בלי התחייבות" : "First trial class · No commitment"}</span>
               </div>
 
               <button
@@ -286,7 +286,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
             <span className="text-brand font-black text-sm uppercase tracking-widest">
-              {he ? "שיעור ניסיון חינם" : "Free Trial Class"}
+              {he ? "שיעור ניסיון במתנה" : "Free Trial Class"}
             </span>
           </div>
 
@@ -296,7 +296,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
 
           <p className="text-gray-400 text-lg mb-10 max-w-md mx-auto leading-relaxed">
             {he
-              ? "שיעור ראשון חינם לגמרי, בלי התחייבות. תנסו אקרויוגה בעצמכם ותרגישו מה זה."
+              ? "שיעור ראשון במתנה, בלי התחייבות. תנסו אקרויוגה בעצמכם ותרגישו מה זה."
               : "Your first class is completely free, no commitment. Experience acroyoga firsthand and feel what it's about."}
           </p>
 
@@ -331,7 +331,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
           </button>
 
           <p className="mt-6 text-sm text-gray-500">
-            {he ? "בלי התחייבות · בלי תשלום · רק להגיע ולנסות" : "No commitment · No payment · Just come and try"}
+            {he ? "בלי התחייבות · במתנה · רק להגיע ולנסות" : "No commitment · Free · Just come and try"}
           </p>
         </div>
       </section>
@@ -474,7 +474,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-start">
             <p className="text-white font-black text-lg">
-              {he ? `שיעור ניסיון חינם · הקבוצה הבאה ${nextMondayStr}` : `Free trial class · Next cohort ${nextMondayStr}`}
+              {he ? `שיעור ניסיון במתנה · הקבוצה הבאה ${nextMondayStr}` : `Free trial class · Next cohort ${nextMondayStr}`}
             </p>
             <p className="text-brand font-bold text-sm">
               {he ? "מקומות מוגבלים" : "Limited spots"}
