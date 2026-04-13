@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { trackPurchase } from "@/lib/quiz/quiz-analytics";
+// trackPurchase removed — funnel is free trial, not purchase
 import { nextMonday as getNextMonday } from "@/lib/date-utils";
 import { ShareButton } from "@/components/social/ShareButton";
 
@@ -22,19 +22,18 @@ const MAPS = {
 interface SuccessContentProps {
   sessionId: string;
   locale: string;
+  initialDay?: string;
 }
 
-export default function SuccessContent({ sessionId: _sessionId, locale }: SuccessContentProps) {
+export default function SuccessContent({ sessionId: _sessionId, locale, initialDay }: SuccessContentProps) {
   const isHe = locale === "he";
 
-  const [selectedDay, setSelectedDay] = useState<string | null>(null);
-  const [dayConfirmed, setDayConfirmed] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<string | null>(initialDay ?? null);
+  const [dayConfirmed, setDayConfirmed] = useState(!!initialDay);
   const [archetypeName, setArchetypeName] = useState("");
   const [enrollmentCount, setEnrollmentCount] = useState(0);
 
   useEffect(() => {
-    trackPurchase(_sessionId);
-
     // Fetch archetype for personalization
     fetch(`/api/quiz/results/${_sessionId}`)
       .then((r) => r.ok ? r.json() : null)
@@ -123,7 +122,7 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
 
   // Track completed activation steps
   const [stepsCompleted, setStepsCompleted] = useState({
-    day: false,
+    day: !!initialDay,
     calendar: false,
     instagram: false,
   });

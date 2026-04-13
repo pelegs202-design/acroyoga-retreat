@@ -10,12 +10,12 @@ export const metadata: Metadata = {
 
 interface Props {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ session?: string }>;
+  searchParams: Promise<{ session?: string; day?: string }>;
 }
 
 export default async function ChallengeSuccessPage({ params, searchParams }: Props) {
   const { locale } = await params;
-  const { session } = await searchParams;
+  const { session, day } = await searchParams;
 
   setRequestLocale(locale);
 
@@ -25,7 +25,7 @@ export default async function ChallengeSuccessPage({ params, searchParams }: Pro
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
-      <SuccessContent sessionId={session} locale={locale} />
+      <SuccessContent sessionId={session} locale={locale} initialDay={day} />
     </main>
   );
 }

@@ -379,7 +379,8 @@ export default function QuizResultsPage({
                       body: JSON.stringify({ sessionId, day: selectedDay }),
                     });
                     if (!res.ok) throw new Error("API error");
-                    setDayConfirmed(true);
+                    // Redirect to full success/onboarding page
+                    window.location.href = `/${locale}/quiz/challenge/success?session=${sessionId}&day=${selectedDay}`;
                   } catch {
                     setBookingError(true);
                   } finally {
