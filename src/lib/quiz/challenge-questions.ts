@@ -121,74 +121,73 @@ export const challengeQuestions: Question[] = [
     defaultNextId: 'commitment',
   },
 
-  // ── Q6: Commitment (Key qualifier) ──────────────────────────────────────
+  // ── Q5: Commitment (Key qualifier — no effort reveal, all options positive) ──
   {
     id: 'commitment',
     type: 'single-choice',
     text: {
-      en: 'How many times per week are you willing to invest?',
-      he: 'כמה פעמים בשבוע אתם מוכנים להשקיע?',
+      en: 'How often would you like to train?',
+      he: 'כמה פעמים בשבוע הייתם רוצים להתאמן?',
     },
     subtitle: {
-      en: 'The challenge includes 2-3 weekly sessions + 15 daily minutes at home',
-      he: 'האתגר כולל 2-3 מפגשים שבועיים + 15 דקות יומיות בבית',
+      en: 'Most of our graduates trained 2-3 times per week',
+      he: 'רוב הבוגרים שלנו התאמנו 2-3 פעמים בשבוע',
     },
     options: [
-      { id: '3-plus', label: { en: '3+ times, I\'m all in', he: '3+ פעמים, אני אולאין' } },
-      { id: '2', label: { en: '2 times, realistic', he: '2 פעמים, ריאלי' } },
-      // SOFT DQ: undercommitted
-      { id: '1', label: { en: 'Once a week, more is hard', he: 'פעם בשבוע, יותר קשה לי' } },
-      // SOFT DQ: just browsing
-      { id: 'just-browsing', label: { en: 'Just exploring for now', he: 'אני רק מתעניין/ת כרגע' } },
+      { id: '3-plus', label: { en: '3+ times, all in', he: '3+ פעמים, אולאין' } },
+      { id: '2', label: { en: '2 times a week', he: '2 פעמים בשבוע' } },
+      // SOFT DQ: undercommitted (but still positive framing)
+      { id: '1', label: { en: 'Once a week to start', he: 'פעם בשבוע בהתחלה' } },
+      // SOFT DQ: low intent (reframed from "just browsing")
+      { id: 'just-browsing', label: { en: "I'll decide after trying", he: 'אחליט אחרי שאנסה' } },
     ],
     defaultNextId: 'availability',
   },
 
-  // ── Q6b: Availability (Hard DQ — must be available most of the challenge month) ──
+  // ── Q6: Availability (with social norming) ──
   {
     id: 'availability',
     type: 'single-choice',
     text: {
-      en: 'The challenge starts next week and runs for 30 days. Are you available?',
-      he: 'האתגר מתחיל בשבוע הבא ונמשך 30 יום. אתם זמינים?',
+      en: 'The next group starts soon — are you available?',
+      he: 'הקבוצה הבאה מתחילה בקרוב — אתם פנויים?',
     },
     subtitle: {
-      en: "It's okay to miss a few days — but we need you for most of the month",
-      he: 'אפשר לפספס כמה ימים — אבל צריך להיות פנויים לרוב החודש',
+      en: "Missing a few days is fine — 96% complete the challenge",
+      he: 'אפשר לפספס כמה ימים — 96% מסיימים את האתגר',
     },
     options: [
-      { id: 'yes-full', label: { en: "Yes, I'm available the whole month", he: 'כן, אני פנוי/ה כל החודש' } },
+      { id: 'yes-full', label: { en: "Yes, I'm available", he: 'כן, אני פנוי/ה' } },
       { id: 'yes-mostly', label: { en: "Mostly — might miss a few days", he: 'ברוב הזמן — אפספס כמה ימים' } },
-      { id: 'half', label: { en: "Only about half the month", he: 'רק כחצי מהחודש' } },
+      { id: 'half', label: { en: "Only about half the time", he: 'רק כחצי מהזמן' } },
       // HARD DQ: not available
-      { id: 'no', label: { en: "No, I'll be away most of the month", he: 'לא, אני לא פנוי/ה ברוב החודש' } },
+      { id: 'no', label: { en: "Not available right now", he: 'לא פנוי/ה כרגע' } },
     ],
     defaultNextId: 'dream-outcome',
   },
 
-  // ── Q7: Dream Outcome (Aspirational — pressure release begins) ──────────
+  // ── Q6: Dream Outcome (Aspirational — cinematic vision, Hormozi) ────────
   {
     id: 'dream-outcome',
     type: 'single-choice',
     text: {
-      en: 'What would you most want to happen after 30 days?',
-      he: 'מה הייתם הכי רוצים שיקרה אחרי 30 יום?',
+      en: 'What would make this worth it for you?',
+      he: 'מה יגרום לכם להרגיש שזה היה שווה?',
     },
     subtitle: {
-      en: "We'll measure this together",
-      he: 'אנחנו נמדוד את זה ביחד',
+      en: "Pick the one that excites you most",
+      he: 'בחרו את מה שהכי מרגש אתכם',
     },
     options: [
-      { id: 'skill', label: { en: 'Nail Bird and Throne poses', he: 'לעשות Bird ו-Throne בקלות' } },
-      { id: 'strong', label: { en: 'Feel strong and confident', he: 'להרגיש חזק/ה ובטוח/ה בגוף' } },
-      { id: 'friends', label: { en: 'Find regular practice partners', he: "למצוא חבר׳ה קבועים לתרגול" } },
-      // WARNING: low intent signal (not DQ, but reduces fit score)
-      { id: 'no-expectations', label: { en: 'No specific expectations', he: 'אין לי ציפיות ספציפיות' } },
+      { id: 'skill', label: { en: 'Balancing someone on my feet', he: 'לאזן מישהו על הרגליים שלי' } },
+      { id: 'strong', label: { en: 'Feeling strong in a new way', he: 'להרגיש חזק/ה בצורה חדשה' } },
+      { id: 'friends', label: { en: 'Having a crew to train with', he: "שיהיה לי צוות לתרגל איתו" } },
+      { id: 'no-expectations', label: { en: 'Just want to try something new', he: 'סתם רוצה לנסות משהו חדש' } },
     ],
     defaultNextId: 'biggest-fear',
   },
 
-  // ── Q8: Biggest Fear (Captures hesitations — softened framing) ──────────
+  // ── Q7: Biggest Fear (Captures hesitations — softened framing) ──────────
   {
     id: 'biggest-fear',
     type: 'single-choice',
@@ -209,32 +208,10 @@ export const challengeQuestions: Question[] = [
       { id: 'need-partner', label: { en: "I don't know anyone there", he: 'אני לא מכיר/ה אף אחד שם' } },
       { id: 'injury', label: { en: "I'll get hurt", he: 'שאפגע' } },
     ],
-    defaultNextId: 'body-type',
-  },
-
-  // ── Q9: Body Type (Safety/suitability qualification) ────────────────────
-  {
-    id: 'body-type',
-    type: 'single-choice',
-    text: {
-      en: 'How would you describe your build?',
-      he: 'איך היית מתאר/ת את המבנה הגופני שלך?',
-    },
-    subtitle: {
-      en: 'No wrong answer — just helps us customize your plan',
-      he: 'אין תשובה לא נכונה — רק רוצים להתאים את התכנית',
-    },
-    options: [
-      { id: 'slim-avg', label: { en: 'Slim / average', he: 'רזה / ממוצע' } },
-      { id: 'athletic', label: { en: 'Athletic / muscular', he: 'ספורטיבי / שרירי' } },
-      { id: 'slightly-over', label: { en: 'A bit above average', he: 'קצת מעל המשקל' } },
-      // SOFT DQ: safety concern
-      { id: 'significantly-over', label: { en: 'Significantly overweight', he: 'משקל עודף משמעותי' } },
-    ],
     defaultNextId: 'fitness',
   },
 
-  // ── Q10: Fitness Background (Archetype scoring) ─────────────────────────
+  // ── Q8: Fitness Background (Archetype scoring — almost done!) ──────────
   {
     id: 'fitness',
     type: 'single-choice',
@@ -243,8 +220,8 @@ export const challengeQuestions: Question[] = [
       he: 'מה הרקע הספורטיבי שלכם?',
     },
     subtitle: {
-      en: 'Every background works — we adapt the intensity',
-      he: 'כל רקע מתאים — אנחנו מתאימים את העוצמה',
+      en: 'Almost done! Every background works — we adapt to you',
+      he: 'כמעט סיימנו! כל רקע מתאים — אנחנו מתאימים אליכם',
     },
     options: [
       { id: 'gym', label: { en: 'Gym / CrossFit', he: 'חדר כושר / קרוספיט' } },
@@ -253,41 +230,20 @@ export const challengeQuestions: Question[] = [
       { id: 'team-sports', label: { en: 'Team sports', he: 'ספורט קבוצתי' } },
       { id: 'none', label: { en: 'Nothing regular', he: 'בלי שום דבר קבוע' } },
     ],
-    defaultNextId: 'schedule',
-  },
-
-  // ── Q11: Schedule (Easy closer — ends on positive note) ─────────────────
-  {
-    id: 'schedule',
-    type: 'single-choice',
-    text: {
-      en: "When's best for you?",
-      he: 'מתי הכי נוח לכם?',
-    },
-    subtitle: {
-      en: "We have groups at all times — we'll find your perfect fit",
-      he: 'יש לנו קבוצות בכל הזמנים — נמצא לכם את המושלמת',
-    },
-    options: [
-      { id: 'morning', label: { en: 'Morning', he: 'בוקר' } },
-      { id: 'evening', label: { en: 'Weekday evening', he: 'ערב אמצע שבוע' } },
-      { id: 'weekend', label: { en: 'Weekend', he: 'סוף שבוע' } },
-      { id: 'flexible', label: { en: 'Flexible', he: 'גמיש/ה' } },
-    ],
     defaultNextId: 'contact',
   },
 
-  // ── Q12: Contact Info (Pre-result gate) ─────────────────────────────────
+  // ── Q9: Contact Info (Pre-result gate — high anticipation) ──────────────
   {
     id: 'contact',
     type: 'contact',
     text: {
-      en: 'Your acro profile is ready — just one more second',
-      he: 'הפרופיל האקרו שלכם מוכן — רק עוד שנייה',
+      en: "Your acro type is ready!",
+      he: 'הטיפוס האקרו שלכם מוכן!',
     },
     subtitle: {
-      en: "Enter your details to discover your type. We won't spam you.",
-      he: 'השאירו פרטים כדי לגלות את הסוג שלכם. לא נשלח ספאם.',
+      en: "Leave your details to see your personalized result + free trial class.",
+      he: 'השאירו פרטים כדי לראות את התוצאה האישית שלכם + שיעור ניסיון במתנה.',
     },
   },
 ];

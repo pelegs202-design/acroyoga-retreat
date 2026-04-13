@@ -114,12 +114,14 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           <span className="text-[#ffff00] font-bold text-sm">שיעור ניסיון ראשון במתנה · בלי התחייבות · רק להגיע</span>
         </div>
 
+        <p className="text-gray-500 text-xs">שאלון בן 2 דקות — לא מתאים לכל אחד</p>
+
         <button
           onClick={() => handleCTA("hero")}
           className="text-black font-bold text-2xl px-8 py-4 [text-shadow:0_0_10px_#ff1493,0_0_20px_#ff1493] active:scale-95 transition-all cursor-pointer w-full max-w-sm"
           style={{ backgroundColor: "#ff1493", border: "4px solid", borderColor: "#ff69b4 #8b0057 #8b0057 #ff69b4" }}
         >
-          אני רוצה לעוף &larr;
+          גלו את הטיפוס האקרו שלכם &larr;
         </button>
 
         <div className="flex items-center gap-2 bg-yellow-400 text-black px-4 py-2 font-bold text-sm" style={{ border: "4px solid", borderColor: "#555 #000 #000 #555" }}>
@@ -195,7 +197,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
           </table>
         </div>
         <p className="text-red-500 text-center mt-4 text-xl font-black" style={{ fontFamily: "Impact, sans-serif" }}>
-          !!! זהירות: מלאי המקומות אוזל במהירות !!!
+          !!! נשארו 7 מקומות השבוע !!!
         </p>
       </section>
 

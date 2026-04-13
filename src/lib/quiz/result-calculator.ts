@@ -255,10 +255,10 @@ export function calculateFitScore(answers: Record<string, string>): number {
   if (answers['biggest-fear'] === 'ready') fit += 10;
   else if (answers['biggest-fear']) fit += 5;
 
-  // Body type
+  // Body type (question removed — default to neutral +7 if not answered)
   if (answers['body-type'] === 'slim-avg' || answers['body-type'] === 'athletic') fit += 10;
   else if (answers['body-type'] === 'slightly-over') fit += 5;
-  // significantly-over = 0 (soft DQ)
+  else if (!answers['body-type']) fit += 7; // no body-type question = assume average
 
   // Availability (hard DQ if unavailable most of the month)
   if (answers['availability'] === 'no') fit -= 100;
@@ -339,12 +339,7 @@ export function getPersonalizedFears(
     });
   }
 
-  if (answers['body-type'] === 'slightly-over') {
-    extras.push({
-      en: "The challenge fits all body types. We may adapt some exercises — and you'll be surprised how fast the body adjusts.",
-      he: 'האתגר מתאים לכל מבנה גוף. ייתכן שנתאים חלק מהתרגילים — ותופתעו כמה הגוף מסתגל.',
-    });
-  }
+  // body-type question removed — no personalized fear for it
 
   return extras;
 }

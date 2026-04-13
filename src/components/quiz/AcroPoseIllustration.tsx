@@ -569,8 +569,4 @@ export const QUESTION_POSE_MAP: Record<string, { pose: PoseId; caption: { en: st
     pose: "star",
     caption: { en: "Every fitness level works", he: "כל רמת כושר מתאימה" },
   },
-  "schedule": {
-    pose: "whale",
-    caption: { en: "Whale — the flow pose", he: "Whale — תנוחת הזרימה" },
-  },
 };

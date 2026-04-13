@@ -41,12 +41,18 @@ const BENEFITS = [
   },
 ];
 
+// Varied emotional angles (Halbert: transformation, unexpected benefit, "almost didn't come", punchy)
 const TESTIMONIALS = [
-  { he: "הגעתי בלי שום ניסיון. אחרי שבוע אחד כבר עשיתי Bird. אחרי 30 יום — Throne בלי פחד.", en: "Came with zero experience. After one week I did Bird. After 30 days — Throne fearlessly.", name: "דניאל, 28, תל אביב" },
-  { he: "הקבוצה היא מה שעשה את ההבדל. יום 1 הגעתי לבד. יום 30 יצאתי עם 15 חברים חדשים.", en: "The group made all the difference. Day 1 I came alone. Day 30 I left with 15 new friends.", name: "מאיה, 32, כפר סבא" },
-  { he: "חשבתי שאני צריך להיות גמיש. ביום 1 לא הגעתי לאצבעות הרגליים. ביום 30 עפתי.", en: "Thought I needed to be flexible. Day 1 I couldn't touch my toes. Day 30 I flew.", name: "עומר, 35, תל אביב" },
-  { he: "בתקופה הזו הייתי צריכה משהו שיחזיר לי שפיות. האקרו והקבוצה הצילו אותי.", en: "During these times I needed something to keep me sane. The acro and the group saved me.", name: "נועה, 29, תל אביב" },
-  { he: "ב-45 חשבתי שזה לא בשבילי. טעיתי. הגוף מסתגל מהר יותר ממה שנדמה.", en: "At 45 I thought this wasn't for me. I was wrong. The body adapts faster than you think.", name: "אבי, 45, כפר סבא" },
+  // Transformation story
+  { he: "הגעתי בלי שום ניסיון. אחרי שבוע אחד כבר עשיתי Bird. אחרי 30 יום — Throne בלי פחד. החברים שלי לא מאמינים לתמונות.", en: "Came with zero experience. After one week I did Bird. After 30 days — Throne fearlessly. My friends can't believe the photos.", name: "דניאל, 28, תל אביב" },
+  // Unexpected benefit (came for fitness, stayed for community)
+  { he: "הגעתי בשביל הכושר ויצאתי עם 15 חברים חדשים. הקבוצה היא הדבר הכי טוב שקרה לי השנה.", en: "Came for fitness, left with 15 new friends. The group is the best thing that happened to me this year.", name: "מאיה, 32, כפר סבא" },
+  // "I almost didn't come" story
+  { he: "כמעט לא הגעתי לשיעור הראשון. חשבתי שאני לא מספיק גמיש. עכשיו זה הדבר הכי טוב בשבוע שלי.", en: "I almost didn't come to the first class. Thought I wasn't flexible enough. Now it's the best part of my week.", name: "עומר, 35, תל אביב" },
+  // Emotional/therapeutic angle
+  { he: "בתקופה הזו הייתי צריכה משהו שיחזיר לי שפיות. שעה וחצי שאני לא חושבת על כלום חוץ מלעוף.", en: "In these times I needed something to keep me sane. 90 minutes where I think about nothing but flying.", name: "נועה, 29, תל אביב" },
+  // Age barrier demolished (short + punchy)
+  { he: "בן 45. חשבתי שזה לא בשבילי. טעיתי.", en: "45 years old. Thought it wasn't for me. Wrong.", name: "אבי, 45, כפר סבא" },
 ];
 
 const FAQ = [
@@ -146,16 +152,16 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון במתנה · בלי התחייבות" : "First trial class · No commitment"}</span>
               </div>
 
+              <p className="text-sm text-gray-500 mb-2">
+                {he ? "שאלון בן 2 דקות — לא מתאים לכל אחד" : "2-minute quiz — not for everyone"}
+              </p>
+
               <button
                 onClick={() => handleCTA("hero")}
                 className="btn-press w-full md:w-auto bg-brand text-black px-10 py-4 md:px-12 md:py-5 text-lg md:text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
               >
                 {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
               </button>
-
-              <p className="mt-2 text-sm text-gray-500">
-                {he ? "שאלון בן 2 דקות — לא מתאים לכל אחד" : "2-minute quiz — not for everyone"}
-              </p>
 
               {/* Immediate objection killers (Suby: kill top fears above the fold) */}
               <div className="flex flex-wrap gap-3 mt-4">
@@ -311,20 +317,20 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               : "Your first class is completely free, no commitment. Experience acroyoga firsthand and feel what it's about."}
           </p>
 
-          {/* What's included in the trial */}
+          {/* Outcomes, not features (Hormozi) */}
           <div className="text-start mb-10 space-y-3 max-w-md mx-auto">
             {(he
               ? [
-                  "שיעור 90 דקות עם מדריך מקצועי",
-                  "כל הציוד כלול — רק להגיע",
-                  "לא צריך פרטנר — נזווג אתכם",
-                  "מתאים למתחילים מוחלטים",
+                  "תצאו יודעים להרים מישהו לאוויר",
+                  "תכירו את כל הקבוצה ביום הראשון",
+                  "תרגישו חזקים יותר אחרי 90 דקות",
+                  "תבינו אם זה בשבילכם — בלי סיכון",
                 ]
               : [
-                  "90-minute session with professional instructor",
-                  "All equipment included — just show up",
-                  "No partner needed — we pair you up",
-                  "Suitable for complete beginners",
+                  "You'll leave knowing how to lift someone into the air",
+                  "You'll know the whole group by the end of day 1",
+                  "You'll feel stronger after just 90 minutes",
+                  "You'll know if it's for you — zero risk",
                 ]
             ).map((item, i) => (
               <div key={i} className="flex items-center gap-3 border-b border-neutral-800 pb-3">
@@ -338,20 +344,20 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             onClick={() => handleCTA("pricing")}
             className="btn-press w-full max-w-md bg-brand text-black py-5 text-xl font-black uppercase tracking-widest hover:bg-white transition-colors"
           >
-            {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+            {he ? "הצטרפו ל-527 בוגרים — עשו את השאלון" : "Join 527 Graduates — Take the Quiz"}
           </button>
 
           <p className="mt-6 text-sm text-gray-500">
-            {he ? "בלי התחייבות · במתנה · רק להגיע ולנסות" : "No commitment · Free · Just come and try"}
+            {he ? "2 דקות · במתנה · בלי התחייבות" : "2 minutes · Free · No commitment"}
           </p>
         </div>
       </section>
 
-      {/* ── 7. DISQUALIFICATION (moved down — low engagement zone) ── */}
+      {/* ── 7. DISQUALIFICATION (Brunson: exclusion creates desire) ─── */}
       <section className="py-24 px-6 bg-[#0a0a0a]">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "האתגר הזה לא לכולם" : "This Challenge Isn't for Everyone"}
+            {he ? "זה לא לכולם" : "This Isn't for Everyone"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="border-2 border-green-800 bg-green-950/20 p-8">
@@ -390,75 +396,9 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 8. SCHEDULE (moved down) ─────────────────────────────────── */}
-      <section className="py-24 px-6 bg-[#0a0a0a] border-t-2 border-neutral-800">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "מתי ואיפה" : "When & Where"}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
-              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
-                {he ? "אמצע שבוע" : "Weekdays"}
-              </div>
-              <h3 className="text-2xl font-black mb-2">
-                {he ? "שני + רביעי · 18:30 + 19:45" : "Mon + Wed · 18:30 + 19:45"}
-              </h3>
-              <p className="text-gray-400 mb-4">
-                {he ? "רוקח 40, צפון תל אביב" : "Rokah 40, North Tel Aviv"}
-              </p>
-              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
-                {he ? "חניה חינם · ממ״ד בקרבת מקום" : "Free parking · Shelter (mamad) nearby"}
-              </p>
-            </div>
-            <div className="border-2 border-neutral-700 bg-neutral-900 p-8">
-              <div className="text-brand font-black text-sm uppercase tracking-widest mb-4">
-                {he ? "סוף שבוע" : "Weekend"}
-              </div>
-              <h3 className="text-2xl font-black mb-2">
-                {he ? "שישי + שבת · 13:30" : "Fri + Sat · 13:30"}
-              </h3>
-              <p className="text-gray-400 mb-4">
-                {he ? "חוף צ׳ארלס קלור, מול מלון עם ממ״ד" : "Charles Clore Beach, near hotel with shelter"}
-              </p>
-              <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
-                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Schedule + Timeline removed — they belong on success page (Suby: shorter page for free offer) */}
 
-      {/* ── 9. TIMELINE (moved down) ─────────────────────────────────── */}
-      <section className="py-24 px-6 border-t-2 border-neutral-800">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "המסלול שלכם" : "Your Journey"}
-          </h2>
-          <div className="space-y-0">
-            {[
-              { week: he ? "שבוע 1" : "Week 1", title: he ? "בסיס ואמון" : "Foundation & Trust", desc: he ? "עמדות בסיסיות, בניית אמון, Bird ראשון. מתחילים 10 ס״מ מהרצפה." : "Basic positions, trust building, first Bird. Starting 10cm off the ground." },
-              { week: he ? "שבוע 2" : "Week 2", title: he ? "כוח ויציבות" : "Strength & Stability", desc: he ? "Throne, Shoulderstand, מעברים ראשונים. מתחילים להרגיש בטוחים למעלה." : "Throne, Shoulderstand, first transitions. Starting to feel confident up high." },
-              { week: he ? "שבוע 3" : "Week 3", title: he ? "זרימה ויצירתיות" : "Flow & Creativity", desc: he ? "רצפים, מעברים חלקים, עבודה עם פרטנרים שונים. מגלים את הסגנון שלכם." : "Sequences, smooth transitions, different partners. Finding your style." },
-              { week: he ? "שבוע 4" : "Week 4", title: he ? "שליטה וחגיגה" : "Mastery & Celebration", desc: he ? "שילוב הכל, ג׳אם חגיגי, תעודת סיום, כניסה לקבוצת הבוגרים." : "Putting it together, celebratory jam, certificate, alumni access." },
-            ].map((step, i) => (
-              <div key={i} className="flex gap-6 pb-12 relative">
-                {i < 3 && <div className="absolute start-5 top-12 bottom-0 w-[2px] bg-neutral-800" />}
-                <div className="shrink-0 w-10 h-10 bg-brand text-black font-black flex items-center justify-center text-sm z-10">
-                  {i + 1}
-                </div>
-                <div>
-                  <p className="text-brand text-xs font-bold uppercase tracking-widest mb-1">{step.week}</p>
-                  <h3 className="text-xl font-black mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 10. FAQ (Brunson: answer remaining questions before final CTA) */}
+      {/* ── 8. FAQ (Brunson: answer remaining questions before final CTA) */}
       <section className="py-24 px-6 bg-[#0a0a0a] border-y-2 border-neutral-800">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-4xl font-black mb-12 text-center">
@@ -488,7 +428,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               {he ? `שיעור ניסיון במתנה · הקבוצה הבאה ${nextMondayStr}` : `Free trial class · Next cohort ${nextMondayStr}`}
             </p>
             <p className="text-brand font-bold text-sm">
-              {he ? "מקומות מוגבלים" : "Limited spots"}
+              {he ? "נשארו 7 מקומות השבוע" : "7 spots left this week"}
             </p>
           </div>
           <button
