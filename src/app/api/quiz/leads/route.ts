@@ -74,6 +74,11 @@ export async function POST(req: NextRequest) {
         fear: answersObj["biggest-fear"],
         commitment: answersObj.commitment,
         experience: answersObj.experience,
+        city: answersObj.city,
+        dreamOutcome: answersObj["dream-outcome"],
+        bodyType: answersObj["body-type"],
+        schedule: answersObj.schedule,
+        availability: answersObj.availability,
       }),
       sendFacebookEvent({
         eventName: "Lead",
