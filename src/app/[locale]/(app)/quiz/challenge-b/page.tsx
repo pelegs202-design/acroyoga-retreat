@@ -77,7 +77,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       {/* 1. Marquee */}
       <div className="bg-red-600 border-y-4 border-black py-1 overflow-hidden whitespace-nowrap">
         <div className="inline-block animate-[marquee_12s_linear_infinite]">
-          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! שבועיים !!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! שבועיים !!!! אקרויוגה !!!! במתנה !!!!</span>
+          <span className="font-bold text-xl mx-4">!!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! 30 יום !!!! אקרויוגה !!!! שיעור ניסיון במתנה !!!! 30 יום !!!! אקרויוגה !!!! במתנה !!!!</span>
         </div>
       </div>
 
@@ -99,7 +99,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         </div>
 
         <p className="text-[#39ff14] font-bold text-2xl [text-shadow:0_0_10px_#39ff14,0_0_20px_#39ff14]" style={{ fontFamily: "Impact, sans-serif" }}>
-          שבועיים. מאפס. לטיסה ראשונה.
+          30 יום. מאפס. לטיסה ראשונה.
         </p>
 
         <p className="text-gray-300 text-base max-w-sm">
@@ -206,9 +206,9 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       <section className="px-4 space-y-4">
         <h3 className="text-[#ff1493] text-2xl underline text-center [text-shadow:0_0_10px_#ff1493]">&#11088; מה אנשים אומרים &#11088;</h3>
         {[
-          { text: "הגעתי בלי שום ניסיון. אחרי שבוע כבר עשיתי Bird. אחרי שבועיים — Throne בלי פחד.", author: "דניאל, 28, תל אביב", color: "#39ff14" },
-          { text: "הקבוצה היא מה שעשה את ההבדל. יום 1 הגעתי לבד. יום 14 יצאתי עם 15 חברים חדשים.", author: "מאיה, 32, כפר סבא", color: "#ff1493" },
-          { text: "חשבתי שאני צריך להיות גמיש. ביום 1 לא הגעתי לאצבעות הרגליים. ביום 14 עפתי.", author: "עומר, 35, תל אביב", color: "#00ffff" },
+          { text: "הגעתי בלי שום ניסיון. אחרי שבוע כבר עשיתי Bird. אחרי 30 יום — Throne בלי פחד.", author: "דניאל, 28, תל אביב", color: "#39ff14" },
+          { text: "הקבוצה היא מה שעשה את ההבדל. יום 1 הגעתי לבד. יום 30 יצאתי עם 15 חברים חדשים.", author: "מאיה, 32, כפר סבא", color: "#ff1493" },
+          { text: "חשבתי שאני צריך להיות גמיש. ביום 1 לא הגעתי לאצבעות הרגליים. ביום 30 עפתי.", author: "עומר, 35, תל אביב", color: "#00ffff" },
           { text: "ב-45 חשבתי שזה לא בשבילי. טעיתי. הגוף מסתגל מהר יותר ממה שנדמה.", author: "אבי, 45, כפר סבא", color: "#ffff00" },
         ].map((t, i) => (
           <div key={i} className="bg-black p-4 relative" style={{ border: `4px solid ${t.color}`, borderStyle: "outset" }}>
@@ -241,7 +241,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
             <tbody>
               <tr className="bg-[#ffff00] text-black">
                 <td className="p-2 font-bold border-b-2 border-black w-20">מה?</td>
-                <td className="p-2 border-b-2 border-black">אתגר שבועיים — מאפס לטיסה ראשונה</td>
+                <td className="p-2 border-b-2 border-black">אתגר 30 יום — מאפס לטיסה ראשונה</td>
               </tr>
               <tr>
                 <td className="p-2 font-bold text-[#ffff00]">איפה?</td>
@@ -270,7 +270,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       {/* 7. Final CTA */}
       <section className="px-4 pb-12 flex flex-col items-center gap-6">
         <p className="text-[#ffff00] text-xl font-bold text-center">עוד שנה של אותו דבר</p>
-        <p className="text-white text-lg text-center">או שבועיים שישנו הכל</p>
+        <p className="text-white text-lg text-center">או 30 יום שישנו הכל</p>
         <p className="text-[#39ff14] text-center">527 אנשים כבר בחרו. עכשיו תורכם.</p>
 
         <button

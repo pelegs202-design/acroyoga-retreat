@@ -284,8 +284,8 @@ export default function QuizResultsPage({
             <div className="mx-auto mb-4 h-1 w-16 bg-neutral-700" />
             <p className="text-neutral-400 text-sm mb-6 max-w-md mx-auto leading-relaxed">
               {isHe
-                ? "האתגר דורש 2-3 מפגשים שבועיים באזור תל אביב או כפר סבא. אפשר להתחיל עם ג׳אם פתוח."
-                : "The challenge requires 2-3 weekly sessions in Tel Aviv or Kfar Saba. Try a drop-in jam first."}
+                ? "האתגר דורש 2-3 מפגשים בשבוע באזור תל אביב או כפר סבא למשך 30 יום. אפשר להתחיל עם ג׳אם פתוח."
+                : "The challenge requires 2-3 sessions per week in Tel Aviv or Kfar Saba for 30 days. Try a drop-in jam first."}
             </p>
             <a href={`/${locale}/jams`} className="btn-press inline-block bg-neutral-700 text-white px-8 py-3 font-black hover:bg-neutral-600 transition-colors">
               {isHe ? "ג׳אמים פתוחים" : "Open Jams"}

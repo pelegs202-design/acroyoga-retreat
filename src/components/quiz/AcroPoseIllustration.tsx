@@ -559,11 +559,11 @@ export default function AcroPoseIllustration({ pose, caption, locale }: AcroPose
 export const QUESTION_POSE_MAP: Record<string, { pose: PoseId; caption: { en: string; he: string } }> = {
   "movie-role": {
     pose: "bird",
-    caption: { en: "This could be you in 14 days", he: "ככה תיראו בעוד 14 יום" },
+    caption: { en: "This could be you in 30 days", he: "ככה תיראו בעוד 30 יום" },
   },
   "dream-outcome": {
     pose: "throne",
-    caption: { en: "Throne — Week 2 goal", he: "Throne — יעד שבוע 2" },
+    caption: { en: "Throne — Week 3 goal", he: "Throne — יעד שבוע 3" },
   },
   "fitness": {
     pose: "star",
