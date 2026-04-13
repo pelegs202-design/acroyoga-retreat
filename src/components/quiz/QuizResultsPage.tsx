@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
@@ -303,8 +303,8 @@ export default function QuizResultsPage({
               </h2>
               <p className="text-black/70 text-sm mb-4">
                 {isHe
-                  ? "שלחנו לכם אישור בוואטסאפ. מתחילים "
-                  : "We sent you a WhatsApp confirmation. Starting "}
+                  ? "המקום שלכם שמור. הקבוצה הבאה מתחילה "
+                  : "Your spot is saved. Next cohort starts "}
                 {formattedStartDate}
               </p>
               <p className="text-black/60 text-xs">

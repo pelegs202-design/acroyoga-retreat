@@ -16,8 +16,25 @@ export interface DripSequence {
 
 export const DRIP_SEQUENCES: Record<string, DripSequence> = {
   /**
+   * WhatsApp drip for free trial leads (4 steps).
+   * Welcome → class reminder → day-of nudge → post-class follow-up.
+   */
+  wa_free_trial: {
+    steps: 4,
+    channel: "whatsapp",
+    spacingDays: [0, 3, 6, 8],
+    templates: [
+      { templateName: "free_trial_welcome_he" },
+      { templateName: "free_trial_reminder_he" },
+      { templateName: "free_trial_day_of_he" },
+      { templateName: "free_trial_followup_he" },
+    ],
+  },
+
+  /**
    * WhatsApp drip for challenge leads who have NOT yet paid (7 steps).
    * Spacing tightens from every 2 days to daily after day 6.
+   * @deprecated Kept for existing enrollments — new leads use wa_free_trial.
    */
   wa_challenge_prepay: {
     steps: 7,

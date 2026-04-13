@@ -240,10 +240,10 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
       <section className="py-24 px-6 border-y-2 border-neutral-800">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-black mb-4 text-center">
-            {he ? "מה כולל האתגר?" : "What's Included?"}
+            {he ? "מה מחכה לכם" : "What Awaits You"}
           </h2>
           <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">
-            {he ? "שבועיים של תכנית מובנית שלוקחת אתכם מאפס לטיסה ראשונה." : "2 weeks taking you from zero to first flight."}
+            {he ? "תכנית מובנית שלוקחת אתכם מאפס לטיסה ראשונה." : "A structured program taking you from zero to first flight."}
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {BENEFITS.map((b, i) => (
