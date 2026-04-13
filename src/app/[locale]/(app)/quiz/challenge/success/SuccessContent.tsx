@@ -86,13 +86,13 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
   // Onboarding info items with map links
   const onboardingItems = isHe
     ? [
-        { title: "מתי מתאמנים", text: `שני 20:00 + רביעי 20:00`, link: { href: MAPS.rokah, label: "רוקח 40, צפון תל אביב" }, extra: `שישי 13:30 + שבת 13:30`, link2: { href: MAPS.clore, label: "חוף צ׳ארלס קלור" } },
+        { title: "מתי מתאמנים", text: `שני + רביעי 18:30 + 19:45 (חניה חינם)`, link: { href: MAPS.rokah, label: "רוקח 40, צפון תל אביב" }, extra: `שישי 13:30 + שבת 13:30`, link2: { href: MAPS.clore, label: "חוף צ׳ארלס קלור" } },
         { title: "מה ללבוש", text: "בגדי ספורט נוחים, ללא רוכסנים וכפתורים. כדאי להביא גרביים." },
         { title: "מה להביא", text: "מזרן יוגה, בקבוק מים, מגבת קטנה." },
         { title: "ממ״ד", text: "בכל המיקומים יש ממ״ד בקרבת מקום." },
       ]
     : [
-        { title: "When We Train", text: `Mon 20:00 + Wed 20:00`, link: { href: MAPS.rokah, label: "Rokah 40, North Tel Aviv" }, extra: `Fri 13:30 + Sat 13:30`, link2: { href: MAPS.clore, label: "Charles Clore Beach" } },
+        { title: "When We Train", text: `Mon + Wed 18:30 + 19:45 (Free parking)`, link: { href: MAPS.rokah, label: "Rokah 40, North Tel Aviv" }, extra: `Fri 13:30 + Sat 13:30`, link2: { href: MAPS.clore, label: "Charles Clore Beach" } },
         { title: "What to Wear", text: "Comfortable athletic clothes, no zippers or buttons. Bring socks." },
         { title: "What to Bring", text: "Yoga mat, water bottle, small towel." },
         { title: "Shelter", text: "All locations have a shelter (mamad) nearby." },
@@ -217,8 +217,10 @@ export default function SuccessContent({ sessionId: _sessionId, locale }: Succes
         </div>
         <div className="grid grid-cols-2 gap-3">
           {([
-            { id: "mon", he: "שני 20:00", en: "Mon 20:00", loc: isHe ? "רוקח 40" : "Rokah 40" },
-            { id: "wed", he: "רביעי 20:00", en: "Wed 20:00", loc: isHe ? "רוקח 40" : "Rokah 40" },
+            { id: "mon-early", he: "שני 18:30", en: "Mon 18:30", loc: isHe ? "רוקח 40 · חניה חינם" : "Rokah 40 · Free parking" },
+            { id: "mon-late", he: "שני 19:45", en: "Mon 19:45", loc: isHe ? "רוקח 40 · חניה חינם" : "Rokah 40 · Free parking" },
+            { id: "wed-early", he: "רביעי 18:30", en: "Wed 18:30", loc: isHe ? "רוקח 40 · חניה חינם" : "Rokah 40 · Free parking" },
+            { id: "wed-late", he: "רביעי 19:45", en: "Wed 19:45", loc: isHe ? "רוקח 40 · חניה חינם" : "Rokah 40 · Free parking" },
             { id: "fri", he: "שישי 13:30", en: "Fri 13:30", loc: isHe ? "צ׳ארלס קלור" : "Charles Clore" },
             { id: "sat", he: "שבת 13:30", en: "Sat 13:30", loc: isHe ? "צ׳ארלס קלור" : "Charles Clore" },
           ] as const).map((day) => (

@@ -5,7 +5,7 @@ import { eq } from "drizzle-orm";
 import { sendFacebookEvent } from "@/lib/facebook-capi";
 import { notifyTrialBooked } from "@/lib/gmail-notify";
 
-const VALID_DAYS = ["mon", "wed", "fri", "sat"];
+const VALID_DAYS = ["mon-early", "mon-late", "wed-early", "wed-late", "fri", "sat"];
 
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as { sessionId?: string; day?: string };

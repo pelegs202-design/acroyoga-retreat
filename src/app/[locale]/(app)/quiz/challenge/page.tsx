@@ -391,13 +391,13 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 {he ? "אמצע שבוע" : "Weekdays"}
               </div>
               <h3 className="text-2xl font-black mb-2">
-                {he ? "שני + רביעי · 20:00" : "Mon + Wed · 20:00"}
+                {he ? "שני + רביעי · 18:30 + 19:45" : "Mon + Wed · 18:30 + 19:45"}
               </h3>
               <p className="text-gray-400 mb-4">
                 {he ? "רוקח 40, צפון תל אביב" : "Rokah 40, North Tel Aviv"}
               </p>
               <p className="text-xs text-gray-500 border-t border-neutral-800 pt-3">
-                {he ? "ממ״ד בקרבת מקום" : "Shelter (mamad) nearby"}
+                {he ? "חניה חינם · ממ״ד בקרבת מקום" : "Free parking · Shelter (mamad) nearby"}
               </p>
             </div>
             <div className="border-2 border-neutral-700 bg-neutral-900 p-8">

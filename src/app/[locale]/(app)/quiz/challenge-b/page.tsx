@@ -249,7 +249,7 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
               </tr>
               <tr className="bg-zinc-800">
                 <td className="p-2 font-bold text-[#ffff00]">מתי?</td>
-                <td className="p-2">שני+רביעי 20:00 | שישי+שבת 13:30</td>
+                <td className="p-2">שני+רביעי 18:30+19:45 (חניה חינם) | שישי+שבת 13:30</td>
               </tr>
               <tr className="bg-[#39ff14] text-black">
                 <td className="p-2 font-bold">כמה?</td>

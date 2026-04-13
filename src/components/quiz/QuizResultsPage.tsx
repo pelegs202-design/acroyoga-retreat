@@ -337,8 +337,10 @@ export default function QuizResultsPage({
 
               <div className="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6">
                 {([
-                  { id: "mon", he: "שני 20:00", en: "Mon 20:00", loc: isHe ? "רוקח 40, ת״א" : "Rokah 40, TLV" },
-                  { id: "wed", he: "רביעי 20:00", en: "Wed 20:00", loc: isHe ? "רוקח 40, ת״א" : "Rokah 40, TLV" },
+                  { id: "mon-early", he: "שני 18:30", en: "Mon 18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "mon-late", he: "שני 19:45", en: "Mon 19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "wed-early", he: "רביעי 18:30", en: "Wed 18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "wed-late", he: "רביעי 19:45", en: "Wed 19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
                   { id: "fri", he: "שישי 13:30", en: "Fri 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
                   { id: "sat", he: "שבת 13:30", en: "Sat 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
                 ] as const).map((day) => (

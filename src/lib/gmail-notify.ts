@@ -128,8 +128,10 @@ export async function notifyTrialBooked(lead: {
   const phone = lead.phone.replace("+", "").replace(/[-\s]/g, "");
 
   const DAY_INFO: Record<string, { he: string; time: string; location: string }> = {
-    mon: { he: "שני", time: "20:00", location: "רוקח 40, ת״א" },
-    wed: { he: "רביעי", time: "20:00", location: "רוקח 40, ת״א" },
+    "mon-early": { he: "שני", time: "18:30", location: "רוקח 40, ת״א (חניה חינם)" },
+    "mon-late": { he: "שני", time: "19:45", location: "רוקח 40, ת״א (חניה חינם)" },
+    "wed-early": { he: "רביעי", time: "18:30", location: "רוקח 40, ת״א (חניה חינם)" },
+    "wed-late": { he: "רביעי", time: "19:45", location: "רוקח 40, ת״א (חניה חינם)" },
     fri: { he: "שישי", time: "13:30", location: "חוף צ׳ארלס קלור" },
     sat: { he: "שבת", time: "13:30", location: "חוף צ׳ארלס קלור" },
   };
