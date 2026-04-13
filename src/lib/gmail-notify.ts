@@ -35,7 +35,7 @@ export async function notifyNewLead(lead: {
 
   const phone = lead.phone.replace("+", "").replace(/[-\s]/g, "");
   const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(
-    `היי ${lead.name.split(" ")[0]}! ראיתי שמילאת את השאלון של אקרוחבורה. רציתי לשאול אם את/ה מעוניין/ת להצטרף לאתגר? אני שי, המדריך - אשמח לענות על כל שאלה!`
+    `היי ${lead.name.split(" ")[0]}! ראיתי שמילאת את השאלון של אקרוחבורה 🤸 השיעור הראשון במתנה — רוצה לשריין מקום? אני שי, המדריך — אשמח לענות על כל שאלה!`
   )}`;
 
   // Calculate priority score
@@ -105,6 +105,131 @@ export async function notifyNewLead(lead: {
     console.error("[notify] Resend send failed:", error);
   } else {
     console.log(`[notify] Lead notification sent for ${lead.name}`);
+  }
+}
+
+/**
+ * Notify Shai when a lead books a free trial day.
+ * Includes pre-written WhatsApp messages to copy-paste for each drip step.
+ */
+export async function notifyTrialBooked(lead: {
+  name: string;
+  email: string;
+  phone: string;
+  day: string; // 'mon' | 'wed' | 'fri' | 'sat'
+  sessionId: string;
+}): Promise<void> {
+  if (!resend) {
+    console.warn("[notify] RESEND_API_KEY not set — skipping trial booked notification");
+    return;
+  }
+
+  const firstName = lead.name.split(" ")[0];
+  const phone = lead.phone.replace("+", "").replace(/[-\s]/g, "");
+
+  const DAY_INFO: Record<string, { he: string; time: string; location: string }> = {
+    mon: { he: "שני", time: "20:00", location: "רוקח 40, ת״א" },
+    wed: { he: "רביעי", time: "20:00", location: "רוקח 40, ת״א" },
+    fri: { he: "שישי", time: "13:30", location: "חוף צ׳ארלס קלור" },
+    sat: { he: "שבת", time: "13:30", location: "חוף צ׳ארלס קלור" },
+  };
+
+  const info = DAY_INFO[lead.day] ?? { he: lead.day, time: "", location: "" };
+
+  // Pre-written WhatsApp messages for manual drip
+  const messages = [
+    {
+      label: "🟢 שלח עכשיו — ברוכים הבאים",
+      text: `היי ${firstName}! 🤸 נרשמת לשיעור ניסיון במתנה באקרוחבורה! המקום שלך שמור ליום ${info.he} ב${info.time} ב${info.location}. מה להביא: בגדי ספורט נוחים, מים, ומצב רוח טוב. לא צריך פרטנר — נזווג אתכם! נתראה — שי`,
+    },
+    {
+      label: "🔵 3 ימים לפני — תזכורת",
+      text: `היי ${firstName}, תזכורת קטנה — שיעור הניסיון שלך ביום ${info.he} ב${info.time}. הגיעו 10 דקות לפני. יש שאלות? אני כאן 🙏`,
+    },
+    {
+      label: "🟡 ביום השיעור — היום זה קורה",
+      text: `היום זה קורה! 🎉 ${firstName}, נתראה היום ב${info.time} ב${info.location}. הגיעו 10 דקות לפני. מחכים לכם!`,
+    },
+    {
+      label: "🟣 יום אחרי — פולו-אפ",
+      text: `${firstName}, איך היה? 😊 אם נהניתם ורוצים להמשיך — הקבוצה הבאה מתחילה בקרוב. רוצה לשמוע פרטים?`,
+    },
+  ];
+
+  const messagesHtml = messages.map((m) => {
+    const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(m.text)}`;
+    return `
+      <div style="margin-bottom: 16px; border: 1px solid #333; border-radius: 8px; overflow: hidden;">
+        <div style="background: #1a1a1a; padding: 8px 12px; font-weight: bold; font-size: 13px; color: #ccc;">${m.label}</div>
+        <div style="padding: 12px; background: #0a0a0a; color: #d4d4d4; font-size: 14px; direction: rtl; text-align: right; line-height: 1.6;">
+          ${m.text}
+        </div>
+        <div style="padding: 8px 12px; background: #111;">
+          <a href="${waLink}" style="display: inline-block; background: #25D366; color: white; padding: 8px 16px; text-decoration: none; font-weight: bold; border-radius: 6px; font-size: 13px;">שלח בוואטסאפ &rarr;</a>
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  const waDirectLink = `https://wa.me/${phone}`;
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://acroyoga-academy.vercel.app";
+  const statusBase = `${appUrl}/api/challenge/lead-status?session=${lead.sessionId}`;
+
+  const statusButtons = [
+    { label: "✅ Attended", status: "attended", color: "#22c55e" },
+    { label: "🎉 Converted", status: "converted", color: "#F472B6" },
+    { label: "❌ No-show", status: "no-show", color: "#ef4444" },
+    { label: "💀 Lost", status: "lost", color: "#666" },
+  ].map((b) => `<a href="${statusBase}&status=${b.status}" style="display:inline-block;background:${b.color};color:white;padding:8px 14px;text-decoration:none;font-weight:bold;border-radius:6px;font-size:12px;margin:0 4px 4px 0;">${b.label}</a>`).join("");
+
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 550px;">
+      <div style="background: #25D366; color: white; padding: 12px 16px; font-weight: bold; font-size: 18px;">
+        🎯 שיעור ניסיון הוזמן: ${lead.name}
+      </div>
+      <div style="background: #111; padding: 16px; color: #ccc;">
+        <table style="font-size: 14px; width: 100%; border-collapse: collapse;">
+          <tr><td style="padding: 4px 8px 4px 0; color: #999; width: 70px;">שם</td><td style="padding: 4px 0; font-weight: bold; color: white;">${lead.name}</td></tr>
+          <tr><td style="padding: 4px 8px 4px 0; color: #999;">טלפון</td><td style="padding: 4px 0;"><a href="${waDirectLink}" style="color: #25D366; font-weight: bold;">${lead.phone}</a></td></tr>
+          <tr><td style="padding: 4px 8px 4px 0; color: #999;">אימייל</td><td style="padding: 4px 0;">${lead.email}</td></tr>
+          <tr><td style="padding: 4px 8px 4px 0; color: #999;">יום</td><td style="padding: 4px 0; font-weight: bold; color: #F472B6;">${info.he} ${info.time}</td></tr>
+          <tr><td style="padding: 4px 8px 4px 0; color: #999;">מיקום</td><td style="padding: 4px 0;">${info.location}</td></tr>
+        </table>
+      </div>
+
+      <div style="background: #1a1a1a; padding: 12px 16px; border-top: 1px solid #333;">
+        <p style="margin: 0 0 8px; font-size: 13px; color: #999; font-weight: bold;">Mark lead status:</p>
+        ${statusButtons}
+      </div>
+
+      <div style="background: #0d1117; padding: 12px 16px; border-top: 1px solid #333;">
+        <p style="margin: 0 0 4px; font-size: 13px; color: #F472B6; font-weight: bold;">📋 Reminder schedule:</p>
+        <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.8;">
+          🟢 Now — Send welcome message<br>
+          🔵 3 days before class — Send reminder<br>
+          🟡 Day of class — Send "today!" nudge<br>
+          🟣 Day after class — Send follow-up
+        </p>
+      </div>
+
+      <div style="padding: 16px 0;">
+        <h3 style="color: #F472B6; margin: 0 0 12px; font-size: 15px;">הודעות וואטסאפ מוכנות — לחצו לשלוח:</h3>
+        ${messagesHtml}
+      </div>
+    </div>
+  `;
+
+  const { error } = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: NOTIFY_EMAIL,
+    subject: `🎯 שיעור ניסיון: ${lead.name} — יום ${info.he} ${info.time}`,
+    html,
+  });
+
+  if (error) {
+    console.error("[notify] Trial booked notification failed:", error);
+  } else {
+    console.log(`[notify] Trial booked notification sent for ${lead.name}`);
   }
 }
 

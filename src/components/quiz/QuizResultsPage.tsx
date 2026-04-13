@@ -135,6 +135,8 @@ export default function QuizResultsPage({
   const mountTime = useRef(Date.now());
   const [selectedDay, setSelectedDay] = useState<string | null>(null);
   const [dayConfirmed, setDayConfirmed] = useState(false);
+  const [bookingError, setBookingError] = useState(false);
+  const [bookingLoading, setBookingLoading] = useState(false);
 
   const isHe = locale === "he";
 
@@ -307,7 +309,16 @@ export default function QuizResultsPage({
                   : "Your spot is saved. Next cohort starts "}
                 {formattedStartDate}
               </p>
-              <p className="text-black/60 text-xs">
+              <a
+                href="https://wa.me/972544280347"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 mt-4 bg-black/10 border-2 border-black/30 px-4 py-2 text-sm font-bold text-black hover:bg-black/20 transition-colors"
+              >
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492a.5.5 0 00.611.611l4.458-1.495A11.948 11.948 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-2.325 0-4.47-.77-6.2-2.07l-.432-.338-3.15 1.055 1.055-3.15-.338-.432A9.96 9.96 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                {isHe ? "שאלות? שלחו לשי בוואטסאפ" : "Questions? Message Shai on WhatsApp"}
+              </a>
+              <p className="text-black/60 text-xs mt-2">
                 {isHe ? "בלי התחייבות · רק להגיע ולנסות" : "No commitment · Just come and try"}
               </p>
             </div>
@@ -354,27 +365,42 @@ export default function QuizResultsPage({
                 type="button"
                 disabled={!selectedDay}
                 onClick={async () => {
-                  if (!selectedDay) return;
+                  if (!selectedDay || bookingLoading) return;
+                  setBookingLoading(true);
+                  setBookingError(false);
                   trackCompleteRegistration(sessionId, selectedDay);
                   trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
                   try {
-                    await fetch("/api/challenge/first-class", {
+                    const res = await fetch("/api/challenge/first-class", {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ sessionId, day: selectedDay }),
                     });
-                  } catch {}
-                  setDayConfirmed(true);
+                    if (!res.ok) throw new Error("API error");
+                    setDayConfirmed(true);
+                  } catch {
+                    setBookingError(true);
+                  } finally {
+                    setBookingLoading(false);
+                  }
                 }}
                 className={`btn-press w-full max-w-md px-8 py-6 text-2xl font-black border-4 border-black transition-all ${
-                  selectedDay
+                  selectedDay && !bookingLoading
                     ? "bg-black text-white hover:translate-y-1 animate-pulse"
                     : "bg-black/30 text-black/40 cursor-not-allowed"
                 }`}
-                style={selectedDay ? { animationDuration: "2s" } : undefined}
+                style={selectedDay && !bookingLoading ? { animationDuration: "2s" } : undefined}
               >
-                {isHe ? "שריינו לי מקום!" : "Reserve My Spot!"}
+                {bookingLoading
+                  ? (isHe ? "שומר..." : "Saving...")
+                  : (isHe ? "שריינו לי מקום!" : "Reserve My Spot!")}
               </button>
+
+              {bookingError && (
+                <p className="text-red-600 text-sm font-bold mt-2">
+                  {isHe ? "משהו השתבש — נסו שוב או שלחו לנו הודעה בוואטסאפ" : "Something went wrong — try again or message us on WhatsApp"}
+                </p>
+              )}
 
               <p className="text-black/50 text-xs mt-4">
                 {isHe ? "במתנה · בלי התחייבות · ביטול בכל עת" : "On us · No commitment · Cancel anytime"}
