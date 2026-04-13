@@ -16,47 +16,27 @@ import { formatNextMonday } from "@/lib/date-utils";
 
 // nextMondayStr logic in @/lib/date-utils
 
+// Outcome-focused benefits (Hormozi: lead with transformation, not deliverables)
 const BENEFITS = [
   {
-    he: { title: "תכנית מובנית ל-30 יום", desc: "כל יום מתוכנן מראש — לא צריך לחשוב, רק לעשות. מתחילים מהבסיס ומתקדמים בהדרגה." },
-    en: { title: "Structured 30-Day Plan", desc: "Every day is planned — just show up and do. Start from basics and progress gradually." },
+    he: { title: "מטיסה ראשונה תוך שבוע", desc: "שבוע 1: כבר תרחפו מעל הרצפה. לא צריך שנים — התכנית בנויה לתוצאות מהירות." },
+    en: { title: "First Flight Within a Week", desc: "Week 1: You'll already be off the ground. No years needed — the plan is built for fast results." },
     icon: (
       <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V19.5a2.25 2.25 0 0 0 2.25 2.25h.75" /></svg>
     ),
   },
   {
-    he: { title: "קבוצה תומכת", desc: "קבוצת וואטסאפ פעילה, שאלות, תמיכה ומוטיבציה — אף אחד לא לבד." },
-    en: { title: "Supportive Group", desc: "Active WhatsApp group, questions, support and motivation — no one is alone." },
+    he: { title: "15 חברים חדשים תוך 30 יום", desc: "60% מגיעים לבד. תוך שבוע תכירו את כולם. תוך חודש — חברים לכל החיים." },
+    en: { title: "15 New Friends in 30 Days", desc: "60% come alone. Within a week you'll know everyone. Within a month — friends for life." },
     icon: (
       <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" /></svg>
     ),
   },
   {
-    he: { title: "ג׳אמים מודרכים שבועיים", desc: "2-3 מפגשים מודרכים בשבוע בתל אביב וכפר סבא. מדריך מקצועי מלווה." },
-    en: { title: "Weekly Guided Jams", desc: "2-3 guided sessions per week in Tel Aviv and Kfar Saba. Professional instructor." },
+    he: { title: "גוף חזק יותר — בלי חדר כושר", desc: "כוח, יציבות ושיווי משקל — כל זה מתרגילים עם בן אדם אחר. אף פעם לא משעמם." },
+    en: { title: "Stronger Body — No Gym", desc: "Strength, stability and balance — all from exercises with another person. Never boring." },
     icon: (
       <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" /></svg>
-    ),
-  },
-  {
-    he: { title: "תעודת סיום", desc: "מי שמשלים את האתגר מקבל תעודה דיגיטלית + כניסה לקבוצת הבוגרים." },
-    en: { title: "Completion Certificate", desc: "Complete the challenge and get a digital certificate + alumni group access." },
-    icon: (
-      <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 18.75h-9m9 0a3 3 0 0 1 3 3h-15a3 3 0 0 1 3-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 0 1-.982-3.172M9.497 14.25a7.454 7.454 0 0 0 .981-3.172M5.25 4.236c-.996.078-1.927.228-2.25.375v2.139A2.625 2.625 0 0 0 5.25 9.375h.006M18.75 4.236c.996.078 1.927.228 2.25.375v2.139A2.625 2.625 0 0 1 18.75 9.375h-.006" /></svg>
-    ),
-  },
-  {
-    he: { title: "מעקב התקדמות", desc: "מעקב יומי, צ׳קליסט מיומנויות ותזכורות — תראו כמה התקדמתם." },
-    en: { title: "Progress Tracking", desc: "Daily tracking, skills checklist and reminders — see how far you've come." },
-    icon: (
-      <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" /></svg>
-    ),
-  },
-  {
-    he: { title: "סרטוני הדרכה", desc: "ספריית וידאו עם כל התרגילים — לחזור על החומר בזמנכם, בקצב שלכם." },
-    en: { title: "Tutorial Videos", desc: "Video library with all exercises — review at your own pace." },
-    icon: (
-      <svg className="w-8 h-8 stroke-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15.91 11.672a.375.375 0 0 1 0 .656l-5.603 3.113a.375.375 0 0 1-.557-.328V8.887c0-.286.307-.466.557-.327l5.603 3.112Z" /></svg>
     ),
   },
 ];
@@ -150,15 +130,15 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-7xl font-black leading-[0.95] mb-3">
-                {he ? "30 יום." : "30 Days."} <br />
-                {he ? "מאפס." : "Zero."} <br />
-                <span className="text-brand">{he ? "לטיסה ראשונה." : "To First Flight."}</span>
+                {he ? "יכולים לאזן" : "Can you balance"} <br />
+                {he ? "בן אדם על הרגליים?" : "a person on your feet?"} <br />
+                <span className="text-brand">{he ? "תוכלו. תוך 30 יום." : "You will. In 30 days."}</span>
               </h1>
 
               <p className="text-base md:text-lg text-gray-400 max-w-lg mb-4 leading-relaxed">
                 {he
-                  ? "בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע."
-                  : "No experience, no partner, no flexibility needed — just show up."}
+                  ? "בלי ניסיון. בלי פרטנר. בלי גמישות. 527 אנשים כבר עשו את זה — 80% התחילו מאפס מוחלט."
+                  : "No experience. No partner. No flexibility. 527 people already did it — 80% started from absolute zero."}
               </p>
 
               <div className="flex items-center gap-3 mb-4">
@@ -174,8 +154,20 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </button>
 
               <p className="mt-2 text-sm text-gray-500">
-                {he ? "שאלון אישיות קצר — לא מתאים לכל אחד" : "Short personality quiz — not for everyone"}
+                {he ? "שאלון בן 2 דקות — לא מתאים לכל אחד" : "2-minute quiz — not for everyone"}
               </p>
+
+              {/* Immediate objection killers (Suby: kill top fears above the fold) */}
+              <div className="flex flex-wrap gap-3 mt-4">
+                {(he
+                  ? ["לא גמישים? לא צריך", "בלי פרטנר? נזווג אתכם", "0 פציעות ב-527 בוגרים"]
+                  : ["Not flexible? No need", "No partner? We pair you", "0 injuries in 527 grads"]
+                ).map((tag, i) => (
+                  <span key={i} className="text-xs text-neutral-400 border border-neutral-700 px-2 py-1">
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
 
             {/* "30" frame — hidden on mobile, shown on desktop */}
@@ -214,23 +206,20 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 3. FAQ (moved up — most engaged section per heatmap data) ── */}
-      <section className="py-24 px-6 bg-[#0a0a0a]/50">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-black mb-12 text-center">
-            {he ? "שאלות נפוצות" : "FAQ"}
-          </h2>
-          <div className="space-y-4">
-            {FAQ.map((item, i) => (
-              <details key={i} className="group border-2 border-white bg-neutral-900">
-                <summary className="w-full p-6 flex items-center justify-between text-start cursor-pointer list-none">
-                  <span className="text-xl font-bold">{he ? item.he.q : item.en.q}</span>
-                  <span className="text-brand text-3xl font-black transition-transform group-open:rotate-45 shrink-0 ms-4">+</span>
-                </summary>
-                <div className="p-6 pt-0 text-gray-400 border-t border-white/5">
-                  {he ? item.he.a : item.en.a}
-                </div>
-              </details>
+      {/* ── 3. INSTANT OBJECTION KILLERS (Suby: address fears early) ─── */}
+      <section className="py-16 px-6 bg-[#0a0a0a]/50">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[
+              { q: he ? "אני לא גמיש/ה" : "I'm not flexible", a: he ? "80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא." : "80% couldn't touch their toes on day 1. By day 30 — full Bird." },
+              { q: he ? "אין לי פרטנר" : "I don't have a partner", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום 1." : "60% come alone. Everyone rotates. You'll find partners on day 1." },
+              { q: he ? "פוחד/ת שלא אתמיד" : "Afraid I won't stick with it", a: he ? "96% שיעור סיום. הקבוצה שומרת עליכם. גמישות מובנית — אפשר להשלים ימים." : "96% completion rate. The group keeps you going. Built-in flexibility — make up days." },
+              { q: he ? "מביך לי עם אנשים זרים" : "I'll feel awkward with strangers", a: he ? "כולם חדשים ביום 1. בכל מפגש מסתובבים ועובדים עם כולם. ביום 1 כבר תכירו את כל הקבוצה." : "Everyone's new on day 1. You rotate partners — by day 1 you'll know the whole group." },
+            ].map((item, i) => (
+              <div key={i} className="bg-neutral-900 border-2 border-neutral-700 p-6">
+                <h3 className="text-lg font-black text-brand mb-2">{item.q}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -281,7 +270,29 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 6. FREE TRIAL CTA ────────────────────────────────────── */}
+      {/* ── 6. AUTHORITY — Meet Shai (Cialdini: authority + liking) ── */}
+      <section className="py-20 px-6 border-y-2 border-neutral-800 bg-[#0a0a0a]">
+        <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8">
+          <div className="w-32 h-32 md:w-40 md:h-40 shrink-0 border-2 border-brand bg-neutral-900 flex items-center justify-center">
+            <span className="text-6xl">🤸</span>
+          </div>
+          <div>
+            <h2 className="text-2xl font-black text-white mb-2">
+              {he ? "שי פלג — המדריך שלכם" : "Shai Peleg — Your Instructor"}
+            </h2>
+            <p className="text-gray-400 leading-relaxed mb-3">
+              {he
+                ? "527 בוגרים. 0 פציעות. מדריך אקרויוגה מוסמך שמלמד מ-2022. שי בנה תכנית שלוקחת אנשים מאפס מוחלט — לטיסה ראשונה תוך 30 יום. 80% מהתלמידים שלו מתחילים בלי שום ניסיון."
+                : "527 graduates. 0 injuries. Certified acroyoga instructor teaching since 2022. Shai built a program that takes people from absolute zero to first flight in 30 days. 80% of his students start with no experience."}
+            </p>
+            <p className="text-brand text-sm font-bold">
+              {he ? "\"אין דבר כזה \'לא מתאים\'. יש רק \'עוד לא ניסה\'.\"" : "\"There's no such thing as 'not suitable'. Only 'haven't tried yet'.\""}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 7. FREE TRIAL CTA ────────────────────────────────────── */}
       <section className="py-24 px-6 border-y-2 border-neutral-800">
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
@@ -447,23 +458,23 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 10. OBJECTION HANDLING ────────────────────────────────────── */}
+      {/* ── 10. FAQ (Brunson: answer remaining questions before final CTA) */}
       <section className="py-24 px-6 bg-[#0a0a0a] border-y-2 border-neutral-800">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
-            {he ? "שאלות שכולם שואלים" : "Questions Everyone Asks"}
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl font-black mb-12 text-center">
+            {he ? "שאלות נפוצות" : "FAQ"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { q: he ? "אני לא גמיש/ה" : "I'm not flexible", a: he ? "80% מהמשתתפים שלנו לא יכלו לגעת באצבעות הרגליים ביום 1. ביום 30 — Bird מלא." : "80% couldn't touch their toes on day 1. By day 30 — full Bird." },
-              { q: he ? "אין לי פרטנר" : "I don't have a partner", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם. תמצאו פרטנרים ביום 1." : "60% come alone. Everyone rotates. You'll find partners on day 1." },
-              { q: he ? "פוחד/ת שלא אתמיד" : "Afraid I won't stick with it", a: he ? "96% שיעור סיום. הקבוצה שומרת עליכם. גמישות מובנית — אפשר להשלים ימים. אף אחד לא נופל." : "96% completion rate. The group keeps you going. Built-in flexibility — make up days. No one falls behind." },
-              { q: he ? "מביך לי עם אנשים זרים" : "I'll feel awkward with strangers", a: he ? "60% מגיעים לבד. בכל מפגש מסתובבים ועובדים עם כולם — אין רגע שעומדים לבד. ביום 1 כבר תכירו את כל הקבוצה." : "60% come alone. Everyone rotates partners — no standing alone. By day 1 you'll know the whole group." },
-            ].map((item, i) => (
-              <div key={i} className="bg-neutral-900 border-2 border-neutral-700 p-8">
-                <h3 className="text-lg font-black text-brand mb-3">{item.q}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
-              </div>
+          <div className="space-y-4">
+            {FAQ.map((item, i) => (
+              <details key={i} className="group border-2 border-white bg-neutral-900">
+                <summary className="w-full p-6 flex items-center justify-between text-start cursor-pointer list-none">
+                  <span className="text-xl font-bold">{he ? item.he.q : item.en.q}</span>
+                  <span className="text-brand text-3xl font-black transition-transform group-open:rotate-45 shrink-0 ms-4">+</span>
+                </summary>
+                <div className="p-6 pt-0 text-gray-400 border-t border-white/5">
+                  {he ? item.he.a : item.en.a}
+                </div>
+              </details>
             ))}
           </div>
         </div>
@@ -489,20 +500,25 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 11. FINAL CTA ────────────────────────────────────────────── */}
+      {/* ── 12. FINAL CTA (Halbert: specificity + Brunson: epiphany close) */}
       <section className="bg-brand py-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-5xl md:text-7xl font-black text-black mb-4 leading-tight">
+          <h2 className="text-4xl md:text-6xl font-black text-black mb-4 leading-tight">
             {he ? "עוד שנה של אותו דבר — או 30 יום שישנו הכל." : "Another year of the same — or 30 days that change everything."}
           </h2>
-          <p className="text-black/70 text-xl mb-10">
-            {he ? "527 אנשים כבר בחרו. עכשיו תורכם." : "527 people already chose. Now it's your turn."}
+          <p className="text-black/70 text-lg mb-4 max-w-2xl mx-auto">
+            {he
+              ? "527 אנשים התחילו בדיוק מאיפה שאתם עכשיו. 80% בלי שום ניסיון. היום הם עפים."
+              : "527 people started exactly where you are now. 80% with zero experience. Today they fly."}
+          </p>
+          <p className="text-black/50 text-sm mb-8">
+            {he ? "שאלון בן 2 דקות · שיעור ניסיון במתנה · בלי התחייבות" : "2-minute quiz · Free trial class · No commitment"}
           </p>
           <button
             onClick={() => handleCTA("final")}
             className="btn-press bg-black text-white px-12 py-6 text-2xl font-black hover:translate-y-1 transition-transform border-4 border-black"
           >
-            {he ? "בואו נבדוק אם אתם מתאימים" : "Let's See If You Qualify"}
+            {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
           </button>
         </div>
       </section>

@@ -99,11 +99,11 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         </div>
 
         <p className="text-[#39ff14] font-bold text-2xl [text-shadow:0_0_10px_#39ff14,0_0_20px_#39ff14]" style={{ fontFamily: "Impact, sans-serif" }}>
-          30 יום. מאפס. לטיסה ראשונה.
+          יכולים לאזן בן אדם על הרגליים? תוכלו. תוך 30 יום.
         </p>
 
         <p className="text-gray-300 text-base max-w-sm">
-          בלי ניסיון, בלי פרטנר, בלי גמישות — לא צריך כלום. רק להגיע.
+          527 בוגרים. 80% התחילו מאפס. 0 פציעות. בלי פרטנר — נזווג אתכם.
         </p>
 
         {/* Free Trial */}
@@ -230,6 +230,13 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
         />
       </div>
 
+      {/* Shai authority (Cialdini) */}
+      <div className="px-4 my-4 bg-black p-4 text-center" style={{ border: "4px solid #ff1493", borderStyle: "outset" }}>
+        <p className="text-[#ff1493] font-bold text-lg" style={{ fontFamily: "Impact, sans-serif" }}>&#128293; המדריך: שי פלג &#128293;</p>
+        <p className="text-gray-300 text-sm mt-1">527 בוגרים · 0 פציעות · מדריך מוסמך מ-2022</p>
+        <p className="text-[#ffff00] text-xs mt-2 italic">&ldquo;אין דבר כזה &#39;לא מתאים&#39;. יש רק &#39;עוד לא ניסה&#39;.&rdquo;</p>
+      </div>
+
       {/* Fire divider */}
       <div className="h-5 my-4" style={{ background: "linear-gradient(90deg, #ff0000, #ff8c00, #ffff00, #ff8c00, #ff0000)" }} />
 
@@ -271,7 +278,8 @@ function RetroLanding({ onStart }: { onStart: () => void }) {
       <section className="px-4 pb-12 flex flex-col items-center gap-6">
         <p className="text-[#ffff00] text-xl font-bold text-center">עוד שנה של אותו דבר</p>
         <p className="text-white text-lg text-center">או 30 יום שישנו הכל</p>
-        <p className="text-[#39ff14] text-center">527 אנשים כבר בחרו. עכשיו תורכם.</p>
+        <p className="text-[#39ff14] text-center">527 אנשים התחילו בדיוק מאיפה שאתם. 80% בלי שום ניסיון. היום הם עפים.</p>
+        <p className="text-[#ff1493] text-sm text-center mt-1">שאלון בן 2 דקות · שיעור ניסיון במתנה · בלי התחייבות</p>
 
         <button
           onClick={() => handleCTA("final")}
