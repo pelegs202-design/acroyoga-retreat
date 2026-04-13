@@ -1,57 +1,18 @@
 /**
- * Lightweight Gmail notification sender for Vercel serverless.
- * Uses OAuth2 refresh token to send emails from pelegs202@gmail.com.
- * Env vars: GMAIL_CLIENT_ID, GMAIL_CLIENT_SECRET, GMAIL_REFRESH_TOKEN
+ * Lead notification sender via Resend.
+ * Sends prioritized lead alerts to pelegs202@gmail.com when new quiz leads arrive.
+ * Also sends payment confirmation emails to customers.
  */
 
-const GMAIL_CLIENT_ID = process.env.GMAIL_CLIENT_ID;
-const GMAIL_CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
-const GMAIL_REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN;
+import { Resend } from "resend";
+
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
+
+const FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL ?? "AcroHavura <shai@acroretreat.co.il>";
 const NOTIFY_EMAIL = "pelegs202@gmail.com";
-
-async function getAccessToken(): Promise<string | null> {
-  if (!GMAIL_CLIENT_ID || !GMAIL_CLIENT_SECRET || !GMAIL_REFRESH_TOKEN) {
-    console.warn("[gmail-notify] Missing GMAIL_* env vars, skipping");
-    return null;
-  }
-
-  const res = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      client_id: GMAIL_CLIENT_ID,
-      client_secret: GMAIL_CLIENT_SECRET,
-      refresh_token: GMAIL_REFRESH_TOKEN,
-      grant_type: "refresh_token",
-    }),
-  });
-
-  if (!res.ok) {
-    console.error("[gmail-notify] Token refresh failed:", await res.text());
-    return null;
-  }
-
-  const data = await res.json();
-  return data.access_token;
-}
-
-function buildRawEmail(subject: string, htmlBody: string, to?: string): string {
-  const headers = [
-    `From: AcroHavura <${NOTIFY_EMAIL}>`,
-    `To: ${to || NOTIFY_EMAIL}`,
-    `Subject: =?UTF-8?B?${Buffer.from(subject).toString("base64")}?=`,
-    "MIME-Version: 1.0",
-    "Content-Type: text/html; charset=UTF-8",
-    "",
-    htmlBody,
-  ].join("\r\n");
-
-  return Buffer.from(headers)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/, "");
-}
 
 export async function notifyNewLead(lead: {
   name: string;
@@ -67,8 +28,10 @@ export async function notifyNewLead(lead: {
   schedule?: string;
   availability?: string;
 }): Promise<void> {
-  const accessToken = await getAccessToken();
-  if (!accessToken) return;
+  if (!resend) {
+    console.warn("[notify] RESEND_API_KEY not set — skipping lead notification");
+    return;
+  }
 
   const phone = lead.phone.replace("+", "").replace(/[-\s]/g, "");
   const waLink = `https://wa.me/${phone}?text=${encodeURIComponent(
@@ -130,21 +93,18 @@ export async function notifyNewLead(lead: {
   `;
 
   const subject = `${priorityEmoji} ${priority}: ${lead.name} (${label(lead.city)}, ${label(lead.commitment)})`;
-  const raw = buildRawEmail(subject, html);
 
-  const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ raw }),
+  const { error } = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: NOTIFY_EMAIL,
+    subject,
+    html,
   });
 
-  if (!res.ok) {
-    console.error("[gmail-notify] Send failed:", await res.text());
+  if (error) {
+    console.error("[notify] Resend send failed:", error);
   } else {
-    console.log(`[gmail-notify] Lead notification sent for ${lead.name}`);
+    console.log(`[notify] Lead notification sent for ${lead.name}`);
   }
 }
 
@@ -156,8 +116,10 @@ export async function sendPaymentConfirmation(params: {
   customerName: string;
   sessionId: string;
 }): Promise<void> {
-  const accessToken = await getAccessToken();
-  if (!accessToken) return;
+  if (!resend) {
+    console.warn("[notify] RESEND_API_KEY not set — skipping payment confirmation");
+    return;
+  }
 
   const firstName = params.customerName.split(" ")[0];
   const successUrl = `https://acroyoga-academy.vercel.app/he/quiz/challenge/success?session=${params.sessionId}`;
@@ -183,21 +145,16 @@ export async function sendPaymentConfirmation(params: {
     </div>
   `;
 
-  const subject = "אקרוחבורה — התשלום התקבל! הנה הגישה שלכם";
-  const raw = buildRawEmail(subject, html, params.customerEmail);
-
-  const res = await fetch("https://gmail.googleapis.com/gmail/v1/users/me/messages/send", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ raw }),
+  const { error } = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: params.customerEmail,
+    subject: "אקרוחבורה — התשלום התקבל! הנה הגישה שלכם",
+    html,
   });
 
-  if (!res.ok) {
-    console.error("[gmail-notify] Payment confirmation send failed:", await res.text());
+  if (error) {
+    console.error("[notify] Payment confirmation send failed:", error);
   } else {
-    console.log(`[gmail-notify] Payment confirmation sent to ${params.customerEmail}`);
+    console.log(`[notify] Payment confirmation sent to ${params.customerEmail}`);
   }
 }
