@@ -1,32 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { challengeEnrollments } from "@/lib/db/schema";
-import { sql } from "drizzle-orm";
+import { quizLeads } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { sendFacebookEvent } from "@/lib/facebook-capi";
 
 const VALID_DAYS = ["mon", "wed", "fri", "sat"];
 
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as { sessionId?: string; day?: string };
 
-  if (!body.day || !VALID_DAYS.includes(body.day)) {
-    return NextResponse.json({ error: "Invalid day" }, { status: 400 });
+  if (!body.sessionId || !body.day || !VALID_DAYS.includes(body.day)) {
+    return NextResponse.json({ error: "Invalid sessionId or day" }, { status: 400 });
   }
 
-  // Update the most recent enrollment (sessionId may be 'unknown' from webhook)
-  // Use the most recent confirmed enrollment as target
   try {
+    // Update the quiz lead with their chosen class day
     const updated = await db
-      .update(challengeEnrollments)
+      .update(quizLeads)
       .set({ firstClassDay: body.day })
-      .where(sql`id = (SELECT id FROM challenge_enrollments WHERE status = 'confirmed' ORDER BY paid_at DESC LIMIT 1)`)
-      .returning({ id: challengeEnrollments.id });
+      .where(eq(quizLeads.sessionId, body.sessionId))
+      .returning({ id: quizLeads.id, email: quizLeads.email, phone: quizLeads.phone });
 
     if (updated.length === 0) {
-      return NextResponse.json({ error: "No enrollment found" }, { status: 404 });
+      return NextResponse.json({ error: "No lead found" }, { status: 404 });
     }
 
+    // Fire CompleteRegistration CAPI event (the signal Facebook optimizes for)
+    const lead = updated[0];
+    sendFacebookEvent({
+      eventName: "CompleteRegistration",
+      email: lead.email,
+      phone: lead.phone,
+      eventId: `reg_${body.sessionId}`,
+    }).catch((err) => {
+      console.error("[first-class] CAPI CompleteRegistration failed:", err);
+    });
+
     return NextResponse.json({ ok: true, day: body.day });
-  } catch {
+  } catch (err) {
+    console.error("[first-class] Failed to save:", err);
     return NextResponse.json({ error: "Failed to save" }, { status: 500 });
   }
 }

@@ -1,15 +1,14 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { ResultArchetype } from "@/lib/quiz/result-calculator";
 import QuizRadarChart from "./QuizRadarChart";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 import { ShareButton } from "@/components/social/ShareButton";
-import { trackResultsView, trackSoftDQ, trackCTAClick, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
+import { trackResultsView, trackSoftDQ, trackCTAClick, trackCompleteRegistration, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
 import { nextMonday } from "@/lib/date-utils";
-import { CountdownTimer } from "@/components/quiz/CountdownTimer";
 
 // ─── Testimonials ─────────────────────────────────────────────────────────────
 
@@ -134,6 +133,8 @@ export default function QuizResultsPage({
   isSharedView = false,
 }: QuizResultsPageProps) {
   const mountTime = useRef(Date.now());
+  const [selectedDay, setSelectedDay] = useState<string | null>(null);
+  const [dayConfirmed, setDayConfirmed] = useState(false);
 
   const isHe = locale === "he";
 
@@ -273,7 +274,7 @@ export default function QuizResultsPage({
         </section>
       </ScrollReveal>
 
-      {/* 6. Price CTA or Soft Disqualification */}
+      {/* 6. Book Free Trial or Soft Disqualification */}
       <ScrollReveal delay={0.1}>
         {fitScore < SOFT_DQ_THRESHOLD ? (
           <section className="border-2 border-neutral-700 bg-neutral-900 p-8 text-center">
@@ -290,48 +291,93 @@ export default function QuizResultsPage({
               {isHe ? "ג׳אמים פתוחים" : "Open Jams"}
             </a>
           </section>
+        ) : dayConfirmed ? (
+          /* ── Confirmed state ── */
+          <section className="bg-brand py-16 -mx-4 px-4">
+            <div className="max-w-lg mx-auto text-center">
+              <div className="inline-block border-2 border-black p-4 mb-4">
+                <svg className="w-16 h-16 text-black mx-auto" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
+              </div>
+              <h2 className="text-3xl font-black text-black mb-2">
+                {isHe ? "נתראה בשיעור!" : "See You in Class!"}
+              </h2>
+              <p className="text-black/70 text-sm mb-4">
+                {isHe
+                  ? "שלחנו לכם אישור בוואטסאפ. מתחילים "
+                  : "We sent you a WhatsApp confirmation. Starting "}
+                {formattedStartDate}
+              </p>
+              <p className="text-black/60 text-xs">
+                {isHe ? "בלי התחייבות · רק להגיע ולנסות" : "No commitment · Just come and try"}
+              </p>
+            </div>
+          </section>
         ) : (
+          /* ── Day picker ── */
           <section className="bg-brand py-16 -mx-4 px-4">
             <div className="max-w-lg mx-auto text-center">
               <h2 className="text-4xl font-black text-black mb-2">
-                {isHe ? "הצטרפו לאתגר שבועיים" : "Join the 2-Week Challenge"}
+                {isHe ? "בחרו את השיעור הראשון" : "Pick Your Free Trial Class"}
               </h2>
-              <p className="text-black/60 text-sm mb-4">
-                {isHe ? "מבצע מיוחד עד 12/4" : "Special Offer Until Apr 12"}
-              </p>
-
-              <div className="flex items-baseline justify-center gap-4 mb-1">
-                <span className="text-7xl font-black text-black">₪99</span>
-                <span className="text-2xl text-black/40 line-through">₪299</span>
-              </div>
-              <p className="text-black/60 text-sm font-bold mb-2">
-                {isHe ? "פחות מ-₪8 למפגש" : "Less than ₪8 per session"}
-              </p>
-
-              <div className="mb-4">
-                <CountdownTimer locale={locale} />
-              </div>
-
-              <p className="text-black/70 text-sm font-bold mb-6">
-                {isHe ? "נותרו 4 מקומות · מתחילים " : "4 spots left · Starting "}
+              <p className="text-black/60 text-sm mb-6">
+                {isHe ? "שיעור ניסיון חינם · בלי התחייבות · מתחילים " : "Free trial class · No commitment · Starting "}
                 {formattedStartDate}
               </p>
 
+              <div className="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6">
+                {([
+                  { id: "mon", he: "שני 20:00", en: "Mon 20:00", loc: isHe ? "רוקח 40, ת״א" : "Rokah 40, TLV" },
+                  { id: "wed", he: "רביעי 20:00", en: "Wed 20:00", loc: isHe ? "רוקח 40, ת״א" : "Rokah 40, TLV" },
+                  { id: "fri", he: "שישי 13:30", en: "Fri 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
+                  { id: "sat", he: "שבת 13:30", en: "Sat 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
+                ] as const).map((day) => (
+                  <button
+                    key={day.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedDay(day.id);
+                      trackCTAClick("results_day_pick");
+                    }}
+                    className={`p-4 border-2 text-start transition-all ${
+                      selectedDay === day.id
+                        ? "border-black bg-black/10 scale-[1.02]"
+                        : "border-black/30 bg-white/10 hover:border-black/60"
+                    }`}
+                  >
+                    <p className="font-black text-black text-sm">{isHe ? day.he : day.en}</p>
+                    <p className="text-black/60 text-xs mt-1">{day.loc}</p>
+                  </button>
+                ))}
+              </div>
+
               <button
                 type="button"
-                onClick={() => {
-                  trackCTAClick("results_checkout");
+                disabled={!selectedDay}
+                onClick={async () => {
+                  if (!selectedDay) return;
+                  trackCompleteRegistration(sessionId, selectedDay);
                   trackTimeOnPage("results", Math.round((Date.now() - mountTime.current) / 1000));
-                  window.location.href = `/${locale}/quiz/challenge/checkout?session=${sessionId}`;
+                  try {
+                    await fetch("/api/challenge/first-class", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ sessionId, day: selectedDay }),
+                    });
+                  } catch {}
+                  setDayConfirmed(true);
                 }}
-                className="btn-press bg-black text-white w-full max-w-sm px-8 py-6 text-2xl font-black border-4 border-black transition-transform hover:translate-y-1 animate-pulse"
-                style={{ animationDuration: "2s" }}
+                className={`btn-press w-full max-w-md px-8 py-6 text-2xl font-black border-4 border-black transition-all ${
+                  selectedDay
+                    ? "bg-black text-white hover:translate-y-1 animate-pulse"
+                    : "bg-black/30 text-black/40 cursor-not-allowed"
+                }`}
+                style={selectedDay ? { animationDuration: "2s" } : undefined}
               >
-                {isHe ? "אני רוצה להצטרף עכשיו" : "I Want to Join Now"}
+                {isHe ? "שריינו לי מקום!" : "Reserve My Spot!"}
               </button>
 
               <p className="text-black/50 text-xs mt-4">
-                {isHe ? "₪99 בלבד · ערבות החזר 30 יום · ביטול בכל עת" : "₪99 only · 30-day money back · Cancel anytime"}
+                {isHe ? "חינם לגמרי · בלי התחייבות · ביטול בכל עת" : "Completely free · No commitment · Cancel anytime"}
               </p>
             </div>
           </section>

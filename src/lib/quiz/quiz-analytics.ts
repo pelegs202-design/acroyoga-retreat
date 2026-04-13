@@ -74,7 +74,14 @@ export function trackSoftDQ(reason: string, fitScore: number): void {
   f("SoftDQ", { reason, fit_score: fitScore });
 }
 
-// ─── Checkout ─────────────────────────────────────────────────────────────────
+// ─── Free Trial Booking ──────────────────────────────────────────────────────
+
+export function trackCompleteRegistration(sessionId: string, day: string): void {
+  g("complete_registration", { session_id: sessionId, day });
+  f("CompleteRegistration", { session_id: sessionId, day }, true);
+}
+
+// ─── Checkout (legacy — kept for future online payments) ─────────────────────
 
 export function trackCheckoutStarted(sessionId: string): void {
   g("begin_checkout", { session_id: sessionId, value: 1, currency: "ILS" });

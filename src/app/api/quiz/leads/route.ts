@@ -100,11 +100,11 @@ export async function POST(req: NextRequest) {
 
   try {
     if (quizType === "challenge") {
-      // Enroll in WhatsApp warm-up drip
+      // Enroll in WhatsApp free trial drip
       const nextCohortDate = nextMonday(new Date());
       await enrollInDrip({
         leadId,
-        sequenceType: "wa_challenge_prepay",
+        sequenceType: "wa_free_trial",
         channel: "whatsapp",
         recipientPhone: normalizedPhone,
         recipientName: firstName,

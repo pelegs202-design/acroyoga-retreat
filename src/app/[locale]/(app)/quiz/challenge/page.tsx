@@ -9,7 +9,6 @@ import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 import { formatNextMonday } from "@/lib/date-utils";
-import { CountdownTimer } from "@/components/quiz/CountdownTimer";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
@@ -76,7 +75,7 @@ const FAQ = [
   { he: { q: "כמה זמן כל אימון?", a: "מפגשים מודרכים: 90 דקות. תרגול יומי עצמאי: 15-20 דקות." }, en: { q: "How long is each session?", a: "Guided sessions: 90 minutes. Daily independent practice: 15-20 minutes." } },
   { he: { q: "מה אם אני מפספס/ת יום?", a: "קורה. גמישות מובנית — אפשר להשלים ימים. 96% מסיימים." }, en: { q: "What if I miss a day?", a: "It happens. Built-in flexibility — you can make up days. 96% complete." } },
   { he: { q: "זה בטוח?", a: "0 פציעות ב-527 בוגרים. ספוטרים מקצועיים בכל תרגיל. מתחילים נמוך ועולים רק כשמוכנים." }, en: { q: "Is it safe?", a: "Zero injuries in 527 graduates. Professional spotters at every exercise. Start low, go higher only when ready." } },
-  { he: { q: "למה ₪99?", a: "בזמן מלחמה, אנחנו מאמינים שתנועה וקהילה חשובים יותר מתמיד. מחיר מיוחד כדי שכולם יוכלו להשתתף — חוזר ל-₪299 אחרי 12/4." }, en: { q: "Why ₪99?", a: "During wartime, we believe movement and community matter more than ever. Special price so everyone can participate — goes back to ₪299 after April 12." } },
+  { he: { q: "כמה זה עולה?", a: "השיעור הראשון חינם לגמרי, בלי התחייבות. מגיעים, מתנסים, ואז מחליטים. אם מתאים — ממשיכים." }, en: { q: "How much does it cost?", a: "Your first class is completely free, no commitment. Come, try it, then decide. If it fits — continue." } },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -146,7 +145,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             <div>
               <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
                 <span className="text-brand font-black text-xs uppercase tracking-widest">
-                  {he ? "IL — מבצע מיוחד עד 12/4" : "IL — Special Offer Until Apr 12"}
+                  {he ? "IL — שיעור ניסיון חינם" : "IL — Free Trial Class"}
                 </span>
               </div>
 
@@ -163,9 +162,8 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </p>
 
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-gray-500 line-through text-lg">₪299</span>
-                <span className="text-4xl font-black text-brand">₪99</span>
-                <span className="text-brand/70 text-sm font-bold">{he ? "פחות מ-₪8 למפגש" : "< ₪8/session"}</span>
+                <span className="text-4xl font-black text-brand">{he ? "חינם" : "FREE"}</span>
+                <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון · בלי התחייבות" : "First trial class · No commitment"}</span>
               </div>
 
               <button
@@ -283,72 +281,57 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 6. PRICING (VALUE STACK) — moved up from position 8 ───── */}
+      {/* ── 6. FREE TRIAL CTA ────────────────────────────────────── */}
       <section className="py-24 px-6 border-y-2 border-neutral-800">
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-block mb-6 border-2 border-brand bg-brand/10 px-4 py-2">
             <span className="text-brand font-black text-sm uppercase tracking-widest">
-              {he ? "מבצע מוגבל — חוזר ל-₪299 ב-12/4" : "Limited offer — back to ₪299 on Apr 12"}
+              {he ? "שיעור ניסיון חינם" : "Free Trial Class"}
             </span>
           </div>
 
-          <h2 className="text-4xl font-black mb-8">
-            {he ? "הערך שמקבלים" : "The Value You Get"}
+          <h2 className="text-4xl font-black mb-4">
+            {he ? "מגיעים. מתנסים. מחליטים." : "Come. Try. Decide."}
           </h2>
 
-          {/* Value stack */}
+          <p className="text-gray-400 text-lg mb-10 max-w-md mx-auto leading-relaxed">
+            {he
+              ? "שיעור ראשון חינם לגמרי, בלי התחייבות. תנסו אקרויוגה בעצמכם ותרגישו מה זה."
+              : "Your first class is completely free, no commitment. Experience acroyoga firsthand and feel what it's about."}
+          </p>
+
+          {/* What's included in the trial */}
           <div className="text-start mb-10 space-y-3 max-w-md mx-auto">
             {(he
               ? [
-                  ["תכנית שבועיים מובנית", "₪299"],
-                  ["2-3 ג׳אמים מודרכים בשבוע", "₪600+"],
-                  ["קבוצת וואטסאפ תומכת", "₪—"],
-                  ["ספריית סרטוני הדרכה", "₪150"],
-                  ["מעקב התקדמות אישי", "₪—"],
-                  ["תעודת סיום + קבוצת בוגרים", "₪—"],
+                  "שיעור 90 דקות עם מדריך מקצועי",
+                  "כל הציוד כלול — רק להגיע",
+                  "לא צריך פרטנר — נזווג אתכם",
+                  "מתאים למתחילים מוחלטים",
                 ]
               : [
-                  ["2-week structured program", "₪299"],
-                  ["2-3 guided jams per week", "₪600+"],
-                  ["Supportive WhatsApp group", "₪—"],
-                  ["Tutorial video library", "₪150"],
-                  ["Personal progress tracking", "₪—"],
-                  ["Certificate + alumni group", "₪—"],
+                  "90-minute session with professional instructor",
+                  "All equipment included — just show up",
+                  "No partner needed — we pair you up",
+                  "Suitable for complete beginners",
                 ]
-            ).map(([item, value], i) => (
-              <div key={i} className="flex justify-between items-center border-b border-neutral-800 pb-3">
+            ).map((item, i) => (
+              <div key={i} className="flex items-center gap-3 border-b border-neutral-800 pb-3">
+                <svg className="w-5 h-5 text-green-400 shrink-0" fill="none" viewBox="0 0 24 24" strokeWidth={3} stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                 <span className="text-gray-300 text-sm">{item}</span>
-                <span className="text-gray-500 text-sm">{value}</span>
               </div>
             ))}
-            <div className="flex justify-between items-center pt-2">
-              <span className="text-white font-black">{he ? "שווי כולל" : "Total value"}</span>
-              <span className="text-white font-black">₪1,200+</span>
-            </div>
           </div>
 
-          {/* Price card */}
-          <div className="border-2 border-brand bg-neutral-900 p-10 inline-block shadow-[8px_8px_0px_0px_rgba(244,114,182,0.2)]">
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <span className="text-gray-500 line-through text-3xl">₪299</span>
-              <span className="text-7xl font-black text-brand">₪99</span>
-            </div>
-            <p className="text-gray-400 text-sm mb-4">
-              {he ? "₪99 בלבד. פחות מ-₪8 למפגש. ערבות החזר מלא 30 יום." : "₪99 only. Less than ₪8 per session. Full 30-day refund guarantee."}
-            </p>
-            <div className="mb-6">
-              <CountdownTimer locale={locale} />
-            </div>
-            <button
-              onClick={() => handleCTA("pricing")}
-              className="btn-press w-full bg-brand text-black py-5 text-xl font-black uppercase tracking-widest hover:bg-white transition-colors"
-            >
-              {he ? "גלו את הטיפוס שלכם ב-₪99" : "Discover Your Type for ₪99"}
-            </button>
-          </div>
+          <button
+            onClick={() => handleCTA("pricing")}
+            className="btn-press w-full max-w-md bg-brand text-black py-5 text-xl font-black uppercase tracking-widest hover:bg-white transition-colors"
+          >
+            {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+          </button>
 
           <p className="mt-6 text-sm text-gray-500">
-            {he ? "ללא התחייבות · ביטול בכל עת · ערבות החזר 30 יום" : "No commitment · Cancel anytime · 30-day money back"}
+            {he ? "בלי התחייבות · בלי תשלום · רק להגיע ולנסות" : "No commitment · No payment · Just come and try"}
           </p>
         </div>
       </section>
@@ -491,17 +474,17 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-start">
             <p className="text-white font-black text-lg">
-              {he ? `הקבוצה הבאה מתחילה ${nextMondayStr}` : `Next cohort starts ${nextMondayStr}`}
+              {he ? `שיעור ניסיון חינם · הקבוצה הבאה ${nextMondayStr}` : `Free trial class · Next cohort ${nextMondayStr}`}
             </p>
             <p className="text-brand font-bold text-sm">
-              {he ? "8 מקומות נותרו" : "8 spots remaining"}
+              {he ? "מקומות מוגבלים" : "Limited spots"}
             </p>
           </div>
           <button
             onClick={() => handleCTA("urgency")}
             className="btn-press bg-brand text-black px-8 py-3 font-black uppercase tracking-widest hover:bg-white transition-colors"
           >
-            {he ? "תפסו מקום" : "Grab Your Spot"}
+            {he ? "שריינו מקום" : "Reserve Your Spot"}
           </button>
         </div>
       </section>

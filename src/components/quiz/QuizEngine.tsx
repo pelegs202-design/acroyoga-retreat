@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import QuizProgressBar from "./QuizProgressBar";
 import QuizCard from "./QuizCard";
 import QuizContactStep from "./QuizContactStep";
+import AcroPoseIllustration, { QUESTION_POSE_MAP } from "./AcroPoseIllustration";
 import { trackQuizStart, trackQuizStep, trackQuizAbandoned } from "@/lib/quiz/quiz-analytics";
 
 // ─── Exported types (consumed by Plan 05-02 and 05-03) ───
@@ -306,6 +307,15 @@ export default function QuizEngine({
                 <p className="mt-1.5 text-sm text-neutral-400">{questionSubtitle}</p>
               )}
             </div>
+
+            {/* Pose illustration (shown for select questions to build desire) */}
+            {QUESTION_POSE_MAP[currentQuestion.id] && (
+              <AcroPoseIllustration
+                pose={QUESTION_POSE_MAP[currentQuestion.id].pose}
+                caption={QUESTION_POSE_MAP[currentQuestion.id].caption}
+                locale={locale}
+              />
+            )}
 
             {/* Question body */}
             {currentQuestion.type === "contact" ? (

@@ -201,6 +201,7 @@ export const quizLeads = pgTable("quiz_leads", {
   answers: text("answers").notNull(), // JSON string of answer map
   resultType: text("result_type"),    // null for workshop
   city: text("city"),
+  firstClassDay: text("first_class_day"),  // 'mon' | 'wed' | 'fri' | 'sat' — set when lead books free trial
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
