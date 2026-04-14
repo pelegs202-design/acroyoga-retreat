@@ -36,9 +36,24 @@ export function FounderCard() {
               <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">
                 {t("name")}
               </h2>
-              <p className="text-neutral-300 text-base leading-relaxed mb-6">
+              <p className="text-neutral-300 text-base leading-relaxed mb-4">
                 {t("bio")}
               </p>
+              <div className="mb-6">
+                <p className="text-[10px] font-black uppercase tracking-widest text-brand mb-2">
+                  {t("credentialsLabel")}
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                  {t.raw("credentials").map((c: string) => (
+                    <span
+                      key={c}
+                      className="inline-block text-xs font-bold text-white bg-neutral-800 border border-neutral-700 px-3 py-1"
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
               <blockquote className="border-s-2 border-brand ps-4 mb-6 text-white/80 italic text-sm">
                 {t("quote")}
               </blockquote>

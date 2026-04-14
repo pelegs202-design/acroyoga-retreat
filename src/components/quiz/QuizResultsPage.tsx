@@ -8,7 +8,7 @@ import { ScrollReveal } from "@/components/effects/ScrollReveal";
 import { MagneticWrapper } from "@/components/effects/MagneticWrapper";
 import { ShareButton } from "@/components/social/ShareButton";
 import { trackResultsView, trackSoftDQ, trackCTAClick, trackCompleteRegistration, trackTimeOnPage, SOFT_DQ_THRESHOLD } from "@/lib/quiz/quiz-analytics";
-import { nextMonday } from "@/lib/date-utils";
+import { nextMonday, nextOccurrence, formatShortDate, relativeDayLabel } from "@/lib/date-utils";
 import { TESTIMONIALS } from "@/lib/testimonials";
 
 // ─── Props ────────────────────────────────────────────────────────────────────
@@ -275,37 +275,65 @@ export default function QuizResultsPage({
               <h2 className="text-4xl font-black text-black mb-2">
                 {isHe ? "בחרו את השיעור הראשון" : "Pick Your Trial Class"}
               </h2>
-              <p className="text-black/60 text-sm mb-6">
-                {isHe ? "שיעור ניסיון במתנה · בלי התחייבות · מתחילים " : "Free trial class · No commitment · Starting "}
-                {formattedStartDate}
+              <p className="text-black/70 text-sm mb-2">
+                {isHe ? "שיעור ניסיון במתנה · בלי התחייבות" : "Free trial class · No commitment"}
               </p>
+              {(() => {
+                const slots = [
+                  { id: "mon-early", dow: 1, h: 18, m: 30 },
+                  { id: "mon-late", dow: 1, h: 19, m: 45 },
+                  { id: "wed-early", dow: 3, h: 18, m: 30 },
+                  { id: "wed-late", dow: 3, h: 19, m: 45 },
+                  { id: "fri", dow: 5, h: 13, m: 30 },
+                  { id: "sat", dow: 6, h: 13, m: 30 },
+                ];
+                const earliest = slots
+                  .map((s) => ({ ...s, date: nextOccurrence(s.dow, s.h, s.m) }))
+                  .sort((a, b) => a.date.getTime() - b.date.getTime())[0];
+                return (
+                  <p className="text-black text-base font-black mb-6">
+                    {isHe
+                      ? `השיעור הקרוב ביותר — ${relativeDayLabel(earliest.date, "he")} (${formatShortDate(earliest.date, "he")})`
+                      : `Earliest class — ${relativeDayLabel(earliest.date, "en")} (${formatShortDate(earliest.date, "en")})`}
+                  </p>
+                );
+              })()}
 
               <div className="grid grid-cols-2 gap-3 max-w-md mx-auto mb-6">
                 {([
-                  { id: "mon-early", he: "שני 18:30", en: "Mon 18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
-                  { id: "mon-late", he: "שני 19:45", en: "Mon 19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
-                  { id: "wed-early", he: "רביעי 18:30", en: "Wed 18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
-                  { id: "wed-late", he: "רביעי 19:45", en: "Wed 19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
-                  { id: "fri", he: "שישי 13:30", en: "Fri 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
-                  { id: "sat", he: "שבת 13:30", en: "Sat 13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
-                ] as const).map((day) => (
-                  <button
-                    key={day.id}
-                    type="button"
-                    onClick={() => {
-                      setSelectedDay(day.id);
-                      trackCTAClick("results_day_pick");
-                    }}
-                    className={`p-4 border-2 text-start transition-all ${
-                      selectedDay === day.id
-                        ? "border-black bg-black/10 scale-[1.02]"
-                        : "border-black/30 bg-white/10 hover:border-black/60"
-                    }`}
-                  >
-                    <p className="font-black text-black text-sm">{isHe ? day.he : day.en}</p>
-                    <p className="text-black/60 text-xs mt-1">{day.loc}</p>
-                  </button>
-                ))}
+                  { id: "mon-early", dow: 1, h: 18, m: 30, heDay: "שני", enDay: "Mon", time: "18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "mon-late", dow: 1, h: 19, m: 45, heDay: "שני", enDay: "Mon", time: "19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "wed-early", dow: 3, h: 18, m: 30, heDay: "רביעי", enDay: "Wed", time: "18:30", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "wed-late", dow: 3, h: 19, m: 45, heDay: "רביעי", enDay: "Wed", time: "19:45", loc: isHe ? "רוקח 40, ת״א · חניה חינם" : "Rokah 40, TLV · Free parking" },
+                  { id: "fri", dow: 5, h: 13, m: 30, heDay: "שישי", enDay: "Fri", time: "13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
+                  { id: "sat", dow: 6, h: 13, m: 30, heDay: "שבת", enDay: "Sat", time: "13:30", loc: isHe ? "חוף צ׳ארלס קלור" : "Charles Clore Beach" },
+                ] as const).map((day) => {
+                  const date = nextOccurrence(day.dow, day.h, day.m);
+                  const shortDate = formatShortDate(date, isHe ? "he" : "en");
+                  return (
+                    <button
+                      key={day.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedDay(day.id);
+                        trackCTAClick("results_day_pick");
+                      }}
+                      className={`p-4 border-2 text-start transition-all ${
+                        selectedDay === day.id
+                          ? "border-black bg-black/10 scale-[1.02]"
+                          : "border-black/30 bg-white/10 hover:border-black/60"
+                      }`}
+                    >
+                      <p className="font-black text-black text-sm">
+                        {isHe ? `${day.heDay} ${day.time}` : `${day.enDay} ${day.time}`}
+                      </p>
+                      <p className="text-black font-bold text-xs mt-0.5">
+                        {shortDate} · {relativeDayLabel(date, isHe ? "he" : "en")}
+                      </p>
+                      <p className="text-black/60 text-[11px] mt-1">{day.loc}</p>
+                    </button>
+                  );
+                })}
               </div>
 
               <button

@@ -8,7 +8,7 @@ import type { QuizState } from "@/components/quiz/QuizEngine";
 import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
-import { formatNextMonday } from "@/lib/date-utils";
+import { formatNextMonday, nextOccurrence, formatShortDate, relativeDayLabel } from "@/lib/date-utils";
 import Image from "next/image";
 import { ReelsCarousel } from "@/components/home/ReelsCarousel";
 
@@ -75,6 +75,18 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   const nextMondayStr = formatNextMonday(locale);
   const mountTime = useRef(Date.now());
   const scrollMilestones = useRef(new Set<number>());
+
+  // Compute earliest trial-class date for urgency messaging (match results-page day picker slots)
+  const trialSlots = [
+    { dow: 1, h: 18, m: 30 }, { dow: 1, h: 19, m: 45 },
+    { dow: 3, h: 18, m: 30 }, { dow: 3, h: 19, m: 45 },
+    { dow: 5, h: 13, m: 30 }, { dow: 6, h: 13, m: 30 },
+  ];
+  const earliestDate = trialSlots
+    .map((s) => nextOccurrence(s.dow, s.h, s.m))
+    .sort((a, b) => a.getTime() - b.getTime())[0];
+  const earliestRelative = relativeDayLabel(earliestDate, he ? "he" : "en");
+  const earliestShort = formatShortDate(earliestDate, he ? "he" : "en");
 
   // Self-heal: clear any stale completed-quiz storage so landing always loads clean.
   // (Without this, a user who finished the quiz once may get stuck on cached state.)
@@ -199,8 +211,13 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון במתנה · בלי התחייבות" : "First trial class · No commitment"}</span>
               </div>
 
-              <p className="text-sm text-gray-500 mb-3">
+              <p className="text-sm text-gray-500 mb-2">
                 {he ? "שאלון 2 דק׳ — לא מתאים לכולם. 4 שאלות קצרות." : "2-min quiz — not for everyone. 4 short questions."}
+              </p>
+              <p className="text-sm text-brand font-black mb-3">
+                {he
+                  ? `⚡ השיעור הקרוב — ${earliestRelative} (${earliestShort})`
+                  : `⚡ Next class — ${earliestRelative} (${earliestShort})`}
               </p>
 
               <button
@@ -275,7 +292,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             { value: "527", label: he ? "בוגרים" : "Graduates" },
             { value: "96%", label: he ? "שיעור סיום" : "Completion" },
             { value: "4.9", label: he ? "דירוג" : "Rating" },
-            { value: nextMondayStr, label: he ? "קבוצה הבאה" : "Next Cohort" },
+            { value: earliestShort, label: he ? `שיעור ניסיון · ${earliestRelative}` : `Trial class · ${earliestRelative}` },
           ].map((stat, i) => (
             <div key={i} className={`py-6 md:py-0 ${i > 0 ? "border-s-2 border-neutral-800" : ""}`}>
               <div className="text-4xl md:text-5xl font-black text-brand mb-2">{stat.value}</div>
@@ -404,11 +421,32 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             <h2 className="text-2xl font-black text-white mb-2">
               {he ? "שי פלג — המדריך שלכם" : "Shai Peleg — Your Instructor"}
             </h2>
-            <p className="text-gray-400 leading-relaxed mb-3">
+            <p className="text-gray-400 leading-relaxed mb-4">
               {he
                 ? "527 בוגרים. 0 פציעות. מדריך אקרויוגה מוסמך שמלמד מ-2022. שי בנה תכנית שלוקחת אנשים מאפס מוחלט — לטיסה ראשונה תוך 30 יום. 80% מהתלמידים שלו מתחילים בלי שום ניסיון."
                 : "527 graduates. 0 injuries. Certified acroyoga instructor teaching since 2022. Shai built a program that takes people from absolute zero to first flight in 30 days. 80% of his students start with no experience."}
             </p>
+
+            {/* International credentials — authority + proof (Cialdini) */}
+            <div className="mb-4">
+              <p className="text-[10px] font-black uppercase tracking-widest text-brand mb-2">
+                {he ? "לימד בפסטיבלים בינלאומיים" : "Taught at international festivals"}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {(he
+                  ? ["שוודיה", "איטליה", "פולין", "ספרד", "דרום אמריקה"]
+                  : ["Sweden", "Italy", "Poland", "Spain", "South America"]
+                ).map((c) => (
+                  <span
+                    key={c}
+                    className="inline-block text-xs font-bold text-white bg-neutral-800 border border-neutral-700 px-3 py-1"
+                  >
+                    {c}
+                  </span>
+                ))}
+              </div>
+            </div>
+
             <p className="text-brand text-sm font-bold">
               {he ? "\"אין דבר כזה \'לא מתאים\'. יש רק \'עוד לא ניסה\'.\"" : "\"There's no such thing as 'not suitable'. Only 'haven't tried yet'.\""}
             </p>
@@ -429,11 +467,19 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
             {he ? "מגיעים. מתנסים. מחליטים." : "Come. Try. Decide."}
           </h2>
 
-          <p className="text-gray-400 text-lg mb-10 max-w-md mx-auto leading-relaxed">
+          <p className="text-gray-400 text-lg mb-4 max-w-md mx-auto leading-relaxed">
             {he
               ? "שיעור ראשון במתנה, בלי התחייבות. תנסו אקרויוגה בעצמכם ותרגישו מה זה."
               : "Your first class is completely free, no commitment. Experience acroyoga firsthand and feel what it's about."}
           </p>
+
+          <div className="inline-block mb-10 bg-brand/15 border-2 border-brand px-5 py-3">
+            <p className="text-brand text-base font-black">
+              {he
+                ? `⚡ השיעור הקרוב: ${earliestRelative} (${earliestShort}) — אפשר להגיע`
+                : `⚡ Next class: ${earliestRelative} (${earliestShort}) — come on in`}
+            </p>
+          </div>
 
           {/* Outcomes, not features (Hormozi) */}
           <div className="text-start mb-10 space-y-3 max-w-md mx-auto">

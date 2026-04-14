@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import { trackSuccessPageView, trackCalendarAdded, trackInstagramFollowed, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
-import { nextMonday as getNextMonday } from "@/lib/date-utils";
+import { nextMonday as getNextMonday, nextOccurrence, formatShortDate, relativeDayLabel } from "@/lib/date-utils";
 import { ShareButton } from "@/components/social/ShareButton";
 
 // Dynamic import for add-to-calendar (no SSR — uses browser APIs)
@@ -20,13 +20,13 @@ const MAPS = {
 };
 
 // Day metadata for calendar + display
-const DAY_INFO: Record<string, { he: string; en: string; time: string; endTime: string; location: { he: string; en: string }; mapKey: keyof typeof MAPS }> = {
-  "mon-early": { he: "שני", en: "Monday", time: "18:30", endTime: "20:00", location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
-  "mon-late": { he: "שני", en: "Monday", time: "19:45", endTime: "21:15", location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
-  "wed-early": { he: "רביעי", en: "Wednesday", time: "18:30", endTime: "20:00", location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
-  "wed-late": { he: "רביעי", en: "Wednesday", time: "19:45", endTime: "21:15", location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
-  fri: { he: "שישי", en: "Friday", time: "13:30", endTime: "15:00", location: { he: "חוף צ׳ארלס קלור", en: "Charles Clore Beach" }, mapKey: "clore" },
-  sat: { he: "שבת", en: "Saturday", time: "13:30", endTime: "15:00", location: { he: "חוף צ׳ארלס קלור", en: "Charles Clore Beach" }, mapKey: "clore" },
+const DAY_INFO: Record<string, { he: string; en: string; time: string; endTime: string; dow: number; hour: number; minute: number; location: { he: string; en: string }; mapKey: keyof typeof MAPS }> = {
+  "mon-early": { he: "שני", en: "Monday", time: "18:30", endTime: "20:00", dow: 1, hour: 18, minute: 30, location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
+  "mon-late": { he: "שני", en: "Monday", time: "19:45", endTime: "21:15", dow: 1, hour: 19, minute: 45, location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
+  "wed-early": { he: "רביעי", en: "Wednesday", time: "18:30", endTime: "20:00", dow: 3, hour: 18, minute: 30, location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
+  "wed-late": { he: "רביעי", en: "Wednesday", time: "19:45", endTime: "21:15", dow: 3, hour: 19, minute: 45, location: { he: "רוקח 40, ת״א", en: "Rokah 40, Tel Aviv" }, mapKey: "rokah" },
+  fri: { he: "שישי", en: "Friday", time: "13:30", endTime: "15:00", dow: 5, hour: 13, minute: 30, location: { he: "חוף צ׳ארלס קלור", en: "Charles Clore Beach" }, mapKey: "clore" },
+  sat: { he: "שבת", en: "Saturday", time: "13:30", endTime: "15:00", dow: 6, hour: 13, minute: 30, location: { he: "חוף צ׳ארלס קלור", en: "Charles Clore Beach" }, mapKey: "clore" },
 };
 
 interface SuccessContentProps {
@@ -42,6 +42,9 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
   const [selectedDay, setSelectedDay] = useState<string | null>(initialDay ?? null);
   const [dayConfirmed, setDayConfirmed] = useState(!!initialDay);
   const [archetypeName, setArchetypeName] = useState("");
+  const [archetypeTagline, setArchetypeTagline] = useState("");
+  const [archetypeDescription, setArchetypeDescription] = useState("");
+  const [leadName, setLeadName] = useState("");
   const [leadCount, setLeadCount] = useState(0);
   const [calendarDone, setCalendarDone] = useState(false);
   const [instagramDone, setInstagramDone] = useState(false);
@@ -49,13 +52,20 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
   useEffect(() => {
     trackSuccessPageView(sessionId);
 
-    // Fetch archetype for personalization
+    // Fetch archetype for personalization (full card — shown at top of success page)
     fetch(`/api/quiz/results/${sessionId}`)
       .then((r) => r.ok ? r.json() : null)
       .then((data) => {
         if (data?.result?.name) {
           setArchetypeName(locale === "he" ? data.result.name.he : data.result.name.en);
         }
+        if (data?.result?.tagline) {
+          setArchetypeTagline(locale === "he" ? data.result.tagline.he : data.result.tagline.en);
+        }
+        if (data?.result?.description) {
+          setArchetypeDescription(locale === "he" ? data.result.description.he : data.result.description.en);
+        }
+        if (data?.lead?.name) setLeadName(data.lead.name);
       })
       .catch(() => {});
 
@@ -76,12 +86,11 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
   }, [sessionId, locale, mountTime]);
 
   const nextMondayDate = getNextMonday();
-  const now = new Date();
-  const daysUntil = Math.max(0, Math.ceil((nextMondayDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
 
-  // Calendar info from selected day
+  // Calendar info from selected day — compute the actual NEXT occurrence
   const dayInfo = selectedDay ? DAY_INFO[selectedDay] : null;
-  const calendarDate = nextMondayDate.toISOString().split("T")[0];
+  const classDate = dayInfo ? nextOccurrence(dayInfo.dow, dayInfo.hour, dayInfo.minute) : nextMondayDate;
+  const calendarDate = classDate.toISOString().split("T")[0];
 
   async function handleDaySelect(day: string) {
     setSelectedDay(day);
@@ -120,6 +129,35 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
 
   return (
     <div className="w-full max-w-lg mx-auto flex flex-col gap-6 pb-20 px-4 pt-8">
+
+      {/* ── 0. ARCHETYPE HEADER — duplicate of results page so user keeps context */}
+      {archetypeName && (
+        <motion.section
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <p className="text-neutral-500 text-xs mb-2 uppercase tracking-widest">
+            {leadName ? `${leadName}, ` : ""}
+            {isHe ? "אתם" : "You are"}
+          </p>
+          <div className="inline-block border-2 border-brand px-6 py-4 shadow-[6px_6px_0px_0px_rgba(244,114,182,0.15)] mb-4">
+            <h2 className="text-3xl sm:text-5xl font-black text-brand leading-none">
+              {archetypeName}
+            </h2>
+          </div>
+          {archetypeTagline && (
+            <p className="text-neutral-300 italic text-base mb-3 px-2">{archetypeTagline}</p>
+          )}
+          {archetypeDescription && (
+            <p className="text-neutral-400 text-sm leading-relaxed max-w-md mx-auto px-2">
+              {archetypeDescription}
+            </p>
+          )}
+          <div className="mx-auto my-6 h-px w-24 bg-neutral-800" />
+        </motion.section>
+      )}
 
       {/* ── 1. CELEBRATION HEADER (Brunson: reinforce the decision) ──────── */}
       <motion.section
@@ -170,7 +208,9 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
             </div>
             <div>
               <p className="text-white font-bold text-sm">
-                {isHe ? `יום ${dayInfo.he} · ${dayInfo.time}` : `${dayInfo.en} · ${dayInfo.time}`}
+                {isHe
+                  ? `יום ${dayInfo.he}, ${formatShortDate(classDate, "he")} · ${dayInfo.time}`
+                  : `${dayInfo.en}, ${formatShortDate(classDate, "en")} · ${dayInfo.time}`}
               </p>
               <a href={MAPS[dayInfo.mapKey]} target="_blank" rel="noopener noreferrer" className="text-brand text-xs underline">
                 {isHe ? dayInfo.location.he : dayInfo.location.en}
@@ -181,12 +221,10 @@ export default function SuccessContent({ sessionId, locale, initialDay }: Succes
             </div>
           </div>
 
-          {/* Countdown */}
-          {daysUntil > 0 && daysUntil <= 14 && (
-            <p className="text-neutral-400 text-xs">
-              {isHe ? `בעוד ${daysUntil} ימים` : `In ${daysUntil} days`}
-            </p>
-          )}
+          {/* Countdown — specific per-class */}
+          <div className="inline-block bg-brand/20 border border-brand/40 px-3 py-1 text-brand text-xs font-black uppercase tracking-widest">
+            {isHe ? `מתחילים ${relativeDayLabel(classDate, "he")}` : `Starts ${relativeDayLabel(classDate, "en")}`}
+          </div>
         </motion.section>
       )}
 

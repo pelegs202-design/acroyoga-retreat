@@ -27,58 +27,74 @@ export function ReelsCarousel() {
     if (!el) return;
 
     const videos = videosRef.current.filter(Boolean);
-    const io = new IntersectionObserver(
+    // Per-video IO — play/pause videos based on their own visibility in the scroller
+    const videoIO = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const v = entry.target as HTMLVideoElement;
-          if (entry.isIntersecting) {
-            v.play().catch(() => {});
-          } else {
-            v.pause();
-          }
+          if (entry.isIntersecting) v.play().catch(() => {});
+          else v.pause();
         });
       },
       { root: el, threshold: 0.4 }
     );
-    videos.forEach((v) => io.observe(v));
+    videos.forEach((v) => videoIO.observe(v));
 
-    let rafId = 0;
-    let lastTs = 0;
-    let paused = false;
-    let resumeTimer: number | undefined;
     let reduceMotion = false;
     try {
       reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     } catch {}
 
+    let rafId = 0;
+    let lastTs = 0;
+    let paused = false;
+    let sectionInView = false;
+    let resumeTimer: number | undefined;
+
     const tick = (ts: number) => {
+      rafId = 0;
+      if (!sectionInView || paused || reduceMotion) return;
       if (!lastTs) lastTs = ts;
       const dt = ts - lastTs;
       lastTs = ts;
-      if (!paused && !reduceMotion) {
-        const max = el.scrollWidth - el.clientWidth;
-        if (max > 1) {
-          const rtl = getComputedStyle(el).direction === "rtl";
-          const delta = (AUTO_SCROLL_PX_PER_SEC * dt) / 1000;
-          const next = el.scrollLeft + (rtl ? -delta : delta);
-          if (rtl) {
-            if (next <= -max + 1) el.scrollLeft = 0;
-            else el.scrollLeft = next;
-          } else {
-            if (next >= max - 1) el.scrollLeft = 0;
-            else el.scrollLeft = next;
-          }
-        }
+      const max = el.scrollWidth - el.clientWidth;
+      if (max > 1) {
+        const rtl = getComputedStyle(el).direction === "rtl";
+        const delta = (AUTO_SCROLL_PX_PER_SEC * dt) / 1000;
+        const next = el.scrollLeft + (rtl ? -delta : delta);
+        if (rtl) el.scrollLeft = next <= -max + 1 ? 0 : next;
+        else el.scrollLeft = next >= max - 1 ? 0 : next;
       }
       rafId = requestAnimationFrame(tick);
     };
-    rafId = requestAnimationFrame(tick);
+    const startTick = () => {
+      if (rafId || !sectionInView || paused || reduceMotion) return;
+      lastTs = 0;
+      rafId = requestAnimationFrame(tick);
+    };
+    const stopTick = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+    };
+
+    // Section-level IO — only run the auto-scroll loop when carousel is on screen
+    const sectionIO = new IntersectionObserver(
+      (entries) => {
+        sectionInView = entries[0]?.isIntersecting ?? false;
+        if (sectionInView) startTick();
+        else stopTick();
+      },
+      { threshold: 0.1 }
+    );
+    sectionIO.observe(el);
 
     const pauseAuto = () => {
       paused = true;
+      stopTick();
       if (resumeTimer) window.clearTimeout(resumeTimer);
       resumeTimer = window.setTimeout(() => {
         paused = false;
+        startTick();
       }, RESUME_IDLE_MS);
     };
     el.addEventListener("pointerdown", pauseAuto, { passive: true });
@@ -86,8 +102,9 @@ export function ReelsCarousel() {
     el.addEventListener("touchstart", pauseAuto, { passive: true });
 
     return () => {
-      cancelAnimationFrame(rafId);
-      io.disconnect();
+      stopTick();
+      videoIO.disconnect();
+      sectionIO.disconnect();
       if (resumeTimer) window.clearTimeout(resumeTimer);
       el.removeEventListener("pointerdown", pauseAuto);
       el.removeEventListener("wheel", pauseAuto);

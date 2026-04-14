@@ -105,6 +105,8 @@
       "name": "Shai Peleg",
       "badge": "Founder",
       "bio": "Certified acroyoga instructor since 2022. 527 graduates, 0 injuries. Built a program that takes people from total beginner to first flight in 30 days — 80% of students start with no experience whatsoever.",
+      "credentialsLabel": "Taught at international festivals",
+      "credentials": ["Sweden", "Italy", "Poland", "Spain", "South America"],
       "quote": "There's no such thing as 'not for me'. Only 'haven't tried yet'.",
       "ctaPrimary": "Start now"
     },
