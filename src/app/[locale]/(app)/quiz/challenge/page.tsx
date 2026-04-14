@@ -125,36 +125,39 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
 
   return (
     <div className="w-full overflow-x-hidden">
+      {/* Mobile hero video — sits above the hero section, raised to the top */}
+      <button
+        type="button"
+        onClick={() => handleCTA("hero_video")}
+        className="lg:hidden relative block w-full aspect-[9/16] max-h-[480px] overflow-hidden bg-black group"
+        aria-label={he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+      >
+        <video
+          src="/reels/DMA3tUdM7-d.mp4"
+          poster="/reels/DMA3tUdM7-d.jpg"
+          muted
+          loop
+          autoPlay
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        />
+        <span className="absolute inset-0 flex items-end justify-center pb-6 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+          <span className="inline-flex items-center gap-2 bg-brand text-black font-black px-6 py-3 text-base uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] animate-pulse">
+            {he ? "התחילו את השאלון" : "Start the Quiz"}
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 rtl:rotate-180" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+          </span>
+        </span>
+      </button>
+
       {/* ── 1. HERO ──────────────────────────────────────────────────── */}
       <section className="relative flex items-center overflow-hidden border-b-2 border-neutral-800">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-20 w-full">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 lg:py-20 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Text + CTA — always first on mobile so it's above the fold */}
             <div>
-              {/* Mobile hero video — click = start quiz */}
-              <button
-                type="button"
-                onClick={() => handleCTA("hero_video")}
-                className="lg:hidden relative block w-full aspect-[9/16] max-h-[420px] mx-auto mb-6 overflow-hidden border-2 border-brand bg-black group"
-                aria-label={he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
-              >
-                <video
-                  src="/reels/DMA3tUdM7-d.mp4"
-                  poster="/reels/DMA3tUdM7-d.jpg"
-                  muted
-                  loop
-                  autoPlay
-                  playsInline
-                  preload="metadata"
-                  className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-                />
-                <span className="absolute inset-0 flex items-end justify-center pb-4 bg-gradient-to-t from-black/70 via-transparent to-transparent">
-                  <span className="bg-brand text-black font-black px-4 py-2 text-sm uppercase tracking-widest border-2 border-black shadow-[3px_3px_0px_0px_rgba(255,255,255,0.9)]">
-                    {he ? "גלו את הטיפוס שלכם" : "Take the Quiz"}
-                  </span>
-                </span>
-              </button>
-
               <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
                 <span className="text-brand font-black text-xs uppercase tracking-widest">
                   {he ? "IL — שיעור ניסיון במתנה" : "IL — Free Trial Class"}
@@ -178,16 +181,22 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                 <span className="text-brand/70 text-sm font-bold">{he ? "שיעור ניסיון ראשון במתנה · בלי התחייבות" : "First trial class · No commitment"}</span>
               </div>
 
-              <p className="text-sm text-gray-500 mb-2">
-                {he ? "שאלון בן 2 דקות — לא מתאים לכל אחד" : "2-minute quiz — not for everyone"}
+              <p className="text-sm text-gray-500 mb-3">
+                {he ? "שאלון 2 דק׳ — לא מתאים לכולם. 4 שאלות קצרות." : "2-min quiz — not for everyone. 4 short questions."}
               </p>
 
               <button
                 onClick={() => handleCTA("hero")}
-                className="btn-press w-full md:w-auto bg-brand text-black px-10 py-4 md:px-12 md:py-5 text-lg md:text-xl font-black border-[3px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[4px_4px_0px_0px_rgba(255,255,255,1)]"
+                className="btn-press group relative w-full md:w-auto inline-flex items-center justify-center gap-3 bg-brand text-black px-8 py-5 md:px-14 md:py-6 text-xl md:text-2xl font-black uppercase tracking-wide border-[4px] border-neutral-800 hover:translate-x-1 hover:translate-y-1 transition-transform shadow-[6px_6px_0px_0px_rgba(255,255,255,1)]"
               >
-                {he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+                <span>{he ? "קבלו מקום בקבוצה הבאה" : "Claim Your Spot Now"}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-6 w-6 rtl:rotate-180 group-hover:translate-x-1 transition-transform" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </button>
+              <p className="text-[11px] text-brand/70 mt-2 font-bold tracking-widest uppercase">
+                {he ? "← מגלים את הטיפוס שלכם וקובעים שיעור חינם" : "← Find your type + book your free trial"}
+              </p>
 
               {/* Immediate objection killers (Suby: kill top fears above the fold) */}
               <div className="flex flex-wrap gap-3 mt-4">
@@ -221,8 +230,11 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
                   className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                 />
                 <span className="absolute bottom-6 inset-x-0 flex justify-center">
-                  <span className="bg-brand text-black font-black px-6 py-3 text-base uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] group-hover:translate-x-1 group-hover:translate-y-1 transition-transform">
-                    {he ? "התחילו את השאלון" : "Start the Quiz"}
+                  <span className="inline-flex items-center gap-2 bg-brand text-black font-black px-7 py-4 text-lg uppercase tracking-widest border-2 border-black shadow-[5px_5px_0px_0px_rgba(255,255,255,0.95)] group-hover:translate-x-1 group-hover:translate-y-1 transition-transform animate-pulse">
+                    {he ? "קבלו את המקום שלכם" : "Claim Your Spot"}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="h-5 w-5 rtl:rotate-180" aria-hidden="true">
+                      <path d="M5 12h14M13 6l6 6-6 6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </span>
                 </span>
                 <span className="absolute top-4 start-4 bg-white text-black font-black px-2 py-1 text-[10px] tracking-widest uppercase">

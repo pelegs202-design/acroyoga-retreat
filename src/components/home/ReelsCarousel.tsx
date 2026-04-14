@@ -96,9 +96,9 @@ export function ReelsCarousel() {
   }, []);
 
   return (
-    <section className="w-full bg-background border-y-2 border-neutral-800 py-16">
+    <section className="w-full bg-background border-y-2 border-neutral-800 py-8 md:py-12">
       <ScrollReveal>
-        <div className="max-w-7xl mx-auto px-6 mb-8">
+        <div className="max-w-7xl mx-auto px-6 mb-5">
           <p className="text-brand text-sm font-bold tracking-[0.3em] uppercase mb-3">
             {t("label")}
           </p>
