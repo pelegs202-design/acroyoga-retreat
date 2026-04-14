@@ -6,7 +6,8 @@ import QuizProgressBar from "./QuizProgressBar";
 import QuizCard from "./QuizCard";
 import QuizContactStep from "./QuizContactStep";
 import AcroPoseIllustration, { QUESTION_POSE_MAP } from "./AcroPoseIllustration";
-import { trackQuizStart, trackQuizStep, trackQuizAbandoned } from "@/lib/quiz/quiz-analytics";
+import { trackQuizStart, trackQuizStep, trackQuizAbandoned, trackQuizError } from "@/lib/quiz/quiz-analytics";
+import QuizErrorBoundary from "./QuizErrorBoundary";
 
 // Safe sessionId generator — crypto.randomUUID throws in older iOS Safari
 // and Facebook/Instagram in-app WebViews, which was blanking the quiz.
@@ -173,7 +174,7 @@ interface QuizEngineProps {
 
 const BACK_LABEL = { en: "Back", he: "חזור" };
 
-export default function QuizEngine({
+function QuizEngineInner({
   questions,
   quizType,
   onComplete,
@@ -200,24 +201,50 @@ export default function QuizEngine({
     if (isRestored.current) return;
     isRestored.current = true;
 
-    if (storageKey) {
-      try {
-        const saved = localStorage.getItem(storageKey);
-        if (saved) {
-          const parsed: QuizState = JSON.parse(saved);
-          dispatch({ type: "RESTORE", state: parsed });
-          return;
+    try {
+      if (storageKey) {
+        try {
+          const saved = localStorage.getItem(storageKey);
+          if (saved) {
+            const parsed: QuizState = JSON.parse(saved);
+            dispatch({ type: "RESTORE", state: parsed });
+            return;
+          }
+        } catch (err) {
+          trackQuizError("mount-restore", err, { quiz_type: quizType, storage_key: storageKey });
         }
-      } catch {
-        // Ignore parse errors — start fresh
       }
-    }
 
-    const sessionId = generateSessionId();
-    dispatch({ type: "RESET", initialQuestionId: firstQuestion?.id ?? "", sessionId });
-    trackQuizStart(quizType, sessionId);
+      const sessionId = generateSessionId();
+      dispatch({ type: "RESET", initialQuestionId: firstQuestion?.id ?? "", sessionId });
+      trackQuizStart(quizType, sessionId);
+    } catch (err) {
+      trackQuizError("mount", err, { quiz_type: quizType });
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Global error capture — surfaces any uncaught throw or unhandled rejection
+  // on the quiz page, so future silent failures reach PostHog.
+  useEffect(() => {
+    const onError = (e: ErrorEvent) => {
+      trackQuizError("window-error", e.error ?? e.message, {
+        quiz_type: quizType,
+        filename: e.filename,
+        lineno: e.lineno,
+        colno: e.colno,
+      });
+    };
+    const onRejection = (e: PromiseRejectionEvent) => {
+      trackQuizError("unhandled-rejection", e.reason, { quiz_type: quizType });
+    };
+    window.addEventListener("error", onError);
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => {
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    };
+  }, [quizType]);
 
   // Persist to localStorage on every state change
   useEffect(() => {
@@ -263,7 +290,19 @@ export default function QuizEngine({
     }).catch(() => {});
   }, [state.sessionId, state.currentQuestionId, quizType]);
 
-  if (!currentQuestion) return null;
+  if (!currentQuestion) {
+    // Fires once per session — guarded by viewedRef sentinel.
+    if (!viewedRef.current.has("__missing_question_reported__")) {
+      viewedRef.current.add("__missing_question_reported__");
+      trackQuizError("missing-question", new Error("currentQuestion resolved to undefined"), {
+        quiz_type: quizType,
+        session_id: state.sessionId,
+        current_question_id: state.currentQuestionId,
+        question_count: questions.length,
+      });
+    }
+    return null;
+  }
 
   // RTL direction detection
   const isRtl =
@@ -408,5 +447,13 @@ export default function QuizEngine({
         </button>
       )}
     </div>
+  );
+}
+
+export default function QuizEngine(props: QuizEngineProps) {
+  return (
+    <QuizErrorBoundary locale={props.locale}>
+      <QuizEngineInner {...props} />
+    </QuizErrorBoundary>
   );
 }

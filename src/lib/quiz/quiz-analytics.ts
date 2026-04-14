@@ -7,6 +7,8 @@
  * All events fire to both GA4 (gtag) and Meta Pixel (fbq).
  */
 
+import { posthog } from "@/lib/posthog";
+
 declare global {
   function gtag(command: string, action: string, params?: Record<string, unknown>): void;
   function fbq(command: string, eventName: string, params?: Record<string, unknown>): void;
@@ -20,6 +22,15 @@ function g(event: string, params?: Record<string, unknown>) {
 function f(event: string, params?: Record<string, unknown>, standard = false) {
   if (typeof window === "undefined") return;
   if (typeof fbq === "function") fbq(standard ? "track" : "trackCustom", event, params);
+}
+
+function ph(event: string, params?: Record<string, unknown>) {
+  if (typeof window === "undefined") return;
+  try {
+    if (posthog && posthog.__loaded) posthog.capture(event, params);
+  } catch {
+    // swallow — never let analytics kill the caller
+  }
 }
 
 // ─── Landing Page ─────────────────────────────────────────────────────────────
@@ -104,6 +115,29 @@ export function trackCalendarAdded(sessionId: string): void {
 export function trackInstagramFollowed(sessionId: string): void {
   g("instagram_followed", { session_id: sessionId });
   f("InstagramFollowed", { session_id: sessionId });
+}
+
+// ─── Error Capture ────────────────────────────────────────────────────────────
+// Surfaces silent failures in the quiz that would otherwise leave users on a
+// blank screen. Context is a short tag (e.g. "mount", "view-fetch", "boundary").
+
+export function trackQuizError(
+  context: string,
+  err: unknown,
+  meta?: Record<string, unknown>,
+): void {
+  const e = err as { message?: unknown; name?: unknown; stack?: unknown };
+  const payload = {
+    context,
+    error_name: typeof e?.name === "string" ? e.name : undefined,
+    error_message: typeof e?.message === "string" ? e.message : String(err),
+    error_stack: typeof e?.stack === "string" ? e.stack.slice(0, 2000) : undefined,
+    user_agent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+    ...meta,
+  };
+  ph("quiz_error", payload);
+  g("quiz_error", payload);
+  f("QuizError", payload);
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────

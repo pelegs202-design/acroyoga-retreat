@@ -21,7 +21,6 @@ test.describe("Quiz engine — sessionId robustness", () => {
   test("Q1 renders even when crypto.randomUUID throws (simulates FB in-app / old iOS)", async ({ page }) => {
     // Kill randomUUID before any script on the page runs.
     await page.addInitScript(() => {
-      // @ts-expect-error — deliberately sabotage the API
       Object.defineProperty(globalThis.crypto, "randomUUID", {
         configurable: true,
         value: () => {
