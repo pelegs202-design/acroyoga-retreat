@@ -5,6 +5,9 @@ import { ScrollProgressBar } from "@/components/home/ScrollProgressBar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeaturesShowcase } from "@/components/home/FeaturesShowcase";
 import { HorizontalShowcase } from "@/components/home/HorizontalShowcase";
+import { ReelsCarousel } from "@/components/home/ReelsCarousel";
+import { FounderCard } from "@/components/home/FounderCard";
+import { TestimonialsCarousel } from "@/components/home/TestimonialsCarousel";
 import { CTASection } from "@/components/home/CTASection";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
@@ -53,6 +56,15 @@ export default async function HomePage({ params }: Props) {
 
       {/* Horizontal scroll showcase with draggable cards (DSGN-01) */}
       <HorizontalShowcase />
+
+      {/* Instagram reels — mobile-first horizontal carousel */}
+      <ReelsCarousel />
+
+      {/* Founder trust anchor — mid-scroll */}
+      <FounderCard />
+
+      {/* Testimonials — App-Store-style cards on mobile, grid on desktop */}
+      <TestimonialsCarousel />
 
       {/* Bottom CTA conversion section */}
       <CTASection />

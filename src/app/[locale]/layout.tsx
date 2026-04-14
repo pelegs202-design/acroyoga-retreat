@@ -7,6 +7,7 @@ import Script from "next/script";
 import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import MobileStickyCta from "@/components/layout/MobileStickyCta";
 import { MotionProvider } from "@/components/layout/MotionProvider";
 import InstallPrompt from "@/components/pwa/InstallPrompt";
 import IosBanner from "@/components/pwa/IosBanner";
@@ -102,10 +103,11 @@ export default async function LocaleLayout({ children, params }: Props) {
             <PostHogProvider>
               <MotionProvider>
                 <Header />
-                <div className="pt-20">
+                <div className="pt-20 pb-20 sm:pb-0">
                   {children}
                 </div>
                 <Footer />
+                <MobileStickyCta />
                 <InstallPrompt />
                 <IosBanner />
               </MotionProvider>

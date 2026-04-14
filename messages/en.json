@@ -4,7 +4,11 @@
     "switchLanguage": "Switch language",
     "menu": "Menu",
     "closeMenu": "Close menu",
-    "challenge": "30-Day Challenge"
+    "challenge": "30-Day Challenge",
+    "stickyCta": {
+      "label": "Free trial class",
+      "aria": "Quick action: free trial class"
+    }
   },
   "footer": {
     "tagline": "Find acro partners. Jams, community, real connection.",
@@ -90,6 +94,25 @@
           "subtitle": "Tel Aviv, Kfar Saba, Haifa — wherever you are, your community is here."
         }
       }
+    },
+    "reels": {
+      "label": "We're also on Instagram",
+      "title": "Moments from the studio",
+      "reelLabel": "Reel"
+    },
+    "founder": {
+      "label": "Your coach",
+      "name": "Shai Peleg",
+      "badge": "Founder",
+      "bio": "Certified acroyoga instructor since 2022. 527 graduates, 0 injuries. Built a program that takes people from total beginner to first flight in 30 days — 80% of students start with no experience whatsoever.",
+      "quote": "There's no such thing as 'not for me'. Only 'haven't tried yet'.",
+      "ctaPrimary": "Start now"
+    },
+    "testimonials": {
+      "label": "Reviews",
+      "title": "What our students say",
+      "googleReview": "Google Review",
+      "seeAll": "See all reviews"
     },
     "cta": {
       "label": "Ready to start",
