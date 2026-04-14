@@ -76,6 +76,24 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   const mountTime = useRef(Date.now());
   const scrollMilestones = useRef(new Set<number>());
 
+  // Self-heal: clear any stale completed-quiz storage so landing always loads clean.
+  // (Without this, a user who finished the quiz once may get stuck on cached state.)
+  useEffect(() => {
+    try {
+      const keysToRemove: string[] = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && /^quiz-challenge-result-/.test(k)) keysToRemove.push(k);
+      }
+      keysToRemove.forEach((k) => localStorage.removeItem(k));
+      localStorage.removeItem("quiz_challenge_state");
+      for (let i = sessionStorage.length - 1; i >= 0; i--) {
+        const k = sessionStorage.key(i);
+        if (k && /^quiz_completed_/.test(k)) sessionStorage.removeItem(k);
+      }
+    } catch {}
+  }, []);
+
   // Track landing view + scroll depth + time on page
   useEffect(() => {
     trackLandingView();
@@ -124,7 +142,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   }, [onStart]);
 
   return (
-    <div className="w-[100vw] relative left-1/2 right-1/2 -mx-[50vw] -my-8 overflow-x-hidden">
+    <div className="w-[100vw] relative left-1/2 right-1/2 -mx-[50vw] -mt-28 sm:-mt-8 -mb-8 overflow-x-hidden">
       {/* Mobile hero video — sits above the hero section, raised to the top */}
       <button
         type="button"
