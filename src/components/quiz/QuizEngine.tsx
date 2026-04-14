@@ -8,6 +8,20 @@ import QuizContactStep from "./QuizContactStep";
 import AcroPoseIllustration, { QUESTION_POSE_MAP } from "./AcroPoseIllustration";
 import { trackQuizStart, trackQuizStep, trackQuizAbandoned } from "@/lib/quiz/quiz-analytics";
 
+// Safe sessionId generator — crypto.randomUUID throws in older iOS Safari
+// and Facebook/Instagram in-app WebViews, which was blanking the quiz.
+export function generateSessionId(): string {
+  try {
+    if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
+      return crypto.randomUUID();
+    }
+  } catch {
+    // fall through to Math.random fallback
+  }
+  const rand = () => Math.random().toString(36).slice(2, 10);
+  return `sess-${Date.now().toString(36)}-${rand()}${rand()}`;
+}
+
 // ─── Exported types (consumed by Plan 05-02 and 05-03) ───
 
 export type QuestionOption = {
@@ -199,7 +213,7 @@ export default function QuizEngine({
       }
     }
 
-    const sessionId = crypto.randomUUID();
+    const sessionId = generateSessionId();
     dispatch({ type: "RESET", initialQuestionId: firstQuestion?.id ?? "", sessionId });
     trackQuizStart(quizType, sessionId);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -230,6 +244,24 @@ export default function QuizEngine({
   }, [quizType]);
 
   const currentQuestion = questions.find((q) => q.id === state.currentQuestionId);
+
+  // Fire a view event whenever the current question changes (after Q1, on advance).
+  const viewedRef = useRef<Set<string>>(new Set());
+  useEffect(() => {
+    if (!state.sessionId || !state.currentQuestionId) return;
+    if (viewedRef.current.has(state.currentQuestionId)) return;
+    viewedRef.current.add(state.currentQuestionId);
+    fetch("/api/quiz/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sessionId: state.sessionId,
+        quizType,
+        questionId: state.currentQuestionId,
+        eventType: "view",
+      }),
+    }).catch(() => {});
+  }, [state.sessionId, state.currentQuestionId, quizType]);
 
   if (!currentQuestion) return null;
 
