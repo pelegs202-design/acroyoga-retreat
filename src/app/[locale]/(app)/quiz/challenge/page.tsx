@@ -124,7 +124,7 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
   }, [onStart]);
 
   return (
-    <div className="w-full overflow-x-hidden">
+    <div className="w-[100vw] relative left-1/2 right-1/2 -mx-[50vw] -my-8 overflow-x-hidden">
       {/* Mobile hero video — sits above the hero section, raised to the top */}
       <button
         type="button"
