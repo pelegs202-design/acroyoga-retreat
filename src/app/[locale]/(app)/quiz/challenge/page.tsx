@@ -9,6 +9,8 @@ import { challengeQuestions } from "@/lib/quiz/challenge-questions";
 import { calculateResult } from "@/lib/quiz/result-calculator";
 import { trackQuizComplete, trackLandingView, trackCTAClick, trackScrollDepth, trackTimeOnPage } from "@/lib/quiz/quiz-analytics";
 import { formatNextMonday } from "@/lib/date-utils";
+import Image from "next/image";
+import { ReelsCarousel } from "@/components/home/ReelsCarousel";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Landing page data — no emojis, SVG icons used instead
@@ -258,29 +260,77 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
         </div>
       </section>
 
-      {/* ── 5. TESTIMONIALS (moved up — social proof early) ───────── */}
-      <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-black mb-16 text-center">
+      {/* ── 5. TESTIMONIALS — App-Store-style cards ───────────────── */}
+      <section className="py-20 bg-[#0a0a0a]">
+        <div className="max-w-7xl mx-auto px-6 mb-10">
+          <p className="text-brand text-xs font-bold tracking-[0.3em] uppercase mb-3">
+            {he ? "חוות דעת" : "Reviews"}
+          </p>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             {he ? "מה אומרים המשתתפים" : "What Participants Say"}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="bg-neutral-900 border-2 border-neutral-700 p-8">
-                <div className="text-brand text-4xl font-black mb-4">&ldquo;</div>
-                <p className="text-white text-lg leading-relaxed mb-6">{he ? t.he : t.en}</p>
-                <p className="text-brand font-bold text-sm">{t.name}</p>
+        </div>
+        <div
+          className="
+            flex gap-4 overflow-x-auto px-6 snap-x snap-mandatory scroll-px-6
+            [-webkit-overflow-scrolling:touch] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+            md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 md:overflow-visible md:px-6 md:max-w-7xl md:mx-auto
+          "
+          role="list"
+        >
+          {TESTIMONIALS.map((t, i) => (
+            <article
+              key={i}
+              role="listitem"
+              className="
+                shrink-0 w-[85%] sm:w-[400px] snap-start
+                md:w-auto md:shrink
+                bg-neutral-900 border-2 border-neutral-800 p-6 flex flex-col gap-4
+              "
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex gap-0.5" aria-label="5 of 5 stars">
+                  {[0, 1, 2, 3, 4].map((s) => (
+                    <svg
+                      key={s}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      className="h-4 w-4 text-brand"
+                      aria-hidden="true"
+                    >
+                      <path d="M9.05 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.16c.969 0 1.371 1.24.588 1.81l-3.366 2.446a1 1 0 00-.364 1.118l1.287 3.957c.3.922-.755 1.688-1.539 1.118L10.588 15.4a1 1 0 00-1.176 0l-3.366 2.446c-.784.57-1.838-.196-1.539-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.064 9.384c-.783-.57-.38-1.81.588-1.81h4.16a1 1 0 00.951-.69l1.287-3.957z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-widest text-neutral-500">
+                  {he ? "ביקורת Google" : "Google Review"}
+                </span>
               </div>
-            ))}
-          </div>
+              <blockquote className="text-white/90 text-base leading-relaxed flex-1">
+                &ldquo;{he ? t.he : t.en}&rdquo;
+              </blockquote>
+              <footer className="border-t border-neutral-800 pt-3">
+                <p className="text-sm font-bold text-white">{t.name}</p>
+              </footer>
+            </article>
+          ))}
         </div>
       </section>
+
+      {/* ── 5b. INSTAGRAM REELS — autoplay social proof ───────────── */}
+      <ReelsCarousel />
 
       {/* ── 6. AUTHORITY — Meet Shai (Cialdini: authority + liking) ── */}
       <section className="py-20 px-6 border-y-2 border-neutral-800 bg-[#0a0a0a]">
         <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center gap-8">
-          <div className="w-32 h-32 md:w-40 md:h-40 shrink-0 border-2 border-brand bg-neutral-900 flex items-center justify-center">
-            <span className="text-6xl">🤸</span>
+          <div className="relative w-40 h-40 md:w-48 md:h-48 shrink-0 border-2 border-brand overflow-hidden">
+            <Image
+              src="/founder-shai.jpg"
+              alt={he ? "שי פלג" : "Shai Peleg"}
+              fill
+              sizes="(max-width: 768px) 160px, 192px"
+              className="object-cover"
+            />
           </div>
           <div>
             <h2 className="text-2xl font-black text-white mb-2">
