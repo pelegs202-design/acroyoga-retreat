@@ -5,10 +5,10 @@ import { useEffect, useRef } from "react";
 import { ScrollReveal } from "@/components/effects/ScrollReveal";
 
 const REELS = [
+  { shortcode: "DMA3tUdM7-d" },
   { shortcode: "CmHKPTbDEl0" },
   { shortcode: "DR7tqiTDEM9" },
   { shortcode: "DR7t_PwjI-v" },
-  { shortcode: "DMA3tUdM7-d" },
   { shortcode: "DLfwNausSfA" },
   { shortcode: "DLfxKKbsrfv" },
   { shortcode: "DK2mwjhMph6" },

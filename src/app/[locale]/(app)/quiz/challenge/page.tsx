@@ -131,6 +131,30 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Text + CTA — always first on mobile so it's above the fold */}
             <div>
+              {/* Mobile hero video — click = start quiz */}
+              <button
+                type="button"
+                onClick={() => handleCTA("hero_video")}
+                className="lg:hidden relative block w-full aspect-[9/16] max-h-[420px] mx-auto mb-6 overflow-hidden border-2 border-brand bg-black group"
+                aria-label={he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+              >
+                <video
+                  src="/reels/DMA3tUdM7-d.mp4"
+                  poster="/reels/DMA3tUdM7-d.jpg"
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                />
+                <span className="absolute inset-0 flex items-end justify-center pb-4 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                  <span className="bg-brand text-black font-black px-4 py-2 text-sm uppercase tracking-widest border-2 border-black shadow-[3px_3px_0px_0px_rgba(255,255,255,0.9)]">
+                    {he ? "גלו את הטיפוס שלכם" : "Take the Quiz"}
+                  </span>
+                </span>
+              </button>
+
               <div className="inline-block mb-4 border-2 border-brand bg-brand/10 px-3 py-1.5">
                 <span className="text-brand font-black text-xs uppercase tracking-widest">
                   {he ? "IL — שיעור ניסיון במתנה" : "IL — Free Trial Class"}
@@ -178,24 +202,41 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
               </div>
             </div>
 
-            {/* "30" frame — hidden on mobile, shown on desktop */}
+            {/* Desktop hero video — click = start quiz */}
             <div className="hidden lg:flex justify-center relative">
-              <div className="relative z-10 border-[3px] border-neutral-800 p-4 bg-[#0a0a0a] w-full max-w-md">
-                <div className="aspect-square bg-neutral-900 flex flex-col items-center justify-center gap-4 overflow-hidden">
-                  <p className="text-[120px] font-black text-brand/20 leading-none select-none">30</p>
-                  <p className="text-sm font-bold text-gray-400 uppercase tracking-[0.3em]">
-                    {he ? "ימים לטיסה" : "Days to Flight"}
-                  </p>
-                </div>
-                <div className="absolute bottom-4 start-4 bg-white text-black font-black px-2 py-1 text-[10px] tracking-widest uppercase">
+              <button
+                type="button"
+                onClick={() => handleCTA("hero_video")}
+                className="relative z-10 block w-full max-w-md aspect-[9/16] border-[3px] border-brand bg-black overflow-hidden group"
+                aria-label={he ? "גלו את הטיפוס האקרו שלכם" : "Discover Your Acro Type"}
+              >
+                <video
+                  src="/reels/DMA3tUdM7-d.mp4"
+                  poster="/reels/DMA3tUdM7-d.jpg"
+                  muted
+                  loop
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                />
+                <span className="absolute bottom-6 inset-x-0 flex justify-center">
+                  <span className="bg-brand text-black font-black px-6 py-3 text-base uppercase tracking-widest border-2 border-black shadow-[4px_4px_0px_0px_rgba(255,255,255,0.9)] group-hover:translate-x-1 group-hover:translate-y-1 transition-transform">
+                    {he ? "התחילו את השאלון" : "Start the Quiz"}
+                  </span>
+                </span>
+                <span className="absolute top-4 start-4 bg-white text-black font-black px-2 py-1 text-[10px] tracking-widest uppercase">
                   {he ? "מהדורה 2026" : "Edition 2026"}
-                </div>
-              </div>
-              <div className="absolute -z-10 top-8 end-8 w-full max-w-md aspect-square border-2 border-brand" />
+                </span>
+              </button>
+              <div className="absolute -z-10 top-8 end-8 w-full max-w-md aspect-[9/16] border-2 border-brand" />
             </div>
           </div>
         </div>
       </section>
+
+      {/* ── 1b. INSTAGRAM REELS — raise videos up near hero ──────── */}
+      <ReelsCarousel />
 
       {/* ── 2. SOCIAL PROOF BAR ──────────────────────────────────────── */}
       <section className="border-b-2 border-neutral-800 py-12 px-6">
@@ -316,9 +357,6 @@ function ChallengeLanding({ onStart, locale }: { onStart: () => void; locale: st
           ))}
         </div>
       </section>
-
-      {/* ── 5b. INSTAGRAM REELS — autoplay social proof ───────────── */}
-      <ReelsCarousel />
 
       {/* ── 6. AUTHORITY — Meet Shai (Cialdini: authority + liking) ── */}
       <section className="py-20 px-6 border-y-2 border-neutral-800 bg-[#0a0a0a]">
