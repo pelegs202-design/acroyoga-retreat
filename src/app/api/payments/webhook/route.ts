@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { challengeEnrollments, quizLeads } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
-import { nextMonday } from "@/lib/green-invoice/client";
+import { nextMonday, CHALLENGE_PRICE_ILS } from "@/lib/green-invoice/client";
 import { enrollInDrip, cancelDrip } from "@/lib/notifications";
 import { normalizeIsraeliPhone } from "@/lib/whatsapp";
 import { sendFacebookEvent } from "@/lib/facebook-capi";
@@ -151,7 +151,7 @@ export async function POST(req: NextRequest) {
       sessionId,
       giDocumentId: String(docId),
       giDocumentNumber: docNumber,
-      amountPaid: typeof amount === "number" ? amount : 99,
+      amountPaid: typeof amount === "number" ? amount : CHALLENGE_PRICE_ILS,
       currency,
       customerEmail: email,
       customerName: name,
@@ -178,7 +178,7 @@ export async function POST(req: NextRequest) {
     const capiParams = {
       email: email || undefined,
       phone: phone || undefined,
-      value: typeof amount === "number" ? amount : 99,
+      value: typeof amount === "number" ? amount : CHALLENGE_PRICE_ILS,
       currency,
     };
     sendFacebookEvent({ ...capiParams, eventName: "Purchase", eventId: `purchase_${docId}` })

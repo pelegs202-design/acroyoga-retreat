@@ -2,6 +2,8 @@ const GI_BASE_URL = process.env.GI_SANDBOX === 'true'
   ? 'https://sandbox.d.greeninvoice.co.il/api/v1'
   : 'https://api.greeninvoice.co.il/api/v1';
 
+export const CHALLENGE_PRICE_ILS = 99;
+
 // Module-level token cache (per-request in serverless is fine for low traffic)
 let cachedToken: { jwt: string; expiresAt: number } | null = null;
 
@@ -107,7 +109,7 @@ export async function checkNewPaymentSince(
     paid: true,
     doc: {
       id: String(latestDoc.id),
-      amount: typeof latestDoc.amount === 'number' ? latestDoc.amount : 99,
+      amount: typeof latestDoc.amount === 'number' ? latestDoc.amount : CHALLENGE_PRICE_ILS,
       email,
       currency: typeof latestDoc.currency === 'string' ? latestDoc.currency : 'ILS',
       createdAt: docCreatedAt,
@@ -146,7 +148,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
       catalogNum: 'CHALLENGE-30D',
       description: 'אקרוחבורה — אתגר שבועיים',
       quantity: 1,
-      price: 99,
+      price: CHALLENGE_PRICE_ILS,
       currency: 'ILS',
       vatType: 1,
     }],
@@ -157,7 +159,7 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
     },
     payment: [{
       type: 3,              // Payment type 3 = payment request (hosted checkout)
-      price: 99,
+      price: CHALLENGE_PRICE_ILS,
       currency: 'ILS',
       date: new Date().toISOString().split('T')[0], // YYYY-MM-DD today
     }],
