@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { challengeEnrollments } from "@/lib/db/schema";
 import { eq, and, gt } from "drizzle-orm";
 import { checkNewPaymentSince } from "@/lib/green-invoice/client";
+import { sendFacebookEvent } from "@/lib/facebook-capi";
 
 export async function GET(req: NextRequest) {
   const sessionId = req.nextUrl.searchParams.get("session");
@@ -52,23 +53,38 @@ export async function GET(req: NextRequest) {
 
   try {
     const sinceDate = new Date(since);
-    const paid = await checkNewPaymentSince(sinceDate);
-    if (paid) {
+    const result = await checkNewPaymentSince(sinceDate);
+    if (result.paid) {
+      const { doc } = result;
       // Record this as an enrollment so we don't match it again for another session
       try {
         await db.insert(challengeEnrollments).values({
           id: crypto.randomUUID(),
           sessionId,
-          giDocumentId: `morning-poll-${Date.now()}`,
-          amountPaid: 1,
-          currency: "ILS",
+          giDocumentId: doc.id,
+          amountPaid: doc.amount,
+          currency: doc.currency,
+          customerEmail: doc.email,
           status: "confirmed",
           cohortStartDate: new Date(),
-          paidAt: new Date(),
+          paidAt: doc.createdAt,
         }).onConflictDoNothing();
       } catch { /* ignore duplicate */ }
+
+      // Fire Facebook CAPI Purchase. event_id matches the webhook's pattern
+      // (`purchase_${docId}`) so Meta dedups if the webhook also fires later.
+      // Non-blocking — polling response should not stall on Graph API.
+      sendFacebookEvent({
+        eventName: "Purchase",
+        eventId: `purchase_${doc.id}`,
+        email: doc.email ?? undefined,
+        value: doc.amount,
+        currency: doc.currency,
+      }).catch((err) =>
+        console.error("[payments/status] FB CAPI Purchase failed:", err),
+      );
     }
-    return NextResponse.json({ paid, source: paid ? "morning-api" : null });
+    return NextResponse.json({ paid: result.paid, source: result.paid ? "morning-api" : null });
   } catch (err) {
     console.error("[payments/status] GI check failed:", err);
     return NextResponse.json({ paid: false });

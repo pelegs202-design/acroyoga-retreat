@@ -43,11 +43,26 @@ export function nextMonday(from: Date): Date {
   return d;
 }
 
+export interface NewPaymentDoc {
+  id: string;
+  amount: number;
+  email: string | null;
+  currency: string;
+  createdAt: Date;
+}
+
 /**
  * Check if any new document was created after a given timestamp.
  * Uses creationDate (unix timestamp) from the most recent document.
+ *
+ * Returns the doc when a new one is found so callers can fire
+ * downstream side-effects (Facebook CAPI Purchase, etc.) without
+ * a second round-trip. Doc data comes straight from Morning's
+ * documents/search response.
  */
-export async function checkNewPaymentSince(since: Date): Promise<boolean> {
+export async function checkNewPaymentSince(
+  since: Date,
+): Promise<{ paid: false } | { paid: true; doc: NewPaymentDoc }> {
   const token = await getToken();
 
   const res = await fetch(`${GI_BASE_URL}/documents/search`, {
@@ -68,13 +83,13 @@ export async function checkNewPaymentSince(since: Date): Promise<boolean> {
 
   if (!res.ok) {
     console.error(`[GI] Document search failed (${res.status}):`, await res.text());
-    return false;
+    return { paid: false };
   }
 
   const data = await res.json();
   const items = data.items ?? [];
 
-  if (items.length === 0) return false;
+  if (items.length === 0) return { paid: false };
 
   // creationDate is a unix timestamp (seconds)
   const latestDoc = items[0];
@@ -82,9 +97,22 @@ export async function checkNewPaymentSince(since: Date): Promise<boolean> {
     ? new Date(latestDoc.creationDate * 1000)
     : null;
 
-  if (!docCreatedAt) return false;
+  if (!docCreatedAt) return { paid: false };
+  if (docCreatedAt.getTime() <= since.getTime()) return { paid: false };
 
-  return docCreatedAt.getTime() > since.getTime();
+  const email =
+    (latestDoc.client?.emails?.[0] as string | undefined) ?? null;
+
+  return {
+    paid: true,
+    doc: {
+      id: String(latestDoc.id),
+      amount: typeof latestDoc.amount === 'number' ? latestDoc.amount : 99,
+      email,
+      currency: typeof latestDoc.currency === 'string' ? latestDoc.currency : 'ILS',
+      createdAt: docCreatedAt,
+    },
+  };
 }
 
 interface CheckoutParams {
