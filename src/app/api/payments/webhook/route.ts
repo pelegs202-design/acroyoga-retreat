@@ -180,6 +180,7 @@ export async function POST(req: NextRequest) {
       phone: phone || undefined,
       value: typeof amount === "number" ? amount : CHALLENGE_PRICE_ILS,
       currency,
+      contentCategory: "challenge",
     };
     sendFacebookEvent({ ...capiParams, eventName: "Purchase", eventId: `purchase_${docId}` })
       .catch((err) => console.error("[payments/webhook] FB CAPI Purchase failed:", err));

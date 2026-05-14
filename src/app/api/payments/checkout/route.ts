@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       sourceUrl: `https://acroyoga-academy.vercel.app/he/quiz/challenge/checkout?session=${sessionId}`,
       clientIp,
       clientUserAgent,
+      contentCategory: "challenge",
     }).catch((err) => {
       console.error("[payments/checkout] CAPI InitiateCheckout error:", err);
     });

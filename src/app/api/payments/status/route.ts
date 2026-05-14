@@ -80,6 +80,7 @@ export async function GET(req: NextRequest) {
         email: doc.email ?? undefined,
         value: doc.amount,
         currency: doc.currency,
+        contentCategory: "challenge",
       }).catch((err) =>
         console.error("[payments/status] FB CAPI Purchase failed:", err),
       );
