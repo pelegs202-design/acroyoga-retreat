@@ -14,6 +14,7 @@ const HIDDEN_PATH_PREFIXES = [
   "/profile",
   "/settings",
   "/members",
+  "/lp",
 ];
 
 export default function MobileStickyCta() {
