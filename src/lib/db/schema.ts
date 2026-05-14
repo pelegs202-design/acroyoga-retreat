@@ -241,6 +241,45 @@ export const challengeEnrollments = pgTable("challenge_enrollments", {
   index("challenge_enrollments_status_idx").on(table.status),
 ]);
 
+// ─── Phase 6b: Paid intro pack (LP split test) ───
+
+export const classSlots = pgTable("class_slots", {
+  id: text("id").primaryKey(),
+  date: timestamp("date", { withTimezone: true }).notNull(),
+  capacity: integer("capacity").notNull().default(8),
+  labelHe: text("label_he").notNull(),
+  labelEn: text("label_en").notNull(),
+  location: text("location").notNull(),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("class_slots_date_idx").on(table.date),
+  index("class_slots_active_idx").on(table.active),
+]);
+
+export const classBookings = pgTable("class_bookings", {
+  id: text("id").primaryKey(),
+  slotId: text("slot_id").notNull().references(() => classSlots.id, { onDelete: "restrict" }),
+  leadId: text("lead_id").notNull().references(() => quizLeads.id, { onDelete: "cascade" }),
+  giDocumentId: text("gi_document_id").unique(),                 // nullable until paid; unique once set
+  paymentSessionId: text("payment_session_id").notNull().unique(),
+  status: text("status").notNull().default("pending"),           // 'pending'|'paid'|'cancelled'|'refunded'|'completed'
+  classesUsed: integer("classes_used").notNull().default(0),
+  firstAttendedAt: timestamp("first_attended_at", { withTimezone: true }),
+  lpVariant: text("lp_variant"),                                  // 'shape' | 'flex' | 'reset'
+  lpPath: text("lp_path"),                                        // 'direct' | 'quiz'
+  amountPaid: integer("amount_paid"),                             // set on payment detected
+  expiresAt: timestamp("expires_at", { withTimezone: true }),
+  refundedAt: timestamp("refunded_at", { withTimezone: true }),
+  paidAt: timestamp("paid_at", { withTimezone: true }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("class_bookings_slot_idx").on(table.slotId),
+  index("class_bookings_lead_idx").on(table.leadId),
+  index("class_bookings_status_idx").on(table.status),
+  index("class_bookings_payment_session_idx").on(table.paymentSessionId),
+]);
+
 // ─── Phase 7: Notifications ───
 
 export const pushSubscriptions = pgTable(

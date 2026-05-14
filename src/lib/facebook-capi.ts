@@ -30,6 +30,9 @@ interface CAPIEventParams {
   eventId?: string;
   clientIp?: string;
   clientUserAgent?: string;
+  contentCategory?: string;  // e.g. 'intro_pack' | 'challenge' | 'free_trial' — disambiguates Meta optimization across products
+  lpVariant?: string;        // 'shape' | 'flex' | 'reset' — split-test dimension
+  lpPath?: string;           // 'direct' | 'quiz' — which on-page path the buyer took
 }
 
 export async function sendFacebookEvent(params: CAPIEventParams): Promise<void> {
@@ -64,11 +67,16 @@ export async function sendFacebookEvent(params: CAPIEventParams): Promise<void> 
     eventData.event_source_url = params.sourceUrl;
   }
 
+  const customData: Record<string, unknown> = {};
   if (params.value !== undefined) {
-    eventData.custom_data = {
-      value: params.value,
-      currency: params.currency || "ILS",
-    };
+    customData.value = params.value;
+    customData.currency = params.currency || "ILS";
+  }
+  if (params.contentCategory) customData.content_category = params.contentCategory;
+  if (params.lpVariant) customData.lp_variant = params.lpVariant;
+  if (params.lpPath) customData.lp_path = params.lpPath;
+  if (Object.keys(customData).length > 0) {
+    eventData.custom_data = customData;
   }
 
   const payload = {

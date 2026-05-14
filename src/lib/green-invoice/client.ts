@@ -3,6 +3,7 @@ const GI_BASE_URL = process.env.GI_SANDBOX === 'true'
   : 'https://api.greeninvoice.co.il/api/v1';
 
 export const CHALLENGE_PRICE_ILS = 99;
+export const INTRO_PACK_PRICE_ILS = 149;
 
 // Module-level token cache (per-request in serverless is fine for low traffic)
 let cachedToken: { jwt: string; expiresAt: number } | null = null;
@@ -195,4 +196,146 @@ export async function createCheckoutUrl(params: CheckoutParams): Promise<string>
   }
 
   return data.url;
+}
+
+interface IntroPackCheckoutParams {
+  paymentSessionId: string;
+  name: string;
+  email?: string;
+  phone: string;
+  locale: string;
+}
+
+/**
+ * Create a Green Invoice payment form URL for the 3-class intro pack.
+ * Distinct catalogNum + remarks prefix lets the webhook + polling
+ * tell intro-pack payments apart from the 30-day challenge.
+ */
+export async function createIntroPackCheckoutUrl(params: IntroPackCheckoutParams): Promise<string> {
+  const token = await getToken();
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+
+  const successUrl = `${baseUrl}/${params.locale}/lp/checkout/success?session=${params.paymentSessionId}`;
+  const failureUrl = `${baseUrl}/${params.locale}/lp/checkout?session=${params.paymentSessionId}&payment=failed`;
+
+  const body = {
+    type: 320,
+    lang: 'he',
+    currency: 'ILS',
+    vatType: 1,
+    income: [{
+      catalogNum: 'INTRO-PACK-3',
+      description: 'אקרוחבורה — 3 שיעורי היכרות',
+      quantity: 1,
+      price: INTRO_PACK_PRICE_ILS,
+      currency: 'ILS',
+      vatType: 1,
+    }],
+    client: {
+      name: params.name,
+      emails: params.email ? [params.email] : [],
+      phone: params.phone,
+    },
+    payment: [{
+      type: 3,
+      price: INTRO_PACK_PRICE_ILS,
+      currency: 'ILS',
+      date: new Date().toISOString().split('T')[0],
+    }],
+    remarks: `introPackSession:${params.paymentSessionId}`,
+    successUrl,
+    failUrl: failureUrl,
+  };
+
+  const res = await fetch(`${GI_BASE_URL}/documents`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const errText = await res.text();
+    throw new Error(`GI intro-pack document creation failed (${res.status}): ${errText}`);
+  }
+
+  const data = await res.json();
+  const paymentUrl = data.url || data.paymentUrl;
+  if (!paymentUrl) {
+    throw new Error('GI did not return a payment URL for intro pack. Response: ' + JSON.stringify(data).substring(0, 500));
+  }
+  return paymentUrl;
+}
+
+/**
+ * Find a paid document whose `remarks` field starts with the given string.
+ * Scans the last 24 hours of documents. Returns the doc if found, else null.
+ *
+ * Use this instead of {@link checkNewPaymentSince} when multiple paid products
+ * may have been created in the same window — the remarks prefix disambiguates.
+ *
+ * Falls back to amount+createdAt match if the GI search response doesn't
+ * include the remarks field.
+ */
+export async function checkPaymentByRemarks(
+  remarksPrefix: string,
+  since: Date,
+  fallbackAmount?: number,
+): Promise<{ paid: false } | { paid: true; doc: NewPaymentDoc }> {
+  const token = await getToken();
+
+  const res = await fetch(`${GI_BASE_URL}/documents/search`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      page: 1,
+      pageSize: 25,
+      sort: 'createdAt',
+      direction: 'desc',
+      fromDate: since.toISOString().split('T')[0],
+      toDate: new Date().toISOString().split('T')[0],
+    }),
+  });
+
+  if (!res.ok) {
+    console.error(`[GI] Document search (by remarks) failed (${res.status}):`, await res.text());
+    return { paid: false };
+  }
+
+  const data = await res.json();
+  const items: Array<Record<string, unknown>> = data.items ?? [];
+
+  for (const item of items) {
+    const remarks = typeof item.remarks === 'string' ? item.remarks : '';
+    const creationDate = typeof item.creationDate === 'number' ? item.creationDate : null;
+    if (!creationDate) continue;
+    const docCreatedAt = new Date(creationDate * 1000);
+    if (docCreatedAt.getTime() <= since.getTime()) continue;
+
+    const amount = typeof item.amount === 'number' ? item.amount : 0;
+    const matchesRemarks = remarks.startsWith(remarksPrefix);
+    const matchesAmount = fallbackAmount !== undefined && amount === fallbackAmount;
+
+    if (matchesRemarks || (!remarks && matchesAmount)) {
+      const client = item.client as { emails?: string[] } | undefined;
+      const email = client?.emails?.[0] ?? null;
+      return {
+        paid: true,
+        doc: {
+          id: String(item.id),
+          amount,
+          email,
+          currency: typeof item.currency === 'string' ? item.currency : 'ILS',
+          createdAt: docCreatedAt,
+        },
+      };
+    }
+  }
+
+  return { paid: false };
 }
