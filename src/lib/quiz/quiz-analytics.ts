@@ -143,3 +143,95 @@ export function trackQuizError(
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 export const SOFT_DQ_THRESHOLD = 40;
+
+// ─── LP Split Test (paid intro pack) ──────────────────────────────────────────
+// All events carry lp_variant (shape|flex|reset) and, post-checkout-start, lp_path
+// (direct|quiz) so the funnel readout at /admin/funnel/lp can isolate per-LP CPA.
+
+export type LpVariant = "shape" | "flex" | "reset";
+export type LpPath = "direct" | "quiz";
+
+export function trackLpView(variant: LpVariant): void {
+  const params = { lp_variant: variant };
+  g("lp_view", params);
+  f("LpView", params);
+  ph("lp_view", params);
+}
+
+export function trackLpCtaClick(variant: LpVariant, location: "hero" | "offer_box" | "final" | "sticky"): void {
+  const params = { lp_variant: variant, location };
+  g("lp_cta_click", params);
+  f("LpCtaClick", params);
+  ph("lp_cta_click", params);
+}
+
+export function trackSlotSelect(
+  variant: LpVariant | null,
+  slotId: string,
+  capacityRemaining: number,
+  location: "lp_hero" | "checkout",
+): void {
+  const params = {
+    lp_variant: variant ?? "unknown",
+    slot_id: slotId,
+    capacity_remaining: capacityRemaining,
+    slot_select_location: location,
+  };
+  g("slot_select", params);
+  f("SlotSelect", params);
+  ph("slot_select", params);
+}
+
+export function trackSlotCapacitySeen(
+  variant: LpVariant | null,
+  slotId: string,
+  capacityRemaining: number,
+): void {
+  const params = {
+    lp_variant: variant ?? "unknown",
+    slot_id: slotId,
+    capacity_remaining: capacityRemaining,
+  };
+  ph("slot_capacity_seen", params);
+}
+
+export function trackCheckoutStart(variant: LpVariant | null, path: LpPath): void {
+  const params = { lp_variant: variant ?? "unknown", lp_path: path };
+  g("checkout_start", params);
+  f("CheckoutStart", params);
+  ph("checkout_start", params);
+}
+
+export function trackCheckoutPaymentDetected(variant: LpVariant | null, path: LpPath): void {
+  const params = { lp_variant: variant ?? "unknown", lp_path: path };
+  ph("checkout_payment_detected", params);
+}
+
+/**
+ * Client-side purchase signal. CAPI Purchase is fired server-side in
+ * /api/payments/intro-pack/status; this fires GA4 + Pixel + PostHog
+ * for client-only attribution (e.g. cookie consent, in-app browsers).
+ */
+export function trackLpPurchase(
+  variant: LpVariant | null,
+  path: LpPath,
+  value: number,
+  paymentSessionId: string,
+): void {
+  const params = {
+    lp_variant: variant ?? "unknown",
+    lp_path: path,
+    value,
+    currency: "ILS",
+    content_category: "intro_pack",
+    transaction_id: paymentSessionId,
+  };
+  g("purchase", params);
+  f("Purchase", params, true); // Pixel standard event
+  ph("purchase", params);
+}
+
+export function trackRefundRequested(bookingId: string, variant: LpVariant | null): void {
+  const params = { booking_id: bookingId, lp_variant: variant ?? "unknown" };
+  ph("refund_requested", params);
+}
