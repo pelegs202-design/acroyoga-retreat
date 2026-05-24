@@ -156,7 +156,8 @@ export type LpVariant =
   | "handstand"
   | "tribe"
   | "trust"
-  | "control";
+  | "control"
+  | "dance";
 export type LpPath = "direct" | "quiz";
 
 export function trackLpView(variant: LpVariant): void {
