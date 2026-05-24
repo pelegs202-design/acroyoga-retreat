@@ -148,7 +148,15 @@ export const SOFT_DQ_THRESHOLD = 40;
 // All events carry lp_variant (shape|flex|reset) and, post-checkout-start, lp_path
 // (direct|quiz) so the funnel readout at /admin/funnel/lp can isolate per-LP CPA.
 
-export type LpVariant = "shape" | "flex" | "reset";
+export type LpVariant =
+  | "shape"
+  | "flex"
+  | "reset"
+  | "fun"
+  | "handstand"
+  | "tribe"
+  | "trust"
+  | "control";
 export type LpPath = "direct" | "quiz";
 
 export function trackLpView(variant: LpVariant): void {
@@ -158,7 +166,18 @@ export function trackLpView(variant: LpVariant): void {
   ph("lp_view", params);
 }
 
-export function trackLpCtaClick(variant: LpVariant, location: "hero" | "offer_box" | "final" | "sticky"): void {
+export function trackLpCtaClick(
+  variant: LpVariant,
+  location:
+    | "hero"
+    | "offer_box"
+    | "final"
+    | "sticky"
+    | "talk_wa"
+    | "talk_tel"
+    | "community_wa"
+    | "community_ig",
+): void {
   const params = { lp_variant: variant, location };
   g("lp_cta_click", params);
   f("LpCtaClick", params);
