@@ -4,7 +4,7 @@
     { "path": "/api/cron/whatsapp-drip", "schedule": "0 16 * * *" },
     { "path": "/api/cron/email-drip", "schedule": "0 16 * * *" },
     { "path": "/api/cron/jam-reminders", "schedule": "0 15 * * *" },
-    { "path": "/api/cron/intro-pack-holds", "schedule": "5 * * * *" },
+    { "path": "/api/cron/intro-pack-holds", "schedule": "0 4 * * *" },
     { "path": "/api/cron/seed-class-slots", "schedule": "0 3 * * *" },
     { "path": "/api/cron/bookings-digest", "schedule": "30 3 * * *" }
   ]
