@@ -6,6 +6,11 @@ import { WarmLeadStrip } from "@/components/lp/WarmLeadStrip";
 import { TalkToShayCTA } from "@/components/lp/TalkToShayCTA";
 import { CommunityLinks } from "@/components/lp/CommunityLinks";
 import { SyllabusBlock } from "@/components/lp/SyllabusBlock";
+import { MechanismBlock } from "@/components/lp/MechanismBlock";
+import { StoriesBlock } from "@/components/lp/StoriesBlock";
+import { GuaranteeBlock } from "@/components/lp/GuaranteeBlock";
+import { FounderBlock } from "@/components/lp/FounderBlock";
+import { StickyMobileWaBar } from "@/components/lp/StickyMobileWaBar";
 import { ReelsCarousel } from "@/components/home/ReelsCarousel";
 import type { Syllabus } from "@/lib/lp/syllabi";
 import {
@@ -19,11 +24,25 @@ interface Props {
 }
 
 /**
- * Shared layout for the 5 warm-lead landing pages (fun / handstand / tribe / trust / control).
- * Content comes from the typed `syllabi.ts` map. Hebrew-only, RTL hardcoded.
+ * Shared layout for the 6 warm-lead landing pages.
+ * Click Coach v3 structure (Pattern 3 long-form + Pattern 17 founder + Pattern 4 guarantee).
  *
- * No prices — primary CTA is WhatsApp DM to Shay.
- * Meta Pixel + GA4 are already injected globally in [locale]/layout.tsx.
+ * Section order:
+ *  1. Hero (video bg + headline + hookLine + lossSub + CTA + trust badges)
+ *  2. WarmLeadStrip — "we saw you left details"
+ *  3. ReelsCarousel — @acroshay social proof
+ *  4. Stats strip — 527 / 96% / 4.9 / 0
+ *  5. Outcomes — what you get
+ *  6. MechanismBlock — Pattern 18, why it works (vs alternatives)
+ *  7. Syllabus — 4-week transformation arc
+ *  8. GuaranteeBlock — Pattern 4, zero-risk
+ *  9. Mid-page CTA banner (pink)
+ * 10. StoriesBlock — Pattern 14, 3-act narratives
+ * 11. CommunityLinks — WA group + IG
+ * 12. FounderBlock — Pattern 17, Shay face + story
+ * 13. FAQ — Pattern 19, objection handling
+ * 14. Final CTA
+ * + StickyMobileWaBar (Pattern 1 aggressive warm-lead CTA on mobile, appears after 400px scroll)
  */
 export function LandingPageShell({ syllabus }: Props) {
   const { variant } = syllabus;
@@ -113,6 +132,7 @@ export function LandingPageShell({ syllabus }: Props) {
               variant={variant}
               waMessage={syllabus.waMessage}
               ctaLocation="hero"
+              buttonText={syllabus.ctaButtonText}
             />
           </div>
 
@@ -187,56 +207,45 @@ export function LandingPageShell({ syllabus }: Props) {
         </div>
       </section>
 
-      {/* ── 6. SYLLABUS ───────────────────────────────────────── */}
+      {/* ── 6. MECHANISM — Pattern 18 "why it works" ───────────── */}
+      <MechanismBlock syllabus={syllabus} />
+
+      {/* ── 7. SYLLABUS ───────────────────────────────────────── */}
       <SyllabusBlock syllabus={syllabus} />
 
-      {/* ── 7. TESTIMONIALS ───────────────────────────────────── */}
-      <section dir="rtl" className="py-16 px-6 bg-neutral-950 border-b-2 border-neutral-800">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-black mb-10 text-center text-white">
-            אנשים שעברו את אותו דבר
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {syllabus.testimonials.map((t, i) => (
-              <figure
-                key={i}
-                className="border-2 border-neutral-700 bg-neutral-900 p-6"
-              >
-                <blockquote className="text-sm text-gray-200 mb-3 leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
-                </blockquote>
-                <figcaption className="text-xs text-brand font-bold uppercase tracking-widest">
-                  {t.name}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── 8. COMMUNITY LINKS (WA group + Instagram) ─────────── */}
-      <CommunityLinks variant={variant} />
+      {/* ── 8. GUARANTEE — Pattern 4 ──────────────────────────── */}
+      <GuaranteeBlock />
 
       {/* ── 9. MID-PAGE CTA ───────────────────────────────────── */}
       <section dir="rtl" className="py-16 px-6 bg-brand">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-black text-black mb-3 leading-tight">
-            הקורס הקרוב — מקומות מוגבלים
+            הקורס הקרוב — 10-12 מקומות בלבד
           </h2>
           <p className="text-black/80 font-bold mb-8 text-base md:text-lg">
-            10-12 אנשים בלבד בכל קורס. אם אחרי שקראת זה הרגיש לך נכון — בוא/י נדבר.
+            שיעור ראשון חינם אם זה לא לך. אם זה כן — נסגור את המקום שלך עכשיו.
           </p>
           <div className="bg-black p-5 sm:p-6">
             <TalkToShayCTA
               variant={variant}
               waMessage={syllabus.waMessage}
               ctaLocation="offer_box"
+              buttonText={syllabus.ctaButtonText}
             />
           </div>
         </div>
       </section>
 
-      {/* ── 10. FAQ ───────────────────────────────────────────── */}
+      {/* ── 10. STORIES — Pattern 14 ──────────────────────────── */}
+      <StoriesBlock syllabus={syllabus} />
+
+      {/* ── 11. COMMUNITY LINKS ────────────────────────────────── */}
+      <CommunityLinks variant={variant} />
+
+      {/* ── 12. FOUNDER — Pattern 17 ──────────────────────────── */}
+      <FounderBlock />
+
+      {/* ── 13. FAQ ───────────────────────────────────────────── */}
       <section dir="rtl" className="py-16 px-6 bg-[#0a0a0a]">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black mb-10 text-center text-white">
@@ -263,7 +272,7 @@ export function LandingPageShell({ syllabus }: Props) {
         </div>
       </section>
 
-      {/* ── 11. FINAL CTA ─────────────────────────────────────── */}
+      {/* ── 14. FINAL CTA ─────────────────────────────────────── */}
       <section dir="rtl" className="py-20 px-6 bg-[#0a0a0a] border-t-2 border-neutral-800">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-black mb-4 text-white leading-tight">
@@ -277,10 +286,18 @@ export function LandingPageShell({ syllabus }: Props) {
               variant={variant}
               waMessage={syllabus.waMessage}
               ctaLocation="final"
+              buttonText={syllabus.ctaButtonText}
             />
           </div>
         </div>
       </section>
+
+      {/* ── STICKY MOBILE CTA — Pattern 1 aggressive warm CTA ─── */}
+      <StickyMobileWaBar
+        variant={variant}
+        waMessage={syllabus.waMessage}
+        buttonText={syllabus.ctaButtonText}
+      />
     </div>
   );
 }
