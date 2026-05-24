@@ -85,7 +85,7 @@ export function LandingPageShell({ syllabus }: Props) {
   return (
     <div
       dir="rtl"
-      className="w-[100vw] relative left-1/2 right-1/2 -mx-[50vw] -mt-8 -mb-8 overflow-x-hidden"
+      className="w-[100vw] relative left-1/2 right-1/2 -mx-[50vw] -mt-28 -mb-8 overflow-x-hidden"
     >
       {/* ── 1. HERO (video background) ─────────────────────────── */}
       <VideoHeroBackground reel={syllabus.heroReel} className="min-h-[88vh] flex items-center">

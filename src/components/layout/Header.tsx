@@ -8,8 +8,8 @@ import { authClient, useSession } from "@/lib/auth-client";
 import LanguageToggle from "./LanguageToggle";
 import MobileMenu from "./MobileMenu";
 
-// Quiz funnel paths where we hide the header to reduce distractions
-const FUNNEL_PATHS = ["/quiz/challenge"];
+// Quiz funnel + LP paths where we hide the header to reduce distractions
+const FUNNEL_PATHS = ["/quiz/challenge", "/lp/"];
 
 /**
  * Header — Brutalist fixed nav bar matching Stitch-generated design.
