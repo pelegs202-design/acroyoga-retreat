@@ -64,11 +64,43 @@ export function LandingPageShell({ syllabus }: Props) {
     const fbclid =
       new URLSearchParams(window.location.search).get("fbclid") || undefined;
     const fbp = document.cookie.match(/_fbp=([^;]+)/)?.[1] || undefined;
+
+    // Shared eventId so the client Pixel ViewContent (below) and the
+    // server-side CAPI ViewContent get deduplicated by Meta.
+    const eventId = `lpvc_${variant}_${Date.now()}_${Math.random()
+      .toString(36)
+      .slice(2, 8)}`;
+
     fetch("/api/tracking/pageview", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: window.location.href, fbclid, fbp }),
+      body: JSON.stringify({
+        url: window.location.href,
+        fbclid,
+        fbp,
+        lpVariant: variant,
+        eventId,
+      }),
     }).catch(() => {});
+
+    // Client-side Meta Pixel ViewContent with the same eventId — Meta will
+    // dedupe against the server-side CAPI fire. Audience: `lp_<variant>`.
+    try {
+      if (typeof window !== "undefined" && typeof (window as { fbq?: unknown }).fbq === "function") {
+        (window as { fbq: (...args: unknown[]) => void }).fbq(
+          "track",
+          "ViewContent",
+          {
+            content_category: `lp_${variant}`,
+            content_name: `lp_${variant}`,
+            lp_variant: variant,
+          },
+          { eventID: `vc_${eventId}` },
+        );
+      }
+    } catch {
+      /* swallow — never let analytics kill the page */
+    }
 
     let ticking = false;
     const handleScroll = () => {
